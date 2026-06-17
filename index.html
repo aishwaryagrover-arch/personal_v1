@@ -22,9 +22,7 @@
       --card-bg: #1a1535;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -34,6 +32,7 @@
       line-height: 1.6;
     }
 
+    /* ─── GRADIENT TEXT ─── */
     .gradient-text {
       background: linear-gradient(135deg, #ec4899, #a855f7);
       -webkit-background-clip: text;
@@ -43,517 +42,568 @@
 
     /* ─── SECTION LABELS ─── */
     .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
       color: rgba(180, 150, 220, 0.6);
       margin-bottom: 1rem;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
     }
+    .section-label.pink { color: var(--pink); }
 
     /* ─── SECTION HEADINGS ─── */
     .section-heading {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
-      color: white;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
       line-height: 1.2;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.2rem;
     }
 
-    /* ─── INNER CONTAINER ─── */
-    .inner {
-      max-width: 1000px;
+    .section-sub {
+      font-size: 1rem;
+      color: rgba(200, 180, 240, 0.7);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease calc(var(--i, 0) * 0.12s),
+                  transform 0.7s ease calc(var(--i, 0) * 0.12s);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── SECTION WRAPPERS ─── */
+    section { width: 100%; }
+    .container {
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 2rem;
     }
 
-    /* ══════════════════════════════
-       SECTION 1: HERO
-    ══════════════════════════════ */
+    /* ════════════════════════════════
+       SECTION 1 — HERO
+    ════════════════════════════════ */
     #hero {
       position: relative;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      overflow: hidden;
       background: radial-gradient(ellipse at 50% 0%, #4a1942 0%, #1a0a2e 40%, #0d0d1a 100%);
-      padding: 4rem 1.5rem 8rem;
+      overflow: hidden;
+      padding: 0 2rem;
     }
 
+    /* Stars */
     .star {
       position: absolute;
       border-radius: 50%;
       background: white;
-      pointer-events: none;
+      animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
     }
-
     @keyframes twinkle {
       0%, 100% { opacity: 0; }
       50% { opacity: 1; }
     }
 
+    /* Palm tree */
     .palm-silhouette {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: auto;
-      z-index: 1;
       pointer-events: none;
+      z-index: 0;
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
+      max-width: 780px;
     }
 
-    .hero-location {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(180, 150, 220, 0.7);
-      margin-bottom: 2rem;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .hero-heading-line1 {
+    .hero-line1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 7vw, 5rem);
-      font-weight: 400;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
       color: white;
-      line-height: 1.15;
       display: block;
-    }
-
-    .hero-heading-line2 {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(3.5rem, 8vw, 6rem);
-      font-weight: 400;
       line-height: 1.1;
+    }
+    .hero-line2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-style: italic;
+      font-weight: 400;
       display: block;
-      margin-bottom: 2rem;
+      line-height: 1.1;
+      margin-bottom: 1.6rem;
     }
 
     .hero-sub {
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      font-size: 1.05rem;
-      color: rgba(220, 200, 240, 0.8);
-      max-width: 600px;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: rgba(220, 200, 255, 0.85);
       line-height: 1.8;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-sub em {
-      color: var(--pink);
-      font-style: italic;
+      margin-bottom: 2rem;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-signed {
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      color: rgba(180, 150, 220, 0.6);
       font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(200, 170, 240, 0.6);
+      letter-spacing: 0.1em;
     }
 
-    .scroll-indicator {
+    .scroll-hint {
       position: absolute;
-      bottom: 7rem;
+      bottom: 2.5rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 2;
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: rgba(180, 150, 220, 0.5);
-      animation: scrollBounce 2s ease-in-out infinite;
       font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: rgba(200, 170, 240, 0.5);
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
     }
 
-    @keyframes scrollBounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
-      50% { transform: translateX(-50%) translateY(6px); opacity: 1; }
-    }
-
-    /* ══════════════════════════════
-       SECTION 2: COUNTER
-    ══════════════════════════════ */
+    /* ════════════════════════════════
+       SECTION 2 — COUNTER
+    ════════════════════════════════ */
     #counter {
-      background: #0f0a1e;
+      background: var(--dark-purple);
       padding: 6rem 2rem;
       text-align: center;
     }
 
-    .counter-intro {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      color: white;
-      margin-bottom: 3rem;
-      line-height: 1.3;
-    }
-
     .counter-cards {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 1.25rem;
-      margin-bottom: 2rem;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin: 2.5rem 0 2rem;
     }
 
     .counter-card {
       background: var(--card-bg);
-      border-radius: 1rem;
-      padding: 2rem 1.5rem;
-      min-width: 140px;
-      flex: 1 1 130px;
-      max-width: 180px;
-      transition: transform 0.3s;
+      border-radius: 16px;
+      padding: 1.8rem 2.2rem;
+      min-width: 130px;
+      border: 1px solid rgba(168, 85, 247, 0.15);
     }
 
-    .counter-card:hover {
-      transform: translateY(-3px);
-    }
-
-    .counter-number {
+    .counter-num {
       font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
       font-weight: 700;
-      line-height: 1;
-      margin-bottom: 0.6rem;
       background: linear-gradient(135deg, #ec4899, #a855f7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.5rem;
     }
 
-    .counter-unit {
+    .counter-label {
       font-size: 0.65rem;
+      font-weight: 500;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(180, 150, 220, 0.55);
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
+      color: rgba(180, 150, 220, 0.6);
     }
 
     .counter-footer {
       font-style: italic;
-      color: rgba(200, 180, 230, 0.45);
-      font-size: 0.95rem;
-      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: rgba(200, 180, 240, 0.6);
+      margin-top: 0.5rem;
     }
 
-    /* ══════════════════════════════
-       SECTION 3: TIMELINE
-    ══════════════════════════════ */
+    /* ════════════════════════════════
+       SECTION 3 — TIMELINE
+    ════════════════════════════════ */
     #timeline {
       background: linear-gradient(180deg, #2d1b4e 0%, #1a1535 100%);
       padding: 6rem 2rem;
     }
 
-    #timeline .inner {
-      max-width: 800px;
-    }
+    #timeline .intro { text-align: center; margin-bottom: 4rem; }
+    #timeline .section-sub { margin: 0 auto; }
 
-    .timeline-intro {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .timeline-sub {
-      color: rgba(200, 180, 230, 0.55);
-      font-size: 0.95rem;
-      font-family: 'Inter', sans-serif;
-      text-align: center;
-      max-width: 500px;
-      margin: 0 auto 4rem;
-    }
-
+    /* Track */
     .timeline-track {
       position: relative;
-      padding-left: 2.5rem;
+      max-width: 760px;
+      margin: 0 auto;
     }
 
     .timeline-track::before {
       content: '';
       position: absolute;
-      left: 0.6rem;
-      top: 0.5rem;
-      bottom: 0.5rem;
+      left: 20px;
+      top: 0;
+      bottom: 0;
       width: 2px;
-      background: linear-gradient(180deg, #ec4899 0%, #a855f7 100%);
-      opacity: 0.4;
-      border-radius: 2px;
+      background: linear-gradient(180deg, #ec4899, #a855f7);
     }
 
+    /* Chapter */
     .chapter {
       position: relative;
-      margin-bottom: 3.5rem;
-    }
-
-    .chapter:last-child {
-      margin-bottom: 0;
+      padding-left: 60px;
+      margin-bottom: 2rem;
     }
 
     .chapter-dot {
       position: absolute;
-      left: -2.1rem;
-      top: 0.3rem;
-      width: 14px;
-      height: 14px;
+      left: 12px;
+      top: 20px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       background: linear-gradient(135deg, #ec4899, #a855f7);
-      box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
-      flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(236, 72, 153, 0.4);
+      transition: box-shadow 0.3s ease;
+      z-index: 1;
+    }
+    .chapter.open .chapter-dot {
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.9), 0 0 40px rgba(168, 85, 247, 0.5);
     }
 
-    .chapter-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
+    .chapter-header {
+      background: var(--card-bg);
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      border-radius: 14px;
+      padding: 1.4rem 1.6rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .chapter-header:hover {
+      border-color: rgba(236, 72, 153, 0.35);
+      background: #1e1845;
+    }
+    .chapter.open .chapter-header {
+      border-radius: 14px 14px 0 0;
+      border-color: rgba(236, 72, 153, 0.3);
+      background: #1e1845;
+    }
+
+    .chapter-meta { flex: 1; }
+
+    .chapter-num {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(236, 72, 153, 0.6);
-      margin-bottom: 0.4rem;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
+      color: var(--pink);
+      margin-bottom: 0.3rem;
     }
 
     .chapter-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: white;
-      margin-bottom: 0.6rem;
-      line-height: 1.3;
+      margin-bottom: 0.5rem;
     }
 
     .chapter-body {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      color: rgba(210, 190, 235, 0.75);
-      line-height: 1.75;
+      font-size: 0.9rem;
+      color: rgba(200, 180, 240, 0.7);
+      line-height: 1.6;
     }
 
-    .chapter-photo {
-      border: 2px dashed rgba(168, 85, 247, 0.4);
-      border-radius: 1rem;
-      padding: 2rem;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.3);
+    .chapter-arrow {
+      font-size: 1rem;
+      color: rgba(168, 85, 247, 0.7);
+      transition: transform 0.35s ease;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .chapter.open .chapter-arrow { transform: rotate(180deg); }
+
+    /* Panel */
+    .chapter-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      background: #13102a;
+      border: 1px solid rgba(236, 72, 153, 0.2);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+    }
+    .chapter.open .chapter-panel { max-height: 700px; }
+
+    .panel-inner { padding: 1.5rem; }
+
+    /* Carousel */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+    }
+
+    .photo-placeholder {
+      background: rgba(168, 85, 247, 0.05);
+      border: 2px dashed rgba(168, 85, 247, 0.25);
+      border-radius: 10px;
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: rgba(180, 150, 220, 0.5);
       font-size: 0.85rem;
-      margin-top: 1rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .photo-placeholder:hover {
+      border-color: rgba(236, 72, 153, 0.4);
+      background: rgba(236, 72, 153, 0.05);
+    }
+    .photo-placeholder span { font-size: 1.4rem; }
+
+    .caption-input {
+      width: 100%;
+      background: rgba(168, 85, 247, 0.07);
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      border-radius: 8px;
+      padding: 0.5rem 0.8rem;
+      color: rgba(200, 180, 240, 0.7);
       font-family: 'Inter', sans-serif;
-      transition: border-color 0.3s, background 0.3s;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .caption-input:focus { border-color: rgba(236, 72, 153, 0.4); }
+
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.8rem;
     }
 
-    .chapter-photo:hover {
-      border-color: rgba(168, 85, 247, 0.65);
-      background: rgba(168, 85, 247, 0.04);
-    }
-
-    /* ══════════════════════════════
-       SECTION 4: REASONS
-    ══════════════════════════════ */
-    #reasons {
-      background: radial-gradient(ellipse at 50% 100%, rgba(236, 72, 153, 0.08) 0%, #0a0614 60%);
-      padding: 6rem 2rem;
-    }
-
-    #reasons .inner {
-      max-width: 900px;
-    }
-
-    .reasons-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .reasons-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .reason-card {
-      background: #12102a;
-      border-radius: 1rem;
-      padding: 1.75rem 2rem;
-      transition: transform 0.3s;
-    }
-
-    .reason-card:hover {
-      transform: translateY(-3px);
-    }
-
-    .reason-number {
-      color: #ec4899;
+    .carousel-btn {
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
       font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      font-family: 'Inter', sans-serif;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-btn:hover { background: rgba(236, 72, 153, 0.3); }
+
+    .carousel-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .dot-indicator {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(168, 85, 247, 0.3);
+      transition: background 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .dot-indicator.active {
+      background: var(--pink);
+      transform: scale(1.3);
     }
 
-    .reason-text {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.98rem;
-      color: rgba(230, 215, 250, 0.9);
-      line-height: 1.65;
-    }
-
-    /* ══════════════════════════════
-       SECTION 5: SAME SKY
-    ══════════════════════════════ */
-    #same-sky {
+    /* ════════════════════════════════
+       SECTION 4 — LONG DISTANCE
+    ════════════════════════════════ */
+    #ldr {
+      position: relative;
       background: radial-gradient(ellipse at 50% 100%, #2a0a1f 0%, #0d0a1e 60%);
       padding: 7rem 2rem;
+      overflow: hidden;
+    }
+
+    .ldr-content {
+      max-width: 700px;
+      margin: 0 auto;
       text-align: center;
     }
 
-    #same-sky .inner {
-      max-width: 700px;
-    }
-
-    .same-sky-heading {
+    .ldr-heading {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 7vw, 5rem);
-      color: white;
-      line-height: 1.2;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.1;
       margin-bottom: 2rem;
     }
 
-    .same-sky-body {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.02rem;
-      color: rgba(210, 190, 235, 0.78);
-      max-width: 600px;
-      margin: 0 auto 1.5rem;
+    .ldr-para {
+      font-size: 1.05rem;
+      color: rgba(210, 190, 245, 0.8);
       line-height: 1.85;
-      text-align: left;
+      margin-bottom: 1.2rem;
     }
 
-    .same-sky-pill {
+    .ldr-pill {
       display: inline-block;
-      border: 1px solid rgba(236, 72, 153, 0.4);
-      border-radius: 999px;
-      padding: 0.75rem 1.75rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      color: rgba(230, 200, 255, 0.75);
-      margin-top: 2rem;
-      letter-spacing: 0.02em;
-      line-height: 1.5;
+      background: rgba(236, 72, 153, 0.1);
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      border-radius: 100px;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.88rem;
+      color: rgba(240, 180, 220, 0.9);
+      margin-top: 1rem;
+      letter-spacing: 0.03em;
     }
 
-    /* ══════════════════════════════
-       SECTION 6: LETTER
-    ══════════════════════════════ */
-    #letter {
-      background: radial-gradient(ellipse at 50% 100%, #2a0a1f 0%, #0d0a1e 60%);
-      padding: 6rem 2rem 7rem;
+    /* Video call mosaic */
+    .mosaic-label {
+      text-align: center;
+      margin: 4rem 0 1.5rem;
+    }
+    .mosaic-label p {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(180, 150, 220, 0.5);
+    }
+
+    .mosaic-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+
+    .mosaic-tile {
+      background: rgba(168, 85, 247, 0.06);
+      border: 2px dashed rgba(168, 85, 247, 0.2);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: rgba(180, 150, 220, 0.45);
+      font-size: 0.82rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: border-color 0.3s ease;
+    }
+    .mosaic-tile:hover { border-color: rgba(236, 72, 153, 0.35); }
+    .mosaic-tile:nth-child(1) { min-height: 180px; grid-row: span 2; }
+    .mosaic-tile:nth-child(2) { min-height: 140px; }
+    .mosaic-tile:nth-child(3) { min-height: 120px; }
+    .mosaic-tile:nth-child(4) { min-height: 120px; }
+    .mosaic-tile:nth-child(5) { min-height: 140px; }
+    .mosaic-tile:nth-child(6) { min-height: 100px; }
+    .mosaic-tile .tile-icon { font-size: 1.6rem; }
+
+    /* Video slot */
+    .video-slot-wrap {
+      max-width: 600px;
+      margin: 3rem auto 0;
       text-align: center;
     }
-
-    #letter .inner {
-      max-width: 600px;
+    .video-slot-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(180, 150, 220, 0.5);
+      margin-bottom: 1rem;
     }
-
-    .letter-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
-      color: white;
-      line-height: 1.2;
-      margin-bottom: 2.5rem;
+    /* TO ADD VIDEO: replace this div with <iframe src="YOUR_URL" width="100%" height="340" frameborder="0" allowfullscreen></iframe> */
+    #video-slot {
+      background: rgba(168, 85, 247, 0.05);
+      border: 2px dashed rgba(168, 85, 247, 0.25);
+      border-radius: 16px;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      color: rgba(180, 150, 220, 0.45);
+      font-size: 0.9rem;
+      padding: 2rem;
     }
+    #video-slot .vid-icon { font-size: 2.2rem; }
 
-    .letter-card {
-      background: #1a1535;
-      border: 1px solid rgba(168, 85, 247, 0.18);
-      border-radius: 1.25rem;
-      padding: 2.5rem 2.25rem;
-      text-align: left;
-    }
-
-    .letter-card p {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.98rem;
-      color: rgba(220, 205, 245, 0.82);
-      line-height: 1.85;
-      margin-bottom: 1.1rem;
-    }
-
-    .letter-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .letter-salutation {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      color: rgba(240, 220, 255, 0.9);
-      margin-bottom: 1.25rem !important;
-    }
-
-    .letter-signed {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.1rem;
-      background: linear-gradient(135deg, #ec4899, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-top: 1.5rem !important;
-      display: block;
-    }
-
-    /* ══════════════════════════════
-       SECTION 7: WORD MUSEUM
-    ══════════════════════════════ */
-    #word-museum {
+    /* ════════════════════════════════
+       SECTION 5 — WORD MUSEUM + CROSSWORD
+    ════════════════════════════════ */
+    #words {
       background: #0d0d1f;
       padding: 7rem 2rem;
     }
 
-    #word-museum .inner {
-      max-width: 1000px;
-    }
-
-    .museum-header {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .museum-sub {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      color: rgba(200, 180, 230, 0.5);
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto 3.5rem;
-      line-height: 1.75;
-    }
+    #words .intro { text-align: center; margin-bottom: 3.5rem; }
+    #words .section-sub { margin: 0 auto; }
 
     .word-grid {
+      max-width: 1000px;
+      margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
+      gap: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+      .word-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .word-grid { grid-template-columns: 1fr; }
     }
 
     .word-card {
       background: #13112b;
-      border-radius: 1rem;
-      padding: 1.6rem 1.5rem;
-      transition: transform 0.3s;
+      border: 1px solid rgba(168, 85, 247, 0.12);
+      border-radius: 14px;
+      padding: 1.4rem 1.5rem;
+      transition: border-color 0.3s ease, transform 0.3s ease;
     }
-
     .word-card:hover {
-      transform: translateY(-3px);
+      border-color: rgba(236, 72, 153, 0.3);
+      transform: translateY(-4px);
     }
 
     .word-term {
@@ -564,409 +614,843 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 0.55rem;
-      line-height: 1.3;
+      margin-bottom: 0.5rem;
     }
 
     .word-def {
-      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(200, 180, 240, 0.65);
+      line-height: 1.6;
+    }
+
+    /* Crossword placeholder */
+    .crossword-section {
+      max-width: 640px;
+      margin: 4rem auto 0;
+      text-align: center;
+    }
+    /* CROSSWORD: swap this section with your crossword embed when ready */
+    .crossword-box {
+      background: #13112b;
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      border-radius: 18px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      color: rgba(180, 150, 220, 0.4);
       font-size: 0.9rem;
-      color: rgba(210, 190, 240, 0.65);
+      margin-top: 1.5rem;
+      padding: 2rem;
+      /* subtle dot grid background */
+      background-image: radial-gradient(circle, rgba(168,85,247,0.15) 1px, transparent 1px);
+      background-size: 22px 22px;
+      background-color: #13112b;
+    }
+    .crossword-box .puzzle-icon { font-size: 2.5rem; }
+
+    /* ════════════════════════════════
+       SECTION 6 — WHY I LOVE YOU
+    ════════════════════════════════ */
+    #love {
+      background: radial-gradient(ellipse at 50% 100%, rgba(236, 72, 153, 0.08) 0%, #0a0614 60%);
+      padding: 7rem 2rem;
+    }
+
+    #love .intro { text-align: center; margin-bottom: 3.5rem; }
+    #love .section-sub { margin: 0 auto; font-style: italic; }
+
+    .love-grid {
+      max-width: 920px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 600px) {
+      .love-grid { grid-template-columns: 1fr; }
+    }
+
+    .love-card {
+      background: #12102a;
+      border: 1px solid rgba(168, 85, 247, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .love-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(236, 72, 153, 0.18);
+    }
+
+    .love-photo {
+      background: rgba(168, 85, 247, 0.06);
+      border-bottom: 2px dashed rgba(168, 85, 247, 0.2);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(180, 150, 220, 0.4);
+      font-size: 0.82rem;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .love-caption {
+      padding: 1.2rem 1.4rem;
+    }
+
+    .love-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .love-reason {
+      font-size: 0.95rem;
+      color: rgba(215, 195, 250, 0.85);
       line-height: 1.65;
     }
 
-    /* ══════════════════════════════
-       FOOTER
-    ══════════════════════════════ */
-
-    footer {
-      background: #0a0614;
-      padding: 2rem;
+    /* ════════════════════════════════
+       SECTION 7 — LETTER
+    ════════════════════════════════ */
+    #letter {
+      background: linear-gradient(180deg, #0a0614 0%, #0d0d1a 100%);
+      padding: 7rem 2rem;
       text-align: center;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.78rem;
-      color: rgba(180, 150, 220, 0.35);
+    }
+
+    .letter-card {
+      max-width: 680px;
+      margin: 2rem auto 0;
+      background: var(--card-bg);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 20px;
+      padding: 3rem 3.5rem;
+      text-align: left;
+    }
+
+    @media (max-width: 600px) {
+      .letter-card { padding: 2rem 1.6rem; }
+    }
+
+    .letter-salutation {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1.6rem;
+    }
+
+    .letter-para {
+      font-size: 1rem;
+      color: rgba(215, 195, 255, 0.82);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+
+    .letter-signoff {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 400;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: 2rem;
+      display: block;
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    footer {
+      background: #07060f;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.88rem;
+      color: rgba(180, 150, 220, 0.4);
       letter-spacing: 0.05em;
     }
 
-    /* ══════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════ */
-    @media (max-width: 900px) {
-      .word-grid {
+    /* ─── RESPONSIVE TWEAKS ─── */
+    @media (max-width: 700px) {
+      .mosaic-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-    }
+      .mosaic-tile:nth-child(1) { grid-row: auto; }
 
-    @media (max-width: 640px) {
-      .word-grid {
-        grid-template-columns: 1fr;
-      }
+      .counter-cards { gap: 0.8rem; }
+      .counter-card { min-width: 110px; padding: 1.2rem 1.4rem; }
 
-      .reasons-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .counter-card {
-        min-width: 120px;
-        max-width: 150px;
-        padding: 1.5rem 1rem;
-      }
-
-      .counter-number {
-        font-size: 2.8rem;
-      }
-
-      .timeline-track {
-        padding-left: 2rem;
-      }
-
-      .chapter-dot {
-        left: -1.7rem;
-      }
-
-      #hero {
-        padding: 4rem 1.5rem 10rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-heading-line1 {
-        font-size: clamp(2.4rem, 10vw, 3.5rem);
-      }
-      .hero-heading-line2 {
-        font-size: clamp(2.8rem, 11vw, 4.5rem);
-      }
+      .timeline-track::before { left: 16px; }
+      .chapter { padding-left: 50px; }
+      .chapter-dot { left: 8px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════
-       SECTION 1: HERO
-  ═══════════════════════════════════ -->
+  <!-- ═══════════════════════════════
+       SECTION 1 — HERO
+  ═══════════════════════════════ -->
   <section id="hero">
     <!-- Stars injected by JS -->
 
-    <!-- Palm tree silhouette -->
-    <svg class="palm-silhouette" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,120 L0,80 Q20,60 40,80 L60,70 Q80,40 100,60 L110,50 Q120,20 130,40 L140,30 Q150,10 160,30 L170,40 Q180,20 190,35 L200,50 Q210,70 220,60 L230,50 Q240,30 250,45 L260,55 Q280,80 300,70 L400,90 L500,80 Q520,60 540,75 L550,65 Q560,40 570,55 L580,45 Q590,20 600,38 L610,30 Q620,10 630,28 L640,38 Q650,55 660,48 L670,40 Q680,25 690,40 L700,55 L800,85 L900,75 Q920,55 940,70 L1000,80 L1100,70 Q1120,50 1140,65 L1150,55 Q1160,35 1170,50 L1180,42 Q1190,22 1200,38 L1210,48 Q1220,65 1230,58 L1240,50 L1300,75 L1440,80 L1440,120 Z" fill="#0d0d1a"/>
+    <!-- Palm tree SVG silhouette -->
+    <svg class="palm-silhouette" viewBox="0 0 1440 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <g fill="#0a0818">
+        <!-- Ground -->
+        <rect x="0" y="170" width="1440" height="30"/>
+        <!-- Left palm trunk -->
+        <path d="M120 170 Q118 140 125 110 Q128 90 122 60 L128 60 Q134 90 131 110 Q138 140 136 170Z"/>
+        <!-- Left palm fronds -->
+        <ellipse cx="124" cy="58" rx="38" ry="14" transform="rotate(-30 124 58)"/>
+        <ellipse cx="124" cy="58" rx="42" ry="13" transform="rotate(15 124 58)"/>
+        <ellipse cx="124" cy="58" rx="36" ry="12" transform="rotate(-70 124 58)"/>
+        <ellipse cx="124" cy="58" rx="40" ry="12" transform="rotate(50 124 58)"/>
+        <!-- Right palm trunk -->
+        <path d="M1300 170 Q1305 140 1298 105 Q1295 82 1302 50 L1308 50 Q1315 82 1312 105 Q1305 140 1310 170Z"/>
+        <!-- Right palm fronds -->
+        <ellipse cx="1305" cy="48" rx="42" ry="14" transform="rotate(30 1305 48)"/>
+        <ellipse cx="1305" cy="48" rx="38" ry="13" transform="rotate(-15 1305 48)"/>
+        <ellipse cx="1305" cy="48" rx="44" ry="12" transform="rotate(65 1305 48)"/>
+        <ellipse cx="1305" cy="48" rx="36" ry="12" transform="rotate(-50 1305 48)"/>
+      </g>
     </svg>
 
-    <div class="hero-content">
-      <p class="hero-location">India → Ireland &nbsp;·&nbsp; 7,524 km &nbsp;·&nbsp; 1 us</p>
-      <h1>
-        <span class="hero-heading-line1">Happy Birthday,</span>
-        <span class="hero-heading-line2 gradient-text">my Aditya</span>
-      </h1>
+    <div class="hero-content reveal">
+      <span class="hero-line1">Happy Birthday,</span>
+      <span class="hero-line2 gradient-text">my Adi bear</span>
       <p class="hero-sub">
-        I couldn't fly to you this year, so I built you a tiny world instead. Scroll slowly — there's six months of us in here, and a lifetime of <em>more to come.</em>
+        I couldn't fly to you this year, so I built you a tiny world instead.
+        Scroll slowly — there's six months of us in here, and a lifetime of
+        <em style="color: var(--pink);">more to come.</em>
       </p>
-      <p class="hero-signed">❤️ From Aishwarya, with everything</p>
+      <p class="hero-signed">With ❤️, Aishwarya</p>
     </div>
 
-    <div class="scroll-indicator">scroll ↓</div>
+    <div class="scroll-hint">SCROLL ↓</div>
   </section>
 
-
-  <!-- ═══════════════════════════════════
-       SECTION 2: COUNTER
-  ═══════════════════════════════════ -->
+  <!-- ═══════════════════════════════
+       SECTION 2 — COUNTER
+  ═══════════════════════════════ -->
   <section id="counter">
-    <div class="inner" style="text-align: center;">
-      <p class="section-label">Since you said yes</p>
-      <p class="counter-intro">We've been <em class="gradient-text" style="font-style:italic;">us</em> for</p>
+    <div class="container" style="text-align:center;">
+      <p class="section-label reveal" style="--i:0">Since we said yes</p>
+      <h2 class="section-heading reveal" style="--i:1">
+        We've been <em class="gradient-text">us</em> for
+      </h2>
 
       <div class="counter-cards">
-        <div class="counter-card">
-          <div class="counter-number" id="count-days">000</div>
-          <div class="counter-unit">Days</div>
+        <div class="counter-card reveal" style="--i:2">
+          <span class="counter-num" id="cnt-days">0</span>
+          <span class="counter-label">Days</span>
         </div>
-        <div class="counter-card">
-          <div class="counter-number" id="count-hours">00</div>
-          <div class="counter-unit">Hours</div>
+        <div class="counter-card reveal" style="--i:3">
+          <span class="counter-num" id="cnt-hours">0</span>
+          <span class="counter-label">Hours</span>
         </div>
-        <div class="counter-card">
-          <div class="counter-number" id="count-minutes">00</div>
-          <div class="counter-unit">Minutes</div>
+        <div class="counter-card reveal" style="--i:4">
+          <span class="counter-num" id="cnt-mins">0</span>
+          <span class="counter-label">Minutes</span>
         </div>
-        <div class="counter-card">
-          <div class="counter-number" id="count-seconds">00</div>
-          <div class="counter-unit">Seconds</div>
+        <div class="counter-card reveal" style="--i:5">
+          <span class="counter-num" id="cnt-secs">0</span>
+          <span class="counter-label">Seconds</span>
         </div>
       </div>
 
-      <p class="counter-footer">...and counting. Every single second of it on purpose.</p>
+      <p class="counter-footer reveal" style="--i:6">
+        ...and counting. Every single second of it on purpose.
+      </p>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════
-       SECTION 3: TIMELINE
-  ═══════════════════════════════════ -->
+  <!-- ═══════════════════════════════
+       SECTION 3 — TIMELINE
+  ═══════════════════════════════ -->
   <section id="timeline">
-    <div class="inner">
-      <div class="timeline-intro">
-        <p class="section-label">Down memory lane</p>
-        <h2 class="section-heading">A little <em class="gradient-text">map of us</em></h2>
+    <div class="container">
+      <div class="intro">
+        <p class="section-label reveal" style="--i:0">Down memory lane</p>
+        <h2 class="section-heading reveal" style="--i:1">
+          A little <em class="gradient-text">map of us</em>
+        </h2>
+        <p class="section-sub reveal" style="--i:2">
+          Add photos and notes to each chapter as we go — this page grows with us.
+        </p>
       </div>
-      <p class="timeline-sub">Add photos and notes to each chapter as we go — this page grows with us.</p>
 
       <div class="timeline-track">
 
-        <!-- Chapter 1 -->
-        <div class="chapter">
+        <!-- CHAPTER ONE -->
+        <div class="chapter reveal" style="--i:0">
           <div class="chapter-dot"></div>
-          <p class="chapter-label">Chapter One</p>
-          <h3 class="chapter-title">Goa 1.0 — where it all began</h3>
-          <p class="chapter-body">The salt, the sun, the unbearably specific feeling of meeting someone and already knowing. The universe was very obvious that week.</p>
-          <div class="chapter-photo">📎 photo &amp; note slot — we'll fill this together</div>
+          <div class="chapter-header" onclick="toggleChapter(this)">
+            <div class="chapter-meta">
+              <p class="chapter-num">Chapter One</p>
+              <p class="chapter-title">Goa 1.0 — where it all began</p>
+              <p class="chapter-body">The salt, the sun, the unbearably specific feeling of meeting someone and sort of hating them :P The universe was very confusing that week! But the more I got to know you, the more I fell for you.</p>
+            </div>
+            <span class="chapter-arrow">▾</span>
+          </div>
+          <div class="chapter-panel">
+            <div class="panel-inner">
+              <div class="carousel" data-current="0">
+                <div class="carousel-track">
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                </div>
+                <div class="carousel-controls">
+                  <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
+                  <div class="carousel-dots">
+                    <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
+                  </div>
+                  <button class="carousel-btn" onclick="carouselNext(this)">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Chapter 2 -->
-        <div class="chapter">
+        <!-- CHAPTER TWO -->
+        <div class="chapter reveal" style="--i:1">
           <div class="chapter-dot"></div>
-          <p class="chapter-label">Chapter Two</p>
-          <h3 class="chapter-title">Goa 2.0 — bfgf, officially</h3>
-          <p class="chapter-body">Same sea, different us. You said yes to the title, I said yes to the rest of it. Best soft launch the Arabian Sea has ever hosted.</p>
-          <div class="chapter-photo">📎 photo &amp; note slot — we'll fill this together</div>
+          <div class="chapter-header" onclick="toggleChapter(this)">
+            <div class="chapter-meta">
+              <p class="chapter-num">Chapter Two</p>
+              <p class="chapter-title">Goa 2.0 — bfgf, officially</p>
+              <p class="chapter-body">Same sea, different us. Best hard launch the Arabian Sea has ever hosted.</p>
+            </div>
+            <span class="chapter-arrow">▾</span>
+          </div>
+          <div class="chapter-panel">
+            <div class="panel-inner">
+              <div class="carousel" data-current="0">
+                <div class="carousel-track">
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                </div>
+                <div class="carousel-controls">
+                  <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
+                  <div class="carousel-dots">
+                    <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
+                  </div>
+                  <button class="carousel-btn" onclick="carouselNext(this)">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Chapter 3 -->
-        <div class="chapter">
+        <!-- CHAPTER THREE -->
+        <div class="chapter reveal" style="--i:2">
           <div class="chapter-dot"></div>
-          <p class="chapter-label">Chapter Three</p>
-          <h3 class="chapter-title">Delhi, on loop</h3>
-          <p class="chapter-body">Sunder Nursery walks. Yeti dinners. A truly unreasonable number of Chaayos receipts. My cat developing an actual crush on you (traitor).</p>
-          <div class="chapter-photo">📎 photo &amp; note slot — we'll fill this together</div>
+          <div class="chapter-header" onclick="toggleChapter(this)">
+            <div class="chapter-meta">
+              <p class="chapter-num">Chapter Three</p>
+              <p class="chapter-title">Delhi, on loop</p>
+              <p class="chapter-body">Sunder Nursery walks, picnics, yummy meals (yes, Yeti dinners as well xD). A truly unreasonable number of Chaayos receipts. My cat developing an actual crush on you, and your....ahem-ahem :P</p>
+            </div>
+            <span class="chapter-arrow">▾</span>
+          </div>
+          <div class="chapter-panel">
+            <div class="panel-inner">
+              <div class="carousel" data-current="0">
+                <div class="carousel-track">
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                </div>
+                <div class="carousel-controls">
+                  <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
+                  <div class="carousel-dots">
+                    <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
+                  </div>
+                  <button class="carousel-btn" onclick="carouselNext(this)">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Chapter 4 -->
-        <div class="chapter">
+        <!-- CHAPTER FOUR -->
+        <div class="chapter reveal" style="--i:3">
           <div class="chapter-dot"></div>
-          <p class="chapter-label">Chapter Four</p>
-          <h3 class="chapter-title">Pune &amp; horror movies we never watched</h3>
-          <p class="chapter-body">We bought tickets for the plot. We stayed for each other. Sorry to every filmmaker we have personally let down.</p>
-          <div class="chapter-photo">📎 photo &amp; note slot — we'll fill this together</div>
+          <div class="chapter-header" onclick="toggleChapter(this)">
+            <div class="chapter-meta">
+              <p class="chapter-num">Chapter Four</p>
+              <p class="chapter-title">Pune &amp; horror movies we barely watched</p>
+              <p class="chapter-body">We bought tickets for the plot. We stayed for each other. Sorry to every filmmaker we have personally let down.</p>
+            </div>
+            <span class="chapter-arrow">▾</span>
+          </div>
+          <div class="chapter-panel">
+            <div class="panel-inner">
+              <div class="carousel" data-current="0">
+                <div class="carousel-track">
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                </div>
+                <div class="carousel-controls">
+                  <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
+                  <div class="carousel-dots">
+                    <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
+                  </div>
+                  <button class="carousel-btn" onclick="carouselNext(this)">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Chapter 5 -->
-        <div class="chapter">
+        <!-- CHAPTER FIVE -->
+        <div class="chapter reveal" style="--i:4">
           <div class="chapter-dot"></div>
-          <p class="chapter-label">Chapter Five</p>
-          <h3 class="chapter-title">Ireland → India — 7,500 km of we'll-figure-it-out</h3>
-          <p class="chapter-body">Three months of video calls that don't end, night-games, quizzes, ganderi-coded inside jokes, and 'mujhe tu achha nahi lagta' (lovingly).</p>
-          <div class="chapter-photo">📎 photo &amp; note slot — we'll fill this together</div>
+          <div class="chapter-header" onclick="toggleChapter(this)">
+            <div class="chapter-meta">
+              <p class="chapter-num">Chapter Five</p>
+              <p class="chapter-title">Ireland → India — 7,500 km of we'll-figure-it-out</p>
+              <p class="chapter-body">Three months of video calls that don't end, night-games, quizzes, all the inside jokes, and 'mujhe tu achha nahi lagta' (lovingly).</p>
+            </div>
+            <span class="chapter-arrow">▾</span>
+          </div>
+          <div class="chapter-panel">
+            <div class="panel-inner">
+              <div class="carousel" data-current="0">
+                <div class="carousel-track">
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                  <div class="carousel-slide">
+                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
+                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
+                  </div>
+                </div>
+                <div class="carousel-controls">
+                  <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
+                  <div class="carousel-dots">
+                    <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
+                  </div>
+                  <button class="carousel-btn" onclick="carouselNext(this)">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
+      </div><!-- end timeline-track -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       SECTION 4 — LONG DISTANCE
+  ═══════════════════════════════ -->
+  <section id="ldr">
+    <div class="container">
+      <div class="ldr-content">
+        <p class="section-label pink reveal" style="--i:0">7,524 km apart</p>
+        <h2 class="ldr-heading reveal" style="--i:1">
+          Same <em class="gradient-text">sky,</em> baby.
+        </h2>
+        <p class="ldr-para reveal" style="--i:2">
+          These last three months have been the hardest part of loving you, and somehow also the proof. We video-call until our phones die. We fight, we repair, we grow. We coin new words for no reason. We say <em style="color: rgba(240,180,220,0.9);">"mujhe tu achha nahi lagta"</em> and then immediately disprove ourselves.
+        </p>
+        <p class="ldr-para reveal" style="--i:3">
+          On the days I couldn't carry myself this year, you carried me through a screen. I will never get over that.
+        </p>
+        <div class="reveal" style="--i:4">
+          <span class="ldr-pill">✦ Adi tu thoda sa bkl hai kya? Haan. And I love you for it. ✦</span>
+        </div>
+      </div>
+
+      <!-- Video call mosaic -->
+      <div class="mosaic-label reveal" style="--i:5">
+        <p>Endless video calls · our daily ritual</p>
+      </div>
+
+      <div class="mosaic-grid">
+        <div class="mosaic-tile reveal" style="--i:0">
+          <span class="tile-icon">📹</span>
+          video call screenshot — add yours
+        </div>
+        <div class="mosaic-tile reveal" style="--i:1">
+          <span class="tile-icon">📹</span>
+          video call screenshot — add yours
+        </div>
+        <div class="mosaic-tile reveal" style="--i:2">
+          <span class="tile-icon">📹</span>
+          video call screenshot — add yours
+        </div>
+        <div class="mosaic-tile reveal" style="--i:3">
+          <span class="tile-icon">📹</span>
+          video call screenshot — add yours
+        </div>
+        <div class="mosaic-tile reveal" style="--i:4">
+          <span class="tile-icon">📹</span>
+          video call screenshot — add yours
+        </div>
+        <div class="mosaic-tile reveal" style="--i:5">
+          <span class="tile-icon">📹</span>
+          video call screenshot — add yours
+        </div>
+      </div>
+
+      <!-- Video embed slot -->
+      <div class="video-slot-wrap reveal" style="--i:6">
+        <p class="video-slot-label">A little something</p>
+        <!-- TO ADD VIDEO: replace this div with <iframe src="YOUR_URL" width="100%" height="340" frameborder="0" allowfullscreen></iframe> -->
+        <div id="video-slot">
+          <span class="vid-icon">▶</span>
+          Drop a video link here — a voicenote, a reel, a memory
+        </div>
       </div>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════
-       SECTION 4: REASONS
-  ═══════════════════════════════════ -->
-  <section id="reasons">
-    <div class="inner">
-      <div class="reasons-header">
-        <p class="section-label">A non-exhaustive list</p>
-        <h2 class="section-heading">Reasons I'm <em class="gradient-text">obsessed</em> with you</h2>
+  <!-- ═══════════════════════════════
+       SECTION 5 — WORD MUSEUM + CROSSWORD
+  ═══════════════════════════════ -->
+  <section id="words">
+    <div class="container">
+      <div class="intro">
+        <p class="section-label reveal" style="--i:0">The dictionary only we understand</p>
+        <h2 class="section-heading reveal" style="--i:1">Our silly words deserve their own museum</h2>
+        <p class="section-sub reveal" style="--i:2">
+          This section can become a crossword, a game, or a proper interactive word wall later. For now, it's a clean editable bank of the nonsense that makes us us.
+        </p>
       </div>
-
-      <div class="reasons-grid">
-        <div class="reason-card">
-          <p class="reason-number">01</p>
-          <p class="reason-text">You turn even my crying into laughter.</p>
-        </div>
-        <div class="reason-card">
-          <p class="reason-number">02</p>
-          <p class="reason-text">You are my respite, my safe place, my shoulder.</p>
-        </div>
-        <div class="reason-card">
-          <p class="reason-number">03</p>
-          <p class="reason-text">You hold my hand like it's a small important job.</p>
-        </div>
-        <div class="reason-card">
-          <p class="reason-number">04</p>
-          <p class="reason-text">You let me be silly and you out-silly me.</p>
-        </div>
-        <div class="reason-card">
-          <p class="reason-number">05</p>
-          <p class="reason-text">You make hard years survivable. You made this one survivable.</p>
-        </div>
-        <div class="reason-card">
-          <p class="reason-number">06</p>
-          <p class="reason-text">Ganderi. Babay. Chodbhangda. Need I say more.</p>
-        </div>
-        <div class="reason-card">
-          <p class="reason-number">07</p>
-          <p class="reason-text">You come back. Every fight, every spat — you come back.</p>
-        </div>
-        <div class="reason-card">
-          <p class="reason-number">08</p>
-          <p class="reason-text">You are my dat man. My goofy ass. My silly goose.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════
-       SECTION 5: SAME SKY, BABY.
-  ═══════════════════════════════════ -->
-  <section id="same-sky">
-    <div class="inner">
-      <p class="section-label" style="color: rgba(236, 72, 153, 0.55);">7,524 KM APART</p>
-      <h2 class="same-sky-heading">
-        <em class="gradient-text">Same</em><br>
-        <em class="gradient-text">sky,</em><br>
-        baby.
-      </h2>
-
-      <p class="same-sky-body">
-        These last three months have been the hardest part of loving you, and somehow also the proof. We video-call until our phones die. We fight, we repair, we grow. We coin new words for no reason. We say <em style="color: #ec4899">"mujhe tu achha nahi lagta"</em> and then immediately disprove ourselves.
-      </p>
-      <p class="same-sky-body">
-        On the days I couldn't carry myself this year, you carried me through a screen. I will never get over that.
-      </p>
-
-      <div>
-        <span class="same-sky-pill">✦ Adi tu thoda sa bkl hai kya? Haan. And I love you for it. ✦</span>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════
-       SECTION 6: FOR YOUR EYES ONLY
-  ═══════════════════════════════════ -->
-  <section id="letter">
-    <div class="inner">
-      <p class="section-label" style="color: rgba(236, 72, 153, 0.55);">FOR YOUR EYES ONLY</p>
-      <h2 class="letter-heading">
-        On your <em class="gradient-text">birthday</em>
-      </h2>
-
-      <div class="letter-card">
-        <p class="letter-salutation">My dat man,</p>
-        <p>I don't have words big enough, so I'm using all the small ones. Thank you for being my best friend before you were anything else. Thank you for laughing at me, with me, sometimes instead of me.</p>
-        <p>This year tried very hard to break me. You quietly refused to let it. You made me feel held from a different country, which I didn't know was possible until you.</p>
-        <p>I can't wait for the next Goa. The next Chaayos. The next everything. Until then — happy birthday, my silly goose. The world got softer the day you were born.</p>
-        <p class="letter-signed">All of me, always — Aish 💜</p>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════
-       SECTION 7: WORD MUSEUM
-  ═══════════════════════════════════ -->
-  <section id="word-museum">
-    <div class="inner">
-      <div class="museum-header">
-        <p class="section-label">THE DICTIONARY ONLY WE UNDERSTAND</p>
-        <h2 class="section-heading">Our silly words deserve<br>their own museum</h2>
-      </div>
-      <p class="museum-sub">
-        This section can become a crossword, a game, or a proper interactive word wall later. For now, it's a clean editable bank of the nonsense that makes us us.
-      </p>
 
       <div class="word-grid">
-        <div class="word-card">
+        <div class="word-card reveal" style="--i:0">
           <p class="word-term">Ganderi</p>
           <p class="word-def">Definition to be edited by us only.</p>
         </div>
-        <div class="word-card">
+        <div class="word-card reveal" style="--i:1">
           <p class="word-term">Babay</p>
           <p class="word-def">A word with history, chaos, and probably too much affection.</p>
         </div>
-        <div class="word-card">
+        <div class="word-card reveal" style="--i:2">
           <p class="word-term">Chodbhangda</p>
           <p class="word-def">Needs no explanation, which means it absolutely needs one later.</p>
         </div>
-        <div class="word-card">
+        <div class="word-card reveal" style="--i:3">
           <p class="word-term">Adi, tu thoda sa BKL hai kya?</p>
           <p class="word-def">A question, an accusation, a love language.</p>
         </div>
-        <div class="word-card">
+        <div class="word-card reveal" style="--i:4">
           <p class="word-term">Mujhe tu achha nahi lagta</p>
           <p class="word-def">Said seconds before loving on each other again.</p>
         </div>
-        <div class="word-card">
+        <div class="word-card reveal" style="--i:5">
           <p class="word-term">Silly goose</p>
           <p class="word-def">Goofy ass. Warmth provider. Pain-laughter converter.</p>
         </div>
       </div>
+
+      <!-- CROSSWORD: swap this section with your crossword embed when ready -->
+      <div class="crossword-section reveal" style="--i:6">
+        <p class="section-label">Coming soon</p>
+        <h3 class="section-heading" style="font-size:1.7rem;">A crossword, just for us</h3>
+        <p class="section-sub" style="margin:0 auto 0; text-align:center;">Built from the words only we know. Coming soon — check back, Adi.</p>
+        <div class="crossword-box">
+          <span class="puzzle-icon">🧩</span>
+          Crossword loading...
+        </div>
+      </div>
+
     </div>
   </section>
 
+  <!-- ═══════════════════════════════
+       SECTION 6 — WHY I LOVE YOU
+  ═══════════════════════════════ -->
+  <section id="love">
+    <div class="container">
+      <div class="intro">
+        <p class="section-label reveal" style="--i:0">A non-exhaustive list</p>
+        <h2 class="section-heading reveal" style="--i:1">Why I love <em class="gradient-text">you</em></h2>
+        <p class="section-sub reveal" style="--i:2">(these are not all of them. there is no complete list.)</p>
+      </div>
 
-  <!-- ═══════════════════════════════════
+      <div class="love-grid">
+        <div class="love-card reveal" style="--i:0">
+          <div class="love-photo" id="reason-photo-1">[Add a goofy photo of Adi here]</div>
+          <div class="love-caption">
+            <span class="love-num">01</span>
+            <p class="love-reason">You turn even my crying into laughter.</p>
+          </div>
+        </div>
+        <div class="love-card reveal" style="--i:1">
+          <div class="love-photo" id="reason-photo-2">[Add a goofy photo of Adi here]</div>
+          <div class="love-caption">
+            <span class="love-num">02</span>
+            <p class="love-reason">You are my respite, my safe place, my shoulder.</p>
+          </div>
+        </div>
+        <div class="love-card reveal" style="--i:2">
+          <div class="love-photo" id="reason-photo-3">[Add a goofy photo of Adi here]</div>
+          <div class="love-caption">
+            <span class="love-num">03</span>
+            <p class="love-reason">You hold my hand like it's a small important job.</p>
+          </div>
+        </div>
+        <div class="love-card reveal" style="--i:3">
+          <div class="love-photo" id="reason-photo-4">[Add a goofy photo of Adi here]</div>
+          <div class="love-caption">
+            <span class="love-num">04</span>
+            <p class="love-reason">You let me be silly and you out-silly me.</p>
+          </div>
+        </div>
+        <div class="love-card reveal" style="--i:4">
+          <div class="love-photo" id="reason-photo-5">[Add a goofy photo of Adi here]</div>
+          <div class="love-caption">
+            <span class="love-num">05</span>
+            <p class="love-reason">You make hard years survivable. You made this one survivable.</p>
+          </div>
+        </div>
+        <div class="love-card reveal" style="--i:5">
+          <div class="love-photo" id="reason-photo-6">[Add a goofy photo of Adi here]</div>
+          <div class="love-caption">
+            <span class="love-num">06</span>
+            <p class="love-reason">Ganderi. Babay. Chodbhangda. Need I say more.</p>
+          </div>
+        </div>
+        <div class="love-card reveal" style="--i:6">
+          <div class="love-photo" id="reason-photo-7">[Add a goofy photo of Adi here]</div>
+          <div class="love-caption">
+            <span class="love-num">07</span>
+            <p class="love-reason">You come back. Every fight, every spat — you come back.</p>
+          </div>
+        </div>
+        <div class="love-card reveal" style="--i:7">
+          <div class="love-photo" id="reason-photo-8">[Add a goofy photo of Adi here]</div>
+          <div class="love-caption">
+            <span class="love-num">08</span>
+            <p class="love-reason">You are my dat man. My goofy ass. My silly goose.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       SECTION 7 — LETTER
+  ═══════════════════════════════ -->
+  <section id="letter">
+    <div class="container">
+      <p class="section-label pink reveal" style="--i:0">For your eyes only</p>
+      <h2 class="section-heading reveal" style="--i:1">
+        On your <em class="gradient-text">birthday</em>
+      </h2>
+
+      <div class="letter-card reveal" style="--i:2">
+        <p class="letter-salutation">My dat man,</p>
+        <p class="letter-para">
+          I don't have words big enough, so I'm using all the small ones. Thank you for being my best friend before you were anything else. Thank you for laughing at me, with me, sometimes instead of me.
+        </p>
+        <p class="letter-para">
+          This year tried very hard to break me. You quietly refused to let it. You made me feel held from a different country, which I didn't know was possible until you.
+        </p>
+        <p class="letter-para">
+          I can't wait for the next Goa. The next Chaayos. The next everything. Until then — happy birthday, my silly goose. The world got softer the day you were born.
+        </p>
+        <span class="letter-signoff">All of me, always — Aish 💜</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
        FOOTER
-  ═══════════════════════════════════ -->
+  ═══════════════════════════════ -->
   <footer>
     made with love, from 7,524 km away ❤️
   </footer>
 
-
-  <!-- ═══════════════════════════════════
+  <!-- ═══════════════════════════════
        JAVASCRIPT
-  ═══════════════════════════════════ -->
+  ═══════════════════════════════ -->
   <script>
-    // ── STARS ──
+    /* ── 1. STARS ─────────────────────────────── */
     (function generateStars() {
       const hero = document.getElementById('hero');
-      const count = 60;
-      for (let i = 0; i < count; i++) {
-        const star = document.createElement('span');
+      for (let i = 0; i < 60; i++) {
+        const star = document.createElement('div');
         star.classList.add('star');
-        const size = 1 + Math.random() * 2;           // 1–3px
-        const delay = (Math.random() * 4).toFixed(2); // 0–4s
-        const dur   = (2 + Math.random() * 3).toFixed(2); // 2–5s
+        const size = Math.random() * 2 + 1; // 1–3px
         star.style.cssText = `
-          left: ${(Math.random() * 100).toFixed(2)}%;
-          top: ${(Math.random() * 100).toFixed(2)}%;
-          width: ${size.toFixed(1)}px;
-          height: ${size.toFixed(1)}px;
-          --dur: ${dur}s;
-          --delay: ${delay}s;
-          animation: twinkle ${dur}s ${delay}s infinite;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${Math.random() * 100}%;
+          top: ${Math.random() * 85}%;
+          --dur: ${Math.random() * 3 + 2}s;
+          --delay: ${Math.random() * 4}s;
         `;
         hero.appendChild(star);
       }
     })();
 
-    // ── COUNTER ──
-    const start = new Date('2025-12-25T00:00:00+05:30'); // IST
+    /* ── 2. COUNTER ───────────────────────────── */
+    (function startCounter() {
+      // Relationship start date: 2025-12-25 midnight IST (UTC+5:30)
+      const start = new Date('2025-12-25T00:00:00+05:30').getTime();
 
-    function updateCounter() {
-      const now  = new Date();
-      const diff = now - start;
+      const elDays  = document.getElementById('cnt-days');
+      const elHours = document.getElementById('cnt-hours');
+      const elMins  = document.getElementById('cnt-mins');
+      const elSecs  = document.getElementById('cnt-secs');
 
-      if (diff < 0) {
-        // Future date — show zeroes gracefully
-        ['count-days','count-hours','count-minutes','count-seconds'].forEach(id => {
-          document.getElementById(id).textContent = '00';
-        });
-        return;
+      function update() {
+        const diff = Date.now() - start;
+        if (diff < 0) return; // guard: future date
+
+        const totalSecs = Math.floor(diff / 1000);
+        const days    = Math.floor(totalSecs / 86400);
+        const hours   = Math.floor((totalSecs % 86400) / 3600);
+        const minutes = Math.floor((totalSecs % 3600) / 60);
+        const seconds = totalSecs % 60;
+
+        elDays.textContent  = days.toLocaleString();
+        elHours.textContent = String(hours).padStart(2, '0');
+        elMins.textContent  = String(minutes).padStart(2, '0');
+        elSecs.textContent  = String(seconds).padStart(2, '0');
       }
 
-      const totalSeconds = Math.floor(diff / 1000);
-      const days    = Math.floor(totalSeconds / 86400);
-      const hours   = Math.floor((totalSeconds % 86400) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
+      update();
+      setInterval(update, 1000);
+    })();
 
-      document.getElementById('count-days').textContent    = String(days).padStart(3, '0');
-      document.getElementById('count-hours').textContent   = String(hours).padStart(2, '0');
-      document.getElementById('count-minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('count-seconds').textContent = String(seconds).padStart(2, '0');
+    /* ── 3. SCROLL ANIMATIONS (IntersectionObserver) ── */
+    (function initReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // animate once
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    })();
+
+    /* ── 4. EXPANDABLE CHAPTERS ───────────────── */
+    function toggleChapter(headerEl) {
+      const chapter = headerEl.closest('.chapter');
+      const isOpen = chapter.classList.contains('open');
+
+      // Close all chapters first
+      document.querySelectorAll('.chapter.open').forEach(c => c.classList.remove('open'));
+
+      // Open clicked chapter if it was closed
+      if (!isOpen) {
+        chapter.classList.add('open');
+      }
     }
 
-    updateCounter();
-    setInterval(updateCounter, 1000);
-  </script>
+    /* ── 5. CAROUSELS ─────────────────────────── */
+    function getCarouselFromBtn(btn) {
+      return btn.closest('.carousel');
+    }
 
+    function carouselGotoIndex(carousel, idx) {
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      const total = slides.length;
+      // Clamp index
+      idx = ((idx % total) + total) % total;
+
+      carousel.dataset.current = idx;
+      carousel.querySelector('.carousel-track').style.transform = `translateX(-${idx * 100}%)`;
+
+      // Update dots
+      carousel.querySelectorAll('.dot-indicator').forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+      });
+    }
+
+    function carouselPrev(btn) {
+      const carousel = getCarouselFromBtn(btn);
+      const current = parseInt(carousel.dataset.current, 10);
+      carouselGotoIndex(carousel, current - 1);
+    }
+
+    function carouselNext(btn) {
+      const carousel = getCarouselFromBtn(btn);
+      const current = parseInt(carousel.dataset.current, 10);
+      carouselGotoIndex(carousel, current + 1);
+    }
+
+    function carouselGoto(dot, idx) {
+      const carousel = dot.closest('.carousel');
+      carouselGotoIndex(carousel, idx);
+    }
+  </script>
 </body>
 </html>
