@@ -3,3 +3,9 @@ package.json
 package-lock.json
 screenshot.mjs
 preview_*.png
+
+# Font preview artifacts
+font*.png
+font_preview*.mjs
+preview_*.png
+screenshot.mjs
