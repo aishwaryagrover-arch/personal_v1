@@ -13,3 +13,7 @@ screenshot.mjs
 # Layout preview artifacts
 layout_*.png
 layout_preview.mjs
+
+# Mosaic preview artifacts
+mosaic_*.png
+mosaic_preview.mjs
