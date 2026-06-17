@@ -722,10 +722,7 @@
     /* ── Marquee photo strips ── */
     .marquee-section {
       margin: 4rem 0 0;
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
+      width: 100%;
     }
     .marquee-label {
       text-align: center;
@@ -1437,24 +1434,6 @@
         <p class="meet-footer">17 July 2026 — not soon enough.</p>
       </div>
 
-      <!-- Marquee photo strips — video call screenshots -->
-      <div class="marquee-section reveal" style="--i:5" id="vcall-marquee">
-        <p class="marquee-label">endless video calls &amp; outfit checks — our daily ritual</p>
-        <!-- Row 1 (left) -->
-        <div class="marquee-row">
-          <div class="marquee-track" id="mq-row1"></div>
-        </div>
-        <!-- Row 2 (right) -->
-        <div class="marquee-row">
-          <div class="marquee-track reverse" id="mq-row2"></div>
-        </div>
-        <!-- Row 3 (left, slower) -->
-        <div class="marquee-row">
-          <div class="marquee-track slow" id="mq-row3"></div>
-        </div>
-        <p class="marquee-footer">50 calls. one love story on a screen.</p>
-      </div>
-
       <!-- Video embed slot -->
       <div class="video-slot-wrap reveal" style="--i:6">
         <p class="video-slot-label">A little something</p>
@@ -1464,6 +1443,21 @@
           Drop a video link here — a voicenote, a reel, a memory
         </div>
       </div>
+    </div>
+
+    <!-- Marquee photo strips — OUTSIDE container so it's truly full width -->
+    <div class="marquee-section" id="vcall-marquee">
+      <p class="marquee-label">endless video calls &amp; outfit checks — our daily ritual</p>
+      <div class="marquee-row">
+        <div class="marquee-track" id="mq-row1"></div>
+      </div>
+      <div class="marquee-row">
+        <div class="marquee-track reverse" id="mq-row2"></div>
+      </div>
+      <div class="marquee-row">
+        <div class="marquee-track slow" id="mq-row3"></div>
+      </div>
+      <p class="marquee-footer">60 calls. one love story on a screen.</p>
     </div>
 
     <!-- Wave divider into words -->
@@ -1728,8 +1722,8 @@
     (function buildMarquee() {
       // TO ADD PHOTOS: replace the src strings in this array with your image paths or URLs.
       // e.g. './photos/vcall_01.jpg'  Keep all 50 — the marquee duplicates for seamless loop.
-      // Google Drive direct image URLs — publicly shared folder
-      const driveId = id => `https://drive.google.com/uc?export=view&id=${id}`;
+      // Google's image CDN — works for publicly shared Drive files without auth prompts
+      const driveId = id => `https://lh3.googleusercontent.com/d/${id}`;
       const photos = [
         '1_e6G0DpTGPA_tQ5ZRcSjy2p2YdTC8sE5',
         '1TPydwwcLZRazMQwc7GyMelo33i6VXeWk',
