@@ -154,7 +154,10 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: radial-gradient(ellipse at 50% 0%, #4a1942 0%, #1a0a2e 40%, #0d0d1a 100%);
+      /* Goa beach photo blended with dark purple overlay */
+      background:
+        radial-gradient(ellipse at 50% 30%, rgba(74,25,66,0.72) 0%, rgba(13,13,26,0.88) 100%),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80&fit=crop') center/cover no-repeat;
       overflow: hidden;
       padding: 0 2rem;
     }
@@ -658,6 +661,63 @@
       margin-bottom: 1.2rem;
     }
 
+    /* ── MEET COUNTDOWN ── */
+    .meet-countdown {
+      text-align: center;
+      margin: 3rem auto 1rem;
+      max-width: 700px;
+    }
+    .meet-label {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(200, 170, 240, 0.6);
+      margin-bottom: 1.5rem;
+    }
+    .meet-cards {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+    .meet-card {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(236, 72, 153, 0.2);
+      border-radius: 14px;
+      padding: 1.4rem 1.6rem;
+      min-width: 110px;
+      box-shadow: 0 0 30px rgba(236, 72, 153, 0.08), 0 8px 28px rgba(0,0,0,0.4);
+    }
+    .meet-num {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #f472b6, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .meet-unit {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(200, 170, 240, 0.55);
+    }
+    .meet-footer {
+      font-family: 'Nunito', sans-serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: rgba(236, 72, 153, 0.65);
+    }
+
     /* Video call mosaic */
     .mosaic-label {
       text-align: center;
@@ -1015,9 +1075,6 @@
   <section id="hero">
     <!-- Stars injected by JS -->
 
-    <!-- Photo mosaic background — replace each .ph with <img src="your-photo.jpg"/> when ready -->
-    <div class="hero-mosaic" id="hero-mosaic"></div>
-
     <!-- Aurora blobs behind hero content -->
     <div class="aurora-blob" style="width:400px;height:400px;background:#ec4899;top:-80px;left:-60px;--dur:8s;--tx:60px;--ty:40px;" aria-hidden="true"></div>
     <div class="aurora-blob" style="width:500px;height:500px;background:#7c3aed;top:-100px;right:-80px;--dur:11s;--tx:-80px;--ty:60px;" aria-hidden="true"></div>
@@ -1363,7 +1420,30 @@
         <p class="ldr-para reveal" style="--i:3">
           On the days I couldn't carry myself this year, you carried me through a screen. I will never get over that.
         </p>
-        <!-- ldr-pill removed per spec -->
+      </div>
+
+      <!-- MEET COUNTDOWN -->
+      <div class="meet-countdown reveal" style="--i:4">
+        <p class="meet-label">✈️ until we're in the same room again</p>
+        <div class="meet-cards">
+          <div class="meet-card tilt-card">
+            <span class="meet-num" id="meet-days">--</span>
+            <span class="meet-unit">Days</span>
+          </div>
+          <div class="meet-card tilt-card">
+            <span class="meet-num" id="meet-hours">--</span>
+            <span class="meet-unit">Hours</span>
+          </div>
+          <div class="meet-card tilt-card">
+            <span class="meet-num" id="meet-mins">--</span>
+            <span class="meet-unit">Minutes</span>
+          </div>
+          <div class="meet-card tilt-card">
+            <span class="meet-num" id="meet-secs">--</span>
+            <span class="meet-unit">Seconds</span>
+          </div>
+        </div>
+        <p class="meet-footer">17 July 2026 — not soon enough.</p>
       </div>
 
       <!-- Video call mosaic -->
@@ -1595,48 +1675,6 @@
   ═══════════════════════════════ -->
   <script>
     /* ── 0. HERO PHOTO MOSAIC ─────────────────── */
-    (function buildMosaic() {
-      const container = document.getElementById('hero-mosaic');
-      const heroW = window.innerWidth;
-      const heroH = window.innerHeight;
-
-      // 24 polaroid-style frames scattered across the hero
-      const frames = [
-        {w:160,h:130,x:2,y:5,r:-8},   {w:120,h:100,x:12,y:35,r:6},
-        {w:140,h:115,x:6,y:62,r:-5},  {w:130,h:110,x:18,y:82,r:9},
-        {w:155,h:125,x:28,y:10,r:4},  {w:110,h:90, x:35,y:45,r:-7},
-        {w:145,h:120,x:30,y:70,r:3},  {w:125,h:100,x:42,y:20,r:-4},
-        {w:135,h:110,x:48,y:55,r:7},  {w:120,h:95, x:55,y:80,r:-6},
-        {w:150,h:120,x:58,y:8,y2:8,r:5}, {w:130,h:105,x:64,y:38,r:-3},
-        {w:140,h:115,x:62,y:65,r:8},  {w:115,h:90, x:72,y:15,r:-9},
-        {w:145,h:118,x:70,y:50,r:4},  {w:135,h:108,x:75,y:78,r:-5},
-        {w:155,h:125,x:80,y:5,r:6},   {w:120,h:98, x:85,y:32,r:-4},
-        {w:140,h:112,x:82,y:60,r:7},  {w:130,h:105,x:88,y:82,r:-8},
-        {w:150,h:120,x:92,y:15,r:3},  {w:125,h:100,x:90,y:48,r:-6},
-        {w:138,h:112,x:5,y:88,r:5},   {w:128,h:102,x:50,y:88,r:-3},
-      ];
-
-      // Warm palette for placeholders — pink/purple tones
-      const palettes = [
-        ['#3d1a4a','#ec4899'], ['#2a0a3f','#a855f7'], ['#4a1535','#db2777'],
-        ['#1a0a2e','#7c3aed'], ['#3b0f6e','#c084fc'], ['#2d0a3a','#f472b6'],
-      ];
-
-      frames.forEach((f, i) => {
-        const el = document.createElement('div');
-        el.className = 'mosaic-photo';
-        el.style.cssText = `
-          width: ${f.w}px; height: ${f.h}px;
-          left: ${f.x}%; top: ${f.y}%;
-          transform: rotate(${f.r}deg);
-        `;
-        const [c1, c2] = palettes[i % palettes.length];
-        // placeholder — swap innerHTML with <img src="..."/> when you have photos
-        el.innerHTML = `<div class="ph" style="background:linear-gradient(135deg,${c1},${c2})"></div>`;
-        container.appendChild(el);
-      });
-    })();
-
     /* ── 1. STARS ─────────────────────────────── */
     (function generateStars() {
       const hero = document.getElementById('hero');
@@ -1686,7 +1724,30 @@
       setInterval(update, 1000);
     })();
 
-    /* ── 3. SCROLL ANIMATIONS (IntersectionObserver) ── */
+    /* ── 3. MEET COUNTDOWN ───────────────────── */
+    (function meetCountdown() {
+      const target = new Date('2026-07-17T00:00:00+05:30').getTime();
+      const elD = document.getElementById('meet-days');
+      const elH = document.getElementById('meet-hours');
+      const elM = document.getElementById('meet-mins');
+      const elS = document.getElementById('meet-secs');
+      function update() {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          elD.textContent = elH.textContent = elM.textContent = elS.textContent = '00';
+          return;
+        }
+        const s = Math.floor(diff / 1000);
+        elD.textContent = String(Math.floor(s / 86400)).padStart(2, '0');
+        elH.textContent = String(Math.floor((s % 86400) / 3600)).padStart(2, '0');
+        elM.textContent = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+        elS.textContent = String(s % 60).padStart(2, '0');
+      }
+      update();
+      setInterval(update, 1000);
+    })();
+
+    /* ── 4. SCROLL ANIMATIONS (IntersectionObserver) ── */
     (function initReveal() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
