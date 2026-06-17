@@ -719,71 +719,66 @@
     }
 
     /* Video call mosaic */
-    .mosaic-label {
-      text-align: center;
-      margin: 4rem 0 1.5rem;
+    /* ── Marquee photo strips ── */
+    .marquee-section {
+      margin: 4rem 0 0;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
     }
-    .mosaic-label p {
+    .marquee-label {
+      text-align: center;
       font-size: 0.68rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: rgba(180, 150, 220, 0.5);
+      margin-bottom: 2rem;
     }
-
-    .mosaic-grid {
-      max-width: 900px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      /* Varying row heights for masonry feel */
-      grid-template-rows: 200px 150px;
-      gap: 1rem;
+    .marquee-row {
+      overflow: hidden;
+      margin-bottom: 0.9rem;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
     }
-
-    /* Shimmer animation for mosaic tiles */
-    @keyframes shimmer {
-      from { background-position: -200% 0; }
-      to   { background-position: 200% 0; }
-    }
-
-    .mosaic-tile {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      border-radius: 14px;
+    .marquee-track {
       display: flex;
-      flex-direction: column;
+      gap: 10px;
+      width: max-content;
+      animation: marquee-left 30s linear infinite;
+    }
+    .marquee-track.reverse { animation: marquee-right 35s linear infinite; }
+    .marquee-track.slow    { animation: marquee-left 42s linear infinite; }
+    @keyframes marquee-left  { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    .marquee-photo {
+      width: 220px;
+      height: 155px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      color: rgba(180, 150, 220, 0.45);
-      font-size: 0.82rem;
-      padding: 1.5rem;
+      color: rgba(180,150,220,0.3);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+    }
+    .marquee-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .marquee-footer {
       text-align: center;
-      transition: border-color 0.3s ease;
-      position: relative;
-      overflow: hidden;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(200, 170, 240, 0.45);
+      margin-top: 1.8rem;
     }
-    /* Shimmer sweep on hover */
-    .mosaic-tile::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
-      background-size: 200% 100%;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .mosaic-tile:hover { border-color: rgba(236, 72, 153, 0.35); }
-    .mosaic-tile:hover::after {
-      opacity: 1;
-      animation: shimmer 1.2s linear infinite;
-    }
-    /* First tile spans both rows for masonry feel */
-    .mosaic-tile:nth-child(1) { grid-row: span 2; }
-    .mosaic-tile .tile-icon { font-size: 1.6rem; }
 
     /* Video slot */
     .video-slot-wrap {
@@ -1049,11 +1044,7 @@
 
     /* ─── RESPONSIVE TWEAKS ─── */
     @media (max-width: 700px) {
-      .mosaic-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-      }
-      .mosaic-tile:nth-child(1) { grid-row: auto; }
+      .marquee-photo { width: 150px; height: 110px; }
 
       .counter-cards { gap: 0.8rem; }
       .counter-card { min-width: 110px; padding: 1.2rem 1.4rem; }
@@ -1446,36 +1437,22 @@
         <p class="meet-footer">17 July 2026 — not soon enough.</p>
       </div>
 
-      <!-- Video call mosaic -->
-      <div class="mosaic-label reveal" style="--i:4">
-        <p>Endless video calls · our daily ritual</p>
-      </div>
-
-      <div class="mosaic-grid">
-        <div class="mosaic-tile tilt-card reveal" style="--i:0">
-          <span class="tile-icon">📹</span>
-          video call screenshot — add yours
+      <!-- Marquee photo strips — video call screenshots -->
+      <div class="marquee-section reveal" style="--i:5" id="vcall-marquee">
+        <p class="marquee-label">endless video calls &amp; outfit checks — our daily ritual</p>
+        <!-- Row 1 (left) -->
+        <div class="marquee-row">
+          <div class="marquee-track" id="mq-row1"></div>
         </div>
-        <div class="mosaic-tile tilt-card reveal" style="--i:1">
-          <span class="tile-icon">📹</span>
-          video call screenshot — add yours
+        <!-- Row 2 (right) -->
+        <div class="marquee-row">
+          <div class="marquee-track reverse" id="mq-row2"></div>
         </div>
-        <div class="mosaic-tile tilt-card reveal" style="--i:2">
-          <span class="tile-icon">📹</span>
-          video call screenshot — add yours
+        <!-- Row 3 (left, slower) -->
+        <div class="marquee-row">
+          <div class="marquee-track slow" id="mq-row3"></div>
         </div>
-        <div class="mosaic-tile tilt-card reveal" style="--i:3">
-          <span class="tile-icon">📹</span>
-          video call screenshot — add yours
-        </div>
-        <div class="mosaic-tile tilt-card reveal" style="--i:4">
-          <span class="tile-icon">📹</span>
-          video call screenshot — add yours
-        </div>
-        <div class="mosaic-tile tilt-card reveal" style="--i:5">
-          <span class="tile-icon">📹</span>
-          video call screenshot — add yours
-        </div>
+        <p class="marquee-footer">50 calls. one love story on a screen.</p>
       </div>
 
       <!-- Video embed slot -->
@@ -1747,7 +1724,47 @@
       setInterval(update, 1000);
     })();
 
-    /* ── 4. SCROLL ANIMATIONS (IntersectionObserver) ── */
+    /* ── 4. MARQUEE PHOTO STRIPS ─────────────── */
+    (function buildMarquee() {
+      // TO ADD PHOTOS: replace the src strings in this array with your image paths or URLs.
+      // e.g. './photos/vcall_01.jpg'  Keep all 50 — the marquee duplicates for seamless loop.
+      const photos = Array.from({length: 50}, () => null); // null = placeholder
+
+      const palettes = [
+        ['#3d1a4a','#ec4899'],['#2a0a3f','#a855f7'],['#4a1535','#db2777'],
+        ['#1a0a2e','#7c3aed'],['#3b0f6e','#c084fc'],['#2d0a3a','#f472b6'],
+        ['#1e0a38','#9333ea'],['#4a0a2a','#e879f9'],['#0f0a2a','#818cf8'],
+        ['#2e1065','#d946ef'],
+      ];
+
+      function makeEl(src, i) {
+        const div = document.createElement('div');
+        div.className = 'marquee-photo';
+        if (src) {
+          const img = document.createElement('img');
+          img.src = src; img.alt = ''; img.loading = 'lazy';
+          div.appendChild(img);
+        } else {
+          const [a, b] = palettes[i % palettes.length];
+          div.style.background = `linear-gradient(135deg,${a},${b})`;
+        }
+        return div;
+      }
+
+      const rows = [
+        document.getElementById('mq-row1'),
+        document.getElementById('mq-row2'),
+        document.getElementById('mq-row3'),
+      ];
+
+      photos.forEach((src, i) => rows[i % 3].appendChild(makeEl(src, i)));
+      // Duplicate each row for seamless CSS infinite loop
+      rows.forEach(row => {
+        Array.from(row.children).forEach(c => row.appendChild(c.cloneNode(true)));
+      });
+    })();
+
+    /* ── 5. SCROLL ANIMATIONS (IntersectionObserver) ── */
     (function initReveal() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
