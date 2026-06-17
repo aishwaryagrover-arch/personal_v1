@@ -32,6 +32,39 @@
       line-height: 1.6;
     }
 
+    /* ─── ANIMATED GRADIENT MESH BACKGROUND ─── */
+    .mesh-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: conic-gradient(
+        from 0deg at 50% 50%,
+        #0d0d1a 0deg,
+        #1a0a2e 90deg,
+        #2d0a3e 180deg,
+        #1a0d28 270deg,
+        #0d0d1a 360deg
+      );
+      animation: meshShift 30s linear infinite;
+    }
+    @keyframes meshShift {
+      0%   { filter: hue-rotate(0deg) brightness(1); }
+      50%  { filter: hue-rotate(20deg) brightness(1.05); }
+      100% { filter: hue-rotate(0deg) brightness(1); }
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
     /* ─── GRADIENT TEXT ─── */
     .gradient-text {
       background: linear-gradient(135deg, #ec4899, #a855f7);
@@ -68,27 +101,47 @@
       line-height: 1.7;
     }
 
-    /* ─── SCROLL REVEAL ─── */
+    /* ─── SCROLL REVEAL — dramatic ─── */
     .reveal {
       opacity: 0;
       transform: translateY(40px) scale(0.97);
       filter: blur(4px);
-      transition: opacity 0.75s ease calc(var(--i, 0) * 0.12s),
-                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 0.12s),
-                  filter 0.75s ease calc(var(--i, 0) * 0.12s);
+      transition:
+        opacity 0.7s ease calc(var(--i, 0) * 0.12s),
+        transform 0.7s ease calc(var(--i, 0) * 0.12s),
+        filter 0.7s ease calc(var(--i, 0) * 0.12s);
     }
     .reveal.visible {
       opacity: 1;
-      transform: none;
+      transform: translateY(0) scale(1);
       filter: blur(0);
     }
 
     /* ─── SECTION WRAPPERS ─── */
-    section { width: 100%; }
+    section {
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
     .container {
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 2rem;
+    }
+
+    /* ─── WAVE DIVIDER ─── */
+    .wave-divider {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      z-index: 2;
+    }
+    .wave-divider svg {
+      display: block;
+      width: 100%;
     }
 
     /* ════════════════════════════════
@@ -118,6 +171,21 @@
       50% { opacity: 1; }
     }
 
+    /* Aurora blobs */
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.25;
+      animation: auroraFloat var(--dur) ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes auroraFloat {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(var(--tx), var(--ty)) scale(1.2); }
+    }
+
     /* Palm tree */
     .palm-silhouette {
       position: absolute;
@@ -134,6 +202,12 @@
       max-width: 780px;
     }
 
+    /* Floating animation on hero heading */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
     .hero-line1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.8rem, 7vw, 5.5rem);
@@ -141,6 +215,8 @@
       color: white;
       display: block;
       line-height: 1.1;
+      animation: float 6s ease-in-out infinite;
+      text-shadow: 0 0 60px rgba(236, 72, 153, 0.3);
     }
     .hero-line2 {
       font-family: 'Playfair Display', serif;
@@ -150,6 +226,8 @@
       display: block;
       line-height: 1.1;
       margin-bottom: 1.6rem;
+      animation: float 6s ease-in-out infinite;
+      text-shadow: 0 0 60px rgba(236, 72, 153, 0.3);
     }
 
     .hero-sub {
@@ -190,9 +268,14 @@
        SECTION 2 — COUNTER
     ════════════════════════════════ */
     #counter {
-      background: var(--dark-purple);
+      background: rgba(15, 10, 30, 0.85);
       padding: 6rem 2rem;
       text-align: center;
+    }
+
+    /* "SINCE WE SAID YES" label — bigger */
+    #counter .section-label {
+      font-size: 1rem;
     }
 
     .counter-cards {
@@ -203,12 +286,35 @@
       margin: 2.5rem 0 2rem;
     }
 
+    /* Counter cards — 3D floating glass */
     .counter-card {
-      background: var(--card-bg);
       border-radius: 16px;
       padding: 1.8rem 2.2rem;
       min-width: 130px;
-      border: 1px solid rgba(168, 85, 247, 0.15);
+      transform-style: preserve-3d;
+      position: relative;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    /* Glowing ring under card */
+    .counter-card::after {
+      content: '';
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 20px;
+      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.35) 0%, transparent 70%);
+      filter: blur(6px);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     .counter-num {
@@ -243,7 +349,7 @@
        SECTION 3 — TIMELINE
     ════════════════════════════════ */
     #timeline {
-      background: linear-gradient(180deg, #2d1b4e 0%, #1a1535 100%);
+      background: rgba(26, 8, 52, 0.8);
       padding: 6rem 2rem;
     }
 
@@ -257,6 +363,7 @@
       margin: 0 auto;
     }
 
+    /* Animated line: drawn from top to bottom on scroll */
     .timeline-track::before {
       content: '';
       position: absolute;
@@ -265,6 +372,12 @@
       bottom: 0;
       width: 2px;
       background: linear-gradient(180deg, #ec4899, #a855f7);
+      transform-origin: top center;
+      transform: scaleY(0);
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .timeline-track.animate::before {
+      transform: scaleY(1);
     }
 
     /* Chapter */
@@ -272,6 +385,12 @@
       position: relative;
       padding-left: 60px;
       margin-bottom: 2rem;
+    }
+
+    /* Pulse ring on dots */
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4), 0 0 8px rgba(236, 72, 153, 0.4); }
+      50%       { box-shadow: 0 0 0 12px rgba(168, 85, 247, 0), 0 0 8px rgba(236, 72, 153, 0.4); }
     }
 
     .chapter-dot {
@@ -283,7 +402,7 @@
       border-radius: 50%;
       background: linear-gradient(135deg, #ec4899, #a855f7);
       box-shadow: 0 0 8px rgba(236, 72, 153, 0.4);
-      transition: box-shadow 0.3s ease;
+      animation: pulse 2.5s ease-in-out infinite;
       z-index: 1;
     }
     .chapter.open .chapter-dot {
@@ -291,8 +410,10 @@
     }
 
     .chapter-header {
-      background: var(--card-bg);
-      border: 1px solid rgba(168, 85, 247, 0.15);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
       padding: 1.4rem 1.6rem;
       cursor: pointer;
@@ -301,15 +422,16 @@
       align-items: flex-start;
       gap: 1rem;
       transition: border-color 0.3s ease, background 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
     .chapter-header:hover {
       border-color: rgba(236, 72, 153, 0.35);
-      background: #1e1845;
+      background: rgba(255, 255, 255, 0.07);
     }
     .chapter.open .chapter-header {
       border-radius: 14px 14px 0 0;
       border-color: rgba(236, 72, 153, 0.3);
-      background: #1e1845;
+      background: rgba(255, 255, 255, 0.06);
     }
 
     .chapter-meta { flex: 1; }
@@ -350,12 +472,18 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-      background: #13102a;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(236, 72, 153, 0.2);
       border-top: none;
       border-radius: 0 0 14px 14px;
     }
-    .chapter.open .chapter-panel { max-height: 700px; }
+    .chapter.open .chapter-panel {
+      max-height: 700px;
+      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.06) 0%, transparent 70%),
+                  rgba(255, 255, 255, 0.03);
+    }
 
     .panel-inner { padding: 1.5rem; }
 
@@ -458,7 +586,7 @@
     ════════════════════════════════ */
     #ldr {
       position: relative;
-      background: radial-gradient(ellipse at 50% 100%, #2a0a1f 0%, #0d0a1e 60%);
+      background: rgba(20, 5, 30, 0.85);
       padding: 7rem 2rem;
       overflow: hidden;
     }
@@ -467,6 +595,20 @@
       max-width: 700px;
       margin: 0 auto;
       text-align: center;
+    }
+
+    /* 7,524 KM APART — display headline with pink gradient */
+    .ldr-distance-headline {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      letter-spacing: 0.15em;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
     }
 
     .ldr-heading {
@@ -482,18 +624,6 @@
       color: rgba(210, 190, 245, 0.8);
       line-height: 1.85;
       margin-bottom: 1.2rem;
-    }
-
-    .ldr-pill {
-      display: inline-block;
-      background: rgba(236, 72, 153, 0.1);
-      border: 1px solid rgba(236, 72, 153, 0.3);
-      border-radius: 100px;
-      padding: 0.6rem 1.4rem;
-      font-size: 0.88rem;
-      color: rgba(240, 180, 220, 0.9);
-      margin-top: 1rem;
-      letter-spacing: 0.03em;
     }
 
     /* Video call mosaic */
@@ -513,13 +643,23 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: auto auto;
+      /* Varying row heights for masonry feel */
+      grid-template-rows: 200px 150px;
       gap: 1rem;
     }
 
+    /* Shimmer animation for mosaic tiles */
+    @keyframes shimmer {
+      from { background-position: -200% 0; }
+      to   { background-position: 200% 0; }
+    }
+
     .mosaic-tile {
-      background: rgba(168, 85, 247, 0.06);
-      border: 2px dashed rgba(168, 85, 247, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
       border-radius: 14px;
       display: flex;
       flex-direction: column;
@@ -531,14 +671,26 @@
       padding: 1.5rem;
       text-align: center;
       transition: border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Shimmer sweep on hover */
+    .mosaic-tile::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+      background-size: 200% 100%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
     .mosaic-tile:hover { border-color: rgba(236, 72, 153, 0.35); }
-    .mosaic-tile:nth-child(1) { min-height: 180px; grid-row: span 2; }
-    .mosaic-tile:nth-child(2) { min-height: 140px; }
-    .mosaic-tile:nth-child(3) { min-height: 120px; }
-    .mosaic-tile:nth-child(4) { min-height: 120px; }
-    .mosaic-tile:nth-child(5) { min-height: 140px; }
-    .mosaic-tile:nth-child(6) { min-height: 100px; }
+    .mosaic-tile:hover::after {
+      opacity: 1;
+      animation: shimmer 1.2s linear infinite;
+    }
+    /* First tile spans both rows for masonry feel */
+    .mosaic-tile:nth-child(1) { grid-row: span 2; }
     .mosaic-tile .tile-icon { font-size: 1.6rem; }
 
     /* Video slot */
@@ -556,8 +708,11 @@
     }
     /* TO ADD VIDEO: replace this div with <iframe src="YOUR_URL" width="100%" height="340" frameborder="0" allowfullscreen></iframe> */
     #video-slot {
-      background: rgba(168, 85, 247, 0.05);
-      border: 2px dashed rgba(168, 85, 247, 0.25);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
       border-radius: 16px;
       min-height: 240px;
       display: flex;
@@ -575,7 +730,7 @@
        SECTION 5 — WORD MUSEUM + CROSSWORD
     ════════════════════════════════ */
     #words {
-      background: #0d0d1f;
+      background: rgba(10, 10, 30, 0.88);
       padding: 7rem 2rem;
     }
 
@@ -598,8 +753,11 @@
     }
 
     .word-card {
-      background: #13112b;
-      border: 1px solid rgba(168, 85, 247, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
       border-radius: 14px;
       padding: 1.4rem 1.5rem;
       transition: border-color 0.3s ease, transform 0.3s ease;
@@ -634,8 +792,11 @@
     }
     /* CROSSWORD: swap this section with your crossword embed when ready */
     .crossword-box {
-      background: #13112b;
-      border: 1px solid rgba(168, 85, 247, 0.15);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
       border-radius: 18px;
       min-height: 280px;
       display: flex;
@@ -647,10 +808,8 @@
       font-size: 0.9rem;
       margin-top: 1.5rem;
       padding: 2rem;
-      /* subtle dot grid background */
       background-image: radial-gradient(circle, rgba(168,85,247,0.15) 1px, transparent 1px);
       background-size: 22px 22px;
-      background-color: #13112b;
     }
     .crossword-box .puzzle-icon { font-size: 2.5rem; }
 
@@ -658,7 +817,7 @@
        SECTION 6 — WHY I LOVE YOU
     ════════════════════════════════ */
     #love {
-      background: radial-gradient(ellipse at 50% 100%, rgba(236, 72, 153, 0.08) 0%, #0a0614 60%);
+      background: rgba(10, 6, 20, 0.9);
       padding: 7rem 2rem;
     }
 
@@ -678,15 +837,18 @@
     }
 
     .love-card {
-      background: #12102a;
-      border: 1px solid rgba(168, 85, 247, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
       border-radius: 16px;
       overflow: hidden;
       transition: transform 0.35s ease, box-shadow 0.35s ease;
     }
     .love-card:hover {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 12px 40px rgba(236, 72, 153, 0.18);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.2);
     }
 
     .love-photo {
@@ -700,6 +862,8 @@
       font-size: 0.82rem;
       padding: 1rem;
       text-align: center;
+      /* Inner glow */
+      box-shadow: inset 0 0 30px rgba(236, 72, 153, 0.1);
     }
 
     .love-caption {
@@ -728,7 +892,7 @@
        SECTION 7 — LETTER
     ════════════════════════════════ */
     #letter {
-      background: linear-gradient(180deg, #0a0614 0%, #0d0d1a 100%);
+      background: rgba(8, 5, 18, 0.92);
       padding: 7rem 2rem;
       text-align: center;
     }
@@ -736,8 +900,11 @@
     .letter-card {
       max-width: 680px;
       margin: 2rem auto 0;
-      background: var(--card-bg);
-      border: 1px solid rgba(168, 85, 247, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
       border-radius: 20px;
       padding: 3rem 3.5rem;
       text-align: left;
@@ -785,218 +952,31 @@
       font-size: 0.88rem;
       color: rgba(180, 150, 220, 0.4);
       letter-spacing: 0.05em;
+      position: relative;
+      z-index: 1;
     }
 
     /* ─── RESPONSIVE TWEAKS ─── */
     @media (max-width: 700px) {
-      .mosaic-grid { grid-template-columns: repeat(2, 1fr); }
+      .mosaic-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
       .mosaic-tile:nth-child(1) { grid-row: auto; }
+
       .counter-cards { gap: 0.8rem; }
       .counter-card { min-width: 110px; padding: 1.2rem 1.4rem; }
+
       .timeline-track::before { left: 16px; }
       .chapter { padding-left: 50px; }
       .chapter-dot { left: 8px; }
     }
-
-    /* ════════════════════════════════
-       GLOBAL ANIMATED MESH BACKGROUND
-    ════════════════════════════════ */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background:
-        radial-gradient(ellipse at 20% 20%, rgba(74, 25, 66, 0.6) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 80%, rgba(42, 10, 31, 0.6) 0%, transparent 50%),
-        radial-gradient(ellipse at 60% 10%, rgba(90, 30, 120, 0.4) 0%, transparent 40%),
-        #0d0d1a;
-      animation: meshDrift 25s ease-in-out infinite alternate;
-    }
-    @keyframes meshDrift {
-      0%   { background-position: 0% 0%; filter: hue-rotate(0deg); }
-      50%  { filter: hue-rotate(15deg); }
-      100% { background-position: 100% 100%; filter: hue-rotate(-10deg); }
-    }
-
-    /* ════════════════════════════════
-       AURORA BLOBS (hero)
-    ════════════════════════════════ */
-    .aurora-blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0;
-      animation: auroraFadeIn 2s ease forwards, auroraFloat var(--dur, 9s) ease-in-out infinite alternate;
-    }
-    @keyframes auroraFadeIn { to { opacity: var(--op, 0.28); } }
-    @keyframes auroraFloat {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(var(--tx, 40px), var(--ty, 30px)) scale(1.18); }
-    }
-
-    /* ════════════════════════════════
-       GLASSMORPHISM CARDS
-    ════════════════════════════════ */
-    .counter-card {
-      background: rgba(255,255,255,0.04) !important;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.09) !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07);
-    }
-    .word-card {
-      background: rgba(255,255,255,0.03) !important;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.07) !important;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .love-card {
-      background: rgba(255,255,255,0.03) !important;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,0.07) !important;
-      box-shadow: 0 6px 28px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .letter-card {
-      background: rgba(255,255,255,0.04) !important;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1) !important;
-      box-shadow: 0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-    .chapter-header {
-      background: rgba(255,255,255,0.04) !important;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,0.08) !important;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-    }
-    .chapter-header:hover {
-      background: rgba(255,255,255,0.07) !important;
-      border-color: rgba(236, 72, 153, 0.3) !important;
-    }
-    .chapter-panel {
-      background: rgba(10, 6, 28, 0.7) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .mosaic-tile {
-      background: rgba(255,255,255,0.03) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.07) !important;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease;
-    }
-    .mosaic-tile:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 36px rgba(168, 85, 247, 0.15);
-      border-color: rgba(236, 72, 153, 0.3) !important;
-    }
-    #video-slot {
-      background: rgba(255,255,255,0.03) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.07) !important;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    .crossword-box {
-      background: rgba(255,255,255,0.03) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.07) !important;
-    }
-
-    /* ════════════════════════════════
-       HERO — FLOAT ANIMATION
-    ════════════════════════════════ */
-    .hero-content {
-      animation: heroFloat 7s ease-in-out infinite;
-    }
-    @keyframes heroFloat {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-10px); }
-    }
-    .hero-line2 {
-      text-shadow: 0 0 60px rgba(236, 72, 153, 0.35);
-    }
-
-    /* ════════════════════════════════
-       COUNTER — BIGGER LABEL
-    ════════════════════════════════ */
-    #counter .section-label {
-      font-size: 1rem;
-      letter-spacing: 0.22em;
-      color: rgba(200, 170, 240, 0.75);
-    }
-
-    /* ════════════════════════════════
-       LDR — KM HEADLINE
-    ════════════════════════════════ */
-    .ldr-km {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(1.2rem, 3vw, 2rem);
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #ec4899, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 1.5rem;
-      display: block;
-    }
-
-    /* ════════════════════════════════
-       CHAPTER DOT — PULSE
-    ════════════════════════════════ */
-    @keyframes dotPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0.5), 0 0 8px rgba(236,72,153,0.4); }
-      60%       { box-shadow: 0 0 0 10px rgba(236,72,153,0), 0 0 22px rgba(168,85,247,0.5); }
-    }
-    .chapter-dot { animation: dotPulse 2.8s ease-in-out infinite; }
-
-    /* ════════════════════════════════
-       3D TILT CARDS
-    ════════════════════════════════ */
-    .tilt-card {
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-    .counter-card:hover {
-      box-shadow: 0 20px 60px rgba(168,85,247,0.2), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-    .love-card:hover {
-      box-shadow: 0 20px 50px rgba(236,72,153,0.22), inset 0 1px 0 rgba(255,255,255,0.07);
-    }
-    .word-card:hover {
-      box-shadow: 0 14px 40px rgba(168,85,247,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
-    }
-
-    /* ════════════════════════════════
-       SECTION WAVE DIVIDERS
-    ════════════════════════════════ */
-    #hero::after, #counter::after, #timeline::after, #words::after {
-      content: '';
-      display: block;
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 100%;
-      height: 70px;
-      pointer-events: none;
-    }
-    #hero { position: relative; }
-    #counter { position: relative; }
-    #timeline { position: relative; }
-    #words { position: relative; }
   </style>
 </head>
 <body>
+
+  <!-- Fixed animated gradient mesh background -->
+  <div class="mesh-bg" aria-hidden="true"></div>
 
   <!-- ═══════════════════════════════
        SECTION 1 — HERO
@@ -1004,10 +984,10 @@
   <section id="hero">
     <!-- Stars injected by JS -->
 
-    <!-- Aurora blobs -->
-    <div class="aurora-blob" style="width:420px;height:420px;background:#ec4899;top:-80px;left:-60px;--op:0.22;--dur:8s;--tx:70px;--ty:50px;animation-delay:0s"></div>
-    <div class="aurora-blob" style="width:520px;height:520px;background:#7c3aed;top:-100px;right:-80px;--op:0.2;--dur:11s;--tx:-80px;--ty:65px;animation-delay:0.5s"></div>
-    <div class="aurora-blob" style="width:320px;height:320px;background:#be185d;bottom:60px;left:50%;transform:translateX(-50%);--op:0.18;--dur:9s;--tx:50px;--ty:-55px;animation-delay:1s"></div>
+    <!-- Aurora blobs behind hero content -->
+    <div class="aurora-blob" style="width:400px;height:400px;background:#ec4899;top:-80px;left:-60px;--dur:8s;--tx:60px;--ty:40px;" aria-hidden="true"></div>
+    <div class="aurora-blob" style="width:500px;height:500px;background:#7c3aed;top:-100px;right:-80px;--dur:11s;--tx:-80px;--ty:60px;" aria-hidden="true"></div>
+    <div class="aurora-blob" style="width:300px;height:300px;background:#be185d;bottom:0;left:50%;transform:translateX(-50%);--dur:9s;--tx:40px;--ty:-50px;" aria-hidden="true"></div>
 
     <!-- Palm tree SVG silhouette -->
     <svg class="palm-silhouette" viewBox="0 0 1440 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -1043,6 +1023,13 @@
     </div>
 
     <div class="scroll-hint">SCROLL ↓</div>
+
+    <!-- Wave divider into counter section -->
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+        <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="rgba(15,10,30,0.85)"/>
+      </svg>
+    </div>
   </section>
 
   <!-- ═══════════════════════════════
@@ -1078,6 +1065,13 @@
         ...and counting. Every single second of it on purpose.
       </p>
     </div>
+
+    <!-- Wave divider into timeline -->
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+        <path d="M0,0 C480,60 960,0 1440,50 L1440,60 L0,60 Z" fill="rgba(26,8,52,0.8)"/>
+      </svg>
+    </div>
   </section>
 
   <!-- ═══════════════════════════════
@@ -1095,7 +1089,7 @@
         </p>
       </div>
 
-      <div class="timeline-track">
+      <div class="timeline-track" id="timeline-track">
 
         <!-- CHAPTER ONE -->
         <div class="chapter reveal" style="--i:0">
@@ -1309,6 +1303,13 @@
 
       </div><!-- end timeline-track -->
     </div>
+
+    <!-- Wave divider into LDR -->
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+        <path d="M0,50 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="rgba(20,5,30,0.85)"/>
+      </svg>
+    </div>
   </section>
 
   <!-- ═══════════════════════════════
@@ -1317,7 +1318,8 @@
   <section id="ldr">
     <div class="container">
       <div class="ldr-content">
-        <span class="ldr-km reveal" style="--i:0">7,524 KM APART</span>
+        <!-- "7,524 KM APART" restyled as display headline (pink gradient, large, weighted) -->
+        <h3 class="ldr-distance-headline reveal" style="--i:0">7,524 KM APART</h3>
         <h2 class="ldr-heading reveal" style="--i:1">
           Same <em class="gradient-text">sky,</em> baby.
         </h2>
@@ -1327,35 +1329,36 @@
         <p class="ldr-para reveal" style="--i:3">
           On the days I couldn't carry myself this year, you carried me through a screen. I will never get over that.
         </p>
+        <!-- ldr-pill removed per spec -->
       </div>
 
       <!-- Video call mosaic -->
-      <div class="mosaic-label reveal" style="--i:5">
+      <div class="mosaic-label reveal" style="--i:4">
         <p>Endless video calls · our daily ritual</p>
       </div>
 
       <div class="mosaic-grid">
-        <div class="mosaic-tile reveal" style="--i:0">
+        <div class="mosaic-tile tilt-card reveal" style="--i:0">
           <span class="tile-icon">📹</span>
           video call screenshot — add yours
         </div>
-        <div class="mosaic-tile reveal" style="--i:1">
+        <div class="mosaic-tile tilt-card reveal" style="--i:1">
           <span class="tile-icon">📹</span>
           video call screenshot — add yours
         </div>
-        <div class="mosaic-tile reveal" style="--i:2">
+        <div class="mosaic-tile tilt-card reveal" style="--i:2">
           <span class="tile-icon">📹</span>
           video call screenshot — add yours
         </div>
-        <div class="mosaic-tile reveal" style="--i:3">
+        <div class="mosaic-tile tilt-card reveal" style="--i:3">
           <span class="tile-icon">📹</span>
           video call screenshot — add yours
         </div>
-        <div class="mosaic-tile reveal" style="--i:4">
+        <div class="mosaic-tile tilt-card reveal" style="--i:4">
           <span class="tile-icon">📹</span>
           video call screenshot — add yours
         </div>
-        <div class="mosaic-tile reveal" style="--i:5">
+        <div class="mosaic-tile tilt-card reveal" style="--i:5">
           <span class="tile-icon">📹</span>
           video call screenshot — add yours
         </div>
@@ -1370,6 +1373,13 @@
           Drop a video link here — a voicenote, a reel, a memory
         </div>
       </div>
+    </div>
+
+    <!-- Wave divider into words -->
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+        <path d="M0,20 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="rgba(10,10,30,0.88)"/>
+      </svg>
     </div>
   </section>
 
@@ -1425,6 +1435,13 @@
       </div>
 
     </div>
+
+    <!-- Wave divider into love section -->
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+        <path d="M0,40 C360,0 1080,60 1440,10 L1440,60 L0,60 Z" fill="rgba(10,6,20,0.9)"/>
+      </svg>
+    </div>
   </section>
 
   <!-- ═══════════════════════════════
@@ -1439,56 +1456,56 @@
       </div>
 
       <div class="love-grid">
-        <div class="love-card tilt-card reveal" style="--i:0">
+        <div class="love-card reveal" style="--i:0">
           <div class="love-photo" id="reason-photo-1">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">01</span>
             <p class="love-reason">You turn even my crying into laughter.</p>
           </div>
         </div>
-        <div class="love-card tilt-card reveal" style="--i:1">
+        <div class="love-card reveal" style="--i:1">
           <div class="love-photo" id="reason-photo-2">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">02</span>
             <p class="love-reason">You are my respite, my safe place, my shoulder.</p>
           </div>
         </div>
-        <div class="love-card tilt-card reveal" style="--i:2">
+        <div class="love-card reveal" style="--i:2">
           <div class="love-photo" id="reason-photo-3">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">03</span>
             <p class="love-reason">You hold my hand like it's a small important job.</p>
           </div>
         </div>
-        <div class="love-card tilt-card reveal" style="--i:3">
+        <div class="love-card reveal" style="--i:3">
           <div class="love-photo" id="reason-photo-4">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">04</span>
             <p class="love-reason">You let me be silly and you out-silly me.</p>
           </div>
         </div>
-        <div class="love-card tilt-card reveal" style="--i:4">
+        <div class="love-card reveal" style="--i:4">
           <div class="love-photo" id="reason-photo-5">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">05</span>
             <p class="love-reason">You make hard years survivable. You made this one survivable.</p>
           </div>
         </div>
-        <div class="love-card tilt-card reveal" style="--i:5">
+        <div class="love-card reveal" style="--i:5">
           <div class="love-photo" id="reason-photo-6">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">06</span>
             <p class="love-reason">Ganderi. Babay. Chodbhangda. Need I say more.</p>
           </div>
         </div>
-        <div class="love-card tilt-card reveal" style="--i:6">
+        <div class="love-card reveal" style="--i:6">
           <div class="love-photo" id="reason-photo-7">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">07</span>
             <p class="love-reason">You come back. Every fight, every spat — you come back.</p>
           </div>
         </div>
-        <div class="love-card tilt-card reveal" style="--i:7">
+        <div class="love-card reveal" style="--i:7">
           <div class="love-photo" id="reason-photo-8">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">08</span>
@@ -1496,6 +1513,13 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Wave divider into letter -->
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+        <path d="M0,10 C480,60 960,0 1440,50 L1440,60 L0,60 Z" fill="rgba(8,5,18,0.92)"/>
+      </svg>
     </div>
   </section>
 
@@ -1599,7 +1623,22 @@
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     })();
 
-    /* ── 4. EXPANDABLE CHAPTERS ───────────────── */
+    /* ── 4. TIMELINE LINE DRAW ON SCROLL ─────── */
+    (function initTimelineDraw() {
+      const track = document.getElementById('timeline-track');
+      if (!track) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            track.classList.add('animate');
+            observer.unobserve(track);
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(track);
+    })();
+
+    /* ── 5. EXPANDABLE CHAPTERS ───────────────── */
     function toggleChapter(headerEl) {
       const chapter = headerEl.closest('.chapter');
       const isOpen = chapter.classList.contains('open');
@@ -1613,7 +1652,7 @@
       }
     }
 
-    /* ── 5. CAROUSELS ─────────────────────────── */
+    /* ── 6. CAROUSELS ─────────────────────────── */
     function getCarouselFromBtn(btn) {
       return btn.closest('.carousel');
     }
@@ -1650,24 +1689,22 @@
       carouselGotoIndex(carousel, idx);
     }
 
-    /* ── 6. 3D TILT ───────────────────────────── */
-    (function initTilt() {
-      document.querySelectorAll('.tilt-card').forEach(card => {
-        card.addEventListener('mouseenter', () => {
-          card.style.transition = 'transform 0.1s ease, box-shadow 0.3s ease';
-        });
-        card.addEventListener('mousemove', e => {
-          const r = card.getBoundingClientRect();
-          const x = (e.clientX - r.left) / r.width  - 0.5;
-          const y = (e.clientY - r.top)  / r.height - 0.5;
-          card.style.transform = `perspective(700px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) translateZ(10px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.transition = 'transform 0.55s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease';
-          card.style.transform  = 'perspective(700px) rotateY(0deg) rotateX(0deg) translateZ(0)';
-        });
+    /* ── 7. 3D CARD TILT ─────────────────────── */
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(600px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateZ(8px)`;
       });
-    })();
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(600px) rotateY(0) rotateX(0) translateZ(0)';
+        card.style.transition = 'transform 0.5s ease';
+      });
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'transform 0.1s ease';
+      });
+    });
   </script>
 </body>
 </html>
