@@ -71,13 +71,16 @@
     /* ─── SCROLL REVEAL ─── */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease calc(var(--i, 0) * 0.12s),
-                  transform 0.7s ease calc(var(--i, 0) * 0.12s);
+      transform: translateY(40px) scale(0.97);
+      filter: blur(4px);
+      transition: opacity 0.75s ease calc(var(--i, 0) * 0.12s),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 0.12s),
+                  filter 0.75s ease calc(var(--i, 0) * 0.12s);
     }
     .reveal.visible {
       opacity: 1;
       transform: none;
+      filter: blur(0);
     }
 
     /* ─── SECTION WRAPPERS ─── */
@@ -786,18 +789,211 @@
 
     /* ─── RESPONSIVE TWEAKS ─── */
     @media (max-width: 700px) {
-      .mosaic-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .mosaic-grid { grid-template-columns: repeat(2, 1fr); }
       .mosaic-tile:nth-child(1) { grid-row: auto; }
-
       .counter-cards { gap: 0.8rem; }
       .counter-card { min-width: 110px; padding: 1.2rem 1.4rem; }
-
       .timeline-track::before { left: 16px; }
       .chapter { padding-left: 50px; }
       .chapter-dot { left: 8px; }
     }
+
+    /* ════════════════════════════════
+       GLOBAL ANIMATED MESH BACKGROUND
+    ════════════════════════════════ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(74, 25, 66, 0.6) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(42, 10, 31, 0.6) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 10%, rgba(90, 30, 120, 0.4) 0%, transparent 40%),
+        #0d0d1a;
+      animation: meshDrift 25s ease-in-out infinite alternate;
+    }
+    @keyframes meshDrift {
+      0%   { background-position: 0% 0%; filter: hue-rotate(0deg); }
+      50%  { filter: hue-rotate(15deg); }
+      100% { background-position: 100% 100%; filter: hue-rotate(-10deg); }
+    }
+
+    /* ════════════════════════════════
+       AURORA BLOBS (hero)
+    ════════════════════════════════ */
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      animation: auroraFadeIn 2s ease forwards, auroraFloat var(--dur, 9s) ease-in-out infinite alternate;
+    }
+    @keyframes auroraFadeIn { to { opacity: var(--op, 0.28); } }
+    @keyframes auroraFloat {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(var(--tx, 40px), var(--ty, 30px)) scale(1.18); }
+    }
+
+    /* ════════════════════════════════
+       GLASSMORPHISM CARDS
+    ════════════════════════════════ */
+    .counter-card {
+      background: rgba(255,255,255,0.04) !important;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.09) !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07);
+    }
+    .word-card {
+      background: rgba(255,255,255,0.03) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.07) !important;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .love-card {
+      background: rgba(255,255,255,0.03) !important;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.07) !important;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .letter-card {
+      background: rgba(255,255,255,0.04) !important;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1) !important;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .chapter-header {
+      background: rgba(255,255,255,0.04) !important;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.08) !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    }
+    .chapter-header:hover {
+      background: rgba(255,255,255,0.07) !important;
+      border-color: rgba(236, 72, 153, 0.3) !important;
+    }
+    .chapter-panel {
+      background: rgba(10, 6, 28, 0.7) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .mosaic-tile {
+      background: rgba(255,255,255,0.03) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.07) !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease;
+    }
+    .mosaic-tile:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(168, 85, 247, 0.15);
+      border-color: rgba(236, 72, 153, 0.3) !important;
+    }
+    #video-slot {
+      background: rgba(255,255,255,0.03) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.07) !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .crossword-box {
+      background: rgba(255,255,255,0.03) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.07) !important;
+    }
+
+    /* ════════════════════════════════
+       HERO — FLOAT ANIMATION
+    ════════════════════════════════ */
+    .hero-content {
+      animation: heroFloat 7s ease-in-out infinite;
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+    .hero-line2 {
+      text-shadow: 0 0 60px rgba(236, 72, 153, 0.35);
+    }
+
+    /* ════════════════════════════════
+       COUNTER — BIGGER LABEL
+    ════════════════════════════════ */
+    #counter .section-label {
+      font-size: 1rem;
+      letter-spacing: 0.22em;
+      color: rgba(200, 170, 240, 0.75);
+    }
+
+    /* ════════════════════════════════
+       LDR — KM HEADLINE
+    ════════════════════════════════ */
+    .ldr-km {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    /* ════════════════════════════════
+       CHAPTER DOT — PULSE
+    ════════════════════════════════ */
+    @keyframes dotPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0.5), 0 0 8px rgba(236,72,153,0.4); }
+      60%       { box-shadow: 0 0 0 10px rgba(236,72,153,0), 0 0 22px rgba(168,85,247,0.5); }
+    }
+    .chapter-dot { animation: dotPulse 2.8s ease-in-out infinite; }
+
+    /* ════════════════════════════════
+       3D TILT CARDS
+    ════════════════════════════════ */
+    .tilt-card {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .counter-card:hover {
+      box-shadow: 0 20px 60px rgba(168,85,247,0.2), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .love-card:hover {
+      box-shadow: 0 20px 50px rgba(236,72,153,0.22), inset 0 1px 0 rgba(255,255,255,0.07);
+    }
+    .word-card:hover {
+      box-shadow: 0 14px 40px rgba(168,85,247,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    /* ════════════════════════════════
+       SECTION WAVE DIVIDERS
+    ════════════════════════════════ */
+    #hero::after, #counter::after, #timeline::after, #words::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      pointer-events: none;
+    }
+    #hero { position: relative; }
+    #counter { position: relative; }
+    #timeline { position: relative; }
+    #words { position: relative; }
   </style>
 </head>
 <body>
@@ -807,6 +1003,11 @@
   ═══════════════════════════════ -->
   <section id="hero">
     <!-- Stars injected by JS -->
+
+    <!-- Aurora blobs -->
+    <div class="aurora-blob" style="width:420px;height:420px;background:#ec4899;top:-80px;left:-60px;--op:0.22;--dur:8s;--tx:70px;--ty:50px;animation-delay:0s"></div>
+    <div class="aurora-blob" style="width:520px;height:520px;background:#7c3aed;top:-100px;right:-80px;--op:0.2;--dur:11s;--tx:-80px;--ty:65px;animation-delay:0.5s"></div>
+    <div class="aurora-blob" style="width:320px;height:320px;background:#be185d;bottom:60px;left:50%;transform:translateX(-50%);--op:0.18;--dur:9s;--tx:50px;--ty:-55px;animation-delay:1s"></div>
 
     <!-- Palm tree SVG silhouette -->
     <svg class="palm-silhouette" viewBox="0 0 1440 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -855,19 +1056,19 @@
       </h2>
 
       <div class="counter-cards">
-        <div class="counter-card reveal" style="--i:2">
+        <div class="counter-card tilt-card reveal" style="--i:2">
           <span class="counter-num" id="cnt-days">0</span>
           <span class="counter-label">Days</span>
         </div>
-        <div class="counter-card reveal" style="--i:3">
+        <div class="counter-card tilt-card reveal" style="--i:3">
           <span class="counter-num" id="cnt-hours">0</span>
           <span class="counter-label">Hours</span>
         </div>
-        <div class="counter-card reveal" style="--i:4">
+        <div class="counter-card tilt-card reveal" style="--i:4">
           <span class="counter-num" id="cnt-mins">0</span>
           <span class="counter-label">Minutes</span>
         </div>
-        <div class="counter-card reveal" style="--i:5">
+        <div class="counter-card tilt-card reveal" style="--i:5">
           <span class="counter-num" id="cnt-secs">0</span>
           <span class="counter-label">Seconds</span>
         </div>
@@ -1116,7 +1317,7 @@
   <section id="ldr">
     <div class="container">
       <div class="ldr-content">
-        <p class="section-label pink reveal" style="--i:0">7,524 km apart</p>
+        <span class="ldr-km reveal" style="--i:0">7,524 KM APART</span>
         <h2 class="ldr-heading reveal" style="--i:1">
           Same <em class="gradient-text">sky,</em> baby.
         </h2>
@@ -1126,9 +1327,6 @@
         <p class="ldr-para reveal" style="--i:3">
           On the days I couldn't carry myself this year, you carried me through a screen. I will never get over that.
         </p>
-        <div class="reveal" style="--i:4">
-          <span class="ldr-pill">✦ Adi tu thoda sa bkl hai kya? Haan. And I love you for it. ✦</span>
-        </div>
       </div>
 
       <!-- Video call mosaic -->
@@ -1189,27 +1387,27 @@
       </div>
 
       <div class="word-grid">
-        <div class="word-card reveal" style="--i:0">
+        <div class="word-card tilt-card reveal" style="--i:0">
           <p class="word-term">Ganderi</p>
           <p class="word-def">Definition to be edited by us only.</p>
         </div>
-        <div class="word-card reveal" style="--i:1">
+        <div class="word-card tilt-card reveal" style="--i:1">
           <p class="word-term">Babay</p>
           <p class="word-def">A word with history, chaos, and probably too much affection.</p>
         </div>
-        <div class="word-card reveal" style="--i:2">
+        <div class="word-card tilt-card reveal" style="--i:2">
           <p class="word-term">Chodbhangda</p>
           <p class="word-def">Needs no explanation, which means it absolutely needs one later.</p>
         </div>
-        <div class="word-card reveal" style="--i:3">
+        <div class="word-card tilt-card reveal" style="--i:3">
           <p class="word-term">Adi, tu thoda sa BKL hai kya?</p>
           <p class="word-def">A question, an accusation, a love language.</p>
         </div>
-        <div class="word-card reveal" style="--i:4">
+        <div class="word-card tilt-card reveal" style="--i:4">
           <p class="word-term">Mujhe tu achha nahi lagta</p>
           <p class="word-def">Said seconds before loving on each other again.</p>
         </div>
-        <div class="word-card reveal" style="--i:5">
+        <div class="word-card tilt-card reveal" style="--i:5">
           <p class="word-term">Silly goose</p>
           <p class="word-def">Goofy ass. Warmth provider. Pain-laughter converter.</p>
         </div>
@@ -1241,56 +1439,56 @@
       </div>
 
       <div class="love-grid">
-        <div class="love-card reveal" style="--i:0">
+        <div class="love-card tilt-card reveal" style="--i:0">
           <div class="love-photo" id="reason-photo-1">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">01</span>
             <p class="love-reason">You turn even my crying into laughter.</p>
           </div>
         </div>
-        <div class="love-card reveal" style="--i:1">
+        <div class="love-card tilt-card reveal" style="--i:1">
           <div class="love-photo" id="reason-photo-2">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">02</span>
             <p class="love-reason">You are my respite, my safe place, my shoulder.</p>
           </div>
         </div>
-        <div class="love-card reveal" style="--i:2">
+        <div class="love-card tilt-card reveal" style="--i:2">
           <div class="love-photo" id="reason-photo-3">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">03</span>
             <p class="love-reason">You hold my hand like it's a small important job.</p>
           </div>
         </div>
-        <div class="love-card reveal" style="--i:3">
+        <div class="love-card tilt-card reveal" style="--i:3">
           <div class="love-photo" id="reason-photo-4">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">04</span>
             <p class="love-reason">You let me be silly and you out-silly me.</p>
           </div>
         </div>
-        <div class="love-card reveal" style="--i:4">
+        <div class="love-card tilt-card reveal" style="--i:4">
           <div class="love-photo" id="reason-photo-5">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">05</span>
             <p class="love-reason">You make hard years survivable. You made this one survivable.</p>
           </div>
         </div>
-        <div class="love-card reveal" style="--i:5">
+        <div class="love-card tilt-card reveal" style="--i:5">
           <div class="love-photo" id="reason-photo-6">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">06</span>
             <p class="love-reason">Ganderi. Babay. Chodbhangda. Need I say more.</p>
           </div>
         </div>
-        <div class="love-card reveal" style="--i:6">
+        <div class="love-card tilt-card reveal" style="--i:6">
           <div class="love-photo" id="reason-photo-7">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">07</span>
             <p class="love-reason">You come back. Every fight, every spat — you come back.</p>
           </div>
         </div>
-        <div class="love-card reveal" style="--i:7">
+        <div class="love-card tilt-card reveal" style="--i:7">
           <div class="love-photo" id="reason-photo-8">[Add a goofy photo of Adi here]</div>
           <div class="love-caption">
             <span class="love-num">08</span>
@@ -1451,6 +1649,25 @@
       const carousel = dot.closest('.carousel');
       carouselGotoIndex(carousel, idx);
     }
+
+    /* ── 6. 3D TILT ───────────────────────────── */
+    (function initTilt() {
+      document.querySelectorAll('.tilt-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transition = 'transform 0.1s ease, box-shadow 0.3s ease';
+        });
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width  - 0.5;
+          const y = (e.clientY - r.top)  / r.height - 0.5;
+          card.style.transform = `perspective(700px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) translateZ(10px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transition = 'transform 0.55s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease';
+          card.style.transform  = 'perspective(700px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+        });
+      });
+    })();
   </script>
 </body>
 </html>
