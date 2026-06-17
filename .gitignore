@@ -9,3 +9,7 @@ font*.png
 font_preview*.mjs
 preview_*.png
 screenshot.mjs
+
+# Layout preview artifacts
+layout_*.png
+layout_preview.mjs
