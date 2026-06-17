@@ -6,7 +6,7 @@
   <title>Happy Birthday, Aditya ❤️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script:wght@600;700&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -25,7 +25,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito', sans-serif;
       color: white;
       background: #0d0d1a;
       overflow-x: hidden;
@@ -75,7 +75,7 @@
 
     /* ─── SECTION LABELS ─── */
     .section-label {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito', sans-serif;
       font-size: 0.68rem;
       font-weight: 500;
       letter-spacing: 0.35em;
@@ -87,7 +87,7 @@
 
     /* ─── SECTION HEADINGS ─── */
     .section-heading {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Abril Fatface', serif;
       font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 700;
       line-height: 1.2;
@@ -159,6 +159,39 @@
       padding: 0 2rem;
     }
 
+    /* ── HERO PHOTO MOSAIC ── */
+    .hero-mosaic {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .mosaic-photo {
+      position: absolute;
+      border-radius: 6px;
+      overflow: hidden;
+      opacity: 0.18;
+      border: 2px solid rgba(255,255,255,0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: opacity 0.4s ease;
+    }
+    /* Each slot is a placeholder — swap src when photos arrive */
+    .mosaic-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .mosaic-photo .ph {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(236,72,153,0.4), rgba(168,85,247,0.4));
+    }
+    /* Fade edges with a radial vignette */
+    .hero-mosaic::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(13,13,26,0.85) 75%);
+    }
+
     /* Stars */
     .star {
       position: absolute;
@@ -209,7 +242,7 @@
     }
 
     .hero-line1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Abril Fatface', serif;
       font-size: clamp(2.8rem, 7vw, 5.5rem);
       font-weight: 700;
       color: white;
@@ -219,15 +252,14 @@
       text-shadow: 0 0 60px rgba(236, 72, 153, 0.3);
     }
     .hero-line2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-style: italic;
-      font-weight: 400;
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      font-weight: 700;
+      font-style: normal;
       display: block;
       line-height: 1.1;
       margin-bottom: 1.6rem;
-      animation: float 6s ease-in-out infinite;
-      text-shadow: 0 0 60px rgba(236, 72, 153, 0.3);
+      text-shadow: 0 0 60px rgba(236, 72, 153, 0.35);
     }
 
     .hero-sub {
@@ -241,7 +273,7 @@
     }
 
     .hero-signed {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito', sans-serif;
       font-size: 0.9rem;
       color: rgba(200, 170, 240, 0.6);
       letter-spacing: 0.1em;
@@ -253,7 +285,7 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 2;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito', sans-serif;
       font-size: 0.7rem;
       letter-spacing: 0.3em;
       color: rgba(200, 170, 240, 0.5);
@@ -318,7 +350,7 @@
     }
 
     .counter-num {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Abril Fatface', serif;
       font-size: clamp(2.4rem, 5vw, 3.5rem);
       font-weight: 700;
       background: linear-gradient(135deg, #ec4899, #a855f7);
@@ -445,7 +477,7 @@
     }
 
     .chapter-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Abril Fatface', serif;
       font-size: 1.15rem;
       font-weight: 700;
       color: white;
@@ -532,7 +564,7 @@
       border-radius: 8px;
       padding: 0.5rem 0.8rem;
       color: rgba(200, 180, 240, 0.7);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito', sans-serif;
       font-size: 0.85rem;
       margin-top: 0.5rem;
       outline: none;
@@ -599,7 +631,7 @@
 
     /* 7,524 KM APART — display headline with pink gradient */
     .ldr-distance-headline {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito', sans-serif;
       font-size: clamp(1.2rem, 3vw, 2rem);
       letter-spacing: 0.15em;
       font-weight: 600;
@@ -612,7 +644,7 @@
     }
 
     .ldr-heading {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Abril Fatface', serif;
       font-size: clamp(3rem, 7vw, 5.5rem);
       font-weight: 700;
       line-height: 1.1;
@@ -768,7 +800,7 @@
     }
 
     .word-term {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Abril Fatface', serif;
       font-size: 1.1rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ec4899, #a855f7);
@@ -871,7 +903,7 @@
     }
 
     .love-num {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Abril Fatface', serif;
       font-size: 1.6rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ec4899, #a855f7);
@@ -915,7 +947,7 @@
     }
 
     .letter-salutation {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Abril Fatface', serif;
       font-size: 1.4rem;
       font-weight: 700;
       color: white;
@@ -930,10 +962,9 @@
     }
 
     .letter-signoff {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-style: italic;
-      font-weight: 400;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      font-weight: 700;
       background: linear-gradient(135deg, #ec4899, #a855f7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -983,6 +1014,9 @@
   ═══════════════════════════════ -->
   <section id="hero">
     <!-- Stars injected by JS -->
+
+    <!-- Photo mosaic background — replace each .ph with <img src="your-photo.jpg"/> when ready -->
+    <div class="hero-mosaic" id="hero-mosaic"></div>
 
     <!-- Aurora blobs behind hero content -->
     <div class="aurora-blob" style="width:400px;height:400px;background:#ec4899;top:-80px;left:-60px;--dur:8s;--tx:60px;--ty:40px;" aria-hidden="true"></div>
@@ -1560,6 +1594,49 @@
        JAVASCRIPT
   ═══════════════════════════════ -->
   <script>
+    /* ── 0. HERO PHOTO MOSAIC ─────────────────── */
+    (function buildMosaic() {
+      const container = document.getElementById('hero-mosaic');
+      const heroW = window.innerWidth;
+      const heroH = window.innerHeight;
+
+      // 24 polaroid-style frames scattered across the hero
+      const frames = [
+        {w:160,h:130,x:2,y:5,r:-8},   {w:120,h:100,x:12,y:35,r:6},
+        {w:140,h:115,x:6,y:62,r:-5},  {w:130,h:110,x:18,y:82,r:9},
+        {w:155,h:125,x:28,y:10,r:4},  {w:110,h:90, x:35,y:45,r:-7},
+        {w:145,h:120,x:30,y:70,r:3},  {w:125,h:100,x:42,y:20,r:-4},
+        {w:135,h:110,x:48,y:55,r:7},  {w:120,h:95, x:55,y:80,r:-6},
+        {w:150,h:120,x:58,y:8,y2:8,r:5}, {w:130,h:105,x:64,y:38,r:-3},
+        {w:140,h:115,x:62,y:65,r:8},  {w:115,h:90, x:72,y:15,r:-9},
+        {w:145,h:118,x:70,y:50,r:4},  {w:135,h:108,x:75,y:78,r:-5},
+        {w:155,h:125,x:80,y:5,r:6},   {w:120,h:98, x:85,y:32,r:-4},
+        {w:140,h:112,x:82,y:60,r:7},  {w:130,h:105,x:88,y:82,r:-8},
+        {w:150,h:120,x:92,y:15,r:3},  {w:125,h:100,x:90,y:48,r:-6},
+        {w:138,h:112,x:5,y:88,r:5},   {w:128,h:102,x:50,y:88,r:-3},
+      ];
+
+      // Warm palette for placeholders — pink/purple tones
+      const palettes = [
+        ['#3d1a4a','#ec4899'], ['#2a0a3f','#a855f7'], ['#4a1535','#db2777'],
+        ['#1a0a2e','#7c3aed'], ['#3b0f6e','#c084fc'], ['#2d0a3a','#f472b6'],
+      ];
+
+      frames.forEach((f, i) => {
+        const el = document.createElement('div');
+        el.className = 'mosaic-photo';
+        el.style.cssText = `
+          width: ${f.w}px; height: ${f.h}px;
+          left: ${f.x}%; top: ${f.y}%;
+          transform: rotate(${f.r}deg);
+        `;
+        const [c1, c2] = palettes[i % palettes.length];
+        // placeholder — swap innerHTML with <img src="..."/> when you have photos
+        el.innerHTML = `<div class="ph" style="background:linear-gradient(135deg,${c1},${c2})"></div>`;
+        container.appendChild(el);
+      });
+    })();
+
     /* ── 1. STARS ─────────────────────────────── */
     (function generateStars() {
       const hero = document.getElementById('hero');
