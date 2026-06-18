@@ -669,7 +669,7 @@
     /* ── MEET COUNTDOWN ── */
     .meet-countdown {
       text-align: center;
-      margin: 3rem auto 1rem;
+      margin: 3rem auto 4rem;
       max-width: 700px;
     }
     .meet-label {
@@ -721,6 +721,8 @@
       font-style: italic;
       font-size: 0.95rem;
       color: rgba(236, 72, 153, 0.65);
+      margin-top: 1.2rem;
+      padding-bottom: 1rem;
     }
 
     /* Video call mosaic */
@@ -837,17 +839,67 @@
     .letter-cake-wrap {
       display: flex;
       justify-content: center;
-      margin-top: 2.5rem;
-      opacity: 0.75;
-      filter: drop-shadow(0 0 10px rgba(255,140,80,0.35));
+      margin-top: 3rem;
+      filter: drop-shadow(0 0 16px rgba(255,140,80,0.5));
       animation: glowPulse 3s ease-in-out infinite;
     }
-    .letter-cake .candle-body { background: linear-gradient(to bottom, #f48fb1, #ba68c8); }
-    .letter-cake .cake-top    { background: linear-gradient(to bottom, #fce4ec, #f8bbd0); }
-    .letter-cake .cake-mid    { background: linear-gradient(to bottom, #ad1457, #880e4f); border-top: 2px solid rgba(255,255,255,0.2); }
-    .letter-cake .cake-base   { background: linear-gradient(to bottom, #880e4f, #560027); }
-    .letter-cake .cake-top, .letter-cake .cake-mid, .letter-cake .cake-base { transform: scale(0.75); transform-origin: top center; }
-    .letter-cake { transform: scale(0.75); transform-origin: top center; }
+    .letter-cake {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .letter-cake .cake-candles { gap: 14px; margin-bottom: 3px; }
+    .letter-cake .candle-flame { width: 10px; height: 16px; }
+    .letter-cake .candle-body  {
+      width: 9px; height: 22px;
+      background: linear-gradient(to right, #f48fb1, #ce93d8, #f48fb1);
+      border-radius: 4px 4px 2px 2px;
+    }
+    .letter-cake .cake-top {
+      width: 110px; height: 30px;
+      background: linear-gradient(to bottom, #fce4ec 0%, #f8bbd0 100%);
+      border-radius: 55px 55px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .letter-cake .cake-top::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 8px;
+      background: repeating-linear-gradient(90deg, transparent 0px, transparent 12px, rgba(236,72,153,0.3) 12px, rgba(236,72,153,0.3) 24px);
+    }
+    .letter-cake .cake-mid {
+      width: 124px; height: 36px;
+      background: linear-gradient(to bottom, #c2185b, #880e4f);
+      border-top: 3px solid rgba(255,255,255,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .letter-cake .cake-mid::before {
+      content: '♡ happy birthday ♡';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 7px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.55);
+      white-space: nowrap;
+      font-family: 'Nunito', sans-serif;
+    }
+    .letter-cake .cake-base {
+      width: 138px; height: 32px;
+      background: linear-gradient(to bottom, #880e4f, #4a0033);
+      border-radius: 0 0 14px 14px;
+      border-top: 3px solid rgba(255,255,255,0.2);
+    }
+    .letter-cake .cake-plate {
+      width: 158px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      margin-top: 3px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
     .marquee-photo {
       width: 140px;
       height: 200px;
@@ -1174,21 +1226,6 @@
         <em style="color: var(--pink);">more to come.</em>
       </p>
       <p class="hero-signed">With all my love, Aish (your Snowflake) ❄️</p>
-    </div>
-
-    <!-- CSS Birthday Cake — hero corner -->
-    <div class="hero-cake">
-      <div class="css-cake">
-        <div class="cake-candles">
-          <div class="candle"><div class="candle-flame"></div><div class="candle-body"></div></div>
-          <div class="candle"><div class="candle-flame"></div><div class="candle-body"></div></div>
-          <div class="candle"><div class="candle-flame"></div><div class="candle-body"></div></div>
-        </div>
-        <div class="cake-top"></div>
-        <div class="cake-mid"></div>
-        <div class="cake-base"></div>
-        <div class="cake-plate"></div>
-      </div>
     </div>
 
     <div class="scroll-hint">SCROLL ↓</div>
@@ -1704,7 +1741,7 @@
         </p>
         <span class="letter-signoff">All of me, always — Aish 💜</span>
         <div class="letter-cake-wrap">
-          <div class="css-cake letter-cake">
+          <div class="letter-cake">
             <div class="cake-candles">
               <div class="candle"><div class="candle-flame"></div><div class="candle-body"></div></div>
               <div class="candle"><div class="candle-flame"></div><div class="candle-body"></div></div>
