@@ -491,6 +491,7 @@
       background: rgba(255, 255, 255, 0.07);
     }
     .chapter.open .chapter-header {
+      border-radius: 14px 14px 0 0;
       border-color: rgba(236, 72, 153, 0.3);
       background: rgba(255, 255, 255, 0.06);
     }
@@ -528,45 +529,26 @@
     }
     .chapter.open .chapter-arrow { transform: rotate(180deg); }
 
-    /* Side-by-side layout on open */
-    .chapter-inner {
-      position: relative;
-    }
-    .chapter-header {
-      width: 100%;
-      box-sizing: border-box;
-      transition: border-color 0.3s ease, background 0.3s ease, border-radius 0.4s ease, width 0.5s cubic-bezier(0.4,0,0.2,1);
-    }
-    .chapter.open .chapter-header {
-      width: 42%;
-      border-radius: 14px 0 0 14px;
-      border-color: rgba(236, 72, 153, 0.3);
-      background: rgba(255, 255, 255, 0.06);
-    }
-
+    /* Dropdown panel below header */
     .chapter-panel {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 0;
-      height: 100%;
+      max-height: 0;
       overflow: hidden;
-      transition: width 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+      transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
       opacity: 0;
       background: rgba(255,255,255,0.03);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(236,72,153,0.2);
-      border-left: none;
-      border-radius: 0 14px 14px 0;
-      box-sizing: border-box;
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      margin-top: -1px;
     }
     .chapter.open .chapter-panel {
-      width: 58%;
+      max-height: 600px;
       opacity: 1;
     }
 
-    .panel-inner { padding: 1rem; height: 100%; box-sizing: border-box; }
+    .panel-inner { padding: 1rem; box-sizing: border-box; }
 
     /* Carousel */
     .carousel {
@@ -1484,7 +1466,16 @@
             <div class="chapter-panel">
               <div class="panel-inner">
                 <div class="slideshow" onclick="toggleSlideshow(this)">
-                  <div class="slideshow-frame active"><div class="photo-placeholder"><span>📷</span>photos coming soon</div></div>
+                  <div class="slideshow-frame active"><img src="https://lh3.googleusercontent.com/d/1uUAivNwpc03Fug_Do0hwQWSsVEkuCUDO" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1rLrt_vj8naoMDcce2abTbhiMU-mzgaKm" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1VOWN9qxWwOr-KC2UEKUAnuz0ct2K8-YI" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1PtR10DdmkLNGfPZ7vzzyGYimbWeK3_iL" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1SqIy4iNUEEf7bZMFg6a3yxwAnf7oN7sR" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1g0y1RayudzkbxbYW7xShBVnGFkA4E9oz" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1e-kkjxU3DF4WO1PSmYxjGarR9auhW2I5" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1TnD-tU4ISeh7KvfqqLCyPdL7dyZpqwsE" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1B6F6iF3M86Xc4zEzi7JsIImKZeA53a-4" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/12sKk9F2bvoNERRW10PtbVTo1-UaHYT3-" alt="" loading="lazy"/></div>
                   <div class="slideshow-dots"></div>
                   <div class="slideshow-counter"></div>
                   <div class="slideshow-pause-icon">⏸</div>
@@ -1509,7 +1500,16 @@
             <div class="chapter-panel">
               <div class="panel-inner">
                 <div class="slideshow" onclick="toggleSlideshow(this)">
-                  <div class="slideshow-frame active"><div class="photo-placeholder"><span>📷</span>photos coming soon</div></div>
+                  <div class="slideshow-frame active"><img src="https://lh3.googleusercontent.com/d/1IfXNOjE8uMh58Xmdm3T_diC7NflDuMtF" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1lJQN5DV4XtkUTvGEefq4k5Ek9L_3uoc8" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1NbqqMRGIZui9O1KORoN2gbDzIW1yw6FB" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1yC31k8nMykxYtBo_ga_d1MGYKWpFWP4b" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1MCW45dFgq81Z_CF_WB1a4VjOjDZ-_S7s" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/11zgSRH5Lnvl1k1B9wWvQvmMZ4YXLw9tJ" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1lFIO1cxeethdN8XsMzgvIhwUSwAHcU0A" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1FphACMUPvsqJaco8BMBCq2qfkVZYNkS7" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1lrNJf8WKggA1CKPk5HuFm3wHM_95ORhi" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/17Jz4gH64XoXTgB5H7Jd16G8klljAPJ2L" alt="" loading="lazy"/></div>
                   <div class="slideshow-dots"></div>
                   <div class="slideshow-counter"></div>
                   <div class="slideshow-pause-icon">⏸</div>
