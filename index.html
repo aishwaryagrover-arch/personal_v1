@@ -1184,69 +1184,70 @@
     #love .intro { text-align: center; margin-bottom: 3.5rem; }
     #love .section-sub { margin: 0 auto; font-style: italic; }
 
-    .love-grid {
-      max-width: 920px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.4rem;
-    }
-
-    @media (max-width: 600px) {
-      .love-grid { grid-template-columns: 1fr; }
-    }
-
-    .love-card {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-    }
-    .love-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.2);
-    }
-
-    .love-photo {
-      background: rgba(168, 85, 247, 0.06);
-      border-bottom: 2px dashed rgba(168, 85, 247, 0.2);
-      aspect-ratio: 4/3;
+    /* ── POLAROID DECK ── */
+    #love .polaroid-deck-wrap {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      color: rgba(180, 150, 220, 0.4);
-      font-size: 0.82rem;
-      padding: 1rem;
-      text-align: center;
-      /* Inner glow */
-      box-shadow: inset 0 0 30px rgba(236, 72, 153, 0.1);
+      gap: 2.2rem;
+      padding: 1rem 0 3rem;
     }
-
-    .love-caption {
-      padding: 1.2rem 1.4rem;
+    #love .polaroid-stack {
+      position: relative;
+      width: 300px;
+      height: 430px;
     }
-
-    .love-num {
-      font-family: 'Abril Fatface', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #ec4899, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: block;
-      margin-bottom: 0.4rem;
+    #love .polaroid-card {
+      position: absolute;
+      top: 0; left: 0;
+      width: 300px;
+      background: #faf7f2;
+      border-radius: 3px;
+      padding: 14px 14px 56px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3);
+      user-select: none;
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease;
+      transform: rotate(var(--rot, 0deg));
     }
-
-    .love-reason {
-      font-size: 0.95rem;
-      color: rgba(215, 195, 250, 0.85);
-      line-height: 1.65;
+    #love .polaroid-card.p-active { z-index: 10; cursor: pointer; }
+    #love .polaroid-card.p-peek1  { z-index: 2;  opacity: 0.82; transform: rotate(4deg) translate(10px,8px); pointer-events:none; }
+    #love .polaroid-card.p-peek2  { z-index: 1;  opacity: 0.6;  transform: rotate(-3deg) translate(-8px,14px); pointer-events:none; }
+    #love .polaroid-card.p-hidden { z-index: 0;  opacity: 0;    pointer-events:none; }
+    #love .polaroid-card.p-flyoff { transform: translateX(140%) rotate(30deg) !important; opacity: 0 !important; transition: transform 0.42s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease; }
+    #love .polaroid-photo {
+      width: 100%; aspect-ratio: 1;
+      background: linear-gradient(135deg, #e8dff4, #d4c8ee);
+      border-radius: 2px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      color: #a88cc0; font-size: 0.72rem; text-align: center; padding: 1rem;
     }
+    #love .polaroid-photo img { width:100%; height:100%; object-fit:cover; display:block; }
+    #love .polaroid-caption-area { margin-top: 10px; text-align: center; }
+    #love .polaroid-num {
+      font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: #a855f7; display: block; margin-bottom: 4px;
+    }
+    #love .polaroid-reason {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.05rem; color: #2d1b4e; line-height: 1.45;
+    }
+    #love .polaroid-controls {
+      display: flex; align-items: center; gap: 1.4rem;
+    }
+    #love .polaroid-counter {
+      font-size: 0.78rem; letter-spacing: 0.12em;
+      color: rgba(196,168,232,0.7); min-width: 54px; text-align: center;
+    }
+    #love .polaroid-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid rgba(196,168,232,0.35);
+      background: rgba(255,255,255,0.06);
+      color: rgba(196,168,232,0.8); font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s;
+    }
+    #love .polaroid-btn:hover { background: rgba(236,72,153,0.18); border-color: rgba(236,72,153,0.5); color: #fff; }
+    #love .polaroid-hint { font-size: 0.7rem; color: rgba(196,168,232,0.45); letter-spacing: 0.08em; margin-top: -0.8rem; }
 
     /* ════════════════════════════════
        SECTION 7 — LETTER
@@ -1801,67 +1802,18 @@
   <section id="love">
     <div class="container">
       <div class="intro">
-        <p class="section-label reveal" style="--i:0">A non-exhaustive list</p>
-        <h2 class="section-heading reveal" style="--i:1">Why I love <em class="gradient-text">you</em></h2>
-        <p class="section-sub reveal" style="--i:2">(these are not all of them. there is no complete list.)</p>
+        <p class="section-label reveal" style="--i:0">On your 29th birthday</p>
+        <h2 class="section-heading reveal" style="--i:1">29 reasons why I love <em class="gradient-text">you</em></h2>
+        <p class="section-sub reveal" style="--i:2">A non-exhaustive list, of course :P</p>
       </div>
 
-      <div class="love-grid">
-        <div class="love-card reveal" style="--i:0">
-          <div class="love-photo" id="reason-photo-1">[Add a goofy photo of Adi here]</div>
-          <div class="love-caption">
-            <span class="love-num">01</span>
-            <p class="love-reason">You turn even my crying into laughter.</p>
-          </div>
-        </div>
-        <div class="love-card reveal" style="--i:1">
-          <div class="love-photo" id="reason-photo-2">[Add a goofy photo of Adi here]</div>
-          <div class="love-caption">
-            <span class="love-num">02</span>
-            <p class="love-reason">You are my respite, my safe place, my shoulder.</p>
-          </div>
-        </div>
-        <div class="love-card reveal" style="--i:2">
-          <div class="love-photo" id="reason-photo-3">[Add a goofy photo of Adi here]</div>
-          <div class="love-caption">
-            <span class="love-num">03</span>
-            <p class="love-reason">You hold my hand like it's a small important job.</p>
-          </div>
-        </div>
-        <div class="love-card reveal" style="--i:3">
-          <div class="love-photo" id="reason-photo-4">[Add a goofy photo of Adi here]</div>
-          <div class="love-caption">
-            <span class="love-num">04</span>
-            <p class="love-reason">You let me be silly and you out-silly me.</p>
-          </div>
-        </div>
-        <div class="love-card reveal" style="--i:4">
-          <div class="love-photo" id="reason-photo-5">[Add a goofy photo of Adi here]</div>
-          <div class="love-caption">
-            <span class="love-num">05</span>
-            <p class="love-reason">You make hard years survivable. You made this one survivable.</p>
-          </div>
-        </div>
-        <div class="love-card reveal" style="--i:5">
-          <div class="love-photo" id="reason-photo-6">[Add a goofy photo of Adi here]</div>
-          <div class="love-caption">
-            <span class="love-num">06</span>
-            <p class="love-reason">Ganderi. Babay. Chodbhangda. Need I say more.</p>
-          </div>
-        </div>
-        <div class="love-card reveal" style="--i:6">
-          <div class="love-photo" id="reason-photo-7">[Add a goofy photo of Adi here]</div>
-          <div class="love-caption">
-            <span class="love-num">07</span>
-            <p class="love-reason">You come back. Every fight, every spat — you come back.</p>
-          </div>
-        </div>
-        <div class="love-card reveal" style="--i:7">
-          <div class="love-photo" id="reason-photo-8">[Add a goofy photo of Adi here]</div>
-          <div class="love-caption">
-            <span class="love-num">08</span>
-            <p class="love-reason">You are my dat man. My goofy ass. My silly goose.</p>
-          </div>
+      <div class="polaroid-deck-wrap reveal" style="--i:3">
+        <div class="polaroid-stack" id="polaroid-stack"></div>
+        <p class="polaroid-hint">click the card or use the arrows</p>
+        <div class="polaroid-controls">
+          <button class="polaroid-btn" onclick="polaroidPrev()" aria-label="Previous">←</button>
+          <span class="polaroid-counter" id="polaroid-counter">01 / 29</span>
+          <button class="polaroid-btn" onclick="polaroidNext()" aria-label="Next">→</button>
         </div>
       </div>
     </div>
@@ -2155,7 +2107,7 @@
         if (slideshow.classList.contains('paused')) return;
         const cur = parseInt(slideshow.dataset.idx || '0', 10);
         slideshowGoto(slideshow, (cur + 1) % frames.length);
-      }, 2300);
+      }, 1600);
       slideshowTimers.set(slideshow, timer);
     }
 
@@ -2380,6 +2332,97 @@
     const cong=document.getElementById('cw-congrats');
     cong.style.display='block';cong.scrollIntoView({behavior:'smooth',block:'center'});
   }
+  })();
+  </script>
+  <script>
+  /* ── POLAROID DECK ── */
+  (function () {
+    const reasons = [
+      "You turn even my crying into laughter.",
+      "You are my respite, my safe place, my shoulder.",
+      "You hold my hand like it's a small important job.",
+      "You let me be silly and you out-silly me.",
+      "You make hard years survivable. You made this one survivable.",
+      "Ganderi. Babay. Chodbhangda. Need I say more.",
+      "You come back. Every fight, every spat — you come back.",
+      "You are my dat man. My goofy ass. My silly goose.",
+      "— reason 9 —",
+      "— reason 10 —",
+      "— reason 11 —",
+      "— reason 12 —",
+      "— reason 13 —",
+      "— reason 14 —",
+      "— reason 15 —",
+      "— reason 16 —",
+      "— reason 17 —",
+      "— reason 18 —",
+      "— reason 19 —",
+      "— reason 20 —",
+      "— reason 21 —",
+      "— reason 22 —",
+      "— reason 23 —",
+      "— reason 24 —",
+      "— reason 25 —",
+      "— reason 26 —",
+      "— reason 27 —",
+      "— reason 28 —",
+      "— reason 29 —",
+    ];
+    // photo src per card — replace '' with URL when ready
+    const photos = Array(29).fill('');
+
+    const rots = reasons.map(() => (Math.random() * 6 - 3).toFixed(1));
+    const stack = document.getElementById('polaroid-stack');
+    const counter = document.getElementById('polaroid-counter');
+    let current = 0;
+
+    // Build all cards once
+    const cards = reasons.map((reason, i) => {
+      const card = document.createElement('div');
+      card.className = 'polaroid-card p-hidden';
+      card.style.setProperty('--rot', rots[i] + 'deg');
+      card.innerHTML = `
+        <div class="polaroid-photo">
+          ${photos[i] ? `<img src="${photos[i]}" alt=""/>` : `📷 photo ${String(i+1).padStart(2,'0')}`}
+        </div>
+        <div class="polaroid-caption-area">
+          <span class="polaroid-num">reason ${String(i+1).padStart(2,'0')} of 29</span>
+          <p class="polaroid-reason">${reason}</p>
+        </div>`;
+      card.addEventListener('click', () => polaroidNext());
+      stack.appendChild(card);
+      return card;
+    });
+
+    function render() {
+      cards.forEach((c, i) => {
+        c.classList.remove('p-active', 'p-peek1', 'p-peek2', 'p-hidden');
+        if (i === current)           c.classList.add('p-active');
+        else if (i === current + 1)  c.classList.add('p-peek1');
+        else if (i === current + 2)  c.classList.add('p-peek2');
+        else                         c.classList.add('p-hidden');
+      });
+      counter.textContent = String(current + 1).padStart(2, '0') + ' / 29';
+    }
+
+    window.polaroidNext = function () {
+      if (current >= reasons.length - 1) return;
+      const active = cards[current];
+      active.classList.add('p-flyoff');
+      setTimeout(() => {
+        active.classList.remove('p-flyoff');
+        current++;
+        render();
+      }, 430);
+    };
+
+    window.polaroidPrev = function () {
+      if (current <= 0) return;
+      current--;
+      render();
+    };
+
+    render();
   })();
   </script>
 </body>
