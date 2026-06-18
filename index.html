@@ -1351,7 +1351,8 @@
     #bfgf-crossword .cw-btn-row button:hover { background:rgba(196,168,232,.2); color:#fff; border-color:var(--cw-lavender); }
     #bfgf-crossword .cw-btn-row button.cw-primary { background:var(--cw-rose); border-color:var(--cw-rose); color:#fff; }
     #bfgf-crossword .cw-btn-row button.cw-primary:hover { background:#d4607a; }
-    #bfgf-crossword .cw-clues-wrap { flex:1; min-width:240px; max-width:360px; }
+    #bfgf-crossword .cw-clues-wrap { display:flex; flex-direction:row; gap:14px; flex:1; min-width:480px; max-width:740px; align-items:flex-start; }
+    #bfgf-crossword .cw-clues-section { flex:1; min-width:0; }
     #bfgf-crossword .cw-clues-section { background:rgba(255,255,255,.04); border:1px solid rgba(196,168,232,.2); border-radius:14px; padding:16px; margin-bottom:14px; backdrop-filter:blur(8px); }
     #bfgf-crossword .cw-clues-section h2 { font-family:'Playfair Display',serif; font-size:14px; color:var(--cw-lavender); margin-bottom:10px; border-bottom:1px solid rgba(196,168,232,.2); padding-bottom:6px; letter-spacing:.05em; }
     #bfgf-crossword .clue-item { display:flex; gap:7px; margin-bottom:7px; cursor:pointer; border-radius:5px; padding:3px 5px; transition:background .15s; }
