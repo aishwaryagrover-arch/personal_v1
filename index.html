@@ -773,6 +773,60 @@
       object-position: center top;
       display: block;
     }
+    /* ── Heart mosaic ── */
+    .heart-mosaic-wrap {
+      text-align: center;
+      padding: 4rem 0 2rem;
+    }
+    .heart-stage {
+      position: relative;
+      width: 620px;
+      height: 560px;
+      margin: 0 auto;
+    }
+    .heart-photo {
+      position: absolute;
+      width: 80px;
+      height: 110px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translate(var(--sx), var(--sy)) scale(0.4) rotate(var(--sr));
+      transition:
+        opacity 0.6s ease var(--delay),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--delay);
+      will-change: transform, opacity;
+    }
+    .heart-photo.assembled {
+      opacity: 1;
+      transform: translate(0, 0) scale(1) rotate(var(--hr));
+    }
+    .heart-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .heart-stage-label {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.6s ease 3s;
+    }
+    .heart-stage-label.assembled { opacity: 1; }
+    @media (max-width: 700px) {
+      .heart-stage { width: 340px; height: 310px; transform: scale(0.55); transform-origin: top center; }
+    }
+
     .marquee-footer {
       text-align: center;
       font-style: italic;
@@ -1464,6 +1518,13 @@
       <p class="marquee-footer">60 calls. one love story on a screen.</p>
     </div>
 
+    <!-- Heart mosaic assembly -->
+    <div class="heart-mosaic-wrap" id="heart-mosaic-wrap">
+      <p class="marquee-label" style="margin-bottom:1.5rem">watch us come together ♡</p>
+      <div class="heart-stage" id="heart-stage"></div>
+      <p class="marquee-footer" style="margin-top:1.5rem">every call a piece of the same heart</p>
+    </div>
+
     <!-- Wave divider into words -->
     <div class="wave-divider">
       <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
@@ -1795,7 +1856,97 @@
       });
     })();
 
-    /* ── 5. SCROLL ANIMATIONS (IntersectionObserver) ── */
+    /* ── 5. HEART MOSAIC ASSEMBLY ────────────── */
+    (function buildHeartMosaic() {
+      const stage = document.getElementById('heart-stage');
+      if (!stage) return;
+
+      // Same Drive IDs as marquee
+      const driveId = id => `https://lh3.googleusercontent.com/d/${id}`;
+      const ids = [
+        '1_e6G0DpTGPA_tQ5ZRcSjy2p2YdTC8sE5','1TPydwwcLZRazMQwc7GyMelo33i6VXeWk',
+        '1_BB48wSB91ADJnxVzXYQniK0XNQuhwwa','1uTILNdiOw9U35WnJX-jcvv2xvtcfJGgC',
+        '1hRbJAdy8icwnpYpXcBwdD7yilARkvO7B','15EG2lIM0Q4aGGez9_2jsWz1n5HSFhvOY',
+        '18NWDmloT7jT5FFdkEZQa8F8-8X1GWdPH','1pANOg4R4m88pavvHYp8Ctl1sIrjIz4Il',
+        '1llvROBFdxazzkKYeMzfAzc9vNNal0luQ','1JzTqLsRJRekgqWcDBlHvujmED5sFQC11',
+        '1BLiz5pjt7Yz4v9IV7tRPM8z90U1A1MuS','1xIS8S6cXojmwOO85JRtw3cHiM2nLTVlp',
+        '1A5O9MbEKVB6bKpDHXXtGcaOJ5DKrOQpM','10MZgl6nl4hpKp_gy7T030CTzYB5JZthV',
+        '1wtH1vOI0mG0FuIbDwLLh9u24yURcwoEc','1pN5I3tmcjTozjR0TunK69Z1Wv7MtwGLw',
+        '1s5WcJV6LJY-Jicpf3rt3KnlolxvVPP-T','11BRqh-zZhq1qf7NEYaJ6s-FCoDeGAi6U',
+        '1vNKPbwLbYMdQXyBnC8hrzNvxBQ66FJyb','11fZluPNqOqWNncOG9qhuXxV0Ra06V-X3',
+        '1OvMnX47V3FudYT0B0jn98qBn6uczojmq','1uHHAuXos81kLGhE3l-3BAETe-ypc66Xs',
+        '1qDQkFs_jwMlg4eob1ShBBGikiGh_LK3W','1ryE8k8fPMt5MlbLdDjfo2nPrpsWL7JSO',
+        '1-ucRjjwO_xGGKLkCyrI2MrGRbn7tmUtW','1aeMWjxGTdSS_C6_ELhjqITzZ0o9ZPOpL',
+        '1VPaKL9CJCMV46HYOw-ryWCoenIyHU1Vv','19lepF3yt67j_TfBsNHr0l_qeGECwmTl2',
+        '10IpLgyMC4cSOVtXeq_eqMxO7eQtEfXx2','1thanST_Mb4HuaTSSvKDtt7jh1SXGakOI',
+        '1EXG06VWCZaj1Hh7eFqMZYOW867_khARo','1srZe9x4N6dx_DRCMyHU9cwEopP2lXwtf',
+        '1UjKHtK6STCDA_miCsnrLVXw7dcBphrn5','1cdKkq94JXQzAtQF-5LZv81GfRjMmr-Cz',
+        '1YA8626J2oEdXcaspFHiuNt6bEyivd1DQ','18wCTqpodrCio4Q5mGBIw18zFMOdIW-_R',
+        '1D53YeZy9OZdBi_OLA5NU1Vk43a3ZOXYZ','1Wv5mjfMdzUHyShgM9KHZgtTrk6nWu9io',
+        '1IbBdWTWfvmo-ZOd7ua9yFwb9SIzX3wlQ','1lY-_-dS9AzgqAk9oZRys8zO6Y2m84r1v',
+        '1FmjRkc_F1oN_NkskPApj-Z2DqX5qhGQL','1K2aU1fsM-cCWOn-s6yzArhlTceJObUiC',
+        '1RsROi0xxILiCrhFEmQbagYaIJRm2q8uy','1dfG5IrW8W7IL1T5XBnronV3VC83jYXs-',
+        '1Sk0YgG4UfPtNWJOiixvk3nup-rdVMZ5m','1KEDVJYayDmD3YA74D6p2GcjZztpfiPJL',
+        '10fWiQI2Af41_mIx3ZPLf0RQZHN1_8e5w','1QinRnqz5L0KqbvVB0X8Qt4AJ4lDy91KM',
+        '1MjSlGWZ3-ZsEcBO2PJfXHaulc_GfdoUH','1i2IIJq6PPAsS2niqz1-BaV-4asgZLKg2',
+      ];
+
+      // 50 heart positions (parametric, scaled to 620×560 stage, centered at 310,265)
+      const W = 620, H = 560, cx = W / 2, cy = H / 2 + 20;
+      const heartPoints = [];
+      const n = 50;
+      for (let i = 0; i < n; i++) {
+        const t = (i / n) * 2 * Math.PI;
+        const hx = 16 * Math.pow(Math.sin(t), 3);
+        const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        // scale so heart fills ~85% of stage
+        heartPoints.push({ x: cx + hx * 17 - 40, y: cy + hy * 16 - 20 });
+      }
+
+      const label = document.createElement('div');
+      label.className = 'heart-stage-label';
+      label.textContent = 'us ♡';
+      stage.appendChild(label);
+
+      ids.slice(0, 50).forEach((id, i) => {
+        const pt = heartPoints[i];
+        // random scatter start — outside the stage bounds
+        const angle = Math.random() * 2 * Math.PI;
+        const dist = 340 + Math.random() * 200;
+        const sx = Math.cos(angle) * dist;
+        const sy = Math.sin(angle) * dist;
+        const hr = (Math.random() - 0.5) * 14; // slight final tilt
+
+        const el = document.createElement('div');
+        el.className = 'heart-photo';
+        el.style.cssText = `
+          left: ${pt.x}px; top: ${pt.y}px;
+          --sx: ${sx}px; --sy: ${sy}px;
+          --sr: ${(Math.random()-0.5)*40}deg;
+          --hr: ${hr}deg;
+          --delay: ${i * 55}ms;
+        `;
+        const img = document.createElement('img');
+        img.src = driveId(id);
+        img.alt = '';
+        img.loading = 'lazy';
+        el.appendChild(img);
+        stage.appendChild(el);
+      });
+
+      // Trigger assembly when section scrolls into view
+      let assembled = false;
+      const obs = new IntersectionObserver(entries => {
+        if (assembled || !entries[0].isIntersecting) return;
+        assembled = true;
+        // stagger: each photo flies in with increasing delay
+        stage.querySelectorAll('.heart-photo').forEach(el => el.classList.add('assembled'));
+        label.classList.add('assembled');
+      }, { threshold: 0.25 });
+      obs.observe(stage);
+    })();
+
+    /* ── 6. SCROLL ANIMATIONS (IntersectionObserver) ── */
     (function initReveal() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
