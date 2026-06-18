@@ -391,6 +391,31 @@
     }
 
     #timeline .intro { text-align: center; margin-bottom: 4rem; }
+
+    .music-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.45rem 1.1rem 0.45rem 0.7rem;
+      background: rgba(236, 72, 153, 0.12);
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: rgba(236, 72, 153, 0.8);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .music-play-btn:hover { background: rgba(236, 72, 153, 0.2); border-color: rgba(236, 72, 153, 0.55); }
+    .music-play-btn .mpb-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; color: #fff; flex-shrink: 0;
+    }
     #timeline .section-sub { margin: 0 auto; }
 
     /* Track */
@@ -536,7 +561,7 @@
     .slideshow {
       position: relative;
       width: 100%;
-      height: 300px;
+      height: 420px;
       border-radius: 12px;
       overflow: hidden;
       background: rgba(0,0,0,0.3);
@@ -553,9 +578,10 @@
     .slideshow-frame img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
       display: block;
+      background: #080510;
       animation: none;
     }
     .slideshow-frame.active img {
@@ -751,7 +777,7 @@
       overflow: visible;
     }
     #ldr > .container {
-      padding: 0 2rem 4rem;
+      padding: 0 2rem 10rem;
     }
 
     .ldr-content {
@@ -842,14 +868,9 @@
     .meet-footer {
       font-family: 'Nunito', sans-serif;
       font-style: italic;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       color: rgba(236, 72, 153, 0.65);
       margin-top: 1.2rem;
-      padding-bottom: 2.5rem;
-      white-space: nowrap;
-    }
-    @media (max-width: 700px) {
-      .meet-footer { white-space: normal; font-size: 0.82rem; }
     }
 
     /* Video call mosaic */
@@ -1396,6 +1417,10 @@
         <h2 class="section-heading reveal" style="--i:1">
           A little <em class="gradient-text">map of us</em>
         </h2>
+        <button class="music-play-btn reveal" style="--i:2" onclick="manualPlayMusic()" id="map-music-btn">
+          <span class="mpb-icon" id="map-music-icon">▶</span>
+          <span id="map-music-label">play music</span>
+        </button>
       </div>
 
       <div class="timeline-track" id="timeline-track">
@@ -2173,18 +2198,59 @@
       }).catch(() => {});
     }
 
-    function toggleMusic() {
-      if (audio.paused) {
-        wantMusic = true;
-        audio.play();
+    const mapMusicIcon = document.getElementById('map-music-icon');
+    const mapMusicLabel = document.getElementById('map-music-label');
+
+    function syncMusicUI(playing) {
+      if (playing) {
         musicBtn.textContent = '⏸';
         musicSubLabel.textContent = 'click to pause';
+        if (mapMusicIcon) mapMusicIcon.textContent = '⏸';
+        if (mapMusicLabel) mapMusicLabel.textContent = 'pause music';
+      } else {
+        musicBtn.textContent = '▶';
+        musicSubLabel.textContent = 'click to play';
+        if (mapMusicIcon) mapMusicIcon.textContent = '▶';
+        if (mapMusicLabel) mapMusicLabel.textContent = 'play music';
+      }
+    }
+
+    function manualPlayMusic() {
+      musicStarted = true;
+      if (audio.paused) {
+        wantMusic = true;
+        fadeInMusic();
       } else {
         wantMusic = false;
         audio.pause();
-        musicBtn.textContent = '▶';
-        musicSubLabel.textContent = 'click to play';
+        syncMusicUI(false);
       }
+    }
+
+    function toggleMusic() {
+      if (audio.paused) {
+        wantMusic = true;
+        audio.play().then(() => syncMusicUI(true)).catch(() => {});
+      } else {
+        wantMusic = false;
+        audio.pause();
+        syncMusicUI(false);
+      }
+    }
+
+    // Override fadeInMusic to also sync map button
+    const _origFadeIn = fadeInMusic;
+    function fadeInMusic() {
+      audio.volume = 0;
+      audio.play().then(() => {
+        let vol = 0;
+        const fade = setInterval(() => {
+          vol = Math.min(vol + 0.03, 0.5);
+          audio.volume = vol;
+          if (vol >= 0.5) clearInterval(fade);
+        }, 80);
+        syncMusicUI(true);
+      }).catch(() => {});
     }
 
     // Show player when timeline is in view
@@ -2196,19 +2262,6 @@
         });
       }, { threshold: 0.15 }).observe(timelineSection);
     }
-
-    // Start music on FIRST user gesture anywhere (beats autoplay block)
-    function onFirstInteraction() {
-      if (musicStarted) return;
-      musicStarted = true;
-      document.removeEventListener('click', onFirstInteraction);
-      document.removeEventListener('keydown', onFirstInteraction);
-      document.removeEventListener('touchstart', onFirstInteraction);
-      if (wantMusic) fadeInMusic();
-    }
-    document.addEventListener('click', onFirstInteraction);
-    document.addEventListener('keydown', onFirstInteraction);
-    document.addEventListener('touchstart', onFirstInteraction);
   </script>
 </body>
 </html>
