@@ -540,6 +540,61 @@
     .carousel-slide {
       flex: 0 0 100%;
     }
+    .carousel-slide img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* ── Ambient music player ── */
+    #music-player {
+      position: fixed;
+      bottom: 1.8rem;
+      right: 1.8rem;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(20, 5, 35, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 50px;
+      padding: 0.5rem 1rem 0.5rem 0.6rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s;
+    }
+    #music-player.visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    #music-player:hover { border-color: rgba(236,72,153,0.5); box-shadow: 0 4px 28px rgba(236,72,153,0.15); }
+    #music-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; color: #fff;
+      flex-shrink: 0;
+    }
+    #music-label {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(200,170,240,0.7);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    #music-label span { display: block; color: rgba(200,170,240,0.45); font-size: 0.62rem; }
 
     .photo-placeholder {
       background: rgba(168, 85, 247, 0.05);
@@ -1418,18 +1473,16 @@
             <div class="panel-inner">
               <div class="carousel" data-current="0">
                 <div class="carousel-track">
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1DBk1M6MdoWqqR7A6AaqXwir8H5C4B7nf" alt="" loading="lazy"/></div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1SfgVKBNVX8MA2MfZfSLqbEnXFVDGKGGm" alt="" loading="lazy"/></div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1W3ixrAHSjMpVKlO2zehw6uzHOHUIfKDR" alt="" loading="lazy"/></div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1gu5cfQpiD0nfvzEhI4vkHk_RBDRG4VNf" alt="" loading="lazy"/></div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/11dRBdm3IdH-P9Ww2-jhJfmQ5_PCbd8_G" alt="" loading="lazy"/></div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1ThVpOeg5CV_rea5xEz8TtVDjmLflzkwP" alt="" loading="lazy"/></div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1JXaxWzmYTYKZQBT5ZcESPmetwOmG1JX6" alt="" loading="lazy"/></div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1bzydwrsr-_19LVDzNqgKBM9277XAzBL8" alt="" loading="lazy"/></div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1lMEvYpi6SL2dVSooRkwlhj6cfHwbBIIl" alt="" loading="lazy"/></div>
+                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/157er4inigI6H1YQAP1KoCOwSYBD1uODr" alt="" loading="lazy"/></div>
                 </div>
                 <div class="carousel-controls">
                   <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
@@ -1437,6 +1490,13 @@
                     <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
                     <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
                     <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,3)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,4)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,5)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,6)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,7)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,8)"></div>
+                    <div class="dot-indicator" onclick="carouselGoto(this,9)"></div>
                   </div>
                   <button class="carousel-btn" onclick="carouselNext(this)">›</button>
                 </div>
@@ -1744,6 +1804,16 @@
     made with love, from 7,524 km away ❤️
   </footer>
 
+  <!-- Ambient music player -->
+  <audio id="bg-audio" src="warm.mp3" loop preload="none"></audio>
+  <div id="music-player" onclick="toggleMusic()">
+    <button id="music-btn" aria-label="Toggle music">▶</button>
+    <div id="music-label">
+      Warm — Drees ft. Mia
+      <span>click to pause</span>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════
        JAVASCRIPT
   ═══════════════════════════════ -->
@@ -1990,6 +2060,57 @@
         card.style.transition = 'transform 0.1s ease';
       });
     });
+  </script>
+
+  <script>
+    /* ── Ambient music player ── */
+    const audio = document.getElementById('bg-audio');
+    const player = document.getElementById('music-player');
+    const btn = document.getElementById('music-btn');
+    const label = document.querySelector('#music-label span');
+    let musicStarted = false;
+
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '⏸';
+        label.textContent = 'click to pause';
+      } else {
+        audio.pause();
+        btn.textContent = '▶';
+        label.textContent = 'click to play';
+      }
+    }
+
+    // Show player + autoplay when timeline section enters view
+    const timelineSection = document.getElementById('timeline');
+    if (timelineSection) {
+      const musicObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            player.classList.add('visible');
+            if (!musicStarted) {
+              musicStarted = true;
+              audio.volume = 0;
+              audio.play().then(() => {
+                // Fade in over 2s
+                let vol = 0;
+                const fade = setInterval(() => {
+                  vol = Math.min(vol + 0.04, 0.55);
+                  audio.volume = vol;
+                  if (vol >= 0.55) clearInterval(fade);
+                }, 80);
+                btn.textContent = '⏸';
+                label.textContent = 'click to pause';
+              }).catch(() => {
+                // Autoplay blocked — player stays visible for manual play
+              });
+            }
+          }
+        });
+      }, { threshold: 0.2 });
+      musicObserver.observe(timelineSection);
+    }
   </script>
 </body>
 </html>
