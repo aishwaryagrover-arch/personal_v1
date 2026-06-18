@@ -532,22 +532,90 @@
       margin-bottom: 1rem;
     }
 
-    .carousel-track {
-      display: flex;
-      transition: transform 0.4s ease;
-    }
-
-    .carousel-slide {
-      flex: 0 0 100%;
-    }
-    .carousel-slide img {
+    /* ── Autoplay slideshow ── */
+    .slideshow {
+      position: relative;
       width: 100%;
-      height: 280px;
+      height: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+    .slideshow-frame {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+    }
+    .slideshow-frame.active { opacity: 1; z-index: 2; }
+    .slideshow-frame.prev   { opacity: 0; z-index: 1; }
+    .slideshow-frame img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center;
-      border-radius: 10px;
       display: block;
+      animation: none;
     }
+    .slideshow-frame.active img {
+      animation: kenburns 4.5s ease forwards;
+    }
+    @keyframes kenburns {
+      0%   { transform: scale(1)    translate(0px, 0px); }
+      100% { transform: scale(1.12) translate(-12px, -6px); }
+    }
+    .slideshow-frame:nth-child(even).active img {
+      animation: kenburns2 4.5s ease forwards;
+    }
+    @keyframes kenburns2 {
+      0%   { transform: scale(1)    translate(0px, 0px); }
+      100% { transform: scale(1.1) translate(10px, 8px); }
+    }
+    .slideshow-counter {
+      position: absolute;
+      bottom: 0.7rem;
+      right: 0.9rem;
+      z-index: 10;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.55);
+      background: rgba(0,0,0,0.35);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .slideshow-dots {
+      position: absolute;
+      bottom: 0.7rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 5px;
+    }
+    .slideshow-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .slideshow-dot.active { background: var(--pink); transform: scale(1.3); }
+    .slideshow-pause-icon {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%) scale(0);
+      z-index: 10;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: #fff;
+      transition: transform 0.2s ease, opacity 0.3s;
+      pointer-events: none;
+    }
+    .slideshow.paused .slideshow-pause-icon { transform: translate(-50%,-50%) scale(1); }
 
     /* ── Ambient music player ── */
     #music-player {
@@ -1471,35 +1539,20 @@
           </div>
           <div class="chapter-panel">
             <div class="panel-inner">
-              <div class="carousel" data-current="0">
-                <div class="carousel-track">
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1DBk1M6MdoWqqR7A6AaqXwir8H5C4B7nf" alt="" loading="lazy"/></div>
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1SfgVKBNVX8MA2MfZfSLqbEnXFVDGKGGm" alt="" loading="lazy"/></div>
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1W3ixrAHSjMpVKlO2zehw6uzHOHUIfKDR" alt="" loading="lazy"/></div>
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1gu5cfQpiD0nfvzEhI4vkHk_RBDRG4VNf" alt="" loading="lazy"/></div>
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/11dRBdm3IdH-P9Ww2-jhJfmQ5_PCbd8_G" alt="" loading="lazy"/></div>
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1ThVpOeg5CV_rea5xEz8TtVDjmLflzkwP" alt="" loading="lazy"/></div>
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1JXaxWzmYTYKZQBT5ZcESPmetwOmG1JX6" alt="" loading="lazy"/></div>
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1bzydwrsr-_19LVDzNqgKBM9277XAzBL8" alt="" loading="lazy"/></div>
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/1lMEvYpi6SL2dVSooRkwlhj6cfHwbBIIl" alt="" loading="lazy"/></div>
-                  <div class="carousel-slide"><img src="https://lh3.googleusercontent.com/d/157er4inigI6H1YQAP1KoCOwSYBD1uODr" alt="" loading="lazy"/></div>
-                </div>
-                <div class="carousel-controls">
-                  <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
-                  <div class="carousel-dots">
-                    <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,3)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,4)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,5)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,6)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,7)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,8)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,9)"></div>
-                  </div>
-                  <button class="carousel-btn" onclick="carouselNext(this)">›</button>
-                </div>
+              <div class="slideshow" onclick="toggleSlideshow(this)">
+                <div class="slideshow-frame active"><img src="https://lh3.googleusercontent.com/d/1DBk1M6MdoWqqR7A6AaqXwir8H5C4B7nf" alt="" loading="lazy"/></div>
+                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1SfgVKBNVX8MA2MfZfSLqbEnXFVDGKGGm" alt="" loading="lazy"/></div>
+                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1W3ixrAHSjMpVKlO2zehw6uzHOHUIfKDR" alt="" loading="lazy"/></div>
+                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1gu5cfQpiD0nfvzEhI4vkHk_RBDRG4VNf" alt="" loading="lazy"/></div>
+                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/11dRBdm3IdH-P9Ww2-jhJfmQ5_PCbd8_G" alt="" loading="lazy"/></div>
+                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1ThVpOeg5CV_rea5xEz8TtVDjmLflzkwP" alt="" loading="lazy"/></div>
+                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1JXaxWzmYTYKZQBT5ZcESPmetwOmG1JX6" alt="" loading="lazy"/></div>
+                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1bzydwrsr-_19LVDzNqgKBM9277XAzBL8" alt="" loading="lazy"/></div>
+                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1lMEvYpi6SL2dVSooRkwlhj6cfHwbBIIl" alt="" loading="lazy"/></div>
+                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/157er4inigI6H1YQAP1KoCOwSYBD1uODr" alt="" loading="lazy"/></div>
+                <div class="slideshow-dots"></div>
+                <div class="slideshow-counter"></div>
+                <div class="slideshow-pause-icon">⏸</div>
               </div>
             </div>
           </div>
@@ -1994,55 +2047,89 @@
     })();
 
     /* ── 5. EXPANDABLE CHAPTERS ───────────────── */
+    /* ── 6. SLIDESHOW ─────────────────────────── */
+    const slideshowTimers = new WeakMap();
+
+    function initSlideshow(slideshow) {
+      const frames = slideshow.querySelectorAll('.slideshow-frame');
+      const dotsEl = slideshow.querySelector('.slideshow-dots');
+      const counter = slideshow.querySelector('.slideshow-counter');
+      if (!frames.length) return;
+
+      // Build dots
+      dotsEl.innerHTML = '';
+      frames.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'slideshow-dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', e => { e.stopPropagation(); slideshowGoto(slideshow, i); });
+        dotsEl.appendChild(d);
+      });
+
+      slideshow.dataset.idx = '0';
+      counter.textContent = `1 / ${frames.length}`;
+    }
+
+    function slideshowGoto(slideshow, idx) {
+      const frames = slideshow.querySelectorAll('.slideshow-frame');
+      const dots = slideshow.querySelectorAll('.slideshow-dot');
+      const counter = slideshow.querySelector('.slideshow-counter');
+      const cur = parseInt(slideshow.dataset.idx || '0', 10);
+      if (cur === idx) return;
+
+      frames[cur].classList.remove('active');
+      frames[cur].classList.add('prev');
+      setTimeout(() => frames[cur].classList.remove('prev'), 1000);
+
+      frames[idx].classList.add('active');
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      counter.textContent = `${idx + 1} / ${frames.length}`;
+      slideshow.dataset.idx = idx;
+    }
+
+    function startSlideshow(slideshow) {
+      if (slideshowTimers.has(slideshow)) return;
+      const frames = slideshow.querySelectorAll('.slideshow-frame');
+      const timer = setInterval(() => {
+        if (slideshow.classList.contains('paused')) return;
+        const cur = parseInt(slideshow.dataset.idx || '0', 10);
+        slideshowGoto(slideshow, (cur + 1) % frames.length);
+      }, 3800);
+      slideshowTimers.set(slideshow, timer);
+    }
+
+    function stopSlideshow(slideshow) {
+      const timer = slideshowTimers.get(slideshow);
+      if (timer) { clearInterval(timer); slideshowTimers.delete(slideshow); }
+    }
+
+    function toggleSlideshow(slideshow) {
+      slideshow.classList.toggle('paused');
+      const icon = slideshow.querySelector('.slideshow-pause-icon');
+      icon.textContent = slideshow.classList.contains('paused') ? '▶' : '⏸';
+    }
+
     function toggleChapter(headerEl) {
       const chapter = headerEl.closest('.chapter');
       const isOpen = chapter.classList.contains('open');
 
-      // Close all chapters first
-      document.querySelectorAll('.chapter.open').forEach(c => c.classList.remove('open'));
+      // Close all open chapters and stop their slideshows
+      document.querySelectorAll('.chapter.open').forEach(c => {
+        c.classList.remove('open');
+        c.querySelectorAll('.slideshow').forEach(stopSlideshow);
+      });
 
-      // Open clicked chapter if it was closed
       if (!isOpen) {
         chapter.classList.add('open');
+        // Init + start any slideshows inside this chapter
+        chapter.querySelectorAll('.slideshow').forEach(s => {
+          initSlideshow(s);
+          startSlideshow(s);
+        });
       }
     }
 
-    /* ── 6. CAROUSELS ─────────────────────────── */
-    function getCarouselFromBtn(btn) {
-      return btn.closest('.carousel');
-    }
-
-    function carouselGotoIndex(carousel, idx) {
-      const slides = carousel.querySelectorAll('.carousel-slide');
-      const total = slides.length;
-      // Clamp index
-      idx = ((idx % total) + total) % total;
-
-      carousel.dataset.current = idx;
-      carousel.querySelector('.carousel-track').style.transform = `translateX(-${idx * 100}%)`;
-
-      // Update dots
-      carousel.querySelectorAll('.dot-indicator').forEach((dot, i) => {
-        dot.classList.toggle('active', i === idx);
-      });
-    }
-
-    function carouselPrev(btn) {
-      const carousel = getCarouselFromBtn(btn);
-      const current = parseInt(carousel.dataset.current, 10);
-      carouselGotoIndex(carousel, current - 1);
-    }
-
-    function carouselNext(btn) {
-      const carousel = getCarouselFromBtn(btn);
-      const current = parseInt(carousel.dataset.current, 10);
-      carouselGotoIndex(carousel, current + 1);
-    }
-
-    function carouselGoto(dot, idx) {
-      const carousel = dot.closest('.carousel');
-      carouselGotoIndex(carousel, idx);
-    }
+    // Init all slideshows on load so dots/counter are ready
+    document.querySelectorAll('.slideshow').forEach(initSlideshow);
 
     /* ── 7. 3D CARD TILT ─────────────────────── */
     document.querySelectorAll('.tilt-card').forEach(card => {
@@ -2065,52 +2152,63 @@
   <script>
     /* ── Ambient music player ── */
     const audio = document.getElementById('bg-audio');
+    const audio = document.getElementById('bg-audio');
     const player = document.getElementById('music-player');
-    const btn = document.getElementById('music-btn');
-    const label = document.querySelector('#music-label span');
+    const musicBtn = document.getElementById('music-btn');
+    const musicSubLabel = document.querySelector('#music-label span');
     let musicStarted = false;
+    let wantMusic = true; // user intent
+
+    function fadeInMusic() {
+      audio.volume = 0;
+      audio.play().then(() => {
+        let vol = 0;
+        const fade = setInterval(() => {
+          vol = Math.min(vol + 0.03, 0.5);
+          audio.volume = vol;
+          if (vol >= 0.5) clearInterval(fade);
+        }, 80);
+        musicBtn.textContent = '⏸';
+        musicSubLabel.textContent = 'click to pause';
+      }).catch(() => {});
+    }
 
     function toggleMusic() {
       if (audio.paused) {
+        wantMusic = true;
         audio.play();
-        btn.textContent = '⏸';
-        label.textContent = 'click to pause';
+        musicBtn.textContent = '⏸';
+        musicSubLabel.textContent = 'click to pause';
       } else {
+        wantMusic = false;
         audio.pause();
-        btn.textContent = '▶';
-        label.textContent = 'click to play';
+        musicBtn.textContent = '▶';
+        musicSubLabel.textContent = 'click to play';
       }
     }
 
-    // Show player + autoplay when timeline section enters view
+    // Show player when timeline is in view
     const timelineSection = document.getElementById('timeline');
     if (timelineSection) {
-      const musicObserver = new IntersectionObserver((entries) => {
+      new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            player.classList.add('visible');
-            if (!musicStarted) {
-              musicStarted = true;
-              audio.volume = 0;
-              audio.play().then(() => {
-                // Fade in over 2s
-                let vol = 0;
-                const fade = setInterval(() => {
-                  vol = Math.min(vol + 0.04, 0.55);
-                  audio.volume = vol;
-                  if (vol >= 0.55) clearInterval(fade);
-                }, 80);
-                btn.textContent = '⏸';
-                label.textContent = 'click to pause';
-              }).catch(() => {
-                // Autoplay blocked — player stays visible for manual play
-              });
-            }
-          }
+          if (entry.isIntersecting) player.classList.add('visible');
         });
-      }, { threshold: 0.2 });
-      musicObserver.observe(timelineSection);
+      }, { threshold: 0.15 }).observe(timelineSection);
     }
+
+    // Start music on FIRST user gesture anywhere (beats autoplay block)
+    function onFirstInteraction() {
+      if (musicStarted) return;
+      musicStarted = true;
+      document.removeEventListener('click', onFirstInteraction);
+      document.removeEventListener('keydown', onFirstInteraction);
+      document.removeEventListener('touchstart', onFirstInteraction);
+      if (wantMusic) fadeInMusic();
+    }
+    document.addEventListener('click', onFirstInteraction);
+    document.addEventListener('keydown', onFirstInteraction);
+    document.addEventListener('touchstart', onFirstInteraction);
   </script>
 </body>
 </html>
