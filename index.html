@@ -6,7 +6,7 @@
   <title>Happy Birthday, Aditya ❤️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script:wght@600;700&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script:wght@600;700&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -1326,6 +1326,42 @@
       .chapter { padding-left: 50px; }
       .chapter-dot { left: 8px; }
     }
+    /* ── CROSSWORD ── */
+    #bfgf-crossword { --cw-navy:#0d1b2a; --cw-rose:#e8829a; --cw-lavender:#c4a8e8; --cw-cream:#faf7f2; margin-top: 2.5rem; }
+    #bfgf-crossword .cw-header { text-align:center; margin-bottom:28px; }
+    #bfgf-crossword .cw-eyebrow { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--cw-lavender); margin-bottom:8px; display:block; }
+    #bfgf-crossword .cw-title { font-family:'Playfair Display',serif; font-size:clamp(22px,5vw,34px); font-weight:700; margin-bottom:8px; color:#fff; }
+    #bfgf-crossword .cw-subtitle { font-size:13px; font-weight:300; color:var(--cw-lavender); font-style:italic; }
+    #bfgf-crossword .cw-layout { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; align-items:flex-start; }
+    #bfgf-crossword .cw-grid-wrap { background:rgba(255,255,255,.04); border:1px solid rgba(196,168,232,.2); border-radius:16px; padding:16px; backdrop-filter:blur(8px); }
+    #bfgf-crossword #grid { display:grid; grid-template-columns:repeat(23,1fr); gap:2px; width:min(520px,calc(100vw - 80px)); }
+    #bfgf-crossword .cell { aspect-ratio:1; position:relative; border-radius:2px; }
+    #bfgf-crossword .cell.white { background:var(--cw-cream); cursor:pointer; }
+    #bfgf-crossword .cell.black { background:rgba(13,27,42,.9); }
+    #bfgf-crossword .cell .num { position:absolute; top:1px; left:2px; font-size:clamp(4px,.85vw,6px); font-weight:600; color:#555; z-index:3; pointer-events:none; line-height:1; }
+    #bfgf-crossword .cell input { position:absolute; inset:0; width:100%; height:100%; border:none; outline:none; background:transparent; text-align:center; font-family:'Nunito',sans-serif; font-size:clamp(7px,1.6vw,13px); font-weight:700; color:var(--cw-navy); text-transform:uppercase; caret-color:transparent; padding-top:clamp(4px,1vw,8px); cursor:pointer; z-index:2; }
+    #bfgf-crossword .cell.white:focus-within { background:rgba(232,130,154,.4)!important; }
+    #bfgf-crossword .cell.active-word { background:rgba(196,168,232,.28)!important; }
+    #bfgf-crossword .cell.correct { background:rgba(90,210,130,.4)!important; }
+    #bfgf-crossword .cell.incorrect { background:rgba(232,80,80,.38)!important; }
+    #bfgf-crossword .cell.revealed { background:var(--cw-cream)!important; }
+    #bfgf-crossword .cell.revealed input { color:#8b5cf6!important; font-style:italic; }
+    #bfgf-crossword .cw-btn-row { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:14px; }
+    #bfgf-crossword .cw-btn-row button { padding:8px 18px; border-radius:30px; border:1px solid rgba(196,168,232,.4); background:rgba(255,255,255,.07); color:var(--cw-lavender); font-family:'Nunito',sans-serif; font-size:11px; font-weight:500; letter-spacing:.05em; cursor:pointer; transition:all .2s; }
+    #bfgf-crossword .cw-btn-row button:hover { background:rgba(196,168,232,.2); color:#fff; border-color:var(--cw-lavender); }
+    #bfgf-crossword .cw-btn-row button.cw-primary { background:var(--cw-rose); border-color:var(--cw-rose); color:#fff; }
+    #bfgf-crossword .cw-btn-row button.cw-primary:hover { background:#d4607a; }
+    #bfgf-crossword .cw-clues-wrap { flex:1; min-width:240px; max-width:360px; }
+    #bfgf-crossword .cw-clues-section { background:rgba(255,255,255,.04); border:1px solid rgba(196,168,232,.2); border-radius:14px; padding:16px; margin-bottom:14px; backdrop-filter:blur(8px); }
+    #bfgf-crossword .cw-clues-section h2 { font-family:'Playfair Display',serif; font-size:14px; color:var(--cw-lavender); margin-bottom:10px; border-bottom:1px solid rgba(196,168,232,.2); padding-bottom:6px; letter-spacing:.05em; }
+    #bfgf-crossword .clue-item { display:flex; gap:7px; margin-bottom:7px; cursor:pointer; border-radius:5px; padding:3px 5px; transition:background .15s; }
+    #bfgf-crossword .clue-item:hover { background:rgba(196,168,232,.12); }
+    #bfgf-crossword .clue-item.active { background:rgba(232,130,154,.2); }
+    #bfgf-crossword .clue-num { font-size:10px; font-weight:600; color:var(--cw-rose); min-width:24px; padding-top:1px; flex-shrink:0; }
+    #bfgf-crossword .clue-text { font-size:11.5px; font-weight:300; color:rgba(255,255,255,.85); line-height:1.5; }
+    #cw-congrats { display:none; text-align:center; padding:28px 20px; background:rgba(255,255,255,.06); border:1px solid rgba(232,130,154,.4); border-radius:18px; margin:20px auto; max-width:480px; }
+    #cw-congrats h2 { font-family:'Playfair Display',serif; font-size:26px; margin-bottom:10px; color:#e8829a; }
+    #cw-congrats p { font-size:13px; font-weight:300; color:#c4a8e8; line-height:1.85; }
   </style>
 </head>
 <body>
@@ -1718,14 +1754,33 @@
 
       <p class="section-sub reveal" style="--i:8; margin-top: 2rem; text-align: center;">And then there's the crossword — because of course we turned our nonsense into a game. ♡</p>
 
-      <!-- CROSSWORD: swap this section with your crossword embed when ready -->
-      <div class="crossword-section reveal" style="--i:6">
-        <p class="section-label">Coming soon</p>
-        <h3 class="section-heading" style="font-size:1.7rem;">A crossword, just for us</h3>
-        <p class="section-sub" style="margin:0 auto 0; text-align:center;">Built from the words only we know. Coming soon — check back, Adi.</p>
-        <div class="crossword-box">
-          <span class="puzzle-icon">🧩</span>
-          Crossword loading...
+      <!-- CROSSWORD -->
+      <div id="bfgf-crossword" class="reveal" style="--i:6">
+        <div class="cw-header">
+          <span class="cw-eyebrow">for aditya, with love</span>
+          <h3 class="cw-title">BFGF Crossword Time</h3>
+          <p class="cw-subtitle">a puzzle built from all our bfgf times</p>
+        </div>
+        <div class="cw-layout">
+          <div class="cw-grid-wrap">
+            <div id="grid"></div>
+            <div class="cw-btn-row">
+              <button onclick="checkPuzzle()">Check answers</button>
+              <button onclick="revealWord()">Reveal word</button>
+              <button class="cw-primary" onclick="revealAll()">Reveal all</button>
+            </div>
+          </div>
+          <div class="cw-clues-wrap">
+            <div class="cw-clues-section"><h2>Across</h2><div id="across-list"></div></div>
+            <div class="cw-clues-section"><h2>Down</h2><div id="down-list"></div></div>
+          </div>
+        </div>
+        <div id="cw-congrats">
+          <h2>you solved it 🌙</h2>
+          <p>every word in this puzzle is a piece of us.<br>
+          from GOA where it all started to endless video calls now,<br>
+          from Chaayos chai to Duck N Chill —<br>
+          happy birthday, Adi-bear. i love you. so. fucking. much.</p>
         </div>
       </div>
 
@@ -2206,6 +2261,125 @@
         if (entries[0].isIntersecting) floatPlayer.classList.add('visible');
       }, { threshold: 0.15 }).observe(tlSection);
     }
+  </script>
+  <script>
+  /* ── CROSSWORD ── */
+  (function(){
+  const ROWS=23,COLS=23;
+  const GRID=[["#","#","#","B","E","A","R","#","#","#","#","#","#","C","A","L","L","#","#","#","#","#","#"],["#","#","#","#","#","#","R","#","#","#","D","#","#","H","#","#","#","#","#","#","#","#","#"],["#","#","#","#","#","#","S","#","#","#","R","#","B","A","L","A","K","#","#","#","#","#","#"],["#","#","#","#","#","#","S","#","C","H","I","J","J","I","#","#","#","#","#","#","#","#","#"],["#","#","#","P","U","N","E","#","#","#","V","#","#","#","#","#","#","#","#","#","#","#","#"],["#","#","#","#","#","#","L","A","D","I","E","S","#","#","#","#","#","#","#","#","#","#","#"],["#","#","#","#","#","#","#","#","U","#","S","#","#","#","#","#","#","#","#","#","#","#","#"],["#","#","#","#","#","V","#","#","C","#","#","#","#","#","#","#","#","#","#","#","#","#","#"],["#","#","#","#","#","L","S","#","K","#","#","#","#","#","#","#","#","#","#","#","#","#","#"],["#","#","#","#","C","O","C","U","N","U","T","#","#","#","#","#","#","#","#","#","#","#","#"],["#","#","#","#","H","G","O","#","C","#","#","#","C","#","#","#","#","#","P","#","L","#","#"],["#","G","#","#","A","#","O","#","H","O","R","R","O","R","#","#","C","H","I","L","D","#","#"],["#","O","#","#","A","#","T","#","I","#","K","#","L","#","#","#","U","#","N","#","R","#","#"],["B","A","B","A","Y","#","Y","#","L","#","B","#","A","#","#","#","R","#","K","#","#","#","#"],["#","#","#","#","O","#","#","#","L","#","#","#","B","F","G","F","T","I","M","E","#","#","J"],["H","U","L","K","S","#","#","#","#","#","T","#","E","#","#","R","A","#","A","#","#","#","O"],["#","#","#","I","#","#","#","Y","#","K","A","Y","A","K","#","I","I","#","N","#","#","#","H"],["#","#","#","S","#","#","#","E","#","#","M","#","C","#","#","S","N","#","#","#","R","#","N"],["#","F","I","S","H","#","#","T","R","I","P","#","H","#","#","B","S","U","N","S","E","T","S"],["#","#","P","#","A","#","#","I","#","#","O","#","#","#","#","E","#","#","Y","#","P","#","O"],["#","#","I","#","N","#","#","#","#","S","N","O","W","F","#","E","#","#","T","#","A","#","N"],["#","#","L","#","D","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","I","#","#"],["#","#","L","#","S","#","#","#","#","#","#","#","#","#","#","#","#","#","W","A","R","M","#"]];
+  const CELL_NUMS={"0,3":1,"0,6":2,"0,13":3,"1,10":4,"2,12":5,"3,8":6,"4,3":7,"5,6":8,"5,8":9,"7,5":10,"8,6":11,"9,4":12,"10,12":13,"10,18":14,"10,20":15,"11,1":16,"11,8":17,"11,10":18,"11,16":19,"13,0":20,"14,12":21,"14,15":22,"14,22":23,"15,0":24,"15,3":25,"15,10":26,"16,7":27,"16,9":28,"17,20":29,"18,1":30,"18,2":31,"18,4":32,"18,7":33,"18,16":34,"18,18":35,"20,9":36,"22,18":37};
+  const ACROSS_DATA=[{"num":1,"word":"BEAR","clue":"Hibernates in winter, lives in her heart year-round","row":0,"col":3},{"num":3,"word":"CALL","clue":"LDR maxxing via?","row":0,"col":13},{"num":5,"word":"BALAK","clue":"Paranormal nigga?","row":2,"col":12},{"num":6,"word":"CHIJJI","clue":"Babygirl wants her __? Dat-man shall provide!","row":3,"col":8},{"num":7,"word":"PUNE","clue":"Lots to unpack in one's city","row":4,"col":3},{"num":8,"word":"LADIES","clue":"Our get-out-of-jail-free card, always","row":5,"col":6},{"num":12,"word":"COCUNUT","clue":"Soft actions, hard feelings ft. Goa 2.0 pitstop","row":9,"col":4},{"num":17,"word":"HORROR","clue":"Scarily says: \"Am I joke to you?\"","row":11,"col":8},{"num":19,"word":"CHILD","clue":"18+ business, strictly - dickhead!","row":11,"col":16},{"num":20,"word":"BABAY","clue":"Word of chhapri endearment","row":13,"col":0},{"num":21,"word":"BFGFTIME","clue":"24x7, unfiltered love and madness","row":14,"col":12},{"num":24,"word":"HULKS","clue":"Big, green, and smashed - nothing to avenge though","row":15,"col":0},{"num":28,"word":"KAYAK","clue":"Longest joke I ever heard, vehicle?","row":16,"col":9},{"num":30,"word":"FISH","clue":"GF of BF (i.e. chips)?","row":18,"col":1},{"num":33,"word":"TRIP","clue":"Us when, next? My thigh is aching to go there","row":18,"col":7},{"num":34,"word":"SUNSETS","clue":"Deep talks, deeper hues on the beach","row":18,"col":16},{"num":36,"word":"SNOWF","clue":"genitalia prefix?","row":20,"col":9},{"num":37,"word":"WARM","clue":"Playing when hands first found each other — it knew before we did","row":22,"col":18}];
+  const DOWN_DATA=[{"num":2,"word":"RUSSEL","clue":"birds? — they do serve the best birds of the ocean tho!","row":0,"col":6},{"num":3,"word":"CHAI","clue":"Bfgf #1 in-person pass time","row":0,"col":13},{"num":4,"word":"DRIVES","clue":"To ladghar was one of the best ones","row":1,"col":10},{"num":9,"word":"DUCKNCHILL","clue":"More like fuck n?","row":5,"col":8},{"num":10,"word":"VLOG","clue":"hello frandss","row":7,"col":5},{"num":11,"word":"SCOOTY","clue":"Heavy driving ft. Goa 2.0","row":8,"col":6},{"num":12,"word":"CHAAYOS","clue":"Our adda outside delhi home","row":9,"col":4},{"num":13,"word":"COLABEACH","clue":"Path to a fizzy hell is paved with good intentions ft. Goa.","row":10,"col":12},{"num":14,"word":"PINKMAN","clue":"A classic scene; Two chairs, two hands – this is where it all began","row":10,"col":18},{"num":15,"word":"LDR","clue":"Worst acronym ever, lived experience","row":10,"col":20},{"num":16,"word":"GOA","clue":"Putting Bfgf hard launch on the map","row":11,"col":1},{"num":18,"word":"RKB","clue":"Stop birthing such filth out of your mouth, hoe.","row":11,"col":10},{"num":19,"word":"CURTAINS","clue":"Dat man blocking light for beauty sleep","row":11,"col":16},{"num":22,"word":"FRISBEE","clue":"\"Can you pass 'IT' properly, beach please?\"","row":14,"col":15},{"num":23,"word":"JOHNSON","clue":"\"You know why I'm calling, got a falling…\" Mrs?","row":14,"col":22},{"num":25,"word":"KISS","clue":"Forehead idhar lao","row":15,"col":3},{"num":26,"word":"TAMPON","clue":"Goa 2.0 bathroom. Stuck scenes. Dat man on duty for bloody scares.","row":15,"col":10},{"num":27,"word":"YETI","clue":"Banned restaurant with Kothe??!","row":16,"col":7},{"num":29,"word":"REPAIR","clue":"BFGF putting handymen to shame, fight edition","row":17,"col":20},{"num":31,"word":"IPILL","clue":"\"Knockin' on Heaven's Hell's Door\" Twice!","row":18,"col":2},{"num":32,"word":"HANDS","clue":"Yours in mine, mine in yours; all the damn time.","row":18,"col":4},{"num":35,"word":"NYT","clue":"Quit playing games with my phone (not!)","row":18,"col":18}];
+  const ANSWER={"11,8":"H","11,9":"O","11,10":"R","11,11":"R","11,12":"O","11,13":"R","5,8":"D","6,8":"U","7,8":"C","8,8":"K","9,8":"N","10,8":"C","12,8":"I","13,8":"L","14,8":"L","10,12":"C","12,12":"L","13,12":"A","14,12":"B","15,12":"E","16,12":"A","17,12":"C","18,12":"H","14,13":"F","14,14":"G","14,15":"F","14,16":"T","14,17":"I","14,18":"M","14,19":"E","11,16":"C","12,16":"U","13,16":"R","15,16":"A","16,16":"I","17,16":"N","18,16":"S","10,18":"P","11,18":"I","12,18":"N","13,18":"K","15,18":"A","16,18":"N","9,4":"C","9,5":"O","9,6":"C","9,7":"U","9,9":"U","9,10":"T","8,6":"S","10,6":"O","11,6":"O","12,6":"T","13,6":"Y","18,17":"U","18,18":"N","18,19":"S","18,20":"E","18,21":"T","18,22":"S","14,22":"J","15,22":"O","16,22":"H","17,22":"N","19,22":"O","20,22":"N","10,4":"H","11,4":"A","12,4":"A","13,4":"Y","14,4":"O","15,4":"S","17,20":"R","19,20":"P","20,20":"A","21,20":"I","22,20":"R","5,6":"L","5,7":"A","5,9":"I","5,10":"E","5,11":"S","1,10":"D","2,10":"R","3,10":"I","4,10":"V","6,10":"S","16,9":"K","16,10":"A","16,11":"Y","16,13":"K","15,10":"T","17,10":"M","18,10":"P","19,10":"O","20,10":"N","11,17":"H","11,19":"L","11,20":"D","15,0":"H","15,1":"U","15,2":"L","15,3":"K","20,9":"S","20,11":"O","20,12":"W","20,13":"F","13,0":"B","13,1":"A","13,2":"B","13,3":"A","0,6":"R","1,6":"U","2,6":"S","3,6":"S","4,6":"E","16,3":"I","17,3":"S","18,3":"S","22,18":"W","22,19":"A","22,21":"M","3,8":"C","3,9":"H","3,11":"J","3,12":"J","3,13":"I","0,3":"B","0,4":"E","0,5":"A","0,13":"C","1,13":"H","2,13":"A","18,7":"T","18,8":"R","18,9":"I","0,14":"A","0,15":"L","0,16":"L","4,3":"P","4,4":"U","4,5":"N","18,1":"F","18,2":"I","18,4":"H","19,2":"P","20,2":"I","21,2":"L","22,2":"L","10,20":"L","12,20":"R","19,4":"A","20,4":"N","21,4":"D","22,4":"S","11,1":"G","12,1":"O","12,10":"K","13,10":"B","19,18":"Y","20,18":"T","2,12":"B","2,14":"L","2,15":"A","2,16":"K","16,7":"Y","17,7":"E","19,7":"I","15,15":"R","16,15":"I","17,15":"S","18,15":"B","19,15":"E","20,15":"E","7,5":"V","8,5":"L","10,5":"G"};
+
+  const gridEl=document.getElementById('grid');
+  for(let r=0;r<ROWS;r++){
+    for(let c=0;c<COLS;c++){
+      const ch=GRID[r][c],key=`${r},${c}`;
+      const div=document.createElement('div');
+      div.className='cell '+(ch==='#'?'black':'white');
+      div.dataset.r=r;div.dataset.c=c;
+      if(ch!=='#'){
+        const n=CELL_NUMS[key];
+        if(n){const s=document.createElement('span');s.className='num';s.textContent=n;div.appendChild(s);}
+        const inp=document.createElement('input');
+        inp.maxLength=1;inp.dataset.r=r;inp.dataset.c=c;
+        inp.addEventListener('focus',()=>cwOnFocus(r,c));
+        inp.addEventListener('input',cwOnInput);
+        inp.addEventListener('keydown',cwOnKeydown);
+        div.appendChild(inp);
+      }
+      gridEl.appendChild(div);
+    }
+  }
+
+  function cwCell(r,c){return document.querySelector(`#grid .cell[data-r="${r}"][data-c="${c}"]`);}
+  function cwInp(r,c){return document.querySelector(`#grid input[data-r="${r}"][data-c="${c}"]`);}
+  let cwActiveWord=null,cwPrefDir='A';
+
+  function cwWordAt(r,c,dir){
+    if(dir==='A')return ACROSS_DATA.find(w=>w.row===r&&c>=w.col&&c<w.col+w.word.length);
+    return DOWN_DATA.find(w=>w.col===c&&r>=w.row&&r<w.row+w.word.length);
+  }
+  function cwOnFocus(r,c){
+    const wa=cwWordAt(r,c,'A'),wd=cwWordAt(r,c,'D');
+    if(wa&&wd){if(cwActiveWord&&cwActiveWord.some(e=>e.r===r&&e.c===c))cwPrefDir=cwPrefDir==='A'?'D':'A';}
+    else if(wa)cwPrefDir='A';else if(wd)cwPrefDir='D';
+    cwHighlight(r,c,cwPrefDir);
+  }
+  function cwHighlight(r,c,dir){
+    document.querySelectorAll('#grid .cell.white').forEach(el=>el.classList.remove('active-word'));
+    const w=cwWordAt(r,c,dir)||cwWordAt(r,c,dir==='A'?'D':'A');
+    if(!w)return;
+    const isA=ACROSS_DATA.includes(w);
+    cwActiveWord=[];
+    for(let i=0;i<w.word.length;i++){
+      const wr=isA?w.row:w.row+i,wc=isA?w.col+i:w.col;
+      cwActiveWord.push({r:wr,c:wc});cwCell(wr,wc)?.classList.add('active-word');
+    }
+    document.querySelectorAll('.clue-item').forEach(el=>el.classList.remove('active'));
+    document.getElementById(`clue-${isA?'A':'D'}-${w.num}`)?.classList.add('active');
+    document.getElementById(`clue-${isA?'A':'D'}-${w.num}`)?.scrollIntoView({block:'nearest',behavior:'smooth'});
+  }
+  function cwOnInput(e){
+    const el=e.target,r=+el.dataset.r,c=+el.dataset.c;
+    const v=el.value.toUpperCase().replace(/[^A-Z]/g,'');
+    el.value=v.slice(-1);cwCell(r,c).classList.remove('correct','incorrect');
+    if(v)cwAdvance(r,c);cwCheckComplete();
+  }
+  function cwOnKeydown(e){
+    const el=e.target,r=+el.dataset.r,c=+el.dataset.c;
+    if(e.key==='Backspace'&&!el.value)cwRetreat(r,c);
+    if(e.key==='ArrowRight'){e.preventDefault();cwPrefDir='A';cwMove(r,c+1);}
+    if(e.key==='ArrowLeft'){e.preventDefault();cwPrefDir='A';cwMove(r,c-1);}
+    if(e.key==='ArrowDown'){e.preventDefault();cwPrefDir='D';cwMove(r+1,c);}
+    if(e.key==='ArrowUp'){e.preventDefault();cwPrefDir='D';cwMove(r-1,c);}
+  }
+  function cwMove(r,c){const i=cwInp(r,c);if(i){i.focus();cwHighlight(r,c,cwPrefDir);}}
+  function cwAdvance(r,c){if(!cwActiveWord)return;const idx=cwActiveWord.findIndex(e=>e.r===r&&e.c===c);if(idx<cwActiveWord.length-1)cwMove(cwActiveWord[idx+1].r,cwActiveWord[idx+1].c);}
+  function cwRetreat(r,c){if(!cwActiveWord)return;const idx=cwActiveWord.findIndex(e=>e.r===r&&e.c===c);if(idx>0)cwMove(cwActiveWord[idx-1].r,cwActiveWord[idx-1].c);}
+
+  function cwBuildClues(data,dir,id){
+    const cont=document.getElementById(id);
+    data.forEach(({num,word,clue,row,col})=>{
+      const div=document.createElement('div');
+      div.className='clue-item';div.id=`clue-${dir}-${num}`;
+      div.innerHTML=`<span class="clue-num">${num}${dir}</span><span class="clue-text">${clue}</span>`;
+      div.addEventListener('click',()=>{cwPrefDir=dir;cwHighlight(row,col,dir);const i=cwInp(row,col);if(i)i.focus();});
+      cont.appendChild(div);
+    });
+  }
+  cwBuildClues(ACROSS_DATA,'A','across-list');
+  cwBuildClues(DOWN_DATA,'D','down-list');
+
+  window.checkPuzzle=function(){
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+      const i=cwInp(r,c);if(!i||!i.value)continue;
+      const cl=cwCell(r,c);cl.classList.remove('correct','incorrect');
+      cl.classList.add(i.value===ANSWER[`${r},${c}`]?'correct':'incorrect');
+    }
+  };
+  window.revealWord=function(){
+    if(!cwActiveWord)return;
+    cwActiveWord.forEach(({r,c})=>{const i=cwInp(r,c);if(i){i.value=ANSWER[`${r},${c}`]||'';cwCell(r,c).classList.add('revealed');}});
+    cwCheckComplete();
+  };
+  window.revealAll=function(){
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+      const i=cwInp(r,c);if(i){i.value=ANSWER[`${r},${c}`]||'';cwCell(r,c).classList.add('revealed');}
+    }
+    const cong=document.getElementById('cw-congrats');
+    cong.style.display='block';cong.scrollIntoView({behavior:'smooth',block:'center'});
+  };
+  function cwCheckComplete(){
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+      const i=cwInp(r,c);if(!i)continue;
+      if(i.value!==(ANSWER[`${r},${c}`]||''))return;
+    }
+    const cong=document.getElementById('cw-congrats');
+    cong.style.display='block';cong.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  })();
   </script>
 </body>
 </html>
