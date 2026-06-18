@@ -2099,7 +2099,7 @@
         if (slideshow.classList.contains('paused')) return;
         const cur = parseInt(slideshow.dataset.idx || '0', 10);
         slideshowGoto(slideshow, (cur + 1) % frames.length);
-      }, 2700);
+      }, 2300);
       slideshowTimers.set(slideshow, timer);
     }
 
