@@ -719,10 +719,14 @@
     .meet-footer {
       font-family: 'Nunito', sans-serif;
       font-style: italic;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       color: rgba(236, 72, 153, 0.65);
       margin-top: 1.2rem;
-      padding-bottom: 1rem;
+      padding-bottom: 2.5rem;
+      white-space: nowrap;
+    }
+    @media (max-width: 700px) {
+      .meet-footer { white-space: normal; font-size: 0.82rem; }
     }
 
     /* Video call mosaic */
@@ -901,8 +905,8 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
     .marquee-photo {
-      width: 140px;
-      height: 200px;
+      width: 170px;
+      height: 240px;
       border-radius: 12px;
       flex-shrink: 0;
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1168,7 +1172,7 @@
 
     /* ─── RESPONSIVE TWEAKS ─── */
     @media (max-width: 700px) {
-      .marquee-photo { width: 100px; height: 145px; }
+      .marquee-photo { width: 120px; height: 170px; }
 
       .counter-cards { gap: 0.8rem; }
       .counter-card { min-width: 110px; padding: 1.2rem 1.4rem; }
@@ -1195,27 +1199,6 @@
     <div class="aurora-blob" style="width:500px;height:500px;background:#7c3aed;top:-100px;right:-80px;--dur:11s;--tx:-80px;--ty:60px;" aria-hidden="true"></div>
     <div class="aurora-blob" style="width:300px;height:300px;background:#be185d;bottom:0;left:50%;transform:translateX(-50%);--dur:9s;--tx:40px;--ty:-50px;" aria-hidden="true"></div>
 
-    <!-- Palm tree SVG silhouette -->
-    <svg class="palm-silhouette" viewBox="0 0 1440 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <g fill="#0a0818">
-        <!-- Ground -->
-        <rect x="0" y="170" width="1440" height="30"/>
-        <!-- Left palm trunk -->
-        <path d="M120 170 Q118 140 125 110 Q128 90 122 60 L128 60 Q134 90 131 110 Q138 140 136 170Z"/>
-        <!-- Left palm fronds -->
-        <ellipse cx="124" cy="58" rx="38" ry="14" transform="rotate(-30 124 58)"/>
-        <ellipse cx="124" cy="58" rx="42" ry="13" transform="rotate(15 124 58)"/>
-        <ellipse cx="124" cy="58" rx="36" ry="12" transform="rotate(-70 124 58)"/>
-        <ellipse cx="124" cy="58" rx="40" ry="12" transform="rotate(50 124 58)"/>
-        <!-- Right palm trunk -->
-        <path d="M1300 170 Q1305 140 1298 105 Q1295 82 1302 50 L1308 50 Q1315 82 1312 105 Q1305 140 1310 170Z"/>
-        <!-- Right palm fronds -->
-        <ellipse cx="1305" cy="48" rx="42" ry="14" transform="rotate(30 1305 48)"/>
-        <ellipse cx="1305" cy="48" rx="38" ry="13" transform="rotate(-15 1305 48)"/>
-        <ellipse cx="1305" cy="48" rx="44" ry="12" transform="rotate(65 1305 48)"/>
-        <ellipse cx="1305" cy="48" rx="36" ry="12" transform="rotate(-50 1305 48)"/>
-      </g>
-    </svg>
 
     <div class="hero-content reveal">
       <span class="hero-line1">Happy Birthday,</span>
@@ -1290,9 +1273,6 @@
         <h2 class="section-heading reveal" style="--i:1">
           A little <em class="gradient-text">map of us</em>
         </h2>
-        <p class="section-sub reveal" style="--i:2">
-          Add photos and notes to each chapter as we go — this page grows with us.
-        </p>
       </div>
 
       <div class="timeline-track" id="timeline-track">
@@ -1430,7 +1410,7 @@
             <div class="chapter-meta">
               <p class="chapter-num">Chapter Four</p>
               <p class="chapter-title">Pune &amp; horror movies we barely watched</p>
-              <p class="chapter-body">We bought tickets for the plot. We stayed for each other. Sorry to every filmmaker we have personally let down.</p>
+              <p class="chapter-body">We'd turn a movie on and then, well — rest is history. Read: bfgf naughty time. Sorry (genuinely not sorry) to every filmmaker we've personally let down.</p>
             </div>
             <span class="chapter-arrow">▾</span>
           </div>
@@ -1584,8 +1564,8 @@
           <p class="word-def">Said seconds before loving on each other again.</p>
         </div>
         <div class="word-card tilt-card reveal" style="--i:5">
-          <p class="word-term">Haanji haaan</p>
-          <p class="word-def">Not a yes. Not a no. A whole mood.</p>
+          <p class="word-term">Main ladies hun</p>
+          <p class="word-def">Being a lady is a state of mind. An unhinged one.</p>
         </div>
         <div class="word-card tilt-card reveal" style="--i:6">
           <p class="word-term">Meko bohot missing ho raha hai</p>
