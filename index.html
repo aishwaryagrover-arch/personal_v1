@@ -530,24 +530,41 @@
     .chapter.open .chapter-arrow { transform: rotate(180deg); }
 
     /* Panel */
-    .chapter-panel {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(236, 72, 153, 0.2);
-      border-top: none;
-      border-radius: 0 0 14px 14px;
+    /* Side-by-side layout on open */
+    .chapter-inner {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
     }
-    .chapter.open .chapter-panel {
-      max-height: 700px;
-      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.06) 0%, transparent 70%),
-                  rgba(255, 255, 255, 0.03);
+    .chapter-header {
+      flex: 1 1 auto;
+      transition: border-color 0.3s ease, background 0.3s ease, border-radius 0.4s ease, flex-basis 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .chapter.open .chapter-header {
+      flex: 0 0 42%;
+      border-radius: 14px 0 0 14px;
+      border-color: rgba(236, 72, 153, 0.3);
+      background: rgba(255, 255, 255, 0.06);
     }
 
-    .panel-inner { padding: 1.5rem; }
+    .chapter-panel {
+      flex: 0 0 0%;
+      overflow: hidden;
+      transition: flex-basis 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+      opacity: 0;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(236,72,153,0.2);
+      border-left: none;
+      border-radius: 0 14px 14px 0;
+    }
+    .chapter.open .chapter-panel {
+      flex: 0 0 58%;
+      opacity: 1;
+    }
+
+    .panel-inner { padding: 1rem; height: 100%; box-sizing: border-box; }
 
     /* Carousel */
     .carousel {
@@ -1428,39 +1445,22 @@
         <!-- CHAPTER ONE -->
         <div class="chapter reveal" style="--i:0">
           <div class="chapter-dot"></div>
-          <div class="chapter-header" onclick="toggleChapter(this)">
-            <div class="chapter-meta">
-              <p class="chapter-num">Chapter One</p>
-              <p class="chapter-title">Goa 1.0 — where it all began</p>
-              <p class="chapter-body">The salt, the sun, the unbearably specific feeling of meeting someone and sort of hating them :P The universe was very confusing that week! But the more I got to know you, the more I fell for you.</p>
+          <div class="chapter-inner">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+              <div class="chapter-meta">
+                <p class="chapter-num">Chapter One</p>
+                <p class="chapter-title">Goa 1.0 — where it all began</p>
+                <p class="chapter-body">The salt, the sun, the unbearably specific feeling of meeting someone and sort of hating them :P The universe was very confusing that week! But the more I got to know you, the more I fell for you.</p>
+              </div>
+              <span class="chapter-arrow">▾</span>
             </div>
-            <span class="chapter-arrow">▾</span>
-          </div>
-          <div class="chapter-panel">
-            <div class="panel-inner">
-              <div class="carousel" data-current="0">
-                <div class="carousel-track">
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                </div>
-                <div class="carousel-controls">
-                  <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
-                  <div class="carousel-dots">
-                    <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
-                  </div>
-                  <button class="carousel-btn" onclick="carouselNext(this)">›</button>
+            <div class="chapter-panel">
+              <div class="panel-inner">
+                <div class="slideshow" onclick="toggleSlideshow(this)">
+                  <div class="slideshow-frame active"><div class="photo-placeholder"><span>📷</span>photos coming soon</div></div>
+                  <div class="slideshow-dots"></div>
+                  <div class="slideshow-counter"></div>
+                  <div class="slideshow-pause-icon">⏸</div>
                 </div>
               </div>
             </div>
@@ -1470,39 +1470,22 @@
         <!-- CHAPTER TWO -->
         <div class="chapter reveal" style="--i:1">
           <div class="chapter-dot"></div>
-          <div class="chapter-header" onclick="toggleChapter(this)">
-            <div class="chapter-meta">
-              <p class="chapter-num">Chapter Two</p>
-              <p class="chapter-title">Goa 2.0 — bfgf, officially</p>
-              <p class="chapter-body">Same sea, different us. Best hard launch the Arabian Sea has ever hosted.</p>
+          <div class="chapter-inner">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+              <div class="chapter-meta">
+                <p class="chapter-num">Chapter Two</p>
+                <p class="chapter-title">Goa 2.0 — bfgf, officially</p>
+                <p class="chapter-body">Same sea, different us. Best hard launch the Arabian Sea has ever hosted.</p>
+              </div>
+              <span class="chapter-arrow">▾</span>
             </div>
-            <span class="chapter-arrow">▾</span>
-          </div>
-          <div class="chapter-panel">
-            <div class="panel-inner">
-              <div class="carousel" data-current="0">
-                <div class="carousel-track">
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                </div>
-                <div class="carousel-controls">
-                  <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
-                  <div class="carousel-dots">
-                    <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
-                  </div>
-                  <button class="carousel-btn" onclick="carouselNext(this)">›</button>
+            <div class="chapter-panel">
+              <div class="panel-inner">
+                <div class="slideshow" onclick="toggleSlideshow(this)">
+                  <div class="slideshow-frame active"><div class="photo-placeholder"><span>📷</span>photos coming soon</div></div>
+                  <div class="slideshow-dots"></div>
+                  <div class="slideshow-counter"></div>
+                  <div class="slideshow-pause-icon">⏸</div>
                 </div>
               </div>
             </div>
@@ -1512,39 +1495,22 @@
         <!-- CHAPTER THREE -->
         <div class="chapter reveal" style="--i:2">
           <div class="chapter-dot"></div>
-          <div class="chapter-header" onclick="toggleChapter(this)">
-            <div class="chapter-meta">
-              <p class="chapter-num">Chapter Three</p>
-              <p class="chapter-title">Delhi, on loop</p>
-              <p class="chapter-body">Sunder Nursery walks, picnics, yummy meals (yes, Yeti dinners as well xD). A truly unreasonable number of Chaayos receipts. My cat developing an actual crush on you, and your....ahem-ahem :P</p>
+          <div class="chapter-inner">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+              <div class="chapter-meta">
+                <p class="chapter-num">Chapter Three</p>
+                <p class="chapter-title">Delhi, on loop</p>
+                <p class="chapter-body">Sunder Nursery walks, picnics, yummy meals (yes, Yeti dinners as well xD). A truly unreasonable number of Chaayos receipts. My cat developing an actual crush on you, and your....ahem-ahem :P</p>
+              </div>
+              <span class="chapter-arrow">▾</span>
             </div>
-            <span class="chapter-arrow">▾</span>
-          </div>
-          <div class="chapter-panel">
-            <div class="panel-inner">
-              <div class="carousel" data-current="0">
-                <div class="carousel-track">
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                  <div class="carousel-slide">
-                    <div class="photo-placeholder"><span>📎</span>Add photo — click to upload later</div>
-                    <input class="caption-input" type="text" placeholder="✏️ Caption goes here" />
-                  </div>
-                </div>
-                <div class="carousel-controls">
-                  <button class="carousel-btn" onclick="carouselPrev(this)">‹</button>
-                  <div class="carousel-dots">
-                    <div class="dot-indicator active" onclick="carouselGoto(this,0)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,1)"></div>
-                    <div class="dot-indicator" onclick="carouselGoto(this,2)"></div>
-                  </div>
-                  <button class="carousel-btn" onclick="carouselNext(this)">›</button>
+            <div class="chapter-panel">
+              <div class="panel-inner">
+                <div class="slideshow" onclick="toggleSlideshow(this)">
+                  <div class="slideshow-frame active"><div class="photo-placeholder"><span>📷</span>photos coming soon</div></div>
+                  <div class="slideshow-dots"></div>
+                  <div class="slideshow-counter"></div>
+                  <div class="slideshow-pause-icon">⏸</div>
                 </div>
               </div>
             </div>
@@ -1554,30 +1520,32 @@
         <!-- CHAPTER FOUR -->
         <div class="chapter reveal" style="--i:3">
           <div class="chapter-dot"></div>
-          <div class="chapter-header" onclick="toggleChapter(this)">
-            <div class="chapter-meta">
-              <p class="chapter-num">Chapter Four</p>
-              <p class="chapter-title">Pune &amp; horror movies we barely watched</p>
-              <p class="chapter-body">We'd turn a movie on and then, well — rest is history. Read: bfgf naughty time. Sorry (genuinely not sorry) to every filmmaker we've personally let down.</p>
+          <div class="chapter-inner">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+              <div class="chapter-meta">
+                <p class="chapter-num">Chapter Four</p>
+                <p class="chapter-title">Pune &amp; horror movies we barely watched</p>
+                <p class="chapter-body">We'd turn a movie on and then, well — rest is history. Read: bfgf naughty time. Sorry (genuinely not sorry) to every filmmaker we've personally let down.</p>
+              </div>
+              <span class="chapter-arrow">▾</span>
             </div>
-            <span class="chapter-arrow">▾</span>
-          </div>
-          <div class="chapter-panel">
-            <div class="panel-inner">
-              <div class="slideshow" onclick="toggleSlideshow(this)">
-                <div class="slideshow-frame active"><img src="https://lh3.googleusercontent.com/d/1DBk1M6MdoWqqR7A6AaqXwir8H5C4B7nf" alt="" loading="lazy"/></div>
-                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1SfgVKBNVX8MA2MfZfSLqbEnXFVDGKGGm" alt="" loading="lazy"/></div>
-                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1W3ixrAHSjMpVKlO2zehw6uzHOHUIfKDR" alt="" loading="lazy"/></div>
-                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1gu5cfQpiD0nfvzEhI4vkHk_RBDRG4VNf" alt="" loading="lazy"/></div>
-                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/11dRBdm3IdH-P9Ww2-jhJfmQ5_PCbd8_G" alt="" loading="lazy"/></div>
-                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1ThVpOeg5CV_rea5xEz8TtVDjmLflzkwP" alt="" loading="lazy"/></div>
-                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1JXaxWzmYTYKZQBT5ZcESPmetwOmG1JX6" alt="" loading="lazy"/></div>
-                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1bzydwrsr-_19LVDzNqgKBM9277XAzBL8" alt="" loading="lazy"/></div>
-                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1lMEvYpi6SL2dVSooRkwlhj6cfHwbBIIl" alt="" loading="lazy"/></div>
-                <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/157er4inigI6H1YQAP1KoCOwSYBD1uODr" alt="" loading="lazy"/></div>
-                <div class="slideshow-dots"></div>
-                <div class="slideshow-counter"></div>
-                <div class="slideshow-pause-icon">⏸</div>
+            <div class="chapter-panel">
+              <div class="panel-inner">
+                <div class="slideshow" onclick="toggleSlideshow(this)">
+                  <div class="slideshow-frame active"><img src="https://lh3.googleusercontent.com/d/1DBk1M6MdoWqqR7A6AaqXwir8H5C4B7nf" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1SfgVKBNVX8MA2MfZfSLqbEnXFVDGKGGm" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1W3ixrAHSjMpVKlO2zehw6uzHOHUIfKDR" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1gu5cfQpiD0nfvzEhI4vkHk_RBDRG4VNf" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/11dRBdm3IdH-P9Ww2-jhJfmQ5_PCbd8_G" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1ThVpOeg5CV_rea5xEz8TtVDjmLflzkwP" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1JXaxWzmYTYKZQBT5ZcESPmetwOmG1JX6" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1bzydwrsr-_19LVDzNqgKBM9277XAzBL8" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/1lMEvYpi6SL2dVSooRkwlhj6cfHwbBIIl" alt="" loading="lazy"/></div>
+                  <div class="slideshow-frame"><img src="https://lh3.googleusercontent.com/d/157er4inigI6H1YQAP1KoCOwSYBD1uODr" alt="" loading="lazy"/></div>
+                  <div class="slideshow-dots"></div>
+                  <div class="slideshow-counter"></div>
+                  <div class="slideshow-pause-icon">⏸</div>
+                </div>
               </div>
             </div>
           </div>
@@ -1586,11 +1554,13 @@
         <!-- CHAPTER FIVE -->
         <div class="chapter reveal" style="--i:4">
           <div class="chapter-dot"></div>
-          <div class="chapter-header">
-            <div class="chapter-meta">
-              <p class="chapter-num">Chapter Five</p>
-              <p class="chapter-title">India → Ireland — 7,500 km of we'll-figure-it-out</p>
-              <p class="chapter-body">Three months of video calls that don't end, nyt-games, quizzes, all the inside jokes — laughing like idiots, fighting like we invented it, and somehow loving each other more through all of it.</p>
+          <div class="chapter-inner">
+            <div class="chapter-header">
+              <div class="chapter-meta">
+                <p class="chapter-num">Chapter Five</p>
+                <p class="chapter-title">India → Ireland — 7,500 km of we'll-figure-it-out</p>
+                <p class="chapter-body">Three months of video calls that don't end, nyt-games, quizzes, all the inside jokes — laughing like idiots, fighting like we invented it, and somehow loving each other more through all of it.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -2118,7 +2088,7 @@
         if (slideshow.classList.contains('paused')) return;
         const cur = parseInt(slideshow.dataset.idx || '0', 10);
         slideshowGoto(slideshow, (cur + 1) % frames.length);
-      }, 3800);
+      }, 2700);
       slideshowTimers.set(slideshow, timer);
     }
 
@@ -2176,91 +2146,45 @@
 
   <script>
     /* ── Ambient music player ── */
-    const audio = document.getElementById('bg-audio');
-    const audio = document.getElementById('bg-audio');
-    const player = document.getElementById('music-player');
-    const musicBtn = document.getElementById('music-btn');
-    const musicSubLabel = document.querySelector('#music-label span');
-    let musicStarted = false;
-    let wantMusic = true; // user intent
-
-    function fadeInMusic() {
-      audio.volume = 0;
-      audio.play().then(() => {
-        let vol = 0;
-        const fade = setInterval(() => {
-          vol = Math.min(vol + 0.03, 0.5);
-          audio.volume = vol;
-          if (vol >= 0.5) clearInterval(fade);
-        }, 80);
-        musicBtn.textContent = '⏸';
-        musicSubLabel.textContent = 'click to pause';
-      }).catch(() => {});
-    }
-
+    const bgAudio = document.getElementById('bg-audio');
+    const floatPlayer = document.getElementById('music-player');
+    const floatBtn = document.getElementById('music-btn');
+    const floatSub = document.querySelector('#music-label span');
     const mapMusicIcon = document.getElementById('map-music-icon');
     const mapMusicLabel = document.getElementById('map-music-label');
 
     function syncMusicUI(playing) {
-      if (playing) {
-        musicBtn.textContent = '⏸';
-        musicSubLabel.textContent = 'click to pause';
-        if (mapMusicIcon) mapMusicIcon.textContent = '⏸';
-        if (mapMusicLabel) mapMusicLabel.textContent = 'pause music';
-      } else {
-        musicBtn.textContent = '▶';
-        musicSubLabel.textContent = 'click to play';
-        if (mapMusicIcon) mapMusicIcon.textContent = '▶';
-        if (mapMusicLabel) mapMusicLabel.textContent = 'play music';
-      }
+      floatBtn.textContent = playing ? '⏸' : '▶';
+      floatSub.textContent = playing ? 'click to pause' : 'click to play';
+      if (mapMusicIcon) mapMusicIcon.textContent = playing ? '⏸' : '▶';
+      if (mapMusicLabel) mapMusicLabel.textContent = playing ? 'pause music' : 'play music';
     }
 
-    function manualPlayMusic() {
-      musicStarted = true;
-      if (audio.paused) {
-        wantMusic = true;
-        fadeInMusic();
-      } else {
-        wantMusic = false;
-        audio.pause();
-        syncMusicUI(false);
-      }
-    }
-
-    function toggleMusic() {
-      if (audio.paused) {
-        wantMusic = true;
-        audio.play().then(() => syncMusicUI(true)).catch(() => {});
-      } else {
-        wantMusic = false;
-        audio.pause();
-        syncMusicUI(false);
-      }
-    }
-
-    // Override fadeInMusic to also sync map button
-    const _origFadeIn = fadeInMusic;
-    function fadeInMusic() {
-      audio.volume = 0;
-      audio.play().then(() => {
+    function playMusic() {
+      bgAudio.volume = 0;
+      bgAudio.play().then(() => {
         let vol = 0;
         const fade = setInterval(() => {
-          vol = Math.min(vol + 0.03, 0.5);
-          audio.volume = vol;
+          vol = Math.min(vol + 0.04, 0.5);
+          bgAudio.volume = vol;
           if (vol >= 0.5) clearInterval(fade);
-        }, 80);
+        }, 60);
         syncMusicUI(true);
       }).catch(() => {});
     }
 
-    // Show player when timeline is in view
-    const timelineSection = document.getElementById('timeline');
-    if (timelineSection) {
-      new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) player.classList.add('visible');
-        });
-      }, { threshold: 0.15 }).observe(timelineSection);
+    function manualPlayMusic() {
+      if (bgAudio.paused) { playMusic(); } else { bgAudio.pause(); syncMusicUI(false); }
+    }
+
+    function toggleMusic() { manualPlayMusic(); }
+
+    // Show floating player when timeline is in view
+    const tlSection = document.getElementById('timeline');
+    if (tlSection) {
+      new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) floatPlayer.classList.add('visible');
+      }, { threshold: 0.15 }).observe(tlSection);
     }
   </script>
 </body>
