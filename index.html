@@ -1864,7 +1864,7 @@
   </footer>
 
   <!-- Ambient music player -->
-  <audio id="bg-audio" src="warm.mp3" loop preload="none"></audio>
+  <audio id="bg-audio" src="warm.mp3" loop preload="auto"></audio>
   <div id="music-player" onclick="toggleMusic()">
     <button id="music-btn" aria-label="Toggle music">▶</button>
     <div id="music-label">
@@ -2165,21 +2165,18 @@
     const mapMusicLabel = document.getElementById('map-music-label');
 
     function syncMusicUI(playing) {
-      floatBtn.textContent = playing ? '⏸' : '▶';
-      floatSub.textContent = playing ? 'click to pause' : 'click to play';
+      if (floatBtn) floatBtn.textContent = playing ? '⏸' : '▶';
+      if (floatSub) floatSub.textContent = playing ? 'click to pause' : 'click to play';
       if (mapMusicIcon) mapMusicIcon.textContent = playing ? '⏸' : '▶';
       if (mapMusicLabel) mapMusicLabel.textContent = playing ? 'pause music' : 'play music';
     }
 
     function playMusic() {
+      if (!bgAudio || !bgAudio.paused) return;
       bgAudio.volume = 0.4;
-      const p = bgAudio.play();
-      if (p !== undefined) {
-        p.then(() => { syncMusicUI(true); })
-         .catch(err => { console.warn('Music blocked:', err); });
-      } else {
-        syncMusicUI(true);
-      }
+      bgAudio.play()
+        .then(() => syncMusicUI(true))
+        .catch(err => console.warn('Music blocked:', err));
     }
 
     function manualPlayMusic() {
@@ -2188,6 +2185,19 @@
     }
 
     function toggleMusic() { manualPlayMusic(); }
+
+    // Play on first user interaction (browsers block audio before any gesture)
+    function onFirstGesture() {
+      playMusic();
+      document.removeEventListener('click', onFirstGesture, true);
+      document.removeEventListener('touchstart', onFirstGesture, true);
+      document.removeEventListener('keydown', onFirstGesture, true);
+      document.removeEventListener('scroll', onFirstGesture, true);
+    }
+    document.addEventListener('click', onFirstGesture, true);
+    document.addEventListener('touchstart', onFirstGesture, true);
+    document.addEventListener('keydown', onFirstGesture, true);
+    document.addEventListener('scroll', onFirstGesture, { capture: true, passive: true });
 
     // Show floating player when timeline is in view
     const tlSection = document.getElementById('timeline');
