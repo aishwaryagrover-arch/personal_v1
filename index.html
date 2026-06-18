@@ -1332,9 +1332,9 @@
     #bfgf-crossword .cw-eyebrow { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--cw-lavender); margin-bottom:8px; display:block; }
     #bfgf-crossword .cw-title { font-family:'Playfair Display',serif; font-size:clamp(22px,5vw,34px); font-weight:700; margin-bottom:8px; color:#fff; }
     #bfgf-crossword .cw-subtitle { font-size:13px; font-weight:300; color:var(--cw-lavender); font-style:italic; }
-    #bfgf-crossword .cw-layout { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; align-items:flex-start; }
-    #bfgf-crossword .cw-grid-wrap { background:rgba(255,255,255,.04); border:1px solid rgba(196,168,232,.2); border-radius:16px; padding:16px; backdrop-filter:blur(8px); }
-    #bfgf-crossword #grid { display:grid; grid-template-columns:repeat(23,1fr); gap:2px; width:min(520px,calc(100vw - 80px)); }
+    #bfgf-crossword .cw-layout { display:flex; flex-wrap:nowrap; gap:16px; align-items:flex-start; overflow-x:auto; }
+    #bfgf-crossword .cw-grid-wrap { background:rgba(255,255,255,.04); border:1px solid rgba(196,168,232,.2); border-radius:16px; padding:14px; backdrop-filter:blur(8px); flex-shrink:0; }
+    #bfgf-crossword #grid { display:grid; grid-template-columns:repeat(23,1fr); gap:2px; width:min(380px,40vw); }
     #bfgf-crossword .cell { aspect-ratio:1; position:relative; border-radius:2px; }
     #bfgf-crossword .cell.white { background:var(--cw-cream); cursor:pointer; }
     #bfgf-crossword .cell.black { background:rgba(13,27,42,.9); }
@@ -1351,8 +1351,8 @@
     #bfgf-crossword .cw-btn-row button:hover { background:rgba(196,168,232,.2); color:#fff; border-color:var(--cw-lavender); }
     #bfgf-crossword .cw-btn-row button.cw-primary { background:var(--cw-rose); border-color:var(--cw-rose); color:#fff; }
     #bfgf-crossword .cw-btn-row button.cw-primary:hover { background:#d4607a; }
-    #bfgf-crossword .cw-clues-wrap { display:flex; flex-direction:row; gap:14px; flex:1; min-width:480px; max-width:740px; align-items:flex-start; }
-    #bfgf-crossword .cw-clues-section { flex:1; min-width:0; }
+    #bfgf-crossword .cw-clues-wrap { display:flex; flex-direction:row; gap:12px; flex:1; min-width:0; align-items:flex-start; }
+    #bfgf-crossword .cw-clues-section { flex:1; min-width:140px; max-height:520px; overflow-y:auto; }
     #bfgf-crossword .cw-clues-section { background:rgba(255,255,255,.04); border:1px solid rgba(196,168,232,.2); border-radius:14px; padding:16px; margin-bottom:14px; backdrop-filter:blur(8px); }
     #bfgf-crossword .cw-clues-section h2 { font-family:'Playfair Display',serif; font-size:14px; color:var(--cw-lavender); margin-bottom:10px; border-bottom:1px solid rgba(196,168,232,.2); padding-bottom:6px; letter-spacing:.05em; }
     #bfgf-crossword .clue-item { display:flex; gap:7px; margin-bottom:7px; cursor:pointer; border-radius:5px; padding:3px 5px; transition:background .15s; }
