@@ -491,7 +491,6 @@
       background: rgba(255, 255, 255, 0.07);
     }
     .chapter.open .chapter-header {
-      border-radius: 14px 14px 0 0;
       border-color: rgba(236, 72, 153, 0.3);
       background: rgba(255, 255, 255, 0.06);
     }
@@ -529,28 +528,30 @@
     }
     .chapter.open .chapter-arrow { transform: rotate(180deg); }
 
-    /* Panel */
     /* Side-by-side layout on open */
     .chapter-inner {
-      display: flex;
-      align-items: stretch;
-      gap: 0;
+      position: relative;
     }
     .chapter-header {
-      flex: 1 1 auto;
-      transition: border-color 0.3s ease, background 0.3s ease, border-radius 0.4s ease, flex-basis 0.5s cubic-bezier(0.4,0,0.2,1);
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease, background 0.3s ease, border-radius 0.4s ease, width 0.5s cubic-bezier(0.4,0,0.2,1);
     }
     .chapter.open .chapter-header {
-      flex: 0 0 42%;
+      width: 42%;
       border-radius: 14px 0 0 14px;
       border-color: rgba(236, 72, 153, 0.3);
       background: rgba(255, 255, 255, 0.06);
     }
 
     .chapter-panel {
-      flex: 0 0 0%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 100%;
       overflow: hidden;
-      transition: flex-basis 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
       opacity: 0;
       background: rgba(255,255,255,0.03);
       backdrop-filter: blur(20px);
@@ -558,9 +559,10 @@
       border: 1px solid rgba(236,72,153,0.2);
       border-left: none;
       border-radius: 0 14px 14px 0;
+      box-sizing: border-box;
     }
     .chapter.open .chapter-panel {
-      flex: 0 0 58%;
+      width: 58%;
       opacity: 1;
     }
 
@@ -2161,19 +2163,18 @@
     }
 
     function playMusic() {
-      bgAudio.volume = 0;
-      bgAudio.play().then(() => {
-        let vol = 0;
-        const fade = setInterval(() => {
-          vol = Math.min(vol + 0.04, 0.5);
-          bgAudio.volume = vol;
-          if (vol >= 0.5) clearInterval(fade);
-        }, 60);
+      bgAudio.volume = 0.4;
+      const p = bgAudio.play();
+      if (p !== undefined) {
+        p.then(() => { syncMusicUI(true); })
+         .catch(err => { console.warn('Music blocked:', err); });
+      } else {
         syncMusicUI(true);
-      }).catch(() => {});
+      }
     }
 
     function manualPlayMusic() {
+      if (!bgAudio) return;
       if (bgAudio.paused) { playMusic(); } else { bgAudio.pause(); syncMusicUI(false); }
     }
 
