@@ -1222,6 +1222,9 @@
       color: #a88cc0; font-size: 0.72rem; text-align: center; padding: 1rem;
     }
     #love .polaroid-photo img { width:100%; height:100%; object-fit:cover; display:block; }
+    #love .polaroid-photo.split { padding:0; gap:2px; }
+    #love .polaroid-photo.split .split-img { flex:1; height:100%; overflow:hidden; }
+    #love .polaroid-photo.split .split-img img { width:100%; height:100%; object-fit:cover; display:block; }
     #love .polaroid-caption-area { margin-top: 10px; text-align: center; }
     #love .polaroid-num {
       font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
@@ -2368,8 +2371,38 @@
       "You communicate consistently. No games. Only love. You make me feel so at ease.",
       "You come back. After every fight, every spat — we come back to repair and pour love in the cracks.",
     ];
-    // photo src per card — replace '' with URL when ready
-    const photos = Array(29).fill('');
+    const gd = id => `https://lh3.googleusercontent.com/d/${id}`;
+    const photos = [
+      [gd('1X1t9iBJ7qFloLup-9x6Xya9QaBMGabbF'), gd('1hEeK60k1mEGvQcOyXhWfsuGuXs5TdWFB'), gd('10V_kvTAwpJgDHAiAoF6K0JtRqPyrwLAL')], // 1 — three-way split
+      gd('1CGOyxdWVBkpEHcfxzjNoQuTbz5YebzAO'), // 2
+      gd('1ZVY1ncimK_zKiO-2vLmvz5tCHBxoIGQ9'), // 3
+      gd('1VtU8_yVuHCpAGbsAl53i78q3EtJKmMfj'), // 4
+      gd('1GJhVIHDXIlbmmBsZsZWr-OjJsvraQoEQ'), // 5
+      gd('15yfEtINLZEHBq3yEpeS-0EQXKMERsktJ'), // 6
+      gd('1n2gJsjCal9uyf3SqPD8S29tZYDNCQL_O'), // 7
+      gd('1s4ZNSaMTWpmZR6xeunKZK_OpKLZqhdGO'), // 8
+      gd('1KPsDAFABB9UhbqSWG6gSYvsxWnfIpJW1'), // 9
+      gd('1hPyCXeCqslWO2sssvZsWFeA3kJlIAOxf'), // 10
+      gd('1gFWs4chfKy5df9PDv9z8EixXmTMmfJyL'), // 11
+      gd('1WYy1Vpe6wZCsZBg6OUpaXM_eVziBNe3M'), // 12
+      gd('1bOxU4nMi1e8M_Ci90gGkEh3MK0Xjlrrh'), // 13
+      gd('12029-hLF22WPscsA33-zz8tiHCNMP-gh'), // 14
+      gd('1ZA9Ec4lNRTGf3qQXDLdLaVluw5w-IREL'), // 15
+      gd('1kDU4aJgqA4OQVm61y0TvSiMEVVG_f5Kq'), // 16
+      gd('13C6U9FGGqMdw3KLSDvhjKPYqEHgMB5QB'), // 17
+      gd('1aMlSPBvts3Dhirbe1w-bMAIGJs57FOHt'), // 18
+      [gd('1OYqheE3GxMV-vEbI6T0PTusDNzFlQaIt'), gd('1E6u4NtehtUpwRddV5-WdLIASj9tD_wqm')], // 19 — 50/50 split
+      gd('1a5GqCCo_urTJuHLL2NGFHIZ4FVkIZPMx'), // 20
+      gd('1aBCe916bV60J5wkKrALbVE6pBrf0TrJj'), // 21
+      gd('1DqyjSM3JpqIX6jxOGxKDGd3YUo2N6HMr'), // 22
+      gd('1v0YaMc-vYIGyCaL6TISRVBXomVqe0vso'), // 23
+      gd('1e6z_Y25usCpGciqqfxkFY9SIuHYJ-TSc'), // 24
+      gd('13-xBY5m38vTX_k0grU2teiR_0AWmUbNZ'), // 25
+      gd('16nGD2-Jh6ySeDISR3plSXzmc_2-FS8iW'), // 26
+      '', // 27 — missing, upload when ready
+      gd('1zB-Oi6HxC1xRAoX-xjoJ36ZrN7XfnHFa'), // 28
+      gd('1bt9jtohJCn4_drC4qpAYm4bteDi68mri'), // 29
+    ];
 
     const rots = reasons.map(() => (Math.random() * 6 - 3).toFixed(1));
     const stack = document.getElementById('polaroid-stack');
@@ -2381,10 +2414,12 @@
       const card = document.createElement('div');
       card.className = 'polaroid-card p-hidden';
       card.style.setProperty('--rot', rots[i] + 'deg');
+      const p = photos[i];
+      const photoHTML = Array.isArray(p)
+        ? `<div class="polaroid-photo split">${p.map(src => `<div class="split-img"><img src="${src}" alt=""/></div>`).join('')}</div>`
+        : `<div class="polaroid-photo">${p ? `<img src="${p}" alt=""/>` : `📷 photo ${String(i+1).padStart(2,'0')}`}</div>`;
       card.innerHTML = `
-        <div class="polaroid-photo">
-          ${photos[i] ? `<img src="${photos[i]}" alt=""/>` : `📷 photo ${String(i+1).padStart(2,'0')}`}
-        </div>
+        ${photoHTML}
         <div class="polaroid-caption-area">
           <span class="polaroid-num">reason ${String(i+1).padStart(2,'0')} of 29</span>
           <p class="polaroid-reason">${reason}</p>
