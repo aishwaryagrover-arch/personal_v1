@@ -2399,9 +2399,23 @@
       gd('1e6z_Y25usCpGciqqfxkFY9SIuHYJ-TSc'), // 24
       gd('13-xBY5m38vTX_k0grU2teiR_0AWmUbNZ'), // 25
       gd('16nGD2-Jh6ySeDISR3plSXzmc_2-FS8iW'), // 26
-      '', // 27 — missing, upload when ready
+      gd('1FWqHwaHeWgY_LHNCQOjsytozfBaj040h'), // 27
       gd('1zB-Oi6HxC1xRAoX-xjoJ36ZrN7XfnHFa'), // 28
       gd('1bt9jtohJCn4_drC4qpAYm4bteDi68mri'), // 29
+    ];
+
+    // per-card object-position (null = default center center); split cards use arrays
+    const photoPos = [
+      ['center center', 'right center', 'right center'], // 1 — shift 1.2 & 1.3 right
+      null, null, null, null,
+      'center 30%', // 6 — up ~20%
+      null, null, null, null, null, null, null, null, null, null, null,
+      'center 40%', // 18 — up 10%
+      [null, null], // 19 — split, no shift
+      'center 20%', // 20 — up 30%
+      null, null, null,
+      'contain',    // 24 — zoom out
+      null, null, null, null, null,
     ];
 
     const rots = reasons.map(() => (Math.random() * 6 - 3).toFixed(1));
@@ -2415,9 +2429,15 @@
       card.className = 'polaroid-card p-hidden';
       card.style.setProperty('--rot', rots[i] + 'deg');
       const p = photos[i];
+      const pos = photoPos[i];
+      function imgStyle(p) {
+        if (!p) return '';
+        if (p === 'contain') return 'object-fit:contain;background:#e8dff4;';
+        return `object-position:${p};`;
+      }
       const photoHTML = Array.isArray(p)
-        ? `<div class="polaroid-photo split">${p.map(src => `<div class="split-img"><img src="${src}" alt=""/></div>`).join('')}</div>`
-        : `<div class="polaroid-photo">${p ? `<img src="${p}" alt=""/>` : `📷 photo ${String(i+1).padStart(2,'0')}`}</div>`;
+        ? `<div class="polaroid-photo split">${p.map((src, j) => `<div class="split-img"><img src="${src}" alt="" style="${imgStyle(Array.isArray(pos) ? pos[j] : null)}"/></div>`).join('')}</div>`
+        : `<div class="polaroid-photo">${p ? `<img src="${p}" alt="" style="${imgStyle(pos)}"/>` : `📷 photo ${String(i+1).padStart(2,'0')}`}</div>`;
       card.innerHTML = `
         ${photoHTML}
         <div class="polaroid-caption-area">
