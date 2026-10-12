@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MahaPAR User Windows</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --navy:#1C3D6B; --navy3:#0D1F3C; --saffron:#E87722; --blue:#2563EB; --bluesoft:#EFF5FF;
+ --bar:#D4D7DC; --off:#F3F4F6; --border:#E3E7EE; --text:#1A202C; --muted:#6B7280;
+ --green:#16A34A; --amber:#F59E0B; --red:#DC2626; --pink:#F472A3;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:#EEF1F6;color:var(--text);font-size:14px;line-height:1.5;padding:28px 20px 60px}
+
+/* ---------- page chrome (explanatory, not part of the product) ---------- */
+.doc-head{max-width:1280px;margin:0 auto 26px}
+.doc-head h1{font-size:24px;color:var(--navy);font-weight:700}
+.doc-head p{font-size:13px;color:var(--muted);margin-top:6px;max-width:860px}
+.doc-head .tag{display:inline-block;background:var(--saffron);color:#fff;font-size:10px;font-weight:700;letter-spacing:.07em;padding:3px 9px;border-radius:3px;text-transform:uppercase;margin-bottom:10px}
+.lane{max-width:1280px;margin:0 auto 10px}
+.lane-head{display:flex;align-items:baseline;gap:12px;border-left:4px solid var(--saffron);padding:4px 0 4px 12px;margin:34px 0 4px}
+.lane-head h2{font-size:17px;color:var(--navy);font-weight:700}
+.lane-head span{font-size:12px;color:var(--muted)}
+.lane-note{font-size:12px;color:var(--muted);margin:0 0 16px 16px;max-width:900px}
+.rail{display:flex;gap:22px;overflow-x:auto;padding:6px 4px 20px;align-items:flex-start}
+.screen{flex:0 0 auto;width:360px}
+.screen > .cap{font-size:11px;color:var(--muted);margin-bottom:8px;min-height:30px}
+.screen > .cap b{color:var(--navy);display:block;font-size:12px}
+
+/* ---------- phone ---------- */
+.phone{width:360px;height:640px;background:#fff;border-radius:22px;border:1px solid #CBD2DE;box-shadow:0 6px 18px rgba(20,35,70,.10);overflow:hidden;display:flex;flex-direction:column}
+.status{background:var(--bar);display:flex;justify-content:space-between;align-items:center;padding:6px 14px 2px;font-size:11px;color:#333}
+.appbar{background:var(--bar);display:flex;align-items:center;padding:10px 14px 14px}
+.appbar .back{font-size:20px;color:var(--navy);width:28px}
+.appbar .ttl{flex:1;text-align:center;font-size:16px;font-weight:700;color:var(--navy);margin-left:-28px}
+.body{flex:1;overflow-y:auto;background:var(--off);padding:12px}
+.body::-webkit-scrollbar{width:5px}.body::-webkit-scrollbar-thumb{background:#C9D0DC;border-radius:3px}
+
+/* ---------- product components ---------- */
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+.card > h3{font-size:16px;font-weight:700;margin-bottom:2px}
+.card > .sub{font-size:12px;color:var(--muted);margin-bottom:10px}
+.rule{height:1px;background:var(--border);margin:10px -14px}
+.person{background:var(--bluesoft);border-radius:8px;padding:10px 12px;margin-bottom:12px}
+.person b{display:block;font-size:15px;color:var(--navy3)}
+.person span{font-size:12px;color:var(--muted)}
+.person.lined{border-left:4px solid var(--blue);border-radius:4px 8px 8px 4px}
+
+.part{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--saffron);margin-bottom:6px}
+.q{font-size:13px;font-weight:600;margin-bottom:3px}
+.hint{font-size:11px;color:var(--muted);margin-bottom:8px}
+.field{border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13px;background:#fff;margin-bottom:10px}
+.field.ro{background:#F7F8FA;color:#475569}
+.field .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px}
+.ta{border:1px solid var(--border);border-radius:8px;padding:10px 11px;font-size:13px;min-height:84px;color:#94A3B8;background:#fff}
+.counter{font-size:11px;color:var(--muted);text-align:right;margin:4px 0 10px}
+.counter.over{color:var(--red);font-weight:600}
+.chk{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;margin-bottom:8px}
+.box{width:17px;height:17px;border:1.5px solid #9AA5B5;border-radius:4px;flex:0 0 auto;margin-top:1px}
+.box.on{background:var(--blue);border-color:var(--blue);position:relative}
+.box.on::after{content:'✓';color:#fff;font-size:12px;position:absolute;left:3px;top:-2px}
+.radio{width:17px;height:17px;border:1.5px solid #9AA5B5;border-radius:50%;flex:0 0 auto;margin-top:1px}
+.radio.on{border:5px solid var(--blue)}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.pill{border:1px solid var(--border);border-radius:99px;padding:5px 11px;font-size:11.5px;background:#fff;color:#475569}
+.pill.on{background:var(--bluesoft);border-color:var(--blue);color:var(--navy);font-weight:600}
+.btn{display:block;width:100%;text-align:center;background:var(--blue);color:#fff;border-radius:9px;padding:12px;font-size:14px;font-weight:600;margin-top:4px}
+.btn.ghost{background:var(--bluesoft);color:var(--blue)}
+.btn.amber{background:var(--saffron)}
+.btn.row{display:inline-block;width:auto;padding:9px 18px;font-size:13px}
+.btnrow{display:flex;gap:10px;margin-top:6px}
+.btnrow .btn{margin-top:0}
+.note{border-radius:8px;padding:10px 11px;font-size:12px;display:flex;gap:8px;margin-bottom:12px;line-height:1.45}
+.note.warn{background:#FEF6E7;color:#92590B}
+.note.info{background:var(--bluesoft);color:#1E3A8A}
+.note.danger{background:#FEF2F2;color:#991B1B}
+.note.ok{background:#ECFDF3;color:#166534}
+
+/* progress stepper */
+.steps{display:flex;gap:4px;margin-bottom:12px}
+.steps i{flex:1;height:4px;border-radius:2px;background:#DCE1EA}
+.steps i.on{background:var(--blue)}
+.steps i.done{background:var(--green)}
+.stepinfo{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin:-6px 0 10px}
+
+/* vertical timeline (Track My PAR) */
+.tl{position:relative;padding-left:34px}
+.tl::before{content:'';position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:#DCE1EA}
+.tl .n{position:relative;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--border)}
+.tl .n:last-child{border-bottom:none}
+.tl .n::before{content:'';position:absolute;left:-34px;top:1px;width:24px;height:24px;border-radius:50%;background:#D9DEE7}
+.tl .n.done::before{content:'✓';background:var(--green);color:#fff;font-size:14px;text-align:center;line-height:24px}
+.tl .n.now::before{content:'⏳';background:var(--amber);font-size:11px;text-align:center;line-height:24px}
+.tl .n b{font-size:13px;color:var(--muted);font-weight:600;display:block}
+.tl .n p{font-size:13px;margin-top:2px}
+.tl .n small{font-size:11.5px;color:#9AA3B2}
+
+/* grading rows */
+.grp{font-size:12px;font-weight:700;color:var(--navy);background:#F1F5FB;padding:6px 10px;border-radius:6px;margin:12px -4px 8px}
+.dim{border:1px solid var(--border);border-radius:9px;padding:10px;margin-bottom:9px}
+.dim .nm{font-size:13px;font-weight:600}
+.dim .cv{font-size:11px;color:var(--muted);margin:2px 0 8px}
+.scale{display:flex;gap:4px}
+.scale s{flex:1;text-decoration:none;text-align:center;font-size:11.5px;padding:6px 0;border:1px solid var(--border);border-radius:5px;color:#64748B}
+.scale s.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:700}
+.scale s.flag{border-color:var(--amber);color:var(--amber)}
+.sys{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.sys em{font-style:normal;background:#F3F4F6;border-radius:6px;padding:4px 8px;font-size:10.5px;color:#475569}
+.sys em b{color:var(--navy)}
+.total{display:flex;justify-content:space-between;align-items:center;background:var(--navy);color:#fff;border-radius:10px;padding:12px 14px;margin:6px 0 12px}
+.total span{font-size:12px;opacity:.85}
+.total b{font-size:24px}
+.ring{width:56px;height:56px;border-radius:50%;border:5px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:var(--navy)}
+.rowline{display:flex;justify-content:space-between;font-size:12.5px;padding:7px 0;border-bottom:1px solid var(--border)}
+.rowline:last-child{border-bottom:none}
+.rowline b{font-weight:600}
+.tabs{display:flex;background:#fff;border-radius:9px;padding:3px;margin-bottom:12px;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+.tabs a{flex:1;text-align:center;font-size:12px;padding:7px 0;border-radius:7px;color:var(--muted);text-decoration:none}
+.tabs a.on{background:var(--navy);color:#fff;font-weight:600}
+.listrow{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
+.listrow:last-child{border-bottom:none}
+.listrow .l b{font-size:13px;display:block}
+.listrow .l span{font-size:11.5px;color:var(--muted)}
+.chipV{background:var(--bluesoft);color:var(--blue);font-size:12px;font-weight:600;padding:6px 16px;border-radius:7px}
+.due{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:99px;background:#FEF3C7;color:#92400E;display:inline-block}
+.due.red{background:#FEE2E2;color:#991B1B}
+.sign{border:1px dashed #C3CBD9;border-radius:9px;padding:12px;text-align:center;font-size:12px;color:var(--muted);margin-bottom:10px;background:#fff}
+.sign b{display:block;color:var(--navy);font-size:13px;margin-bottom:2px}
+.legend{max-width:1280px;margin:40px auto 0;background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.legend h3{font-size:14px;color:var(--navy);margin-bottom:8px}
+.legend ul{margin-left:18px;font-size:12.5px;color:#374151}
+.legend li{margin-bottom:5px}
+</style>
+</head>
+<body>
+
+<div class="doc-head">
+  <span class="tag">Draft for discussion · IDinsight with GAD · October 2026</span>
+  <h1>MahaPAR user windows: filling the APAR at each stage</h1>
+  <p>Form A (Group A and B) and Form B (Group C) translated into the screens an officer, a reporting officer, a reviewing officer, an establishment officer and an accepting authority actually see. Layout, colour and components follow the eHRMS app APAR windows: grey app bar with a centred title, white cards on a light background, the blue name block, the step timeline with green ticks and an amber hourglass, and blue "View" pills. These are work windows, not dashboards. Every field maps to a numbered item in the form drafts.</p>
+</div>
+
+<!-- ============================ OFFICER / FORM A ============================ -->
+<div class="lane">
+  <div class="lane-head"><h2>1. Officer: self-appraisal</h2><span>Form A, Parts 1–2 · appraisee</span></div>
+  <p class="lane-note">The officer opens the APAR from Track My PAR. Part 1 arrives pre-filled from Sevaarth; the officer only confirms the reporting chain and leave. Part 2 is split one question per screen so the word limits stay visible and nothing scrolls out of sight.</p>
+  <div class="rail">
+
+    <!-- 1.1 entry -->
+    <div class="screen"><div class="cap"><b>Entry point</b>Track My PAR opens on the live APAR, with the deadline and what is owed now.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Track My PAR</div></div>
+        <div class="body">
+          <div class="card">
+            <h3>Active APAR</h3><div class="sub">1 April 2025 to 31 March 2026</div>
+            <div class="person lined"><b>Vishal Vinayak Dhole</b><span>Section Officer · Group B · Sevaarth 2048‑7719</span></div>
+            <div class="note warn">⚠️ Self-appraisal due 30 April 2026. If you do not submit, MahaPAR forwards the APAR automatically and records the delay.</div>
+            <a class="btn">Start self-appraisal</a>
+            <a class="btn ghost" style="margin-top:8px">View last year's APAR</a>
+          </div>
+          <div class="card">
+            <h3 style="font-size:14px">Earlier APARs</h3>
+            <div class="listrow"><div class="l"><b>1 Apr 2024 – 31 Mar 2025</b><span>Closed · final score 8.6</span></div><span class="chipV">View</span></div>
+            <div class="listrow"><div class="l"><b>1 Apr 2023 – 31 Mar 2024</b><span>Closed · final score 8.2</span></div><span class="chipV">View</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part 1 -->
+    <div class="screen"><div class="cap"><b>Part 1 · Officer details</b>Pre-filled and locked; only leave and the reporting chain are editable.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Self-appraisal</div></div>
+        <div class="body">
+          <div class="steps"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="stepinfo"><span>Step 1 of 6</span><span>Officer details</span></div>
+          <div class="card">
+            <div class="part">Part 1</div>
+            <div class="field ro"><span class="lbl">Name</span>Vishal Vinayak Dhole</div>
+            <div class="field ro"><span class="lbl">Sevaarth ID</span>2048‑7719</div>
+            <div class="field ro"><span class="lbl">Cadre and group</span>Maharashtra Secretariat Service · Group B</div>
+            <div class="field ro"><span class="lbl">Present post and office</span>Section Officer, Revenue &amp; Forest Dept, Mantralaya</div>
+            <div class="field ro"><span class="lbl">Date of appointment to present post</span>12 June 2023</div>
+            <div class="field"><span class="lbl">Leave or absence of 30 days or more</span>None this year ▾</div>
+            <div class="note info">ℹ️ Grey fields come from Sevaarth and your service record. To correct one, raise a service-record request; it cannot be edited here.</div>
+            <a class="btn">Continue</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.1 chain + NRC -->
+    <div class="screen"><div class="cap"><b>Part 1.1–1.2 · Reporting chain and NRC</b>One row per officer, a new row for each change, and the No Report Certificate request.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Self-appraisal</div></div>
+        <div class="body">
+          <div class="steps"><i class="done"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+          <div class="stepinfo"><span>Step 2 of 6</span><span>Reporting chain</span></div>
+          <div class="card">
+            <div class="part">Part 1.1</div>
+            <div class="q">Who reported on you this year?</div>
+            <div class="hint">Add a row for each change of officer during the year.</div>
+            <div class="dim"><div class="nm">Reporting officer</div>
+              <div class="field" style="margin:8px 0 6px">Satish Shrikant Nair — Deputy Secretary ▾</div>
+              <div style="display:flex;gap:8px"><div class="field" style="flex:1;margin:0">From 01/04/2025</div><div class="field" style="flex:1;margin:0">To 31/03/2026</div></div>
+            </div>
+            <div class="dim"><div class="nm">Reviewing officer</div>
+              <div class="field" style="margin:8px 0 6px">Dinesh Dagadu Patil — Joint Secretary ▾</div>
+              <div style="display:flex;gap:8px"><div class="field" style="flex:1;margin:0">From 01/04/2025</div><div class="field" style="flex:1;margin:0">To 31/03/2026</div></div>
+            </div>
+            <a class="btn ghost">+ Add another officer</a>
+            <div class="rule"></div>
+            <div class="part">Part 1.2</div>
+            <div class="chk"><span class="box"></span><span>I served under this reporting officer for less than 3 months and request a No Report Certificate for this period.</span></div>
+            <div class="note info">ℹ️ The establishment officer verifies Part 1 and issues the NRC. An NRC is not a bar to promotion.</div>
+            <a class="btn">Continue</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.1 targets -->
+    <div class="screen"><div class="cap"><b>Part 2.1 · Targets</b>Skippable where no targets were set. Becomes a KPI drop-down once KPIs are linked.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Self-appraisal</div></div>
+        <div class="body">
+          <div class="steps"><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="stepinfo"><span>Step 3 of 6</span><span>Targets</span></div>
+          <div class="card">
+            <div class="part">Part 2.1</div>
+            <div class="q">Were targets set for your post this year?</div>
+            <div class="chk"><span class="radio on"></span><span>Yes — enter targets and achievements</span></div>
+            <div class="chk"><span class="radio"></span><span>No — skip to the next question</span></div>
+            <div class="rule"></div>
+            <div class="dim"><div class="nm">Target 1</div>
+              <div class="ta" style="min-height:52px;margin:8px 0">Clear 100% of RTI applications within statutory time</div>
+              <div class="cv">Achievement</div>
+              <div class="ta" style="min-height:52px">214 of 218 applications cleared within 30 days</div>
+            </div>
+            <div class="dim"><div class="nm">Target 2</div>
+              <div class="ta" style="min-height:52px;margin-top:8px;color:#94A3B8">Enter the target set for your post</div>
+            </div>
+            <a class="btn ghost">+ Add target (up to 3)</a>
+            <a class="btn" style="margin-top:8px">Continue</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.2 / 2.3 -->
+    <div class="screen"><div class="cap"><b>Part 2.2–2.3 · Contribution and constraints</b>Live word counter enforces 100 and 50 words. No attachments.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Self-appraisal</div></div>
+        <div class="body">
+          <div class="steps"><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i></div>
+          <div class="stepinfo"><span>Step 4 of 6</span><span>Your work this year</span></div>
+          <div class="card">
+            <div class="part">Part 2.2</div>
+            <div class="q">Your most significant contribution this year</div>
+            <div class="hint">One or two pieces of work: what you did, and what changed as a result.</div>
+            <div class="ta" style="color:#1A202C">Redesigned the district land-records grievance workflow on eOffice. Cut average disposal time from 41 days to 23 days across six talukas and cleared a backlog of 1,340 cases.</div>
+            <div class="counter">31 / 100 words</div>
+            <div class="note info">ℹ️ No attachments. Your reporting officer sees this text as written.</div>
+          </div>
+          <div class="card">
+            <div class="part">Part 2.3 · optional</div>
+            <div class="q">Any systemic factors that affected your work?</div>
+            <div class="hint">For example delayed approvals, staffing constraints, administrative dependencies.</div>
+            <div class="ta">Optional — leave blank if none</div>
+            <div class="counter">0 / 50 words</div>
+            <a class="btn">Continue</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.4 / 2.5 -->
+    <div class="screen"><div class="cap"><b>Part 2.4–2.5 · Training</b>Completed training pre-fills from iGOT; needs are picked as chips, up to three.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Self-appraisal</div></div>
+        <div class="body">
+          <div class="steps"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i></div>
+          <div class="stepinfo"><span>Step 5 of 6</span><span>Training</span></div>
+          <div class="card">
+            <div class="part">Part 2.4</div>
+            <div class="q">Training completed this year</div>
+            <div class="hint">Pulled from your iGOT record.</div>
+            <div class="rowline"><div><b>eOffice for Section Officers</b><br><span style="font-size:11px;color:var(--muted)">IT and digital tools</span></div><b>12 h</b></div>
+            <div class="rowline"><div><b>RTI Act: practice and timelines</b><br><span style="font-size:11px;color:var(--muted)">General rules and procedures</span></div><b>8 h</b></div>
+            <div class="rowline"><div><b>Total</b></div><b>20 h</b></div>
+            <a class="btn ghost" style="margin-top:10px">+ Add training not on iGOT</a>
+          </div>
+          <div class="card">
+            <div class="part">Part 2.5 · optional</div>
+            <div class="q">Any additional training you need?</div>
+            <div class="hint">Choose up to three. Examples for each are in the annexure.</div>
+            <div class="pills">
+              <span class="pill">General rules</span><span class="pill on">Domain rules</span>
+              <span class="pill on">IT and digital tools</span><span class="pill">Budget management</span>
+              <span class="pill">Project management</span><span class="pill">Project evaluation</span>
+              <span class="pill on">Team leadership</span><span class="pill">Communication</span>
+              <span class="pill">Technical skills</span><span class="pill">Other…</span>
+            </div>
+            <div class="note info">ℹ️ 3 of 3 selected. Clear one to choose another.</div>
+            <a class="btn">Continue</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.6 + sign -->
+    <div class="screen"><div class="cap"><b>Part 2.6 and signature</b>Technical-cadre module opens conditionally; the officer signs with DSC or eSign.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Review and sign</div></div>
+        <div class="body">
+          <div class="steps"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i></div>
+          <div class="stepinfo"><span>Step 6 of 6</span><span>Review and sign</span></div>
+          <div class="card">
+            <div class="part">Part 2.6</div>
+            <div class="q">Do you belong to a technical cadre?</div>
+            <div class="hint">Engineering, health or teaching.</div>
+            <div class="chk"><span class="radio on"></span><span>No</span></div>
+            <div class="chk"><span class="radio"></span><span>Yes — MahaPAR opens the module for my cadre</span></div>
+          </div>
+          <div class="card">
+            <h3 style="font-size:14px">Check before you sign</h3>
+            <div class="rowline"><span>Part 1 details and chain</span><b style="color:var(--green)">Complete</b></div>
+            <div class="rowline"><span>2.1 Targets</span><b style="color:var(--green)">2 entered</b></div>
+            <div class="rowline"><span>2.2 Contribution</span><b style="color:var(--green)">31 words</b></div>
+            <div class="rowline"><span>2.3 Systemic factors</span><b style="color:var(--muted)">Skipped</b></div>
+            <div class="rowline"><span>2.4 Training</span><b style="color:var(--green)">20 hours</b></div>
+            <div class="sign" style="margin-top:12px"><b>Sign with DSC or eSign</b>Paper forms are not accepted. Once signed, Part 2 is locked and goes to your reporting officer.</div>
+            <div class="btnrow"><a class="btn ghost">Save draft</a><a class="btn">Sign and submit</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- tracking -->
+    <div class="screen"><div class="cap"><b>After submission · Track My PAR</b>The same timeline as the eHRMS app, with the auto-forward warning where a stage lapsed.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Track My PAR</div></div>
+        <div class="body">
+          <div class="card">
+            <h3>Active APAR</h3><div class="sub">1 April 2025 to 31 March 2026</div>
+            <div class="person"><b>Vishal Vinayak Dhole</b><span>Section Officer</span></div>
+            <div class="tl">
+              <div class="n done"><b>Step 1 — APAR created</b><p>Created by custodian: Ashil Vinayak Naik</p><small>created on 14/04/2026</small></div>
+              <div class="n done"><b>Step 2 — Self-appraisal</b><p>Submitted on 28/04/2026</p></div>
+              <div class="n now"><b>Step 3 — Reporting stage</b><p>With reporting officer: Satish Shrikant Nair</p><small>due 31/05/2026</small></div>
+              <div class="n"><b>Step 4 — Reviewing stage</b><p>Will go to reviewing officer: Dinesh Dagadu Patil</p></div>
+              <div class="n"><b>Step 5 — Disclosure</b><p>Disclosed to you through MahaPAR</p></div>
+              <div class="n"><b>Step 6 — Representation window</b><p>15 days from disclosure</p></div>
+              <div class="n"><b>Step 7 — APAR closed</b><p>Closed by custodian: Ashil Vinayak Naik</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- disclosure -->
+    <div class="screen"><div class="cap"><b>Disclosure and representation</b>The officer sees the final score, the grades behind it and a 15-day representation window.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">My APAR 2025–26</div></div>
+        <div class="body">
+          <div class="card" style="text-align:center">
+            <div class="ring" style="margin:4px auto 10px">8.4</div>
+            <h3 style="font-size:15px">Final score 8.4 out of 10</h3>
+            <div class="sub">Disclosed on 12 July 2026</div>
+            <div class="rule"></div>
+            <div class="rowline"><span>Overall grade (95%)</span><b>8.6</b></div>
+            <div class="rowline"><span>Timeliness marks (5%)</span><b style="color:var(--red)">−0.2</b></div>
+            <div class="rowline"><span>Integrity</span><b>Beyond doubt</b></div>
+          </div>
+          <div class="card">
+            <h3 style="font-size:14px">Grades recorded</h3>
+            <div class="rowline"><span>1. Delivery of planned work</span><b>9</b></div>
+            <div class="rowline"><span>2. Quality of work</span><b>8</b></div>
+            <div class="rowline"><span>3. Knowledge and its application</span><b>9</b></div>
+            <div class="rowline"><span>4. Judgement and initiative</span><b>8</b></div>
+            <div class="rowline"><span>5. Collaboration and communication</span><b>9</b></div>
+            <div class="rowline"><span>6. Responsibility and conduct</span><b>8</b></div>
+            <a class="btn ghost" style="margin-top:10px">Read the overall assessment</a>
+          </div>
+          <div class="card">
+            <div class="note warn">⚠️ You may submit one representation through MahaPAR by 27 July 2026 (15 days from disclosure).</div>
+            <a class="btn amber">Submit a representation</a>
+            <a class="btn ghost" style="margin-top:8px">Accept and close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================ REPORTING OFFICER ============================ -->
+<div class="lane">
+  <div class="lane-head"><h2>2. Reporting officer</h2><span>Form A, Part 3 · appraiser</span></div>
+  <p class="lane-note">The reporting officer works from a queue. The officer's self-appraisal sits read-only above the grading screen, and iGOT, eOffice and attendance figures appear as chips on the dimension they inform — reference, never a separate weight. Grades of 1–2 or 9–10 and an overall grade below 6 open the justification the form requires.</p>
+  <div class="rail">
+
+    <div class="screen"><div class="cap"><b>Queue</b>Pending APARs with the deadline on each row; overdue rows turn red.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Pending with me</div></div>
+        <div class="body">
+          <div class="tabs"><a class="on">As reporting (24)</a><a>As reviewing (9)</a></div>
+          <div class="card">
+            <div class="listrow"><div class="l"><b>Vishal Vinayak Dhole</b><span>Section Officer · Group B</span><br><span class="due">Due 31 May 2026</span></div><span class="chipV">Open</span></div>
+            <div class="listrow"><div class="l"><b>Sunita Ramesh Kale</b><span>Assistant Section Officer · Group B</span><br><span class="due red">Overdue by 4 days</span></div><span class="chipV">Open</span></div>
+            <div class="listrow"><div class="l"><b>Prakash D. Shinde</b><span>Senior Clerk · Group C (Form B)</span><br><span class="due">Due 31 May 2026</span></div><span class="chipV">Open</span></div>
+          </div>
+          <div class="note warn">⚠️ An APAR not completed by the deadline is forwarded automatically to the reviewing officer and counted as late against your own timeliness marks.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Read the self-appraisal first</b>Part 2 read-only, with the system data the grading screen will reuse.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Appraise officer</div></div>
+        <div class="body">
+          <div class="person lined"><b>Vishal Vinayak Dhole</b><span>Section Officer · 1 Apr 2025 – 31 Mar 2026</span></div>
+          <div class="card">
+            <div class="part">Part 2.2 · officer's words</div>
+            <p style="font-size:13px">Redesigned the district land-records grievance workflow on eOffice. Cut average disposal time from 41 days to 23 days across six talukas and cleared a backlog of 1,340 cases.</p>
+            <div class="rule"></div>
+            <div class="part">Part 2.1 · targets</div>
+            <div class="rowline"><span>RTI disposal within 30 days</span><b>214 / 218</b></div>
+            <div class="rowline"><span>Monthly returns filed on time</span><b>12 / 12</b></div>
+          </div>
+          <div class="card">
+            <div class="part">Part 6 · system data for reference</div>
+            <div class="rowline"><span>iGOT learning hours</span><b>20 h</b></div>
+            <div class="rowline"><span>Files processed on eOffice</span><b>87%</b></div>
+            <div class="rowline"><span>Working days present</span><b>96%</b></div>
+            <div class="note info" style="margin-top:10px">ℹ️ Reference only. These figures are not weighted separately in the score.</div>
+            <a class="btn">Start grading</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Part 3.1 · Grading</b>Six dimensions, 1–10, weights shown per group; the overall grade calculates live.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Appraise officer</div></div>
+        <div class="body">
+          <div class="total"><div><span>Overall grade (auto)</span><br><b>8.6</b></div><div style="font-size:11px;opacity:.85;text-align:right">6 of 6 graded<br>Benchmark 6.0</div></div>
+          <div class="card">
+            <div class="part">Part 3.1 · grade against peers at the same level</div>
+            <div class="grp">Work output · 40%</div>
+            <div class="dim"><div class="nm">1. Delivery of planned work</div><div class="cv">Targets met, timeliness, unforeseen tasks</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s>8</s><s class="on">9</s><s>10</s></div>
+              <div class="note warn" style="margin:8px 0 0">⚠️ A grade of 9 needs the specific accomplishment behind it in 3.3.</div>
+            </div>
+            <div class="dim"><div class="nm">2. Quality of work</div><div class="cv">Accuracy, thoroughness, soundness of proposals</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s class="on">8</s><s>9</s><s>10</s></div>
+            </div>
+            <div class="grp">Functional competence · 30%</div>
+            <div class="dim"><div class="nm">3. Knowledge and its application</div><div class="cv">Rules, procedures, IT skills, subject knowledge</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s>8</s><s class="on">9</s><s>10</s></div>
+              <div class="sys"><em>iGOT <b>20 h</b></em><em>eOffice <b>87%</b></em></div>
+            </div>
+            <div class="dim"><div class="nm">4. Judgement and initiative</div><div class="cv">Decision-making, problem-solving, initiative</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s class="on">8</s><s>9</s><s>10</s></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Part 3.1 continued and 3.2</b>Personal attributes, the below-6 memo attachment, and integrity.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Appraise officer</div></div>
+        <div class="body">
+          <div class="card">
+            <div class="grp" style="margin-top:0">Personal attributes · 30%</div>
+            <div class="dim"><div class="nm">5. Collaboration and communication</div><div class="cv">Teamwork, coordination, dealings with the public</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s>8</s><s class="on">9</s><s>10</s></div>
+            </div>
+            <div class="dim"><div class="nm">6. Responsibility and conduct</div><div class="cv">Attitude to work, discipline, punctuality</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s class="on">8</s><s>9</s><s>10</s></div>
+              <div class="sys"><em>Attendance <b>96%</b></em></div>
+            </div>
+            <div class="note info">ℹ️ Overall grade 8.6 — above the benchmark of 6. No memo attachment is needed.</div>
+          </div>
+          <div class="card">
+            <div class="part">Part 3.2 · integrity</div>
+            <div class="chk"><span class="radio on"></span><span>Beyond doubt</span></div>
+            <div class="chk"><span class="radio"></span><span>Nothing adverse noticed</span></div>
+            <div class="chk"><span class="radio"></span><span>Doubtful — reasons recorded in a separate confidential note</span></div>
+            <a class="btn">Continue</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Below the benchmark</b>What the same screen shows when the overall grade falls under 6.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Appraise officer</div></div>
+        <div class="body">
+          <div class="total" style="background:#7F1D1D"><div><span>Overall grade (auto)</span><br><b>5.2</b></div><div style="font-size:11px;opacity:.9;text-align:right">Below benchmark<br>6.0</div></div>
+          <div class="card">
+            <div class="note danger">⚠️ This grade is below the benchmark. You may attach memos or notices issued during the year as proof that the officer was advised and given opportunities to improve.</div>
+            <div class="chk"><span class="box on"></span><span>Memos or notices issued during the year are attached</span></div>
+            <div class="sign"><b>Attach memo</b>PDF, up to 2 MB · optional</div>
+            <div class="rowline"><span>Memo_12Aug2025.pdf</span><b style="color:var(--blue)">Remove</b></div>
+            <div class="rule"></div>
+            <div class="part">Part 3.3 · required</div>
+            <div class="hint">State the significant failure behind this grade.</div>
+            <div class="ta">Maximum 100 words</div>
+            <div class="counter over">0 / 100 words · required</div>
+            <a class="btn" style="background:#C7D2E4">Continue</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Part 3.3–3.4 and signature</b>The compulsory overall assessment, prompted by what the form requires it to cover.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Appraise officer</div></div>
+        <div class="body">
+          <div class="card">
+            <div class="part">Part 3.3 · compulsory</div>
+            <div class="q">Overall assessment</div>
+            <div class="hint">Cover: main strengths · one area to develop · any significant failure · attitude towards persons with disabilities, women and weaker sections · the accomplishment behind your grade of 9.</div>
+            <div class="ta" style="color:#1A202C;min-height:110px">Strong on delivery: the land-records workflow redesign is the accomplishment behind the grade of 9, and cut disposal time by nearly half. Develops staff well and deals courteously with the public. Should build budget-management skill before the next posting. No adverse conduct.</div>
+            <div class="counter">44 / 100 words</div>
+            <div class="rule"></div>
+            <div class="part">Part 3.4</div>
+            <div class="q">Do you agree with the officer's self-appraisal?</div>
+            <div class="chk"><span class="radio on"></span><span>Yes</span></div>
+            <div class="chk"><span class="radio"></span><span>No — state the facts (50 words)</span></div>
+            <div class="sign" style="margin-top:6px"><b>Sign with DSC or eSign</b>Part 3 locks on signing and moves to the reviewing officer.</div>
+            <div class="btnrow"><a class="btn ghost">Save draft</a><a class="btn">Sign and forward</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================ REVIEWING OFFICER ============================ -->
+<div class="lane">
+  <div class="lane-head"><h2>3. Reviewing officer</h2><span>Form A, Part 4 · reviewer</span></div>
+  <p class="lane-note">The reviewing officer's default path is two taps: agree and sign. Disagreement opens only the grades they choose to revise, each with a 30-word reason, and MahaPAR recalculates the overall grade in front of them.</p>
+  <div class="rail">
+
+    <div class="screen"><div class="cap"><b>Part 4.1 · The two-tap path</b>Agreeing needs nothing more than a signature.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Review APAR</div></div>
+        <div class="body">
+          <div class="person lined"><b>Vishal Vinayak Dhole</b><span>Section Officer · reported on by Satish Shrikant Nair</span></div>
+          <div class="card">
+            <div class="total"><div><span>Reporting officer's overall grade</span><br><b>8.6</b></div><div class="ring" style="border-color:#fff;color:#fff;width:48px;height:48px;font-size:15px">8.6</div></div>
+            <div class="rowline"><span>1. Delivery of planned work</span><b>9</b></div>
+            <div class="rowline"><span>2. Quality of work</span><b>8</b></div>
+            <div class="rowline"><span>3. Knowledge and its application</span><b>9</b></div>
+            <div class="rowline"><span>4. Judgement and initiative</span><b>8</b></div>
+            <div class="rowline"><span>5. Collaboration and communication</span><b>9</b></div>
+            <div class="rowline"><span>6. Responsibility and conduct</span><b>8</b></div>
+            <div class="rowline"><span>Integrity</span><b>Beyond doubt</b></div>
+            <a class="btn ghost" style="margin-top:10px">Read 3.3 assessment and self-appraisal</a>
+          </div>
+          <div class="card">
+            <div class="part">Part 4.1</div>
+            <div class="q">Do you agree with the reporting officer's assessment?</div>
+            <div class="chk"><span class="radio on"></span><span><b>Yes</b> — sign; nothing more is needed</span></div>
+            <div class="chk"><span class="radio"></span><span><b>No</b> — revise the grades you disagree with</span></div>
+            <a class="btn">Sign and forward</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Part 4.2 · Revising</b>Only the chosen dimensions open; each revision needs a reason, and the overall grade recalculates.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Review APAR</div></div>
+        <div class="body">
+          <div class="total"><div><span>Revised overall grade</span><br><b>8.0</b></div><div style="font-size:11px;opacity:.85;text-align:right">was 8.6<br>2 grades revised</div></div>
+          <div class="card">
+            <div class="part">Part 4.2 · revise only what you disagree with</div>
+            <div class="dim"><div class="nm">1. Delivery of planned work</div><div class="cv">Reporting officer: 9 → your grade</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s class="on">7</s><s>8</s><s>9</s><s>10</s></div>
+              <div class="ta" style="min-height:48px;margin-top:8px;color:#1A202C">Two of four statutory returns were filed late; disposal gains were confined to one district.</div>
+              <div class="counter">15 / 30 words</div>
+            </div>
+            <div class="dim"><div class="nm">3. Knowledge and its application</div><div class="cv">Reporting officer: 9 → your grade</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s class="on">8</s><s>9</s><s>10</s></div>
+              <div class="ta" style="min-height:48px;margin-top:8px;color:#1A202C">Sound on procedure; limited exposure to departmental financial rules.</div>
+              <div class="counter">10 / 30 words</div>
+            </div>
+            <a class="btn ghost">+ Revise another dimension</a>
+            <div class="sign" style="margin-top:10px"><b>Sign with DSC or eSign</b>Part 4 locks on signing. The APAR goes to the custodian for disclosure.</div>
+            <a class="btn">Sign and forward</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================ FORM B ============================ -->
+<div class="lane">
+  <div class="lane-head"><h2>4. Form B: Group C</h2><span>Shorter form, same shell</span></div>
+  <p class="lane-note">Form B reuses every component with less in it: one optional 50-word self-appraisal, five graded items in two equal halves, and a fitness judgment that MahaPAR will not let pass as "Fit" with doubtful integrity unless a reason is given.</p>
+  <div class="rail">
+
+    <div class="screen"><div class="cap"><b>Employee · Part 2</b>Optional, and not required of drivers and multi-tasking staff.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Self-appraisal</div></div>
+        <div class="body">
+          <div class="person lined"><b>Prakash D. Shinde</b><span>Senior Clerk · Group C · 1 Apr 2025 – 31 Mar 2026</span></div>
+          <div class="card">
+            <div class="part">Part 2.1 · optional</div>
+            <div class="q">Work you would like to show your reporting authority</div>
+            <div class="hint">Noteworthy work for this APAR period. No attachments.</div>
+            <div class="ta" style="color:#1A202C">Maintained the section's pension files with no pendency through the year and trained two new clerks on eOffice.</div>
+            <div class="counter">19 / 50 words</div>
+            <div class="note info">ℹ️ This is optional. Drivers and multi-tasking staff may skip it and sign.</div>
+            <div class="sign"><b>Sign with DSC or eSign</b></div>
+            <div class="btnrow"><a class="btn ghost">Skip and sign</a><a class="btn">Sign and submit</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Reporting officer · Part 3.1</b>Five items, two halves of 50% each, system-data chips on the items they inform.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Appraise employee</div></div>
+        <div class="body">
+          <div class="total"><div><span>Overall grade (auto)</span><br><b>7.8</b></div><div style="font-size:11px;opacity:.85;text-align:right">5 of 5 graded<br>Benchmark 6.0</div></div>
+          <div class="card">
+            <div class="grp" style="margin-top:0">Work completion · 50%</div>
+            <div class="dim"><div class="nm">1. Quality of work</div><div class="cv">Timely submission, quality, applying skills and technology to the work</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s class="on">8</s><s>9</s><s>10</s></div>
+              <div class="sys"><em>eOffice <b>72%</b></em></div>
+            </div>
+            <div class="dim"><div class="nm">2. Knowledge of the work</div><div class="cv">Domain knowledge</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s class="on">8</s><s>9</s><s>10</s></div>
+              <div class="sys"><em>iGOT <b>14 h</b></em></div>
+            </div>
+            <div class="grp">Personal attributes · 50%</div>
+            <div class="dim"><div class="nm">3. Discipline and sense of responsibility</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s class="on">8</s><s>9</s><s>10</s></div>
+            </div>
+            <div class="dim"><div class="nm">4. Conduct with colleagues and the public</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s class="on">8</s><s>9</s><s>10</s></div>
+            </div>
+            <div class="dim"><div class="nm">5. Promptness and punctuality</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s>6</s><s class="on">7</s><s>8</s><s>9</s><s>10</s></div>
+              <div class="sys"><em>Attendance <b>91%</b></em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Reporting officer · Parts 3.2–3.4</b>Fitness, integrity and the conditional remark the form makes mandatory.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Appraise employee</div></div>
+        <div class="body">
+          <div class="card">
+            <div class="part">Part 3.2 · integrity</div>
+            <div class="chk"><span class="radio"></span><span>Beyond doubt</span></div>
+            <div class="chk"><span class="radio"></span><span>Nothing adverse noticed</span></div>
+            <div class="chk"><span class="radio on"></span><span>Doubtful — reasons in a separate confidential note</span></div>
+            <div class="rule"></div>
+            <div class="part">Part 3.3 · fitness</div>
+            <div class="q">Fit for promotion or higher responsibility?</div>
+            <div class="chk"><span class="radio on"></span><span>Fit</span></div>
+            <div class="chk"><span class="radio"></span><span>Not fit — reasons required in 3.4</span></div>
+            <div class="note danger">⚠️ MahaPAR will not accept "Fit" with integrity marked "Doubtful" unless you give a reason in 3.4.</div>
+            <div class="part">Part 3.4 · required</div>
+            <div class="ta">Maximum 50 words</div>
+            <div class="counter over">0 / 50 words · required</div>
+            <a class="btn" style="background:#C7D2E4">Sign and forward</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Reviewing officer · Part 4.2</b>Grades and the fitness judgment can both be revised, each with a reason.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Review APAR</div></div>
+        <div class="body">
+          <div class="total"><div><span>Revised overall grade</span><br><b>7.4</b></div><div style="font-size:11px;opacity:.85;text-align:right">was 7.8<br>1 grade, fitness revised</div></div>
+          <div class="card">
+            <div class="part">Part 4.1</div>
+            <div class="chk"><span class="radio"></span><span>Yes — sign; nothing more is needed</span></div>
+            <div class="chk"><span class="radio on"></span><span>No — revise below</span></div>
+            <div class="rule"></div>
+            <div class="part">Part 4.2</div>
+            <div class="dim"><div class="nm">Item 5 · Promptness and punctuality</div><div class="cv">Reporting officer: 7 → your grade</div>
+              <div class="scale"><s>1</s><s>2</s><s>3</s><s>4</s><s>5</s><s class="on">6</s><s>7</s><s>8</s><s>9</s><s>10</s></div>
+              <div class="ta" style="min-height:44px;margin-top:8px;color:#1A202C">Late reporting recorded on 31 occasions; attendance at 91%.</div>
+              <div class="counter">9 / 30 words</div>
+            </div>
+            <div class="dim"><div class="nm">Fitness</div><div class="cv">Reporting officer: Fit → your judgment</div>
+              <div class="pills" style="margin:8px 0 0"><span class="pill">Fit</span><span class="pill on">Not fit</span></div>
+              <div class="ta" style="min-height:44px;margin-top:8px;color:#1A202C">Integrity marked doubtful and under enquiry; fitness cannot be certified this year.</div>
+              <div class="counter">12 / 30 words</div>
+            </div>
+            <a class="btn">Sign and forward</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================ OTHER ROLES ============================ -->
+<div class="lane">
+  <div class="lane-head"><h2>5. Establishment officer and accepting authority</h2><span>Part 1 verification · Part 5</span></div>
+  <p class="lane-note">Two short windows that keep the cycle from stalling: the establishment officer verifies Part 1 and issues NRCs, and the accepting authority acts only where a reporting or reviewing stage was never completed.</p>
+  <div class="rail">
+
+    <div class="screen"><div class="cap"><b>Establishment officer</b>Verify Part 1 and issue the No Report Certificate.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Verify Part 1</div></div>
+        <div class="body">
+          <div class="person lined"><b>Sunita Ramesh Kale</b><span>Assistant Section Officer · Group B</span></div>
+          <div class="card">
+            <div class="part">Reporting chain declared by the officer</div>
+            <div class="rowline"><div><b>Reporting officer</b><br><span style="font-size:11px;color:var(--muted)">S. S. Nair · 01/04/2025 – 10/06/2025</span></div><b style="color:var(--green)">✓</b></div>
+            <div class="rowline"><div><b>Reporting officer</b><br><span style="font-size:11px;color:var(--muted)">A. K. Desai · 11/06/2025 – 31/03/2026</span></div><b style="color:var(--green)">✓</b></div>
+            <div class="rowline"><div><b>Reviewing officer</b><br><span style="font-size:11px;color:var(--muted)">D. D. Patil · full year</span></div><b style="color:var(--green)">✓</b></div>
+          </div>
+          <div class="card">
+            <div class="part">Part 1.2 · NRC requested</div>
+            <div class="note warn">⚠️ The officer served under S. S. Nair for 2 months 10 days — less than 3 months.</div>
+            <div class="chk"><span class="radio on"></span><span>Verified — issue the No Report Certificate for this period</span></div>
+            <div class="chk"><span class="radio"></span><span>Reject — service was 3 months or more (reason required)</span></div>
+            <div class="note info">ℹ️ An NRC is not a bar to promotion.</div>
+            <div class="btnrow"><a class="btn ghost">Return to officer</a><a class="btn">Verify and forward</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Accepting authority · Part 5</b>Opens only where a stage is missing, so an APAR is never left incomplete.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">Accepting authority</div></div>
+        <div class="body">
+          <div class="person lined"><b>Sunita Ramesh Kale</b><span>Assistant Section Officer · 2025–26</span></div>
+          <div class="card">
+            <div class="note danger">⚠️ The reporting stage was never completed. MahaPAR auto-forwarded this APAR on 01/06/2026 and recorded the delay.</div>
+            <div class="part">Part 5.1 · stage not completed</div>
+            <div class="chk"><span class="box on"></span><span>Reporting officer — A. K. Desai</span></div>
+            <div class="chk"><span class="box"></span><span>Reviewing officer</span></div>
+            <div class="rule"></div>
+            <div class="part">Part 5.2 · action taken</div>
+            <div class="ta" style="min-height:60px;color:#1A202C">Reporting officer retired on 31/03/2026 without recording the APAR. Period treated as "No Report"; reviewing officer's assessment stands.</div>
+            <div class="counter">19 / 30 words</div>
+            <div class="sign"><b>Sign with DSC or eSign</b></div>
+            <a class="btn">Sign and close the stage</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen"><div class="cap"><b>Timeliness, as the user meets it</b>Part 6 is system-generated; the user only ever sees the consequence.</div>
+      <div class="phone">
+        <div class="status"><span>5:13 PM</span><span>⏰ ✱ ▮▮ ▰</span></div>
+        <div class="appbar"><div class="back">‹</div><div class="ttl">My timeliness</div></div>
+        <div class="body">
+          <div class="card">
+            <div class="part">Part 6 · generated by MahaPAR</div>
+            <div class="rowline"><div><b>Own self-appraisal</b><br><span style="font-size:11px;color:var(--muted)">Submitted 28/04/2026, due 30/04/2026</span></div><b style="color:var(--green)">On time</b></div>
+            <div class="rowline"><div><b>As reporting officer (24 APARs)</b><br><span style="font-size:11px;color:var(--muted)">2 auto-forwarded</span></div><b style="color:var(--red)">2 late</b></div>
+            <div class="rowline"><div><b>As reviewing officer (9 APARs)</b><br><span style="font-size:11px;color:var(--muted)">All signed before the deadline</span></div><b style="color:var(--green)">On time</b></div>
+            <div class="rowline"><span><b>Timeliness marks</b> (5% of final score)</span><b style="color:var(--red)">−0.2</b></div>
+            <div class="note info" style="margin-top:10px">ℹ️ A stage that MahaPAR forwards automatically counts as late. Timeliness applies once eHRMS reporting-chain mapping is live.</div>
+          </div>
+          <div class="card">
+            <div class="note warn">⚠️ 3 APARs are pending with you and due within 7 days.</div>
+            <a class="btn amber">Go to pending</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="legend">
+  <h3>Design decisions carried over from the eHRMS APAR windows</h3>
+  <ul>
+    <li><b>Same shell.</b> Grey status and app bar, back chevron on the left, navy title centred, content as white rounded cards on a light grey body.</li>
+    <li><b>The blue name block</b> identifies whose APAR is open on every screen of every role — the single thing an officer with 24 pending APARs needs at a glance.</li>
+    <li><b>The step timeline</b> from Track My PAR is kept as-is: green tick for done, amber hourglass for the live stage, grey for what is ahead, with the auto-forward warning in the amber banner the app already uses.</li>
+    <li><b>Blue pill actions</b> ("View", "Open") and the blue primary button; saffron only for a deadline or representation action, red only for a breach.</li>
+  </ul>
+  <h3 style="margin-top:14px">Decisions the forms forced, which the eHRMS screens do not cover</h3>
+  <ul>
+    <li><b>One question per screen for Part 2</b>, so a 100-word limit and its counter stay on screen together. Word counters are live and block submission over the limit.</li>
+    <li><b>Conditional fields open, they do not merely appear.</b> A grade of 1–2 or 9–10 unlocks the justification in 3.3/3.4; an overall grade below 6 opens the memo attachment; "Fit" with doubtful integrity blocks the signature until a reason is written.</li>
+    <li><b>System data sits on the dimension it informs</b> as a small grey chip, never as a score. This keeps the form's rule — reference, not a separate weight — visible at the moment of grading.</li>
+    <li><b>The reviewing officer's agree path is two taps.</b> Revision opens per dimension, and the recalculated overall grade shows the old value beside the new one.</li>
+    <li><b>Every stage ends in one DSC or eSign action</b> that locks the part and names where it goes next. Nothing in these windows can be printed and signed on paper.</li>
+  </ul>
+  <h3 style="margin-top:14px">Open, pending GAD decisions</h3>
+  <ul>
+    <li>Scoring weights in Part 3.1 are shown as drafted (40/30/30 for Form A, 50/50 for Form B); the screens read them from configuration.</li>
+    <li>The split of timeliness marks between items is not set, so the timeliness screen shows the total only.</li>
+    <li>The technical-cadre module (2.6) is a branch point only; content is to be designed with each department.</li>
+    <li>Marathi is the first language of these screens. The English shown here is for review; field labels will need Marathi lengths checked, since several run longer than the card width.</li>
+  </ul>
+</div>
+
+</body>
+</html>
