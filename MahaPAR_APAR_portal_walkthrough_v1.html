@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MahaPAR APAR Walkthrough</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --navy:#1C3D6B;--navy2:#162F55;--navy3:#0D1F3C;--saffron:#E87722;--saffron2:#C96010;
+ --off:#F4F6FA;--border:#DDE3EF;--text:#1A202C;--muted:#64748B;--light:#A8C4E0;
+ --green:#16A34A;--red:#DC2626;--amber:#D97706;--blue:#2563EB;--bluesoft:#EFF5FF;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--off);color:var(--text);font-size:14px;line-height:1.55}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none}
+
+/* ---------- chrome ---------- */
+.a11y{background:#1E1E1E;padding:5px 24px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#BBB}
+.a11y b{color:var(--saffron)}
+.site-header{background:#fff;border-bottom:3px solid var(--saffron);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:14px}
+.seal{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+.brand strong{font-size:19px;color:var(--navy);display:block;letter-spacing:-.01em}
+.brand span{font-size:12px;color:var(--muted)}
+.whoami{display:flex;align-items:center;gap:10px;font-size:12px}
+.whoami select{padding:8px 12px;border:1px solid var(--border);border-radius:7px;font-family:inherit;font-size:13px;background:#fff;color:var(--navy);font-weight:600}
+nav{background:var(--navy);display:flex;padding:0 24px;overflow-x:auto}
+nav button{padding:12px 18px;font-size:13px;color:var(--light);background:none;border-bottom:3px solid transparent;white-space:nowrap}
+nav button:hover{color:#fff;background:rgba(255,255,255,.06)}
+nav button.on{color:#fff;border-bottom-color:var(--saffron);font-weight:600}
+nav .count{background:rgba(255,255,255,.18);border-radius:99px;padding:1px 7px;font-size:11px;margin-left:6px}
+
+/* role banner */
+.rolebar{background:#E8EEF8;border-bottom:1px solid var(--border);padding:9px 24px;font-size:12.5px;color:var(--navy);display:flex;gap:10px;align-items:center}
+.rolebar b{font-weight:700}
+.rolebar .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+
+/* cycle strip */
+.cycle{background:#fff;border-bottom:1px solid var(--border);padding:14px 24px;display:flex;gap:6px;align-items:center;overflow-x:auto}
+.cyc{flex:1;min-width:120px;border-radius:7px;padding:8px 10px;background:#F6F8FC;border:1px solid var(--border)}
+.cyc small{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:block}
+.cyc b{font-size:12.5px}
+.cyc.done{background:#ECFDF3;border-color:#BBF7D0}.cyc.done b{color:#166534}
+.cyc.now{background:#FFF7ED;border-color:#FED7AA}.cyc.now b{color:#9A3412}
+.cyc .arrow{color:#CBD5E1}
+
+main{padding:22px 24px 70px;max-width:1420px;margin:0 auto}
+.pane{display:none}.pane.on{display:block}
+.ph{margin-bottom:16px}
+.ph h1{font-size:21px;color:var(--navy);font-weight:700}
+.ph p{font-size:13px;color:var(--muted);max-width:900px;margin-top:4px}
+
+.grid{display:grid;gap:18px}
+.g-2-1{grid-template-columns:minmax(0,2fr) minmax(300px,1fr)}
+.g-1-2{grid-template-columns:minmax(260px,1fr) minmax(0,2.4fr)}
+.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:1080px){.g-2-1,.g-1-2,.g-3{grid-template-columns:1fr}}
+
+.card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:18px}
+.card h2{font-size:15px;color:var(--navy);margin-bottom:3px}
+.card h3{font-size:13.5px;margin-bottom:3px}
+.card .sub{font-size:12px;color:var(--muted);margin-bottom:14px}
+.rule{height:1px;background:var(--border);margin:14px -18px}
+.part{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--saffron);margin-bottom:6px}
+.q{font-size:14px;font-weight:600;margin-bottom:3px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:9px}
+
+label.f{display:block;margin-bottom:12px}
+label.f span{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-bottom:3px}
+input[type=text],input[type=date],select,textarea{width:100%;border:1px solid var(--border);border-radius:7px;padding:9px 11px;font-family:inherit;font-size:13.5px;background:#fff;color:var(--text)}
+textarea{resize:vertical;min-height:90px}
+input:focus,select:focus,textarea:focus{outline:2px solid #BFD4F6;border-color:var(--blue)}
+input:disabled,textarea:disabled{background:#F6F7FA;color:#64748B}
+.counter{font-size:11.5px;color:var(--muted);text-align:right;margin-top:4px}
+.counter.bad{color:var(--red);font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.btn{display:inline-block;background:var(--blue);color:#fff;border-radius:7px;padding:10px 18px;font-size:13.5px;font-weight:600}
+.btn.ghost{background:var(--bluesoft);color:var(--blue)}
+.btn.amber{background:var(--saffron)}
+.btn.grey{background:#E5E8EF;color:#475569}
+.btn.red{background:var(--red)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.sm{padding:6px 12px;font-size:12px}
+.btn.wide{width:100%;text-align:center}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+.note{border-radius:8px;padding:11px 13px;font-size:12.5px;margin-bottom:14px;line-height:1.5}
+.note.info{background:var(--bluesoft);color:#1E3A8A}
+.note.warn{background:#FEF6E7;color:#92590B}
+.note.danger{background:#FEF2F2;color:#991B1B}
+.note.ok{background:#ECFDF3;color:#166534}
+.note b{font-weight:700}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--border);background:#FAFBFD}
+td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:99px}
+.tag.ok{background:#ECFDF3;color:#166534}
+.tag.warn{background:#FEF3C7;color:#92400E}
+.tag.red{background:#FEE2E2;color:#991B1B}
+.tag.blue{background:var(--bluesoft);color:#1E3A8A}
+.tag.grey{background:#F1F5F9;color:#475569}
+
+/* steps sidebar */
+.steplist{list-style:none}
+.steplist li{padding:10px 12px;border-radius:8px;font-size:13px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;margin-bottom:3px}
+.steplist li:hover{background:#F6F8FC}
+.steplist li.on{background:var(--navy);color:#fff}
+.steplist li.on small{color:#B9CCE6}
+.steplist li.done .n{background:var(--green);color:#fff}
+.steplist .n{width:21px;height:21px;border-radius:50%;background:#E2E8F0;color:#475569;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:1px}
+.steplist li.on .n{background:var(--saffron);color:#fff}
+.steplist small{display:block;font-size:11px;color:var(--muted)}
+.wiz{display:none}.wiz.on{display:block}
+
+/* grading */
+.grp{font-size:12px;font-weight:700;color:var(--navy);background:#F1F5FB;padding:7px 11px;border-radius:7px;margin:16px 0 10px}
+.dim{border:1px solid var(--border);border-radius:9px;padding:12px;margin-bottom:10px}
+.dim .nm{font-size:13.5px;font-weight:600}
+.dim .cv{font-size:11.5px;color:var(--muted);margin:2px 0 9px}
+.scale{display:flex;gap:5px;flex-wrap:wrap}
+.scale button{width:38px;height:34px;border:1px solid var(--border);border-radius:6px;background:#fff;font-size:12.5px;color:#64748B}
+.scale button:hover{border-color:var(--blue);color:var(--blue)}
+.scale button.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:700}
+.scale button.on.extreme{background:var(--amber);border-color:var(--amber)}
+.sys{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.sys em{font-style:normal;background:#F3F4F6;border-radius:6px;padding:4px 9px;font-size:11px;color:#475569}
+.sys em b{color:var(--navy)}
+.sys em.memo{background:#FEF3C7;color:#92400E}
+.scoreboard{position:sticky;top:12px;background:var(--navy);color:#fff;border-radius:10px;padding:16px}
+.scoreboard .big{font-size:38px;font-weight:700;line-height:1}
+.scoreboard small{font-size:11px;opacity:.8;display:block}
+.scoreboard .ln{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.scoreboard .ln:last-child{border:none}
+.scoreboard.low{background:#7F1D1D}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.chip{border:1px solid var(--border);border-radius:99px;padding:6px 13px;font-size:12px;background:#fff;color:#475569}
+.chip.on{background:var(--bluesoft);border-color:var(--blue);color:var(--navy);font-weight:600}
+.radios label,.checks label{display:flex;gap:9px;align-items:flex-start;font-size:13px;margin-bottom:8px;cursor:pointer}
+.radios input,.checks input{margin-top:3px}
+.hidebox{display:none}.hidebox.on{display:block}
+
+.memo{border:1px solid var(--border);border-left:4px solid var(--saffron);border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:10px;background:#fff}
+.memo .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:4px}
+.memo .top b{font-size:13px}
+.memo .meta{font-size:11px;color:var(--muted)}
+.memo p{font-size:12.5px;margin-top:5px}
+.memo .resp{background:#F6F8FC;border-radius:7px;padding:9px 11px;font-size:12.5px;margin-top:9px}
+.memo .resp b{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block}
+.memo.none{border-left-color:var(--red)}
+.memo.answered{border-left-color:var(--green)}
+
+.stat{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.stat b{font-size:28px;color:var(--navy);display:block;line-height:1.1}
+.stat span{font-size:12px;color:var(--muted)}
+.flow{display:flex;gap:10px;flex-wrap:wrap}
+.flow .node{flex:1;min-width:150px;border:1px solid var(--border);border-radius:9px;padding:11px 12px;background:#fff}
+.flow .node b{font-size:12.5px;display:block}
+.flow .node small{font-size:11px;color:var(--muted)}
+.toast{position:fixed;right:22px;bottom:22px;background:var(--navy3);color:#fff;padding:13px 17px;border-radius:9px;font-size:13px;box-shadow:0 10px 26px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:.2s;z-index:99;max-width:340px}
+.toast.on{opacity:1;transform:none}
+.modal{position:fixed;inset:0;background:rgba(13,31,60,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100}
+.modal.on{display:flex}
+.modal .box{background:#fff;border-radius:12px;width:100%;max-width:560px;max-height:90vh;overflow:auto;padding:22px}
+.modal h2{font-size:17px;color:var(--navy);margin-bottom:3px}
+.ro{background:#F7F8FA;border:1px solid var(--border);border-radius:8px;padding:11px 13px;font-size:13px;margin-bottom:12px}
+.ro b{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px;font-weight:600}
+footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
+</style>
+</head>
+<body>
+
+<div class="a11y"><span>Government of Maharashtra · General Administration Department</span><span><b>DRAFT FOR DISCUSSION</b> · IDinsight with GAD · October 2026 · demo data</span></div>
+
+<header class="site-header">
+  <div class="brand">
+    <div class="seal">MH</div>
+    <div><strong>MahaPAR</strong><span>Performance Appraisal Report System · Cycle 2025–26</span></div>
+  </div>
+  <div class="whoami">
+    <span style="color:var(--muted)">Walk through as</span>
+    <select id="roleSel" onchange="setRole(this.value)">
+      <option value="custodian">Ashil V. Naik — Custodian / Establishment Officer</option>
+      <option value="officer" selected>Vishal V. Dhole — Section Officer (appraisee)</option>
+      <option value="reporting">Satish S. Nair — Deputy Secretary (reporting officer)</option>
+      <option value="reviewing">Dinesh D. Patil — Joint Secretary (reviewing officer)</option>
+    </select>
+  </div>
+</header>
+
+<nav id="nav">
+  <button data-tab="custodian" onclick="go('custodian')">Custodian: mapping &amp; workflow</button>
+  <button data-tab="memos" onclick="go('memos')">Memos <span class="count" id="memoCount">4</span></button>
+  <button data-tab="self" class="on" onclick="go('self')">My APAR: self-appraisal</button>
+  <button data-tab="reporting" onclick="go('reporting')">Reporting officer <span class="count" id="repCount">3</span></button>
+  <button data-tab="reviewing" onclick="go('reviewing')">Reviewing officer <span class="count">1</span></button>
+  <button data-tab="disclosure" onclick="go('disclosure')">Disclosure &amp; representation</button>
+</nav>
+
+<div class="rolebar"><span class="dot"></span><span>Signed in as <b id="roleName">Vishal V. Dhole</b> · <span id="roleDesc">Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719</span></span></div>
+
+<div class="cycle" id="cycleStrip"></div>
+
+<main>
+
+<!-- ======================= CUSTODIAN ======================= -->
+<section class="pane" id="pane-custodian">
+  <div class="ph"><h1>Custodian window: authority mapping and cycle workflow</h1>
+  <p>The custodian creates the cycle, maps every officer to a reporting and reviewing officer, verifies Part 1, issues No Report Certificates, and watches where the cycle is stuck. Nothing here is a grade — the custodian never sees or changes an assessment.</p></div>
+
+  <div class="grid g-3" style="margin-bottom:18px">
+    <div class="stat"><b>1,284</b><span>Officers in this cycle</span></div>
+    <div class="stat"><b>96%</b><span>Reporting chain mapped</span></div>
+    <div class="stat"><b>47</b><span>Stages overdue, auto-forward pending</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Cycle workflow and where it stands</h2>
+    <div class="sub">Each stage has a GAD-notified deadline. A stage not completed by then is forwarded automatically and recorded as late.</div>
+    <div class="flow">
+      <div class="node"><b>1. Cycle created</b><small>14 Apr 2026 · 1,284 APARs opened</small><br><span class="tag ok">Done</span></div>
+      <div class="node"><b>2. Part 1 verified</b><small>Establishment officer · 1,231 of 1,284</small><br><span class="tag ok">Done</span></div>
+      <div class="node"><b>3. Self-appraisal</b><small>Due 30 Apr · 1,109 submitted, 88 auto-forwarded</small><br><span class="tag warn">In progress</span></div>
+      <div class="node"><b>4. Reporting stage</b><small>Due 31 May · 612 signed</small><br><span class="tag warn">In progress</span></div>
+      <div class="node"><b>5. Reviewing stage</b><small>Due 30 Jun</small><br><span class="tag grey">Not started</span></div>
+      <div class="node"><b>6. Disclosure</b><small>Custodian discloses in MahaPAR</small><br><span class="tag grey">Not started</span></div>
+      <div class="node"><b>7. Representation</b><small>15 days from disclosure</small><br><span class="tag grey">Not started</span></div>
+      <div class="node"><b>8. APAR closed</b><small>Custodian closes the cycle</small><br><span class="tag grey">Not started</span></div>
+    </div>
+  </div>
+
+  <div class="grid g-2-1">
+    <div>
+      <div class="card">
+        <h2>Authority mapping</h2>
+        <div class="sub">Part 1.1 as declared by each officer, against the chain in eHRMS. A mismatch blocks the APAR until it is settled.</div>
+        <table>
+          <tr><th>Officer</th><th>Post</th><th>Reporting officer</th><th>Reviewing officer</th><th>Status</th><th></th></tr>
+          <tr><td><b>Vishal V. Dhole</b></td><td>Section Officer</td><td>Satish S. Nair</td><td>Dinesh D. Patil</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this officer.')">View</button></td></tr>
+          <tr><td><b>Sunita R. Kale</b></td><td>Asst Section Officer</td><td>A. K. Desai <span class="tag grey">2 chgs</span></td><td>Dinesh D. Patil</td><td><span class="tag warn">NRC requested</span></td><td><button class="btn sm" onclick="openNRC()">Act</button></td></tr>
+          <tr><td><b>Prakash D. Shinde</b></td><td>Senior Clerk (Form B)</td><td>Satish S. Nair</td><td>Dinesh D. Patil</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this officer.')">View</button></td></tr>
+          <tr><td><b>Anil B. Jadhav</b></td><td>Section Officer</td><td><span style="color:var(--red)">Not mapped</span></td><td>Dinesh D. Patil</td><td><span class="tag red">Blocked</span></td><td><button class="btn sm amber" onclick="toast('Mapping screen: assign a reporting officer from the eHRMS chain, or record the post as vacant.')">Map</button></td></tr>
+        </table>
+        <div class="note warn" style="margin-top:14px">⚠️ <b>4 officers have no reporting officer mapped.</b> Until the chain is complete, timeliness marks cannot be calculated and the accepting authority (Part 5) will have to close those APARs manually.</div>
+      </div>
+
+      <div class="card">
+        <h2>Memo oversight</h2>
+        <div class="sub">The custodian sees that memos exist and whether they were answered — never their contents. This is the audit trail that makes a low grade defensible.</div>
+        <table>
+          <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Unanswered</th><th>Officers with zero memos</th></tr>
+          <tr><td>Satish S. Nair</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
+          <tr><td>A. K. Desai</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
+          <tr><td>Dinesh D. Patil</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
+        </table>
+        <div class="note info" style="margin-top:14px">ℹ️ GAD can use this to see which reporting officers never record a concern during the year, and then grade everyone above the benchmark at the end of it.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>Custodian actions</h2>
+        <div class="btnrow" style="flex-direction:column">
+          <button class="btn wide" onclick="toast('Cycle 2026–27 would be created and APARs opened for all mapped officers.')">Create next cycle</button>
+          <button class="btn wide ghost" onclick="toast('Reminders queued to 88 officers whose self-appraisal is pending.')">Send deadline reminders</button>
+          <button class="btn wide ghost" onclick="toast('Disclosure runs only after the reviewing stage closes.')">Disclose completed APARs</button>
+          <button class="btn wide grey" onclick="toast('Export of the mapping and timeliness register.')">Export register</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>NRC queue</h2>
+        <div class="sub">Service under a reporting officer of less than 3 months.</div>
+        <div class="memo"><div class="top"><b>Sunita R. Kale</b><span class="tag warn">Pending</span></div>
+          <div class="meta">Under A. K. Desai · 01/04/2025 – 10/06/2025 · 2 months 10 days</div>
+          <div class="btnrow"><button class="btn sm" onclick="openNRC()">Verify and issue</button><button class="btn sm grey" onclick="toast('Rejection needs a recorded reason.')">Reject</button></div>
+        </div>
+        <div class="note info">ℹ️ An NRC is not a bar to promotion.</div>
+      </div>
+      <div class="card">
+        <h2>Timeliness register</h2>
+        <div class="sub">Part 6 is generated, never entered.</div>
+        <table>
+          <tr><th>Stage</th><th>On time</th><th>Late</th></tr>
+          <tr><td>Self-appraisal</td><td>1,109</td><td>88</td></tr>
+          <tr><td>Reporting</td><td>612</td><td>41</td></tr>
+          <tr><td>Reviewing</td><td>—</td><td>—</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= MEMOS ======================= -->
+<section class="pane" id="pane-memos">
+  <div class="ph"><h1>Memos: a running record during the year</h1>
+  <p>Responding to the point raised by JS Badgeri: reporting officers hesitate to grade below the benchmark because nothing was documented during the year. MahaPAR lets a reporting officer issue a memo at any point in the assessment year, the officer respond to it, and both appear automatically on the grading screen when the APAR opens.</p></div>
+
+  <div class="note warn"><b>How the memo record is used.</b> A memo is a record of a performance concern, not a punishment and not a disciplinary proceeding. The officer is notified that the response — or the absence of one — may be considered at APAR time. Memos issued in the assessment year attach themselves to that year's APAR and are visible to the officer, the reporting officer, the reviewing officer and, as a count only, the custodian.</p></div>
+
+  <div class="grid g-1-2">
+    <div>
+      <div class="card" id="memoComposer">
+        <h2>Send a memo</h2>
+        <div class="sub">Reporting officers only. Available all year, not only at APAR time.</div>
+        <label class="f"><span>To (your subordinate)</span>
+          <select id="mTo"><option>Vishal V. Dhole — Section Officer</option><option>Sunita R. Kale — Asst Section Officer</option><option>Prakash D. Shinde — Senior Clerk</option></select></label>
+        <label class="f"><span>Concern relates to</span>
+          <select id="mCat">
+            <option>Delivery of planned work</option><option>Quality of work</option>
+            <option>Knowledge and its application</option><option>Judgement and initiative</option>
+            <option>Collaboration and communication</option><option>Responsibility and conduct</option>
+            <option>Punctuality and attendance</option><option>Integrity-related concern</option>
+          </select></label>
+        <label class="f"><span>Subject</span><input type="text" id="mSub" placeholder="e.g. Delay in filing quarterly returns"></label>
+        <label class="f"><span>What the concern is, and what you expect to change</span>
+          <textarea id="mBody" placeholder="State the specific instance, date and what improvement is expected. Maximum 150 words."></textarea>
+          <div class="counter" id="mCount">0 / 150 words</div></label>
+        <label class="f"><span>Response due by</span><input type="date" id="mDue" value="2025-09-30"></label>
+        <div class="checks"><label><input type="checkbox" id="mNotify" checked><span>Notify the officer that their response, or failure to respond, may be considered during the APAR assessment.</span></label></div>
+        <div class="note info">ℹ️ The memo is signed with your DSC or eSign and cannot be edited or deleted afterwards. It attaches to the APAR cycle in which it was issued.</div>
+        <div class="btnrow"><button class="btn" onclick="sendMemo()">Sign and send memo</button><button class="btn grey" onclick="toast('Draft saved. Drafts are not visible to the officer.')">Save draft</button></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h2>Memo register · cycle 2025–26</h2>
+        <div class="sub" id="memoSummary"></div>
+        <div id="memoList"></div>
+      </div>
+      <div class="card">
+        <h2>What the officer sees</h2>
+        <div class="sub">The same memo in the appraisee's window, with the reply box and the consequence stated plainly.</div>
+        <div class="memo none"><div class="top"><b>Delay in filing quarterly returns</b><span class="tag red">No response · 41 days</span></div>
+          <div class="meta">From Satish S. Nair, Deputy Secretary · issued 18 Aug 2025 · response was due 30 Sep 2025</div>
+          <p>Quarterly returns for Q1 were filed 23 days late despite two reminders. Returns for Q2 are to be filed within the statutory date.</p>
+          <div class="note warn" style="margin:10px 0 0">⚠️ You did not respond by the due date. This memo and the absence of a response may be considered when your APAR is assessed.</div>
+          <div class="btnrow"><button class="btn sm" onclick="toast('The reply window closed on 30 Sep 2025. A late reply can still be recorded and is shown as late.')">Respond late</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SELF APPRAISAL ======================= -->
+<section class="pane on" id="pane-self">
+  <div class="ph"><h1>Self-appraisal · Form A, Parts 1 and 2</h1>
+  <p>Six steps. Part 1 arrives pre-filled from Sevaarth; the officer confirms the chain and fills Part 2 within the word limits. Memos received during the year sit beside the form, so nothing in the assessment is a surprise.</p></div>
+
+  <div class="grid g-1-2">
+    <div>
+      <div class="card">
+        <h2>Steps</h2>
+        <ul class="steplist" id="selfSteps">
+          <li class="on" onclick="selfStep(1)"><span class="n">1</span><div>Officer details<small>Part 1 · pre-filled</small></div></li>
+          <li onclick="selfStep(2)"><span class="n">2</span><div>Reporting chain and NRC<small>Part 1.1–1.2</small></div></li>
+          <li onclick="selfStep(3)"><span class="n">3</span><div>Targets<small>Part 2.1 · if set</small></div></li>
+          <li onclick="selfStep(4)"><span class="n">4</span><div>Your work this year<small>Part 2.2–2.3</small></div></li>
+          <li onclick="selfStep(5)"><span class="n">5</span><div>Training<small>Part 2.4–2.5</small></div></li>
+          <li onclick="selfStep(6)"><span class="n">6</span><div>Review and sign<small>Part 2.6 · DSC / eSign</small></div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Memos received this year</h2>
+        <div class="sub">Issued by your reporting officer during the assessment period. These will be visible on the grading screen.</div>
+        <div id="selfMemos"></div>
+      </div>
+    </div>
+
+    <div>
+      <!-- step 1 -->
+      <div class="wiz on" id="self1">
+        <div class="card">
+          <div class="part">Part 1 · officer details</div>
+          <div class="note info">ℹ️ Grey fields come from Sevaarth and your service record. To correct one, raise a service-record request; it cannot be edited here.</div>
+          <div class="two">
+            <div class="ro"><b>Name</b>Vishal Vinayak Dhole</div>
+            <div class="ro"><b>Sevaarth ID</b>2048-7719</div>
+            <div class="ro"><b>Cadre and group</b>Maharashtra Secretariat Service · Group B</div>
+            <div class="ro"><b>Present post and office</b>Section Officer, Revenue &amp; Forest Dept, Mantralaya</div>
+            <div class="ro"><b>Date of appointment to present post</b>12 June 2023</div>
+            <div class="ro"><b>Period of report</b>1 April 2025 to 31 March 2026</div>
+          </div>
+          <label class="f"><span>Leave or absence of 30 days or more</span>
+            <select><option>None this year</option><option>Earned leave — 34 days</option><option>Medical leave</option><option>Other</option></select></label>
+          <div class="btnrow"><button class="btn" onclick="selfStep(2)">Continue</button></div>
+        </div>
+      </div>
+
+      <!-- step 2 -->
+      <div class="wiz" id="self2">
+        <div class="card">
+          <div class="part">Part 1.1 · reporting chain</div>
+          <div class="q">Who reported on you this year?</div>
+          <div class="hint">Add a row for each change of officer during the year. The establishment officer verifies this before the form moves on.</div>
+          <table>
+            <tr><th>Role</th><th>Name and post</th><th>From</th><th>To</th></tr>
+            <tr><td>Reporting officer</td><td><select><option>Satish S. Nair — Deputy Secretary</option><option>A. K. Desai — Deputy Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
+            <tr><td>Reviewing officer</td><td><select><option>Dinesh D. Patil — Joint Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
+            <tr><td>Accepting authority</td><td><select><option>Not applicable</option><option>Pr. Secretary, Revenue &amp; Forest</option></select></td><td colspan="2" style="color:var(--muted);font-size:12px">Acts only where a stage is missing (Part 5)</td></tr>
+          </table>
+          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A row is added for the next change of officer.')">+ Add another officer</button></div>
+          <div class="rule"></div>
+          <div class="part">Part 1.2 · No Report Certificate</div>
+          <div class="checks"><label><input type="checkbox"><span>I served under this reporting officer for less than 3 months and request an NRC for this period.</span></label></div>
+          <div class="note info">ℹ️ The establishment officer verifies and issues the NRC in MahaPAR. An NRC is not a bar to promotion.</div>
+          <div class="btnrow"><button class="btn grey" onclick="selfStep(1)">Back</button><button class="btn" onclick="selfStep(3)">Continue</button></div>
+        </div>
+      </div>
+
+      <!-- step 3 -->
+      <div class="wiz" id="self3">
+        <div class="card">
+          <div class="part">Part 2.1 · targets</div>
+          <div class="q">Were targets set for your post this year?</div>
+          <div class="hint">Fill this only if targets were set. Once KPIs are linked to MahaPAR, targets will be chosen from a drop-down instead of typed.</div>
+          <div class="radios">
+            <label><input type="radio" name="tgt" checked onclick="show('tgtBox',1)"><span>Yes — enter targets and achievements</span></label>
+            <label><input type="radio" name="tgt" onclick="show('tgtBox',0)"><span>No targets were set for my post</span></label>
+          </div>
+          <div id="tgtBox" class="hidebox on">
+            <table>
+              <tr><th style="width:50%">Target</th><th>Achievement</th></tr>
+              <tr><td><input type="text" value="Clear 100% of RTI applications within statutory time"></td><td><input type="text" value="214 of 218 cleared within 30 days"></td></tr>
+              <tr><td><input type="text" value="File all quarterly returns by the due date"></td><td><input type="text" value="3 of 4 filed on time; Q1 filed 23 days late"></td></tr>
+              <tr><td><input type="text" placeholder="Target 3"></td><td><input type="text" placeholder="Achievement"></td></tr>
+            </table>
+          </div>
+          <div class="btnrow" style="margin-top:12px"><button class="btn grey" onclick="selfStep(2)">Back</button><button class="btn" onclick="selfStep(4)">Continue</button></div>
+        </div>
+      </div>
+
+      <!-- step 4 -->
+      <div class="wiz" id="self4">
+        <div class="card">
+          <div class="part">Part 2.2</div>
+          <div class="q">Your most significant contribution this year</div>
+          <div class="hint">One or two pieces of work: what you did, and what changed as a result. No attachments.</div>
+          <textarea id="t22" oninput="wc('t22','c22',100)" style="min-height:120px">Redesigned the district land-records grievance workflow on eOffice. Cut average disposal time from 41 days to 23 days across six talukas and cleared a backlog of 1,340 cases.</textarea>
+          <div class="counter" id="c22"></div>
+          <div class="rule"></div>
+          <div class="part">Part 2.3 · optional</div>
+          <div class="q">Any systemic factors that affected your work?</div>
+          <div class="hint">For example delayed approvals, staffing constraints or administrative dependencies.</div>
+          <textarea id="t23" oninput="wc('t23','c23',50)" placeholder="Optional — leave blank if none"></textarea>
+          <div class="counter" id="c23"></div>
+          <div class="note info" style="margin-top:12px">ℹ️ If a memo was issued to you during the year, answer it in the memo itself rather than here. Your reply is already on record and is shown to the reporting officer.</div>
+          <div class="btnrow"><button class="btn grey" onclick="selfStep(3)">Back</button><button class="btn" onclick="selfStep(5)">Continue</button></div>
+        </div>
+      </div>
+
+      <!-- step 5 -->
+      <div class="wiz" id="self5">
+        <div class="card">
+          <div class="part">Part 2.4 · training completed</div>
+          <div class="sub">Pulled from your iGOT record. Add anything iGOT does not hold.</div>
+          <table>
+            <tr><th>Course</th><th>Category</th><th>Hours</th></tr>
+            <tr><td>eOffice for Section Officers</td><td>IT and digital tools</td><td>12</td></tr>
+            <tr><td>RTI Act: practice and timelines</td><td>General rules and procedures</td><td>8</td></tr>
+            <tr><td><b>Total</b></td><td></td><td><b>20</b></td></tr>
+          </table>
+          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A row is added for training not recorded on iGOT.')">+ Add training not on iGOT</button></div>
+          <div class="rule"></div>
+          <div class="part">Part 2.5 · optional</div>
+          <div class="q">Any additional training you need?</div>
+          <div class="hint">Choose up to three. Examples for each category are in the annexure.</div>
+          <div class="chips" id="trainChips"></div>
+          <div class="note info" id="chipNote">ℹ️ 0 of 3 selected.</div>
+          <div class="btnrow"><button class="btn grey" onclick="selfStep(4)">Back</button><button class="btn" onclick="selfStep(6)">Continue</button></div>
+        </div>
+      </div>
+
+      <!-- step 6 -->
+      <div class="wiz" id="self6">
+        <div class="card">
+          <div class="part">Part 2.6 · technical cadre</div>
+          <div class="q">Do you belong to a technical cadre?</div>
+          <div class="hint">Engineering, health or teaching.</div>
+          <div class="radios">
+            <label><input type="radio" name="tech" checked onclick="show('techBox',0)"><span>No</span></label>
+            <label><input type="radio" name="tech" onclick="show('techBox',1)"><span>Yes — open the module for my cadre</span></label>
+          </div>
+          <div class="hidebox" id="techBox"><div class="note warn">⚠️ Module content is to be designed with each department. MahaPAR opens the cadre module here.</div></div>
+          <div class="rule"></div>
+          <h3>Check before you sign</h3>
+          <table style="margin-top:8px">
+            <tr><td>Part 1 details and reporting chain</td><td><span class="tag ok">Complete</span></td></tr>
+            <tr><td>2.1 Targets</td><td><span class="tag ok">2 entered</span></td></tr>
+            <tr><td>2.2 Most significant contribution</td><td><span class="tag ok" id="chk22">31 words</span></td></tr>
+            <tr><td>2.3 Systemic factors</td><td><span class="tag grey">Optional</span></td></tr>
+            <tr><td>2.4 Training</td><td><span class="tag ok">20 hours</span></td></tr>
+            <tr><td>Memos issued to you this year</td><td><span class="tag warn" id="chkMemo">2 · 1 unanswered</span></td></tr>
+          </table>
+          <div class="note warn" style="margin-top:14px">⚠️ One memo issued to you on 18 Aug 2025 has no response on record. You may still record a late response; it will be shown as late.</div>
+          <div class="note info">ℹ️ Signing locks Part 2 and sends the APAR to Satish S. Nair, Deputy Secretary. Paper forms are not accepted.</div>
+          <div class="btnrow"><button class="btn grey" onclick="selfStep(5)">Back</button><button class="btn ghost" onclick="toast('Draft saved. Nothing has gone to your reporting officer.')">Save draft</button><button class="btn" onclick="submitSelf()">Sign with DSC / eSign and submit</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= REPORTING ======================= -->
+<section class="pane" id="pane-reporting">
+  <div class="ph"><h1>Reporting officer · Form A, Part 3</h1>
+  <p>The self-appraisal, the system data and the year's memo record all sit on one screen with the grades. Extreme grades and a below-benchmark overall grade open the justification the form requires; the memo record is what makes a low grade defensible.</p></div>
+
+  <div class="card">
+    <h2>Pending with me</h2>
+    <table>
+      <tr><th>Officer</th><th>Form</th><th>Self-appraisal</th><th>Memos issued this year</th><th>Deadline</th><th></th></tr>
+      <tr><td><b>Vishal V. Dhole</b> · Section Officer</td><td>A</td><td><span class="tag ok">Submitted 28 Apr</span></td><td><span class="tag warn">2 · 1 unanswered</span></td><td>31 May 2026</td><td><button class="btn sm" onclick="scrollTo(0,520)">Open</button></td></tr>
+      <tr><td><b>Sunita R. Kale</b> · Asst Section Officer</td><td>A</td><td><span class="tag red">Auto-forwarded</span></td><td><span class="tag grey">None</span></td><td><span style="color:var(--red)">Overdue 4 days</span></td><td><button class="btn sm ghost" onclick="toast('Demo shows one APAR in full. This officer has no memo record, so a below-benchmark grade would carry no documentation.')">Open</button></td></tr>
+      <tr><td><b>Prakash D. Shinde</b> · Senior Clerk</td><td>B</td><td><span class="tag ok">Submitted 22 Apr</span></td><td><span class="tag warn">1 · answered</span></td><td>31 May 2026</td><td><button class="btn sm ghost" onclick="toast('Form B has five items in two halves of 50%, plus a fitness judgment.')">Open</button></td></tr>
+    </table>
+  </div>
+
+  <div class="grid g-2-1">
+    <div>
+      <div class="card">
+        <h2>What the officer wrote</h2>
+        <div class="sub">Part 2, read-only.</div>
+        <div class="ro"><b>2.2 Most significant contribution</b>Redesigned the district land-records grievance workflow on eOffice. Cut average disposal time from 41 days to 23 days across six talukas and cleared a backlog of 1,340 cases.</div>
+        <table>
+          <tr><th>Target</th><th>Achievement</th></tr>
+          <tr><td>Clear 100% of RTI applications within statutory time</td><td>214 of 218 within 30 days</td></tr>
+          <tr><td>File all quarterly returns by the due date</td><td>3 of 4 on time; Q1 filed 23 days late</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Memo record for this assessment year</h2>
+        <div class="sub">Issued by you during 2025–26. Shown here automatically; you cannot add a memo dated in the past.</div>
+        <div id="repMemos"></div>
+        <div class="btnrow"><button class="btn amber" onclick="go('memos')">Send a new memo</button></div>
+        <div class="note info" style="margin-top:12px">ℹ️ A memo issued now is dated today and attaches to the <b>current</b> cycle, not to the year being assessed. Issue memos when the concern arises.</div>
+      </div>
+
+      <div class="card">
+        <div class="part">Part 3.1 · grading</div>
+        <div class="q">Grade each dimension from 1 to 10, compared with officers at the same level</div>
+        <div class="hint">System data is reference for the dimension it sits under; it is not weighted separately.</div>
+
+        <div class="grp">Work output · 40%</div>
+        <div class="dim"><div class="nm">1. Delivery of planned work</div><div class="cv">Targets met, timeliness, unforeseen tasks</div>
+          <div class="scale" data-dim="d1"></div>
+          <div class="sys"><em>Targets <b>3 of 4 on time</b></em><em class="memo">1 memo · <b>unanswered</b></em></div></div>
+        <div class="dim"><div class="nm">2. Quality of work</div><div class="cv">Accuracy, thoroughness, soundness of proposals</div>
+          <div class="scale" data-dim="d2"></div></div>
+
+        <div class="grp">Functional competence · 30%</div>
+        <div class="dim"><div class="nm">3. Knowledge and its application</div><div class="cv">Rules, procedures, IT skills, subject knowledge</div>
+          <div class="scale" data-dim="d3"></div>
+          <div class="sys"><em>iGOT <b>20 h</b></em><em>eOffice <b>87%</b></em></div></div>
+        <div class="dim"><div class="nm">4. Judgement and initiative</div><div class="cv">Decision-making, problem-solving, initiative</div>
+          <div class="scale" data-dim="d4"></div></div>
+
+        <div class="grp">Personal attributes · 30%</div>
+        <div class="dim"><div class="nm">5. Collaboration and communication</div><div class="cv">Teamwork, coordination, dealings with the public</div>
+          <div class="scale" data-dim="d5"></div></div>
+        <div class="dim"><div class="nm">6. Responsibility and conduct</div><div class="cv">Attitude to work, discipline, punctuality</div>
+          <div class="scale" data-dim="d6"></div>
+          <div class="sys"><em>Attendance <b>96%</b></em><em class="memo">1 memo · <b>answered</b></em></div></div>
+
+        <div class="hidebox" id="extremeBox">
+          <div class="note warn">⚠️ <b>A grade of 1–2 or 9–10 needs the specific accomplishment or failure behind it</b>, recorded in 3.3 below. <span id="extremeList"></span></div>
+        </div>
+
+        <div class="hidebox" id="lowBox">
+          <div class="note danger">⚠️ <b>This overall grade is below the benchmark of 6.</b> You may attach memos or notices issued during the year as proof that the officer was advised and given opportunities to improve.</div>
+          <div class="checks"><label><input type="checkbox" id="attachMemo" checked onchange="renderAttach()"><span>Attach the memo record for this year as evidence</span></label></div>
+          <div id="attachList"></div>
+        </div>
+
+        <div class="rule"></div>
+        <div class="part">Part 3.2 · integrity</div>
+        <div class="radios">
+          <label><input type="radio" name="integ" checked onclick="show('doubtBox',0)"><span>Beyond doubt</span></label>
+          <label><input type="radio" name="integ" onclick="show('doubtBox',0)"><span>Nothing adverse noticed</span></label>
+          <label><input type="radio" name="integ" onclick="show('doubtBox',1)"><span>Doubtful</span></label>
+        </div>
+        <div class="hidebox" id="doubtBox"><div class="note danger">⚠️ Record the reasons in a separate confidential note. MahaPAR will not accept the signature until the note is filed.</div></div>
+
+        <div class="rule"></div>
+        <div class="part">Part 3.3 · compulsory</div>
+        <div class="q">Overall assessment</div>
+        <div class="hint">Cover: main strengths · one area to develop · any significant failure · attitude towards persons with disabilities, women and weaker sections · the specific accomplishment or failure behind any grade of 1–2 or 9–10.</div>
+        <textarea id="t33" oninput="wc('t33','c33',100)" style="min-height:130px"></textarea>
+        <div class="counter" id="c33"></div>
+        <div class="btnrow" style="margin-top:4px"><button class="btn ghost sm" onclick="insertMemoRef()">Cite the memo record</button></div>
+
+        <div class="rule"></div>
+        <div class="part">Part 3.4</div>
+        <div class="q">Do you agree with the officer's self-appraisal in Part 2?</div>
+        <div class="radios">
+          <label><input type="radio" name="ag" checked onclick="show('agBox',0)"><span>Yes</span></label>
+          <label><input type="radio" name="ag" onclick="show('agBox',1)"><span>No — state the facts</span></label>
+        </div>
+        <div class="hidebox" id="agBox"><textarea id="t34" oninput="wc('t34','c34',50)" placeholder="State the facts. Maximum 50 words."></textarea><div class="counter" id="c34"></div></div>
+
+        <div class="note info" style="margin-top:14px">ℹ️ Signing locks Part 3 and sends the APAR to the reviewing officer, Dinesh D. Patil.</div>
+        <div class="btnrow"><button class="btn ghost" onclick="toast('Draft saved. The officer cannot see a draft.')">Save draft</button><button class="btn" id="signRep" onclick="signReporting()">Sign and forward</button></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="scoreboard" id="board">
+        <small>Overall grade · calculated by MahaPAR</small>
+        <div class="big" id="bigGrade">—</div>
+        <small id="gradedCount">0 of 6 dimensions graded</small>
+        <div style="margin-top:12px">
+          <div class="ln"><span>Work output · 40%</span><b id="wOut">—</b></div>
+          <div class="ln"><span>Functional competence · 30%</span><b id="wFun">—</b></div>
+          <div class="ln"><span>Personal attributes · 30%</span><b id="wPer">—</b></div>
+          <div class="ln"><span>Benchmark</span><b>6.0</b></div>
+        </div>
+        <div style="margin-top:12px;font-size:11.5px;opacity:.9" id="boardNote">Grade every dimension to see the overall grade.</div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h2>Try this</h2>
+        <div class="sub">The behaviour the feedback asks for.</div>
+        <ol style="font-size:12.5px;margin-left:16px;color:#374151">
+          <li style="margin-bottom:6px">Grade dimension 1 as <b>9</b> — the justification requirement opens.</li>
+          <li style="margin-bottom:6px">Grade several dimensions <b>4 or 5</b> — the overall grade falls below 6 and the memo evidence panel opens, pre-filled from this year's memo record.</li>
+          <li>Press <b>Cite the memo record</b> to pull the memo dates and response status into 3.3.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= REVIEWING ======================= -->
+<section class="pane" id="pane-reviewing">
+  <div class="ph"><h1>Reviewing officer · Form A, Part 4</h1>
+  <p>Agreeing takes two clicks. Disagreeing opens only the dimensions chosen for revision, each with a 30-word reason, and MahaPAR recalculates the overall grade against the reporting officer's.</p></div>
+
+  <div class="grid g-2-1">
+    <div>
+      <div class="card">
+        <h2>Vishal V. Dhole · Section Officer</h2>
+        <div class="sub">Reported on by Satish S. Nair, Deputy Secretary · signed 19 May 2026</div>
+        <table>
+          <tr><th>Dimension</th><th>Reporting officer's grade</th><th>Memo record</th></tr>
+          <tr><td>1. Delivery of planned work</td><td><b id="rv1">—</b></td><td><span class="tag red">1 unanswered</span></td></tr>
+          <tr><td>2. Quality of work</td><td><b id="rv2">—</b></td><td></td></tr>
+          <tr><td>3. Knowledge and its application</td><td><b id="rv3">—</b></td><td></td></tr>
+          <tr><td>4. Judgement and initiative</td><td><b id="rv4">—</b></td><td></td></tr>
+          <tr><td>5. Collaboration and communication</td><td><b id="rv5">—</b></td><td></td></tr>
+          <tr><td>6. Responsibility and conduct</td><td><b id="rv6">—</b></td><td><span class="tag ok">1 answered</span></td></tr>
+          <tr><td><b>Overall grade</b></td><td><b id="rvOverall">—</b></td><td></td></tr>
+          <tr><td>Integrity</td><td>Beyond doubt</td><td></td></tr>
+        </table>
+        <div class="ro" style="margin-top:14px"><b>3.3 Overall assessment, as recorded</b><span id="rv33" style="font-size:13px">Not yet signed. Complete the reporting officer window first.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="part">Part 4.1</div>
+        <div class="q">Do you agree with the reporting officer's assessment?</div>
+        <div class="radios">
+          <label><input type="radio" name="rvag" checked onclick="show('revBox',0);revCalc()"><span><b>Yes</b> — sign; nothing more is needed</span></label>
+          <label><input type="radio" name="rvag" onclick="show('revBox',1);revCalc()"><span><b>No</b> — revise the grades I disagree with</span></label>
+        </div>
+        <div class="hidebox" id="revBox">
+          <div class="part" style="margin-top:12px">Part 4.2 · revise only what you disagree with</div>
+          <div id="revDims"></div>
+          <div class="note warn">⚠️ A revised grade of 1–2 or 9–10 needs the specific accomplishment or failure behind it, in the reason box.</div>
+        </div>
+        <div class="note info">ℹ️ Signing locks Part 4. The APAR goes to the custodian for disclosure.</div>
+        <div class="btnrow"><button class="btn" onclick="signReviewing()">Sign and forward</button></div>
+      </div>
+    </div>
+    <div>
+      <div class="scoreboard">
+        <small>Revised overall grade</small>
+        <div class="big" id="revBig">—</div>
+        <small id="revWas">No revision</small>
+        <div class="ln" style="margin-top:12px"><span>Dimensions revised</span><b id="revCount">0</b></div>
+        <div class="ln"><span>Benchmark</span><b>6.0</b></div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h2>Part 5 · accepting authority</h2>
+        <div class="sub">Opens only where a stage was never completed.</div>
+        <div class="note danger">⚠️ Sunita R. Kale: the reporting stage was auto-forwarded on 01/06/2026 and never recorded.</div>
+        <div class="radios"><label><input type="radio" name="miss" checked><span>Reporting officer stage missing</span></label><label><input type="radio" name="miss"><span>Reviewing officer stage missing</span></label></div>
+        <textarea id="t52" oninput="wc('t52','c52',30)" placeholder="Action taken. Maximum 30 words."></textarea>
+        <div class="counter" id="c52"></div>
+        <div class="btnrow"><button class="btn sm" onclick="toast('Part 5 signed. The APAR is closed without a reporting-stage assessment and the delay stays on record.')">Sign and close the stage</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= DISCLOSURE ======================= -->
+<section class="pane" id="pane-disclosure">
+  <div class="ph"><h1>Disclosure and representation</h1>
+  <p>Every outcome is disclosed through MahaPAR. The officer has 15 days to represent. Because the memos and the officer's responses are already on record, a representation argues about the assessment, not about whether the concern was ever raised.</p></div>
+
+  <div class="grid g-2-1">
+    <div>
+      <div class="card">
+        <h2>APAR 2025–26 · Vishal V. Dhole</h2>
+        <div class="sub">Disclosed on 12 July 2026 · representation window closes 27 July 2026</div>
+        <table>
+          <tr><th>Item</th><th>Value</th></tr>
+          <tr><td>Overall grade (95% once timeliness applies)</td><td><b id="dOverall">—</b></td></tr>
+          <tr><td>Timeliness marks (5%)</td><td><b style="color:var(--red)">−0.2</b> · 2 of your own stages auto-forwarded</td></tr>
+          <tr><td><b>Final score</b></td><td><b id="dFinal">—</b> out of 10</td></tr>
+          <tr><td>Integrity</td><td>Beyond doubt</td></tr>
+          <tr><td>Memos issued during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>
+        </table>
+        <div class="ro" style="margin-top:14px"><b>Overall assessment recorded by the reporting officer</b><span id="d33">—</span></div>
+      </div>
+      <div class="card">
+        <h2>Submit a representation</h2>
+        <div class="hint">One representation, within 15 days of disclosure. It goes to the accepting authority.</div>
+        <textarea id="tRep" oninput="wc('tRep','cRep',200)" placeholder="State what you are representing against and why. Maximum 200 words."></textarea>
+        <div class="counter" id="cRep"></div>
+        <div class="note info">ℹ️ The memos issued to you and your responses are attached automatically to your representation.</div>
+        <div class="btnrow"><button class="btn amber" onclick="toast('Representation submitted. The accepting authority has it, with the memo record attached.')">Submit representation</button><button class="btn grey" onclick="toast('APAR accepted and closed.')">Accept and close</button></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h2>Why the memo record matters here</h2>
+        <p style="font-size:12.5px;color:#374151">The concern raised by JS Badgeri is that reporting officers avoid low grades because nothing was documented. Three things in these windows close that gap:</p>
+        <ul style="font-size:12.5px;margin:10px 0 0 16px;color:#374151">
+          <li style="margin-bottom:7px"><b>A memo can be issued any day of the year</b>, from the reporting officer's own window, in under a minute.</li>
+          <li style="margin-bottom:7px"><b>The officer is told what it means</b> — that a response, or no response, may be considered at APAR time — so the record is fair before it is used.</li>
+          <li style="margin-bottom:7px"><b>The record surfaces by itself at grading</b>, on the dimension it concerns, and attaches as evidence when the grade falls below the benchmark.</li>
+          <li><b>The custodian can see who issues none.</b> A reporting officer with 18 subordinates and zero memos, grading everyone above 6, is visible to GAD.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Still to be decided by GAD</h2>
+        <ul style="font-size:12.5px;margin-left:16px;color:#374151">
+          <li style="margin-bottom:6px">Whether a memo must exist before a grade below the benchmark can be signed, or whether it stays advisory as drafted.</li>
+          <li style="margin-bottom:6px">How long before the cycle closes a memo may still be issued, so the year-end rush does not become the record.</li>
+          <li style="margin-bottom:6px">Whether an unanswered memo carries any automatic weight, or only informs the reporting officer's judgment.</li>
+          <li>Split of the 5% timeliness marks between stages.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>MahaPAR · draft user windows for discussion with GAD · IDinsight, October 2026 · demo data, no real officer records</footer>
+
+<div class="toast" id="toast"></div>
+<div class="modal" id="nrcModal"><div class="box">
+  <h2>Verify Part 1 and issue NRC</h2>
+  <p class="sub">Sunita R. Kale · Assistant Section Officer</p>
+  <div class="note warn">⚠️ Served under A. K. Desai from 01/04/2025 to 10/06/2025 — 2 months 10 days, less than 3 months.</div>
+  <div class="radios">
+    <label><input type="radio" name="nrc" checked><span>Verified — issue the No Report Certificate for this period</span></label>
+    <label><input type="radio" name="nrc"><span>Reject — service was 3 months or more (reason required)</span></label>
+  </div>
+  <div class="note info">ℹ️ An NRC is not a bar to promotion. The reviewing officer's assessment stands for the rest of the year.</div>
+  <div class="btnrow"><button class="btn" onclick="closeNRC(1)">Sign and issue</button><button class="btn grey" onclick="closeNRC(0)">Cancel</button></div>
+</div></div>
+
+<script>
+/* ---------------- demo state ---------------- */
+const WEIGHTS={d1:.20,d2:.20,d3:.15,d4:.15,d5:.15,d6:.15};
+const DIMNAMES={d1:'1. Delivery of planned work',d2:'2. Quality of work',d3:'3. Knowledge and its application',
+ d4:'4. Judgement and initiative',d5:'5. Collaboration and communication',d6:'6. Responsibility and conduct'};
+const grades={}; const revised={};
+const ROLES={
+ custodian:['Ashil V. Naik','Custodian / Establishment Officer, Revenue &amp; Forest Dept'],
+ officer:['Vishal V. Dhole','Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719'],
+ reporting:['Satish S. Nair','Deputy Secretary · reporting officer for 24 officers'],
+ reviewing:['Dinesh D. Patil','Joint Secretary · reviewing officer for 9 officers']
+};
+let memos=[
+ {id:1,to:'Vishal V. Dhole',from:'Satish S. Nair',date:'18 Aug 2025',cat:'Delivery of planned work',
+  sub:'Delay in filing quarterly returns',
+  body:'Quarterly returns for Q1 were filed 23 days late despite two reminders. Returns for Q2 are to be filed within the statutory date.',
+  due:'30 Sep 2025',status:'none',resp:''},
+ {id:2,to:'Vishal V. Dhole',from:'Satish S. Nair',date:'06 Jan 2026',cat:'Responsibility and conduct',
+  sub:'Absence from the section without intimation',
+  body:'Absent from the section on 2 and 3 January without prior intimation. Leave is to be applied for in advance on eHRMS.',
+  due:'20 Jan 2026',status:'answered',
+  resp:'Both days were spent at the Collectorate for the land-records migration review; the tour was approved verbally but not recorded on eHRMS. Noted for the future.'},
+ {id:3,to:'Prakash D. Shinde',from:'Satish S. Nair',date:'11 Nov 2025',cat:'Punctuality and attendance',
+  sub:'Repeated late reporting',body:'Late reporting recorded on 14 occasions between July and October.',
+  due:'25 Nov 2025',status:'answered',resp:'Commute disrupted by the metro works; shifted to an earlier service from November.'},
+ {id:4,to:'Sunita R. Kale',from:'Dinesh D. Patil',date:'02 Feb 2026',cat:'Quality of work',
+  sub:'Errors in pension case calculations',body:'Three pension cases returned by the AG office for calculation errors.',
+  due:'16 Feb 2026',status:'none',resp:''}
+];
+const TRAIN=['General rules and procedures','Domain rules and procedures','IT and digital tools','Budget management',
+ 'Project management','Project evaluation','Team leadership','Communication','Technical skills'];
+
+/* ---------------- navigation ---------------- */
+function go(t){
+ document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+ document.getElementById('pane-'+t).classList.add('on');
+ document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+ window.scrollTo({top:0,behavior:'smooth'}); renderCycle(t);
+}
+function setRole(r){
+ document.getElementById('roleName').textContent=ROLES[r][0];
+ document.getElementById('roleDesc').innerHTML=ROLES[r][1];
+ go(r==='officer'?'self':r);
+ toast('Now walking through as '+ROLES[r][0]+'.');
+}
+const CYCLE=[['Cycle created','done'],['Part 1 verified','done'],['Self-appraisal','now'],['Reporting stage',''],
+ ['Reviewing stage',''],['Disclosure',''],['Representation',''],['APAR closed','']];
+let cyclePos=2;
+function renderCycle(){
+ document.getElementById('cycleStrip').innerHTML=CYCLE.map((c,i)=>{
+  const st=i<cyclePos?'done':(i===cyclePos?'now':'');
+  return `<div class="cyc ${st}"><small>Stage ${i+1}</small><b>${c[0]}</b></div>`+
+   (i<CYCLE.length-1?'<span class="arrow">›</span>':'');
+ }).join('');
+}
+
+/* ---------------- helpers ---------------- */
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');
+ clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),4200);}
+function show(id,on){document.getElementById(id).classList.toggle('on',!!on);}
+function words(s){return s.trim()?s.trim().split(/\s+/).length:0;}
+function wc(ta,c,max){const n=words(document.getElementById(ta).value);const el=document.getElementById(c);
+ el.textContent=n+' / '+max+' words';el.classList.toggle('bad',n>max);
+ if(ta==='t22'){const k=document.getElementById('chk22');if(k)k.textContent=n+' words';}}
+function openNRC(){document.getElementById('nrcModal').classList.add('on');}
+function closeNRC(ok){document.getElementById('nrcModal').classList.remove('on');
+ if(ok)toast('No Report Certificate issued for 01/04/2025 – 10/06/2025. Part 1 verified.');}
+
+/* ---------------- self-appraisal ---------------- */
+function selfStep(n){
+ for(let i=1;i<=6;i++)document.getElementById('self'+i).classList.toggle('on',i===n);
+ document.querySelectorAll('#selfSteps li').forEach((li,i)=>{
+  li.classList.toggle('on',i===n-1);li.classList.toggle('done',i<n-1);});
+ window.scrollTo({top:220,behavior:'smooth'});
+}
+function submitSelf(){cyclePos=3;renderCycle();
+ toast('Part 2 signed with eSign and locked. The APAR is now with Satish S. Nair, due 31 May 2026.');
+ setTimeout(()=>go('reporting'),900);}
+function renderChips(){
+ const box=document.getElementById('trainChips');
+ box.innerHTML=TRAIN.map((t,i)=>`<button class="chip" data-i="${i}" onclick="toggleChip(${i})">${t}</button>`).join('')
+  +'<button class="chip" onclick="toast(\'A free-text box opens for Other.\')">Other…</button>';
+}
+function toggleChip(i){
+ const el=document.querySelector('.chip[data-i="'+i+'"]');
+ const n=document.querySelectorAll('.chip.on').length;
+ if(!el.classList.contains('on')&&n>=3){toast('Up to three areas. Clear one to choose another.');return;}
+ el.classList.toggle('on');
+ const c=document.querySelectorAll('.chip.on').length;
+ document.getElementById('chipNote').innerHTML='ℹ️ '+c+' of 3 selected.';
+}
+
+/* ---------------- memos ---------------- */
+function sendMemo(){
+ const sub=document.getElementById('mSub').value.trim()||'Performance concern';
+ const body=document.getElementById('mBody').value.trim()||'(no detail entered)';
+ if(words(body)>150){toast('The memo is over 150 words. Shorten it before signing.');return;}
+ memos.unshift({id:Date.now(),to:document.getElementById('mTo').value.split(' — ')[0],from:'Satish S. Nair',
+  date:new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}),
+  cat:document.getElementById('mCat').value,sub,body,
+  due:document.getElementById('mDue').value||'not set',status:'await',resp:''});
+ document.getElementById('mSub').value='';document.getElementById('mBody').value='';wcMemo();
+ renderMemos();
+ toast('Memo signed and sent. The officer is notified that the response, or absence of one, may be considered at APAR time.');
+}
+function wcMemo(){const n=words(document.getElementById('mBody').value);
+ const el=document.getElementById('mCount');el.textContent=n+' / 150 words';el.classList.toggle('bad',n>150);}
+function memoCard(m,showResp){
+ const cls=m.status==='none'?'none':(m.status==='answered'?'answered':'');
+ const tag=m.status==='none'?'<span class="tag red">No response</span>'
+  :m.status==='answered'?'<span class="tag ok">Responded</span>':'<span class="tag warn">Awaiting response</span>';
+ return `<div class="memo ${cls}"><div class="top"><b>${m.sub}</b>${tag}</div>
+  <div class="meta">To ${m.to} · from ${m.from} · issued ${m.date} · response due ${m.due} · ${m.cat}</div>
+  <p>${m.body}</p>
+  ${showResp&&m.resp?`<div class="resp"><b>Officer's response</b>${m.resp}</div>`:''}
+  ${showResp&&m.status==='none'?`<div class="note warn" style="margin:9px 0 0">⚠️ No response was recorded by the due date.</div>`:''}
+  </div>`;
+}
+function renderMemos(){
+ const mine=memos.filter(m=>m.to==='Vishal V. Dhole');
+ document.getElementById('memoList').innerHTML=memos.map(m=>memoCard(m,true)).join('');
+ document.getElementById('memoCount').textContent=memos.length;
+ const un=memos.filter(m=>m.status==='none').length;
+ document.getElementById('memoSummary').innerHTML=
+  `${memos.length} memos issued · ${memos.filter(m=>m.status==='answered').length} answered · <b style="color:var(--red)">${un} with no response</b>`;
+ document.getElementById('selfMemos').innerHTML=mine.length?mine.map(m=>memoCard(m,true)).join('')
+  :'<div class="note ok">No memos were issued to you this year.</div>';
+ document.getElementById('repMemos').innerHTML=mine.map(m=>memoCard(m,true)).join('');
+ const unm=mine.filter(m=>m.status==='none').length;
+ document.getElementById('chkMemo').textContent=mine.length+' · '+unm+' unanswered';
+ document.getElementById('dMemo').textContent=mine.length+' · '+unm+' unanswered';
+ renderAttach();
+}
+function renderAttach(){
+ const box=document.getElementById('attachList');if(!box)return;
+ const on=document.getElementById('attachMemo').checked;
+ const mine=memos.filter(m=>m.to==='Vishal V. Dhole');
+ box.innerHTML=on?`<table><tr><th>Memo</th><th>Issued</th><th>Response</th></tr>`+
+  mine.map(m=>`<tr><td>${m.sub}</td><td>${m.date}</td><td>${m.status==='none'?'<span class="tag red">None</span>':'<span class="tag ok">On record</span>'}</td></tr>`).join('')+
+  `</table><div class="note info" style="margin-top:10px">ℹ️ These memos attach to the APAR as evidence that the officer was advised and given opportunities to improve.</div>`:'';
+}
+function insertMemoRef(){
+ const mine=memos.filter(m=>m.to==='Vishal V. Dhole');
+ const t=document.getElementById('t33');
+ const txt=mine.map(m=>`${m.sub} (memo ${m.date}, ${m.status==='none'?'no response':'responded'})`).join('; ');
+ t.value=(t.value?t.value.trim()+' ':'')+'Memo record: '+txt+'.';
+ wc('t33','c33',100);toast('Memo dates and response status inserted into 3.3.');
+}
+
+/* ---------------- grading ---------------- */
+function buildScales(){
+ document.querySelectorAll('.scale[data-dim]').forEach(s=>{
+  const d=s.dataset.dim;
+  s.innerHTML=[1,2,3,4,5,6,7,8,9,10].map(n=>`<button onclick="setGrade('${d}',${n})">${n}</button>`).join('');
+ });
+}
+function setGrade(d,n){
+ grades[d]=n;
+ const s=document.querySelector('.scale[data-dim="'+d+'"]');
+ s.querySelectorAll('button').forEach((b,i)=>{
+  b.classList.toggle('on',i+1===n);b.classList.toggle('extreme',i+1===n&&(n<=2||n>=9));});
+ calc();
+}
+function calc(){
+ const keys=Object.keys(WEIGHTS),have=keys.filter(k=>grades[k]);
+ document.getElementById('gradedCount').textContent=have.length+' of 6 dimensions graded';
+ const grp=(ks)=>{const g=ks.filter(k=>grades[k]);return g.length?(g.reduce((a,k)=>a+grades[k],0)/g.length).toFixed(1):'—';};
+ document.getElementById('wOut').textContent=grp(['d1','d2']);
+ document.getElementById('wFun').textContent=grp(['d3','d4']);
+ document.getElementById('wPer').textContent=grp(['d5','d6']);
+ let overall=null;
+ if(have.length===6){overall=keys.reduce((a,k)=>a+grades[k]*WEIGHTS[k],0);
+  document.getElementById('bigGrade').textContent=overall.toFixed(1);}
+ else document.getElementById('bigGrade').textContent='—';
+ const low=overall!==null&&overall<6;
+ document.getElementById('board').classList.toggle('low',low);
+ document.getElementById('boardNote').textContent=overall===null?'Grade every dimension to see the overall grade.'
+  :(low?'Below the benchmark. Memo evidence and a recorded failure in 3.3 are expected.':'At or above the benchmark of 6.0.');
+ show('lowBox',low);
+ const ext=keys.filter(k=>grades[k]&&(grades[k]<=2||grades[k]>=9));
+ show('extremeBox',ext.length>0);
+ if(ext.length)document.getElementById('extremeList').innerHTML=
+  'Open: '+ext.map(k=>DIMNAMES[k]+' <b>('+grades[k]+')</b>').join(', ')+'.';
+ // mirror into reviewing + disclosure
+ keys.forEach(k=>{const el=document.getElementById('rv'+k[1]);if(el)el.textContent=grades[k]||'—';});
+ document.getElementById('rvOverall').textContent=overall!==null?overall.toFixed(1):'—';
+ document.getElementById('dOverall').textContent=overall!==null?overall.toFixed(1):'—';
+ document.getElementById('dFinal').textContent=overall!==null?Math.max(0,Math.min(10,overall*0.95+(-0.2))).toFixed(1):'—';
+ buildRevDims();revCalc();
+}
+function signReporting(){
+ const keys=Object.keys(WEIGHTS),have=keys.filter(k=>grades[k]);
+ if(have.length<6){toast('Grade all six dimensions before signing.');return;}
+ const n=words(document.getElementById('t33').value);
+ if(n===0){toast('Part 3.3, the overall assessment, is compulsory. MahaPAR will not accept the signature without it.');return;}
+ if(n>100){toast('3.3 is over 100 words. Shorten it before signing.');return;}
+ const overall=keys.reduce((a,k)=>a+grades[k]*WEIGHTS[k],0);
+ if(overall<6&&!document.getElementById('attachMemo').checked)
+  toast('Signed without memo evidence. The custodian register will show a below-benchmark grade with no documentation.');
+ else toast('Part 3 signed and locked. The APAR is now with Dinesh D. Patil, reviewing officer.');
+ document.getElementById('rv33').textContent=document.getElementById('t33').value;
+ document.getElementById('d33').textContent=document.getElementById('t33').value;
+ cyclePos=4;renderCycle();setTimeout(()=>go('reviewing'),900);
+}
+
+/* ---------------- reviewing ---------------- */
+function buildRevDims(){
+ const box=document.getElementById('revDims');if(!box)return;
+ box.innerHTML=Object.keys(WEIGHTS).map(k=>`
+  <div class="dim"><div class="nm">${DIMNAMES[k]}</div>
+   <div class="cv">Reporting officer: <b>${grades[k]||'—'}</b> → your grade</div>
+   <div class="scale" data-rev="${k}">${[1,2,3,4,5,6,7,8,9,10].map(n=>
+     `<button class="${revised[k]===n?'on':''}" onclick="setRev('${k}',${n})">${n}</button>`).join('')}</div>
+   <textarea style="margin-top:9px;min-height:60px" id="rr_${k}" oninput="wc('rr_${k}','rc_${k}',30)" placeholder="Reason. Maximum 30 words."></textarea>
+   <div class="counter" id="rc_${k}">0 / 30 words</div>
+  </div>`).join('');
+}
+function setRev(k,n){
+ if(revised[k]===n)delete revised[k];else revised[k]=n;
+ buildRevDims();revCalc();
+}
+function revCalc(){
+ const keys=Object.keys(WEIGHTS),have=keys.filter(k=>grades[k]);
+ if(have.length<6){document.getElementById('revBig').textContent='—';return;}
+ const base=keys.reduce((a,k)=>a+grades[k]*WEIGHTS[k],0);
+ const now=keys.reduce((a,k)=>a+((revised[k]||grades[k])*WEIGHTS[k]),0);
+ const nrev=Object.keys(revised).length;
+ document.getElementById('revBig').textContent=now.toFixed(1);
+ document.getElementById('revCount').textContent=nrev;
+ document.getElementById('revWas').textContent=nrev?('was '+base.toFixed(1)+' before revision'):'No revision';
+}
+function signReviewing(){
+ const nrev=Object.keys(revised).length;
+ for(const k of Object.keys(revised)){
+  const t=document.getElementById('rr_'+k);
+  if(t&&words(t.value)===0){toast('Each revised grade needs a reason. '+DIMNAMES[k]+' has none.');return;}
+ }
+ cyclePos=5;renderCycle();
+ toast(nrev?('Part 4 signed with '+nrev+' grade(s) revised. The APAR goes to the custodian for disclosure.')
+  :'Part 4 signed in agreement. The APAR goes to the custodian for disclosure.');
+ setTimeout(()=>go('disclosure'),900);
+}
+
+/* ---------------- init ---------------- */
+document.getElementById('mBody').addEventListener('input',wcMemo);
+buildScales();renderChips();renderMemos();renderCycle();
+wc('t22','c22',100);wc('t23','c23',50);wc('t33','c33',100);wc('t34','c34',50);wc('t52','c52',30);wc('tRep','cRep',200);
+wcMemo();calc();
+</script>
+</body>
+</html>
