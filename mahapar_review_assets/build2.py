@@ -17,6 +17,21 @@ point NIC at the right part of the screen.
 
 OUT = "/home/user/personal_v1/mahapar_review_assets/dashboard_note_v2.html"
 
+import base64, os
+_CACHE = {}
+def src(name):
+    """Inline the screenshot as a data URI so the HTML is one self-contained file."""
+    if name in _CACHE: return _CACHE[name]
+    d = os.path.dirname(os.path.abspath(__file__))
+    jpg = os.path.join(d, "j_" + name.replace(".png", ".jpg"))
+    path = jpg if os.path.exists(jpg) else os.path.join(d, name)
+    mime = "jpeg" if path.endswith(".jpg") else "png"
+    with open(path, "rb") as f:
+        _CACHE[name] = f"data:image/{mime};base64," + base64.b64encode(f.read()).decode()
+    return _CACHE[name]
+
+
+
 RED, AMB, GRN, BLU = "#DC2626", "#E8820C", "#15803D", "#1D4ED8"
 
 # ---------------------------------------------------------------- PART 1
@@ -509,7 +524,7 @@ cards = "".join(f"""
 <article class='card' id='p{r['id']}' data-g='{r['grp']}'>
   <div class='hd'><span class='num'>{r['id']}</span><h3>{r['title']}</h3>
     <span class='gtag' style='background:{GRP[r['grp']][1]}'>{GRP[r['grp']][0]}</span></div>
-  <div class='annoshot' onclick="zoom('{r['shot']}')"><img src='{r['shot']}' loading='lazy'>{anno_html(r)}</div>
+  <div class='annoshot' onclick="zoom(this.querySelector('img').src)"><img src='{src(r['shot'])}'>{anno_html(r)}</div>
   {notes_html(r)}
   <div class='grid2'>
     <div class='blk now'><div class='t'>On the screen now</div><p>{r['now']}</p></div>
@@ -533,7 +548,7 @@ s2 = "".join(f"""
   <div class='whyline'><span><b>Why:</b> {s['val']}</span><span><b>Effort:</b> {s['eff']}</span></div>
 </article>""" for s in P2)
 
-retain = "".join(f"<div class='r'><img src='{sh}' onclick=\"zoom('{sh}')\"><h4>{t}</h4><p>{d}</p></div>"
+retain = "".join(f"<div class='r'><img src='{src(sh)}' onclick=\"zoom(this.src)\"><h4>{t}</h4><p>{d}</p></div>"
                  for t, d, sh in RETAIN)
 
 counts = {k: sum(1 for r in P1 if r["grp"] == k) for k in GRP}
