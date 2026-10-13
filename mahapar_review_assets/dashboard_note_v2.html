@@ -1,0 +1,621 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>APAR dashboards — suggested changes</title>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap' rel='stylesheet'>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;color:#15233D;background:#EEF1F6;font-size:14px;line-height:1.55}
+button{font-family:inherit;cursor:pointer;border:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 60px}
+
+.mast{background:#15233D;color:#fff;padding:26px 0 22px}
+.mast .in{max-width:1180px;margin:0 auto;padding:0 20px}
+.mast .eye{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:#F3A43B;font-weight:600}
+.mast h1{font-size:26px;font-weight:700;margin:8px 0 8px;max-width:800px;line-height:1.25}
+.mast p{font-size:14px;color:#C2CFE2;max-width:760px}
+.mast .meta{display:flex;gap:30px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.18);margin-top:16px;padding-top:13px;font-size:12px;color:#C2CFE2}
+.mast .meta b{display:block;color:#fff;font-size:12.5px;margin-bottom:2px}
+.chipdraft{display:inline-block;border:1px solid #F3A43B;color:#F3A43B;font-size:9.5px;letter-spacing:.1em;padding:3px 9px;border-radius:3px;text-transform:uppercase}
+
+.bar{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid #DDE3EF;box-shadow:0 1px 3px rgba(16,24,40,.06)}
+.bar .in{max-width:1180px;margin:0 auto;padding:8px 20px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.bar .lab{font-size:12px;color:#64748B}
+.fchip{border:1px solid #DDE3EF;background:#fff;border-radius:99px;padding:6px 13px;font-size:12.5px;color:#475569}
+.fchip.on{background:#15233D;border-color:#15233D;color:#fff;font-weight:600}
+.fchip .c{opacity:.65;margin-left:4px;font-size:11px}
+
+.sec{margin:28px 0 14px;border-left:5px solid #E8820C;padding-left:13px}
+.sec h2{font-size:21px;color:#15233D}
+.sec p{font-size:13px;color:#64748B;margin-top:3px;max-width:780px}
+.intro{background:#fff;border:1px solid #DDE3EF;border-radius:10px;padding:18px 20px;margin-top:20px}
+.intro h3{font-size:15px;margin-bottom:6px}
+.intro ul{margin-left:18px;font-size:13px;color:#334155}
+.intro li{margin-bottom:5px}
+.legendrow{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:#475569;border-top:1px solid #E2E8F0;padding-top:10px}
+.lg{display:flex;align-items:center;gap:6px}
+.lg i{width:22px;height:11px;border:2px dashed;border-radius:2px;display:inline-block}
+
+/* summary table */
+table.sum{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff}
+table.sum th{background:#15233D;color:#fff;text-align:left;padding:7px 9px;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase}
+table.sum td{padding:7px 9px;border-bottom:1px solid #E2E8F0}
+table.sum tr:hover td{background:#EFF5FF;cursor:pointer}
+table.sum .n{font-weight:700;width:26px}
+table.sum a{color:#1D4ED8;text-decoration:none}
+.gtag{font-size:9.5px;font-weight:700;color:#fff;padding:2px 7px;border-radius:3px;white-space:nowrap}
+.ef{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:#DCFCE7;color:#166534;white-space:nowrap}
+.ef.m{background:#FEF3C7;color:#92400E}
+
+/* cards */
+.card{background:#fff;border:1px solid #DDE3EF;border-radius:10px;padding:18px 20px;margin-bottom:18px;scroll-margin-top:64px}
+.card .hd{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.card .num{background:#15233D;color:#fff;width:25px;height:25px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex:0 0 auto}
+.card h3{font-size:17px;color:#15233D;flex:1;line-height:1.3}
+
+/* annotated screenshot */
+.annoshot{position:relative;display:block;border:1px solid #CBD5E1;border-radius:5px;overflow:hidden;background:#fff}
+.annoshot img{width:100%;display:block}
+.anno{position:absolute;border:2.5px dashed;border-radius:3px;pointer-events:none}
+.anno .tag{position:absolute;width:19px;height:19px;border-radius:50%;color:#fff;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.anno .tag.tl{left:-10px;top:-10px}
+.anno .tag.tr{right:-10px;top:-10px}
+.anno .tag.bl{left:-10px;bottom:-10px}
+.notelist{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 12px;font-size:12px;color:#334155}
+.notelist .nl{display:flex;gap:6px;align-items:center}
+.notelist .nl b{width:18px;height:18px;border-radius:50%;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.blk .t{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px}
+.blk p{font-size:13px;color:#334155}
+.blk.now{border-left:3px solid #CBD5E1;padding-left:11px}
+.blk.chg{border-left:3px solid #16A34A;padding-left:11px}
+.whyline{background:#F1F5F9;border-radius:6px;padding:8px 11px;font-size:12.5px;margin-top:11px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.whyline b{color:#15233D}
+
+/* part 2 */
+.s2card{background:#fff;border:1px solid #DDE3EF;border-radius:10px;padding:18px 20px;margin-bottom:18px}
+.s2card .hd{display:flex;gap:10px;align-items:center;margin-bottom:3px}
+.s2card .sid{background:#0F766E;color:#fff;border-radius:5px;padding:3px 9px;font-size:11.5px;font-weight:700}
+.s2card h3{font-size:17px;flex:1}
+.who{font-size:11.5px;color:#0F766E;font-weight:600;margin-bottom:11px}
+.s2grid{display:grid;grid-template-columns:1fr 1.05fr;gap:18px;align-items:start}
+
+/* mocks */
+.mockbox{border:1px dashed #94A3B8;border-radius:6px;padding:11px;background:#FCFDFF}
+table.mock{width:100%;border-collapse:collapse;font-size:11px;background:#fff}
+table.mock th{background:#1F5C9E;color:#fff;padding:5px 7px;text-align:left;font-size:10px;border:1px solid #1A4E87}
+table.mock td{padding:5px 7px;border:1px solid #DDE3EF;color:#334155}
+td.g{color:#166534;font-weight:600}td.a{color:#B45309;font-weight:600}td.r{color:#B91C1C;font-weight:600}
+.cap{font-size:11px;color:#64748B;font-style:italic;margin-top:6px}
+.stagestrip{display:flex;gap:4px}
+.stagestrip .st{flex:1;border:1px solid #DDE3EF;border-radius:5px;padding:7px 6px;background:#F8FAFC;text-align:center}
+.stagestrip .st b{font-size:10px;display:block;color:#15233D}
+.stagestrip .st span{font-size:11px;font-weight:700;color:#1F3B73;display:block;margin:2px 0}
+.stagestrip .st i{font-size:9px;color:#64748B;font-style:normal}
+.stagestrip .st.done{background:#ECFDF3;border-color:#BBF7D0}
+.stagestrip .st.now{background:#FFF7ED;border-color:#FED7AA}
+.action{border:1px solid #FDE68A;background:#FFFBEB;border-radius:7px;padding:11px 13px}
+.action>b{font-size:12.5px;color:#92400E;display:block;margin-bottom:7px}
+.ar{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding:5px 0;border-top:1px solid #FDE68A}
+.ar i{font-style:normal;font-weight:600;color:#475569}
+.ar i.r{color:#B91C1C}.ar i.a{color:#B45309}
+.exc{display:grid;gap:6px}
+.exc .e{display:flex;gap:10px;align-items:center;border:1px solid #DDE3EF;border-radius:6px;padding:7px 10px;background:#fff;font-size:12px}
+.exc .e b{font-size:17px;min-width:32px;color:#15233D}
+.exc .e b.r{color:#B91C1C}.exc .e b.a{color:#B45309}
+.bars .b{display:flex;align-items:center;gap:8px;font-size:11px;margin-bottom:5px}
+.bars .b span{width:95px;color:#334155}
+.bars .b i{height:13px;background:#1F5C9E;border-radius:2px;display:block}
+.bars .b i.amb{background:#E8820C}.bars .b i.red{background:#DC2626}
+.bars .b em{font-style:normal;font-weight:700;color:#1F3B73;font-size:11px}
+.bars .avg{font-size:10.5px;color:#64748B;border-top:1px dashed #94A3B8;padding-top:5px;margin-top:3px}
+.sumtiles{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.sumtiles .s1{border:1px solid #DDE3EF;border-radius:6px;padding:8px 10px;background:#fff}
+.sumtiles .s1 b{font-size:19px;color:#1F3B73;display:block}
+.sumtiles .s1 span{font-size:10px;color:#64748B}
+.sumtiles .s1.warn{background:#FFFBEB;border-color:#FDE68A}
+.drill .d1{border:1px solid #DDE3EF;border-radius:6px;padding:8px 11px;font-size:19px;font-weight:700;color:#1F3B73;background:#fff;display:inline-block}
+.drill .d1 span{font-size:11px;font-weight:400;color:#64748B;margin-left:6px}
+.arrowdn{font-size:11px;color:#64748B;margin:5px 0}
+.toolbar{display:flex;gap:6px}
+.btn{background:#1F5C9E;color:#fff;border-radius:4px;padding:3px 11px;font-size:10.5px;font-weight:600}
+.btn.ghost{background:#EFF5FF;color:#1F5C9E}
+.retainweb{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.retainweb .r{background:#fff;border:1px solid #DDE3EF;border-radius:10px;padding:14px}
+.retainweb .r img{width:100%;border:1px solid #CBD5E1;border-radius:5px;margin-bottom:9px;display:block}
+.retainweb .r h4{font-size:13.5px;margin-bottom:4px}
+.retainweb .r p{font-size:12px;color:#475569}
+.next{background:#fff;border:1px solid #DDE3EF;border-radius:10px;padding:20px;display:grid;grid-template-columns:1.1fr 1fr;gap:20px}
+.next ol{margin-left:17px;font-size:13px;color:#334155}
+.next li{margin-bottom:7px}
+.nbox{border:1px solid #E2E8F0;border-left:3px solid #E8820C;border-radius:0 7px 7px 0;padding:11px 13px;font-size:12.5px;color:#334155;margin-bottom:11px}
+.nbox b{display:block;color:#15233D;margin-bottom:3px}
+.foot{text-align:center;font-size:12px;color:#94A3B8;padding:24px 0 0;border-top:1px solid #DDE3EF;margin-top:30px}
+.lb{position:fixed;inset:0;background:rgba(13,25,48,.93);display:none;align-items:center;justify-content:center;z-index:100;padding:24px;cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:100%}
+.hidden{display:none !important}
+@media(max-width:900px){.grid2,.s2grid,.next,.retainweb{grid-template-columns:1fr}}
+@media print{
+ body{background:#fff}.bar{display:none}.card,.s2card{page-break-inside:avoid;border:1px solid #CBD5E1}
+ .mast{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ @page{size:A4 portrait;margin:12mm}
+}
+</style></head><body>
+
+<header class='mast'><div class='in'>
+<span class='eye'>Government of Maharashtra · General Administration Department</span>
+<h1>APAR dashboards: suggested changes</h1>
+<p>Part 1 marks small changes of wording and placement directly on the screens, in the manner GAD has been using.
+Part 2 proposes new sections for the four monitoring levels and the four user windows.</p>
+<div class='meta'>
+<div><b>Prepared for</b>GAD, and thereafter for NIC</div>
+<div><b>Prepared by</b>IDinsight</div>
+<div><b>Based on</b>19 screens of the SPARROW<br>APAR application, October 2026</div>
+<div><b>Status</b><span class='chipdraft'>Draft for discussion</span></div>
+</div></div></header>
+
+<nav class='bar'><div class='in'>
+<span class='lab'>Show</span>
+<button class='fchip on' data-f='all' onclick="filt('all')">All 19<span class='c'>19</span></button>
+<button class='fchip' data-f='A' onclick="filt('A')">Clarity of information<span class='c'>5</span></button><button class='fchip' data-f='B' onclick="filt('B')">Navigation<span class='c'>6</span></button><button class='fchip' data-f='C' onclick="filt('C')">When data is awaited<span class='c'>4</span></button><button class='fchip' data-f='D' onclick="filt('D')">Officer's own window<span class='c'>3</span></button><button class='fchip' data-f='E' onclick="filt('E')">Workflow creation<span class='c'>1</span></button>
+<button class='fchip' style='margin-left:auto' onclick="window.print()">Print</button>
+</div></nav>
+
+<div class='wrap'>
+
+<div class='intro'>
+<h3>How to read this note</h3>
+<ul>
+<li><b>Part 1 — small changes.</b> 19 points. Each is marked on the screen itself. These are changes of wording,
+order or placement. None needs a new screen or new data.</li>
+<li><b>Part 2 — new sections.</b> 10 proposals for sections that do not exist today. These need development work,
+and are offered for GAD to decide on before NIC is approached.</li>
+<li><b>Effort shown against each point is our reading of the screens,</b> not NIC's estimate. NIC is best placed to
+confirm it.</li>
+</ul>
+<div class='legendrow'>
+<span style='font-weight:600;color:#15233D'>Marking on the screens:</span>
+<span class='lg'><i style='border-color:#DC2626'></i> needs correcting</span>
+<span class='lg'><i style='border-color:#E8820C'></i> needs explaining</span>
+<span class='lg'><i style='border-color:#1D4ED8'></i> move or re-order</span>
+<span class='lg'><i style='border-color:#15803D'></i> already available, bring forward</span>
+</div>
+</div>
+
+<div class='sec'><h2>Part 1 — Small changes to the existing screens</h2>
+<p>Wording, order and placement. Nothing here changes the figures or the design.</p></div>
+
+<table class='sum'><tr><th></th><th>Group</th><th>Suggested change</th><th>Effort</th></tr><tr onclick="jump('p1')"><td class='n'>1</td><td><span class='gtag' style='background:#B45309'>Clarity of information</span></td><td><a href='#p1'>Make the status word match the band it falls in</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p2')"><td class='n'>2</td><td><span class='gtag' style='background:#B45309'>Clarity of information</span></td><td><a href='#p2'>Say ‘APARs initiated’, not ‘performance’</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p3')"><td class='n'>3</td><td><span class='gtag' style='background:#B45309'>Clarity of information</span></td><td><a href='#p3'>State the eligibility rule the DPC report actually uses</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p4')"><td class='n'>4</td><td><span class='gtag' style='background:#B45309'>Clarity of information</span></td><td><a href='#p4'>Bring the ‘pending with’ columns to the front</a></td><td><span class='ef'>Low</span></td></tr><tr onclick="jump('p5')"><td class='n'>5</td><td><span class='gtag' style='background:#B45309'>Clarity of information</span></td><td><a href='#p5'>Explain why the two officer counts differ</a></td><td><span class='ef'>Low</span></td></tr><tr onclick="jump('p6')"><td class='n'>6</td><td><span class='gtag' style='background:#1D4ED8'>Navigation</span></td><td><a href='#p6'>Open on the Officer-wise view</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p7')"><td class='n'>7</td><td><span class='gtag' style='background:#1D4ED8'>Navigation</span></td><td><a href='#p7'>Show the lowest services first</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p8')"><td class='n'>8</td><td><span class='gtag' style='background:#1D4ED8'>Navigation</span></td><td><a href='#p8'>Give each ‘Pending Officer’ column its own name</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p9')"><td class='n'>9</td><td><span class='gtag' style='background:#1D4ED8'>Navigation</span></td><td><a href='#p9'>Let the pending report run for all officers</a></td><td><span class='ef m'>Low to moderate</span></td></tr><tr onclick="jump('p10')"><td class='n'>10</td><td><span class='gtag' style='background:#1D4ED8'>Navigation</span></td><td><a href='#p10'>Use process words for the stage</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p11')"><td class='n'>11</td><td><span class='gtag' style='background:#1D4ED8'>Navigation</span></td><td><a href='#p11'>Bring ‘Select Columns’ into view</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p12')"><td class='n'>12</td><td><span class='gtag' style='background:#0F766E'>When data is awaited</span></td><td><a href='#p12'>Say why the table is empty</a></td><td><span class='ef'>Low</span></td></tr><tr onclick="jump('p13')"><td class='n'>13</td><td><span class='gtag' style='background:#0F766E'>When data is awaited</span></td><td><a href='#p13'>Explain a blank grade</a></td><td><span class='ef'>Low</span></td></tr><tr onclick="jump('p14')"><td class='n'>14</td><td><span class='gtag' style='background:#0F766E'>When data is awaited</span></td><td><a href='#p14'>Show how old the figures are</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p15')"><td class='n'>15</td><td><span class='gtag' style='background:#0F766E'>When data is awaited</span></td><td><a href='#p15'>Show placeholder years as ‘Not available’</a></td><td><span class='ef'>Low</span></td></tr><tr onclick="jump('p16')"><td class='n'>16</td><td><span class='gtag' style='background:#7C3AED'>Officer's own window</span></td><td><a href='#p16'>Split ‘My Pendency’ into what the officer must do</a></td><td><span class='ef m'>Low to moderate</span></td></tr><tr onclick="jump('p17')"><td class='n'>17</td><td><span class='gtag' style='background:#7C3AED'>Officer's own window</span></td><td><a href='#p17'>Correct three spellings</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p18')"><td class='n'>18</td><td><span class='gtag' style='background:#7C3AED'>Officer's own window</span></td><td><a href='#p18'>Show only the roles the user holds</a></td><td><span class='ef'>Very low</span></td></tr><tr onclick="jump('p19')"><td class='n'>19</td><td><span class='gtag' style='background:#BE123C'>Workflow creation</span></td><td><a href='#p19'>Do not place the same officer in both authority roles</a></td><td><span class='ef'>Low</span></td></tr></table>
+
+<div style='height:20px'></div>
+
+<article class='card' id='p1' data-g='A'>
+  <div class='hd'><span class='num'>1</span><h3>Make the status word match the band it falls in</h3>
+    <span class='gtag' style='background:#B45309'>Clarity of information</span></div>
+  <div class='annoshot' onclick="zoom('s44.png')"><img src='s44.png' loading='lazy'><div class='anno' style='left:0.5%;top:22%;width:24%;height:30%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>1</span></div><div class='anno' style='left:82%;top:11%;width:13%;height:41%;border-color:#15803D'><span class='tag tr' style='background:#15803D'>2</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>This card says GOOD at 66.88%</span></div><div class='nl'><b style='background:#15803D'>2</b><span>But the filter says 60–79.9% is Warning</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The filter sets four bands: Excellent 95%+, Good 80–94.9%, Warning 60–79.9%, Poor below 60%. Cards showing 60% to 77% are labelled GOOD.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Pick the word from the same four bands. 66.88% should read <b>Warning</b>.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> The reader sees the word before the number.</span><span><b>Effort:</b> Very low</span></div>
+</article>
+<article class='card' id='p2' data-g='A'>
+  <div class='hd'><span class='num'>2</span><h3>Say ‘APARs initiated’, not ‘performance’</h3>
+    <span class='gtag' style='background:#B45309'>Clarity of information</span></div>
+  <div class='annoshot' onclick="zoom('s41.png')"><img src='s41.png' loading='lazy'><div class='anno' style='left:66.5%;top:9%;width:16.5%;height:18%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>1</span></div><div class='anno' style='left:70.5%;top:36%;width:7.5%;height:60%;border-color:#DC2626'><span class='tag tr' style='background:#DC2626'>2</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>This is a filing figure, not officer performance</span></div><div class='nl'><b style='background:#DC2626'>2</b><span>Same for this column</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The count of APARs started is headed <b>PAR GENERATED PERFORMANCE</b>, and the column beside it is headed <b>PERFORMANCE</b>. Both measure filing progress.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Rename the tile to <b>APARs initiated (%)</b> and the column to <b>Filing status</b>. Figures stay the same.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Removes any chance of a filing figure being read as an assessment of officers.</span><span><b>Effort:</b> Very low</span></div>
+</article>
+<article class='card' id='p3' data-g='A'>
+  <div class='hd'><span class='num'>3</span><h3>State the eligibility rule the DPC report actually uses</h3>
+    <span class='gtag' style='background:#B45309'>Clarity of information</span></div>
+  <div class='annoshot' onclick="zoom('s51.png')"><img src='s51.png' loading='lazy'><div class='anno' style='left:80.5%;top:37%;width:18.5%;height:57%;border-color:#E8820C'><span class='tag tl' style='background:#E8820C'>1</span></div><div class='anno' style='left:0.5%;top:93.5%;width:99%;height:5.5%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>2</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#E8820C'>1</b><span>Officers pass at 27.52 and 27.31</span></div><div class='nl'><b style='background:#DC2626'>2</b><span>But the note says ‘≥ 30 are marked eligible’</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The note says officers with a total grade of 30 or above are eligible. Officers are being marked eligible at 27.52.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Correct the note to the rule in use, once GAD confirms it. For example: <b>‘Officers with a total grade of 27 or above are marked eligible.’</b></p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> This report may go before a promotion committee. The note should match the calculation.</span><span><b>Effort:</b> Very low · needs GAD to confirm the rule</span></div>
+</article>
+<article class='card' id='p4' data-g='A'>
+  <div class='hd'><span class='num'>4</span><h3>Bring the ‘pending with’ columns to the front</h3>
+    <span class='gtag' style='background:#B45309'>Clarity of information</span></div>
+  <div class='annoshot' onclick="zoom('s42.png')"><img src='s42.png' loading='lazy'><div class='anno' style='left:65.5%;top:3%;width:34%;height:92%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>Seven ‘Pending’ columns sit here, reached only by scrolling sideways</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>Seven columns record where each APAR is pending. All sit to the right and need sideways scrolling. Several show zero for every row.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Move them next to the organisation name, move the count columns right, and hide any column that is zero for every row.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> ‘With whom is it pending’ is the question asked most often in review meetings.</span><span><b>Effort:</b> Low</span></div>
+</article>
+<article class='card' id='p5' data-g='A'>
+  <div class='hd'><span class='num'>5</span><h3>Explain why the two officer counts differ</h3>
+    <span class='gtag' style='background:#B45309'>Clarity of information</span></div>
+  <div class='annoshot' onclick="zoom('s43b.png')"><img src='s43b.png' loading='lazy'><div class='anno' style='left:16.5%;top:1%;width:15%;height:17%;border-color:#E8820C'><span class='tag tl' style='background:#E8820C'>1</span></div><div class='anno' style='left:36%;top:88%;width:10%;height:10%;border-color:#E8820C'><span class='tag bl' style='background:#E8820C'>2</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#E8820C'>1</b><span>Tile shows 616</span></div><div class='nl'><b style='background:#E8820C'>2</b><span>Table total shows 611</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The tile shows 616 officers. The table below totals 611. APARs (868) also exceed officers (611), as some officers have more than one reporting period.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Reconcile the two counts, or add one line below the table: <b>‘An officer with more than one reporting period has an APAR for each period.’</b></p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Saves a repeated query to NIC and GAD.</span><span><b>Effort:</b> Low</span></div>
+</article>
+<article class='card' id='p6' data-g='B'>
+  <div class='hd'><span class='num'>6</span><h3>Open on the Officer-wise view</h3>
+    <span class='gtag' style='background:#1D4ED8'>Navigation</span></div>
+  <div class='annoshot' onclick="zoom('s43b.png')"><img src='s43b.png' loading='lazy'><div class='anno' style='left:0.5%;top:20%;width:99%;height:78%;border-color:#15803D'><span class='tag tl' style='background:#15803D'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#15803D'>1</b><span>This view fits the screen — make it the one that opens first</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>Two views are offered. Officer-wise has seven columns and fits the screen. PAR-wise has about fourteen, most shortened. PAR-wise opens first.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Open on Officer-wise. Keep PAR-wise one click away.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Most users want the position at a glance.</span><span><b>Effort:</b> Very low</span></div>
+</article>
+<article class='card' id='p7' data-g='B'>
+  <div class='hd'><span class='num'>7</span><h3>Show the lowest services first</h3>
+    <span class='gtag' style='background:#1D4ED8'>Navigation</span></div>
+  <div class='annoshot' onclick="zoom('s44.png')"><img src='s44.png' loading='lazy'><div class='anno' style='left:0.5%;top:20%;width:99%;height:76%;border-color:#1D4ED8'><span class='tag tl' style='background:#1D4ED8'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#1D4ED8'>1</b><span>About 70 cards, in alphabetical order</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The 70 service cards are in alphabetical order. The services needing attention are found only by scrolling.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Sort by completion, lowest first. Keep an A–Z option.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Turns a list into a priority list, using figures already on the card.</span><span><b>Effort:</b> Very low</span></div>
+</article>
+<article class='card' id='p8' data-g='B'>
+  <div class='hd'><span class='num'>8</span><h3>Give each ‘Pending Officer’ column its own name</h3>
+    <span class='gtag' style='background:#1D4ED8'>Navigation</span></div>
+  <div class='annoshot' onclick="zoom('s46.png')"><img src='s46.png' loading='lazy'><div class='anno' style='left:66.5%;top:47%;width:33%;height:46%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>Five columns, all reading ‘Pending Officer …’</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>Five columns next to each other all shorten to <b>Pending Officer …</b> and cannot be told apart.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Rename them: <b>Pending with · Designation · Office · Pending since (days) · Contact</b>.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> This report holds exactly what GAD needs for follow-up.</span><span><b>Effort:</b> Very low</span></div>
+</article>
+<article class='card' id='p9' data-g='B'>
+  <div class='hd'><span class='num'>9</span><h3>Let the pending report run for all officers</h3>
+    <span class='gtag' style='background:#1D4ED8'>Navigation</span></div>
+  <div class='annoshot' onclick="zoom('s46.png')"><img src='s46.png' loading='lazy'><div class='anno' style='left:32.5%;top:8%;width:18.5%;height:24%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>Officer name is compulsory, so the report runs one officer at a time</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p><b>Employee Search</b> is compulsory. A pendency report therefore returns a single officer, and only if the user already knows the name.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Make the name optional. Show all officers in the selected service and year by default.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> This single change turns a record lookup into the monitoring report the cadre and service authorities need.</span><span><b>Effort:</b> Low to moderate</span></div>
+</article>
+<article class='card' id='p10' data-g='B'>
+  <div class='hd'><span class='num'>10</span><h3>Use process words for the stage</h3>
+    <span class='gtag' style='background:#1D4ED8'>Navigation</span></div>
+  <div class='annoshot' onclick="zoom('s46.png')"><img src='s46.png' loading='lazy'><div class='anno' style='left:60.5%;top:47%;width:6.5%;height:46%;border-color:#E8820C'><span class='tag tl' style='background:#E8820C'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#E8820C'>1</b><span>‘OFFICER REPORTED UPON’ is system wording</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The stage reads <b>Pending at Level: OFFICER REPORTED UPON</b>.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Use the words of the process: <b>Awaiting self-appraisal by the officer</b>, <b>Awaiting assessment by the reporting authority</b>, <b>Awaiting review by the reviewing authority</b>.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> The same words then appear in the circular, on the dashboard and in the report.</span><span><b>Effort:</b> Very low</span></div>
+</article>
+<article class='card' id='p11' data-g='B'>
+  <div class='hd'><span class='num'>11</span><h3>Bring ‘Select Columns’ into view</h3>
+    <span class='gtag' style='background:#1D4ED8'>Navigation</span></div>
+  <div class='annoshot' onclick="zoom('s48.png')"><img src='s48.png' loading='lazy'><div class='anno' style='left:15%;top:20%;width:36%;height:13%;border-color:#15803D'><span class='tag tl' style='background:#15803D'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#15803D'>1</b><span>A useful control, hidden inside a dropdown</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The report already lets the user choose which columns are shown. The control sits inside a dropdown and is easily missed.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Place <b>Select columns</b> beside Export to PDF and Export to Excel.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> The facility is already built. Only its position needs changing.</span><span><b>Effort:</b> Very low</span></div>
+</article>
+<article class='card' id='p12' data-g='C'>
+  <div class='hd'><span class='num'>12</span><h3>Say why the table is empty</h3>
+    <span class='gtag' style='background:#0F766E'>When data is awaited</span></div>
+  <div class='annoshot' onclick="zoom('s50.png')"><img src='s50.png' loading='lazy'><div class='anno' style='left:30%;top:55%;width:40%;height:22%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>1</span></div><div class='anno' style='left:91%;top:80%;width:8%;height:18%;border-color:#E8820C'><span class='tag tr' style='background:#E8820C'>2</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>‘No data available’ before any selection is made</span></div><div class='nl'><b style='background:#E8820C'>2</b><span>Download button is live over an empty table</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>Several screens show <b>No data available</b> with 0 of 0 — before a selection is made, where no records exist, and where a stage is still pending. All three look the same.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Name the reason: <b>Select a DPC and service to begin</b> · <b>No officers are mapped to this role at present</b> · <b>Pen picture not yet recorded</b>. Grey the export button until rows appear.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> These screens are the ones seen in demonstrations.</span><span><b>Effort:</b> Low</span></div>
+</article>
+<article class='card' id='p13' data-g='C'>
+  <div class='hd'><span class='num'>13</span><h3>Explain a blank grade</h3>
+    <span class='gtag' style='background:#0F766E'>When data is awaited</span></div>
+  <div class='annoshot' onclick="zoom('s47.png')"><img src='s47.png' loading='lazy'><div class='anno' style='left:66.5%;top:67%;width:33%;height:31%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>Reviewing authority grade is shown only as ‘-’</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The reviewing authority's grade shows as <b>-</b> for both periods. The report does not say whether the review is pending or not required.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Show the position instead: <b>Not yet recorded — reviewing stage pending since 30 Sep 2026</b>.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> This is the most important field in the record.</span><span><b>Effort:</b> Low</span></div>
+</article>
+<article class='card' id='p14' data-g='C'>
+  <div class='hd'><span class='num'>14</span><h3>Show how old the figures are</h3>
+    <span class='gtag' style='background:#0F766E'>When data is awaited</span></div>
+  <div class='annoshot' onclick="zoom('s41.png')"><img src='s41.png' loading='lazy'><div class='anno' style='left:83%;top:9%;width:16.5%;height:18%;border-color:#E8820C'><span class='tag tl' style='background:#E8820C'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#E8820C'>1</b><span>Read on 8 October; figures are from 26 September</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The screen carries a <b>Last Updated</b> stamp. It read 26 September while being viewed on 8 October. The gap is not pointed out.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Add the age beside it: <b>Last updated 26 Sep 2026 (12 days ago)</b>, in amber once it passes the interval GAD sets.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> These figures are used in review meetings.</span><span><b>Effort:</b> Very low · needs GAD to set the interval</span></div>
+</article>
+<article class='card' id='p15' data-g='C'>
+  <div class='hd'><span class='num'>15</span><h3>Show placeholder years as ‘Not available’</h3>
+    <span class='gtag' style='background:#0F766E'>When data is awaited</span></div>
+  <div class='annoshot' onclick="zoom('s40.png')"><img src='s40.png' loading='lazy'><div class='anno' style='left:82%;top:28%;width:13%;height:68%;border-color:#E8820C'><span class='tag tl' style='background:#E8820C'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#E8820C'>1</b><span>One officer shows allotment year 1900</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>Allotment year shows as <b>1900</b> for some officers. This appears to be a placeholder carried from the source record.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Show such values as <b>Not available</b>, and give GAD a count of the records affected.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Keeps an evident placeholder out of reports seen by senior officers.</span><span><b>Effort:</b> Low</span></div>
+</article>
+<article class='card' id='p16' data-g='D'>
+  <div class='hd'><span class='num'>16</span><h3>Split ‘My Pendency’ into what the officer must do</h3>
+    <span class='gtag' style='background:#7C3AED'>Officer's own window</span></div>
+  <div class='annoshot' onclick="zoom('s37.png')"><img src='s37.png' loading='lazy'><div class='anno' style='left:0.3%;top:12%;width:24%;height:43%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>1</span></div><div class='anno' style='left:49%;top:12%;width:50%;height:43%;border-color:#E8820C'><span class='tag tr' style='background:#E8820C'>2</span></div><div class='anno' style='left:25%;top:12%;width:23%;height:43%;border-color:#1D4ED8'><span class='tag tl' style='background:#1D4ED8'>3</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>One figure, no indication of what it contains</span></div><div class='nl'><b style='background:#E8820C'>2</b><span>Signature and IP address tiles take the top of the screen</span></div><div class='nl'><b style='background:#1D4ED8'>3</b><span>IPR is a separate return, not APAR</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The officer sees <b>My Pendancy: 87</b> as one figure, beside tiles for eSign and DSC transactions and the IP addresses used.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Show two figures — <b>Awaiting my action</b> and <b>Awaiting action by others</b> — each opening the list. Group the signature tiles lower down under <b>Signature activity</b>.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Tells the officer what to do today, which is what the window is for.</span><span><b>Effort:</b> Low to moderate</span></div>
+</article>
+<article class='card' id='p17' data-g='D'>
+  <div class='hd'><span class='num'>17</span><h3>Correct three spellings</h3>
+    <span class='gtag' style='background:#7C3AED'>Officer's own window</span></div>
+  <div class='annoshot' onclick="zoom('s37.png')"><img src='s37.png' loading='lazy'><div class='anno' style='left:0.3%;top:24%;width:14%;height:10%;border-color:#DC2626'><span class='tag bl' style='background:#DC2626'>1</span></div><div class='anno' style='left:25%;top:25%;width:18%;height:14%;border-color:#DC2626'><span class='tag tr' style='background:#DC2626'>2</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>‘My Pendancy’</span></div><div class='nl'><b style='background:#DC2626'>2</b><span>‘Not Submimtted’, ‘Sumbimtted’</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The officer's window reads <b>My Pendancy</b>, <b>Not Submimtted</b> and <b>Sumbimtted</b>.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Correct to <b>My Pendency</b>, <b>Not submitted</b> and <b>Submitted</b>.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> These are the first things noticed in a demonstration.</span><span><b>Effort:</b> Very low</span></div>
+</article>
+<article class='card' id='p18' data-g='D'>
+  <div class='hd'><span class='num'>18</span><h3>Show only the roles the user holds</h3>
+    <span class='gtag' style='background:#7C3AED'>Officer's own window</span></div>
+  <div class='annoshot' onclick="zoom('s38.png')"><img src='s38.png' loading='lazy'><div class='anno' style='left:0.5%;top:54%;width:49%;height:43%;border-color:#1D4ED8'><span class='tag tl' style='background:#1D4ED8'>1</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#1D4ED8'>1</b><span>Eleven roles listed; the user holds one</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>The <b>One-Click Switch Role</b> panel lists eleven roles near the top. The officer's own information sits below it.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Show the roles held. Keep the rest behind <b>View All Roles</b>, which already exists.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Returns the top of the screen to the officer's own position.</span><span><b>Effort:</b> Very low</span></div>
+</article>
+<article class='card' id='p19' data-g='E'>
+  <div class='hd'><span class='num'>19</span><h3>Do not place the same officer in both authority roles</h3>
+    <span class='gtag' style='background:#BE123C'>Workflow creation</span></div>
+  <div class='annoshot' onclick="zoom('s53.png')"><img src='s53.png' loading='lazy'><div class='anno' style='left:24%;top:66%;width:49%;height:31%;border-color:#DC2626'><span class='tag tl' style='background:#DC2626'>1</span></div><div class='anno' style='left:74%;top:66%;width:15%;height:31%;border-color:#E8820C'><span class='tag tr' style='background:#E8820C'>2</span></div></div>
+  <div class='notelist'><div class='nl'><b style='background:#DC2626'>1</b><span>Same officer defaulted as reporting and reviewing authority</span></div><div class='nl'><b style='background:#E8820C'>2</b><span>Both target dates are the same</span></div></div>
+  <div class='grid2'>
+    <div class='blk now'><div class='t'>On the screen now</div><p>On the Channel of Submission step the same officer appears as both <b>Reporting Authority</b> and <b>Reviewing Authority</b>, and both target dates default to 31/10/2026.</p></div>
+    <div class='blk chg'><div class='t'>Suggested change</div><p>Leave the reviewing authority blank for the custodian to choose. Show a confirmation message if the same officer is picked for both. Set the reviewing date after the reporting date.</p></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> The two-stage check is the main safeguard in the APAR process, and workflows are created in bulk.</span><span><b>Effort:</b> Low</span></div>
+</article>
+
+<div class='sec'><h2>Part 2 — Sections that could be added</h2>
+<p>These do not exist today. They follow from the way the APAR process is being organised — four monitoring levels
+(custodian, cadre monitoring authority, service monitoring authority, GAD and the ACS) and four user windows
+(officer, reporting authority, reviewing authority, custodian). Each needs development work, so these are for GAD to
+consider before approaching NIC.</p></div>
+
+<article class='s2card' id='S1'>
+  <div class='hd'><span class='sid'>S1</span><h3>One stage strip on every screen</h3></div>
+  <div class='who'>For: All four monitoring levels · all four user windows</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>Each screen counts APARs differently — generated, closed, partially completed, workflow created. None shows the cycle as the six stages that the GR describes.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>A single strip at the top of every dashboard and every user window: <b>Self-appraisal → Reporting → Reviewing → Disclosure → Representation → Closed</b>, with the count and the closing date under each stage. The same strip everywhere, filtered to whatever the user is allowed to see.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><div class='stagestrip'>
+   <div class='st done'><b>Self-appraisal</b><span>1,109 of 1,197</span><i>closed 31 May</i></div>
+   <div class='st now'><b>Reporting</b><span>612 of 1,197</span><i>due 31 Jul</i></div>
+   <div class='st'><b>Reviewing</b><span>—</span><i>due 30 Sep</i></div>
+   <div class='st'><b>Disclosure</b><span>—</span><i>due 31 Oct</i></div>
+   <div class='st'><b>Representation</b><span>—</span><i>15 days</i></div>
+   <div class='st'><b>Closed</b><span>—</span><i>30 Nov</i></div></div></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Custodian, cadre authority, service authority and ACS then read the same picture. An officer sees where their own APAR sits in the same six boxes.</span><span><b>Effort:</b> Moderate · one component, reused</span></div>
+</article>
+<article class='s2card' id='S2'>
+  <div class='hd'><span class='sid'>S2</span><h3>Show how long APARs have been pending, not only how many</h3></div>
+  <div class='who'>For: Cadre monitoring authority · service monitoring authority · GAD</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>Pendency is shown as a count. A count does not say whether the delay is of a week or of four months, so it does not say where to intervene.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>Add age bands beside each pendency figure: <b>0–15 days · 16–30 · 31–60 · over 60</b>. The dates needed are already recorded against each stage.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><table class='mock'><tr><th>REGION</th><th>0–15 d</th><th>16–30 d</th><th>31–60 d</th><th>Over 60 d</th></tr>
+ <tr><td>MH-LR-AURANGABAD</td><td>12</td><td>9</td><td class='a'>14</td><td class='r'>5</td></tr>
+ <tr><td>MH-LR-NASHIK</td><td>31</td><td>6</td><td>0</td><td>0</td></tr></table>
+ <div class='cap'>Same totals as today, separated by how long they have been waiting.</div></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> A region with 40 APARs pending for 60 days and one with 40 pending for a week need different action. At present they look the same.</span><span><b>Effort:</b> Low to moderate · a date difference on existing fields</span></div>
+</article>
+<article class='s2card' id='S3'>
+  <div class='hd'><span class='sid'>S3</span><h3>An ‘action required by you’ block at the top of every user window</h3></div>
+  <div class='who'>For: Officer · reporting authority · reviewing authority · custodian</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>Each window opens on counts and system information. None opens on what the user has to do, or by when.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>A single block at the top of each window: what is due from this user, how many, and the date. One line per item, each opening the relevant form.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><div class='action'><b>Action required by you</b>
+   <div class='ar'><span>Your self-appraisal for 2025-26</span><i class='r'>due in 4 days</i></div>
+   <div class='ar'><span>12 assessments as reporting authority</span><i class='a'>due 31 Jul</i></div>
+   <div class='ar'><span>3 reviews as reviewing authority</span><i>due 30 Sep</i></div></div></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Most delay is not refusal; it is not knowing an action is due. This is the cheapest way to reduce pendency.</span><span><b>Effort:</b> Low to moderate · uses counts the system already holds</span></div>
+</article>
+<article class='s2card' id='S4'>
+  <div class='hd'><span class='sid'>S4</span><h3>An exceptions panel in the custodian window</h3></div>
+  <div class='who'>For: Custodian and establishment officer</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>Cases that block the cycle — no reporting authority mapped, workflow not created, a stage forwarded automatically, an NRC awaiting issue — are spread across different tables and have to be looked for.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>One panel listing the exceptions with a count against each, every count opening the list of officers concerned.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><div class='exc'>
+   <div class='e'><b class='r'>4</b><span>Officers with no reporting authority mapped</span></div>
+   <div class='e'><b class='a'>41</b><span>Workflow not yet created</span></div>
+   <div class='e'><b class='a'>88</b><span>Stages forwarded automatically</span></div>
+   <div class='e'><b>3</b><span>No Report Certificates awaiting issue</span></div></div></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> The custodian is the only person who can clear these, and at present must know where to look.</span><span><b>Effort:</b> Low to moderate · brings together checks the system already makes</span></div>
+</article>
+<article class='s2card' id='S5'>
+  <div class='hd'><span class='sid'>S5</span><h3>Let a monitoring authority compare its own units</h3></div>
+  <div class='who'>For: Cadre monitoring authority · service monitoring authority</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>The authority sees a flat table of its units with no indication of which are behind, or of how the service as a whole is placed.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>Order the units by completion and show the service average as a line. Keep the table below it unchanged.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><div class='bars'>
+  <div class='b'><span>Nagpur</span><i style='width:81%'></i><em>81%</em></div>
+  <div class='b'><span>Pune</span><i style='width:76%'></i><em>76%</em></div>
+  <div class='b'><span>Amravati</span><i style='width:70%'></i><em>70%</em></div>
+  <div class='b'><span>Aurangabad</span><i class='amb' style='width:64%'></i><em>64%</em></div>
+  <div class='b'><span>Settlement Comm.</span><i class='red' style='width:56%'></i><em>56%</em></div>
+  <div class='avg'>Service average 66.9%</div></div></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> The authority's first question is which of its units need a reminder. This answers it without reading every row.</span><span><b>Effort:</b> Low · a sort and a reference line on figures already shown</span></div>
+</article>
+<article class='s2card' id='S6'>
+  <div class='hd'><span class='sid'>S6</span><h3>A one-screen summary for GAD and the ACS</h3></div>
+  <div class='who'>For: GAD · Additional Chief Secretary</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>At State level the screen shows 70 service cards in alphabetical order. The position of the State as a whole has to be assembled by the reader.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>One screen above the cards: the six stages with State totals, the ten services furthest behind, and the number of APARs that will not close by the cycle date if the present rate continues.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><div class='sumtiles'>
+   <div class='s1'><b>29,831</b><span>APARs initiated of 71,364 officers</span></div>
+   <div class='s1'><b>751</b><span>Closed</span></div>
+   <div class='s1 warn'><b>14</b><span>Services below 60%</span></div></div>
+ <table class='mock' style='margin-top:8px'><tr><th>FURTHEST BEHIND</th><th>%</th><th>PENDING OVER 60 DAYS</th></tr>
+ <tr><td>MH-XXX</td><td class='r'>41.2%</td><td>212</td></tr>
+ <tr><td>MAHA-YYY</td><td class='r'>48.7%</td><td>168</td></tr></table></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Gives the ACS the three things a review meeting asks for, without scrolling.</span><span><b>Effort:</b> Moderate · a summary built from figures already held</span></div>
+</article>
+<article class='s2card' id='S7'>
+  <div class='hd'><span class='sid'>S7</span><h3>Track disclosure and representation</h3></div>
+  <div class='who'>For: Custodian · GAD</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>The dashboards presently end at ‘closed’. Disclosure to the officer and the fifteen-day representation window are part of the process but are not counted anywhere.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>A section showing: disclosed to officer, awaiting disclosure, representations received, representations pending decision, and days remaining in each window.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><table class='mock'><tr><th>STAGE</th><th>COUNT</th><th>OLDEST</th></tr>
+ <tr><td>Awaiting disclosure</td><td>214</td><td class='a'>22 days</td></tr>
+ <tr><td>Disclosed, within 15-day window</td><td>96</td><td>9 days</td></tr>
+ <tr><td>Representations received</td><td>11</td><td>—</td></tr>
+ <tr><td>Representations pending decision</td><td class='r'>7</td><td class='r'>34 days</td></tr></table></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Disclosure and representation carry a statutory timeline. They need to be visible to be monitored.</span><span><b>Effort:</b> Moderate · a new section on stages the system already records</span></div>
+</article>
+<article class='s2card' id='S8'>
+  <div class='hd'><span class='sid'>S8</span><h3>A timeliness register</h3></div>
+  <div class='who'>For: All levels · required by the new forms</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>The draft forms give five per cent of the final score to timeliness, and treat a stage forwarded automatically as late. Nothing on the present dashboards records this.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>A register per officer: own stage submitted on time or late, stages submitted as reporting authority, stages submitted as reviewing authority, and the resulting marks.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><table class='mock'><tr><th>STAGE</th><th>POSITION</th><th>MARKS</th></tr>
+ <tr><td>Own self-appraisal</td><td>Submitted 28 Apr, due 30 Apr</td><td class='g'>On time</td></tr>
+ <tr><td>As reporting authority (24)</td><td>2 forwarded automatically</td><td class='r'>2 late</td></tr>
+ <tr><td>As reviewing authority (9)</td><td>All signed before due date</td><td class='g'>On time</td></tr>
+ <tr><td><b>Timeliness marks</b></td><td>5% of final score</td><td class='r'>−0.2</td></tr></table></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Without it the timeliness provision in the forms cannot be applied or defended.</span><span><b>Effort:</b> Moderate · new, and dependent on the eHRMS reporting-chain mapping</span></div>
+</article>
+<article class='s2card' id='S9'>
+  <div class='hd'><span class='sid'>S9</span><h3>A memo register</h3></div>
+  <div class='who'>For: Reporting authority · custodian · GAD</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>The point raised in the GAD discussion is that reporting authorities hesitate to grade below the benchmark because nothing was recorded during the year.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>A register of memos issued during the assessment year, with the officer's reply or the absence of one, shown to the reporting authority at the time of grading. For the custodian and GAD, counts only — including the number of reporting authorities who issued none.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><table class='mock'><tr><th>REPORTING AUTHORITY</th><th>SUBORDINATES</th><th>MEMOS ISSUED</th><th>NO REPLY</th></tr>
+ <tr><td>S. S. Nair</td><td>24</td><td>6</td><td>2</td></tr>
+ <tr><td>A. K. Desai</td><td>18</td><td class='r'>0</td><td>—</td></tr></table>
+ <div class='cap'>Contents are not shown to the custodian — only whether a record exists.</div></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> Gives the reporting authority a record to rely on, and lets GAD see where no record is being kept at all.</span><span><b>Effort:</b> Moderate · a new facility, discussed separately</span></div>
+</article>
+<article class='s2card' id='S10'>
+  <div class='hd'><span class='sid'>S10</span><h3>Make every figure open the list behind it</h3></div>
+  <div class='who'>For: All four monitoring levels</div>
+  <div class='s2grid'>
+    <div>
+      <div class='blk now' style='margin-bottom:11px'><div class='t'>What is missing today</div><p>One screen already allows a regional figure to be opened into the list of officers concerned, with Excel and CSV. Most other figures on most other screens cannot be opened.</p></div>
+      <div class='blk chg'><div class='t'>Section proposed</div><p>Apply the same behaviour to every count on every dashboard, with the same export options.</p></div>
+    </div>
+    <div><div class='t' style='font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#64748B;font-weight:700;margin-bottom:4px'>Indicative form</div>
+      <div class='mockbox'><div class='drill'><div class='d1'>204 <span>APARs not initiated</span></div>
+ <div class='arrowdn'>↓ click</div>
+ <table class='mock'><tr><th>OFFICER</th><th>DESIGNATION</th><th>STATUS</th></tr>
+ <tr><td>Haribhau B. Santanse</td><td>Dy Supdt of Land Records</td><td>Not initiated</td></tr>
+ <tr><td>Nitin B. Ganapure</td><td>Dy Supdt of Land Records</td><td>Not initiated</td></tr></table>
+ <div class='toolbar' style='margin-top:6px'><span class='btn ghost'>Excel</span><span class='btn ghost'>CSV</span></div></div></div></div>
+  </div>
+  <div class='whyline'><span><b>Why:</b> A figure that cannot be opened cannot be acted upon. The pattern is already built and working on one screen.</span><span><b>Effort:</b> Low to moderate · extending an existing pattern</span></div>
+</article>
+
+<div class='sec'><h2>Features that should be kept as they are</h2>
+<p>Noted so that they are not changed while the points above are taken up.</p></div>
+<div class='retainweb'><div class='r'><img src='s40.png' onclick="zoom('s40.png')"><h4>Opening a figure into the list of officers</h4><p>A regional figure opens into the named officers behind it, with Excel and CSV. This is what makes the dashboard usable, and it already works.</p></div><div class='r'><img src='s55.png' onclick="zoom('s55.png')"><h4>The four-step workflow wizard</h4><p>Numbered steps, bulk selection, and Not Started / In Process / Completed filters. A sound pattern, worth using on other multi-step screens.</p></div><div class='r'><img src='s51.png' onclick="zoom('s51.png')"><h4>The DPC report's method note</h4><p>The report states how the weighted grade is worked out, and lets the user hover to see which earlier years were used. Useful for a report placed before a committee.</p></div></div>
+
+<div class='sec'><h2>Next steps</h2><p>For GAD first, and thereafter for discussion with NIC.</p></div>
+<div class='next'>
+<div><ol>
+<li><b>GAD to mark the list.</b> Which of the 19 small changes to take up, and which of the 10 new sections are wanted.</li>
+<li><b>Two rules need a GAD decision</b> before NIC can act: the DPC eligibility rule (point 3), and how old dashboard
+figures may be before they are flagged (point 14).</li>
+<li><b>Then NIC.</b> Part 1 first, as it needs no new data. NIC to confirm the effort and say what fits the current release.</li>
+<li><b>Part 2 separately.</b> The new sections need development time and should be sequenced after Part 1.</li>
+<li><b>Review together</b> once Part 1 is live, before taking up the rest.</li>
+</ol></div>
+<div>
+<div class='nbox'><b>For GAD's decision</b>The DPC eligibility rule is a departmental matter, not a technical one. NIC cannot
+correct the note until it is confirmed. The same applies to the age at which dashboard figures should be flagged.</div>
+<div class='nbox'><b>Not covered here</b>This note covers the dashboard and report screens only. The APAR forms, the
+officer's filing experience and the source data are being taken up separately.</div>
+<div class='nbox'><b>Acknowledgement</b>The screens reviewed cover officer, service, instance and departmental levels,
+workflow creation and a set of reports. The suggestions here are made in that context.</div>
+</div></div>
+
+<div class='foot'>MahaPAR · Suggested changes to the SPARROW APAR dashboards · IDinsight with GAD · Draft for discussion</div>
+</div>
+
+<div class='lb' id='lb' onclick='closeZoom()'><img id='lbimg'></div>
+<script>
+function filt(f){
+ document.querySelectorAll('.fchip[data-f]').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
+ document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hidden',f!=='all'&&c.dataset.g!==f));
+}
+function jump(id){filt('all');const e=document.getElementById(id);e.scrollIntoView({behavior:'smooth'});
+ e.style.boxShadow='0 0 0 3px #BFD4F6';setTimeout(()=>e.style.boxShadow='',1400);}
+function zoom(s){document.getElementById('lbimg').src=s;document.getElementById('lb').classList.add('on');}
+function closeZoom(){document.getElementById('lb').classList.remove('on');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeZoom();});
+</script></body></html>
