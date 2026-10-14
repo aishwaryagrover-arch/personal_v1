@@ -114,7 +114,8 @@ tr:last-child td{border-bottom:none}
 .steplist li.done .n{background:var(--green);color:#fff}
 .steplist .n{width:21px;height:21px;border-radius:50%;background:#E2E8F0;color:#475569;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:1px}
 .steplist li.on .n{background:var(--saffron);color:#fff}
-.steplist small{display:block;font-size:11px;color:var(--muted)}
+.steplist li>div{font-weight:700}
+.steplist small{display:block;font-size:11px;color:var(--muted);font-weight:400}
 .wiz{display:none}.wiz.on{display:block}
 
 /* grading */
@@ -235,7 +236,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card">
         <h2>Custodian actions</h2>
         <ul class="steplist" id="custSteps">
-          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Initiate cycle and complete authority mapping<small>Open the cycle · who reports on whom · No Report Certificates</small></div></li>
+          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Initiate cycle and authority mapping<small>Initiate the cycle · who reports on whom · No Report Certificates</small></div></li>
           <li onclick="custStep(2)"><span class="n">2</span><div>Track what is pending across the APAR cycle<small>Stage by stage · with whom · remind</small></div></li>
           <li onclick="custStep(3)"><span class="n">3</span><div>Facilitate the APAR cycle<small>Send reminders · disclose · export</small></div></li>
           <li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Unanswered memos · remind</small></div></li>
@@ -244,7 +245,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card">
         <h2>This cycle</h2>
         <table>
-          <tr><td>Cycle opened</td><td><b>14 Apr 2026</b></td></tr>
+          <tr><td>Cycle initiated</td><td><b>14 Apr 2026</b></td></tr>
           <tr><td>Self-appraisal closed</td><td><b>30 Apr</b></td></tr>
           <tr><td>Reporting stage closes</td><td><b style="color:var(--amber)">31 May</b></td></tr>
           <tr><td>Reviewing stage closes</td><td><b>30 Jun</b></td></tr>
@@ -257,11 +258,12 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <!-- 1 · authority mapping, with the NRC queue inside it -->
       <div class="wiz on" id="cust1">
         <div class="card">
-          <h2>Open the cycle and set the workflow</h2>
-          <div class="sub">The cycle must be opened before any APAR can be filled. Opening it creates an APAR for every official whose reporting chain is mapped.</div>
+          <h2>Initiate the cycle and set the workflow</h2>
+          <div class="sub">A cycle is initiated after the assessment year ends. Initiating it creates an APAR for every official whose reporting chain is mapped.</div>
           <table>
-            <tr><td><b>Cycle 2025–26</b><br><span style="color:var(--muted);font-size:12px">Opened 14 Apr 2026 · 1,284 APARs created</span></td><td><span class="tag ok">Open</span></td></tr>
-            <tr><td><b>Cycle 2026–27</b><br><span style="color:var(--muted);font-size:12px">Opens APARs for all mapped officials</span></td><td><button class="btn sm" onclick="toast('Cycle 2026–27 would be created and APARs opened for all mapped officials.')">Open cycle</button></td></tr>
+            <tr><td><b>Cycle 2025–26</b><br><span style="color:var(--muted);font-size:12px">Assessment year 1 Apr 2025 – 31 Mar 2026 · initiated 14 Apr 2026 · 1,284 APARs created</span></td><td><span class="tag warn">In progress · stage 3 of 8</span></td></tr>
+            <tr><td><b>Cycle 2024–25</b><br><span style="color:var(--muted);font-size:12px">1,261 APARs · all closed 28 Nov 2025</span></td><td><span class="tag ok">Closed</span></td></tr>
+            <tr><td><b>Cycle 2026–27</b><br><span style="color:var(--muted);font-size:12px">Can be initiated after 31 Mar 2027</span></td><td><button class="btn sm grey" onclick="toast('The next cycle can be initiated once the assessment year ends on 31 Mar 2027.')">Not yet due</button></td></tr>
             <tr><td><b>Stage deadlines</b><br><span style="color:var(--muted);font-size:12px">As notified by GAD</span></td><td><button class="btn sm ghost" onclick="toast('Set the closing date for each stage of the cycle.')">Set dates</button></td></tr>
           </table>
           <div class="note warn" style="margin-top:12px">⚠️ 4 officials have no reporting officer mapped, so no APAR was created for them. Complete the mapping below.</div>
@@ -338,7 +340,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="wiz" id="cust4">
         <div class="card">
           <h2>Memos awaiting a reply from the official</h2>
-          <div class="sub">A memo was issued during the year and the official has not replied by the due date. You can remind them. You cannot read the memo.</div>
+          <div class="sub">A memo was issued during the year and the official has not replied by the due date. You can remind them.</div>
           <div class="btnrow" style="margin-bottom:14px">
             <button class="btn amber" onclick="toast('Reminder sent to both officials, asking them to record a reply in eHRMS.')">Remind both officials</button>
           </div>
@@ -359,7 +361,6 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <tr><td>Shri R. S. Gokhale</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
             <tr><td>Shri E. F. Rane</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
           </table>
-          <div class="note warn" style="margin-top:14px">⚠️ The custodian does not prompt a reporting officer to issue memos. Whether a concern is worth recording is the reporting officer's judgement, and a nudge from the custodian could be read as pressure on the assessment. This table is for GAD.</div>
         </div>
       </div>
 
