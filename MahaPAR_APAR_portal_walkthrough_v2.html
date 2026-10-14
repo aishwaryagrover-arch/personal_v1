@@ -147,6 +147,10 @@ tr:last-child td{border-bottom:none}
 .chip.on{background:var(--bluesoft);border-color:var(--blue);color:var(--navy);font-weight:600}
 .radios label,.checks label{display:flex;gap:9px;align-items:flex-start;font-size:13px;margin-bottom:8px;cursor:pointer}
 .radios input,.checks input{margin-top:3px}
+.chk2{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--border);border-radius:9px;padding:9px 11px;margin-bottom:7px;cursor:pointer}
+.chk2 input{margin-top:3px}
+.chk2 b{font-size:13px;display:block}
+.chk2 small{font-size:11.5px;color:var(--muted)}
 .hidebox{display:none}.hidebox.on{display:block}
 
 .memo{border:1px solid var(--border);border-left:4px solid var(--saffron);border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:10px;background:#fff}
@@ -389,11 +393,12 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </ul>
       </div>
       <div class="card">
-        <h2>Memos received this year</h2>
-        <div class="sub">Issued in eHRMS by your reporting officer during the assessment period. These are visible on the grading screen.</div>
-        <div id="selfMemos"></div>
-        <div class="note info" style="margin-top:4px">&#8505;&#65039; Replies are recorded in eHRMS against the memo itself, not in this form.</div>
-        <div class="btnrow"><button class="btn ghost sm" onclick="toast('Opens the memo in eHRMS, where the reply is recorded against it.')">Record a response in eHRMS</button></div>
+        <h2>During the year</h2>
+        <div class="sub">Kept all year, not only when the APAR is open.</div>
+        <ul class="steplist" id="yearSteps">
+          <li onclick="selfStep(6)"><span class="n">&#9679;</span><div>My work log<small id="logCount">7 entries this year</small></div></li>
+          <li onclick="selfStep(7)"><span class="n">&#9679;</span><div>Memos received<small>2 · 1 awaiting your reply</small></div></li>
+        </ul>
       </div>
     </div>
 
@@ -464,6 +469,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="hint">One or two pieces of work: what you did, and what changed as a result. No attachments.</div>
           <textarea id="t22" oninput="wc('t22','c22',100)" style="min-height:120px">Redesigned the district land-records grievance workflow on eOffice. Cut average disposal time from 41 days to 23 days across six talukas and cleared a backlog of 1,340 cases.</textarea>
           <div class="counter" id="c22"></div>
+          <div class="btnrow" style="margin-top:-4px"><button class="btn ghost sm" onclick="openLog()">Pull from my work log (7 entries)</button></div>
           <div class="rule"></div>
           <div class="part">Part 2.3 · optional</div>
           <div class="q">Any systemic factors that affected your work?</div>
@@ -523,6 +529,36 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="note warn" style="margin-top:14px">⚠️ One memo issued to you on 18 Aug 2025 has no response on record. You may still record a late response; it will be shown as late.</div>
           <div class="note info">ℹ️ Signing locks Part 2 and sends the APAR to Shri C. D. Joshi, Deputy Secretary. Paper forms are not accepted.</div>
           <div class="btnrow"><button class="btn grey" onclick="selfStep(3)">Back to the form</button><button class="btn ghost" onclick="toast('Draft saved. Nothing has gone to your reporting officer.')">Save draft</button><button class="btn" onclick="submitSelf()">Sign with DSC / eSign and submit</button></div>
+        </div>
+      </div>
+
+
+      <!-- year-round · work log -->
+      <div class="wiz" id="self6">
+        <div class="card">
+          <h2>My work log</h2>
+          <div class="sub">Record work as it happens through the year. When the APAR opens, you can pull entries straight into Part 2.2 instead of recalling them in April.</div>
+          <div class="two">
+            <label class="f"><span>Date</span><input type="date" value="2026-03-09"></label>
+            <label class="f"><span>What you did</span><input type="text" placeholder="e.g. Cleared the grievance backlog"></label>
+          </div>
+          <label class="f"><span>What changed as a result</span><input type="text" placeholder="e.g. Pendency brought to nil for the first time since 2022"></label>
+          <div class="btnrow"><button class="btn" onclick="toast('Entry added to your work log. Only you can see it until you use it in an APAR.')">Add to work log</button></div>
+          <div class="rule"></div>
+          <h3>Entries for 2025–26</h3>
+          <div id="logList"></div>
+          <div class="note info">&#8505;&#65039; The log is yours alone. Nothing here reaches your reporting officer unless you put it in the APAR.</div>
+        </div>
+      </div>
+
+      <!-- year-round · memos -->
+      <div class="wiz" id="self7">
+        <div class="card">
+          <h2>Memos received this year</h2>
+          <div class="sub">Issued in eHRMS by your reporting officer during the assessment period. These are visible on the grading screen.</div>
+          <div id="selfMemos"></div>
+          <div class="note info" style="margin-top:4px">&#8505;&#65039; Replies are recorded in eHRMS against the memo itself, not in this form.</div>
+          <div class="btnrow"><button class="btn ghost sm" onclick="toast('Opens the memo in eHRMS, where the reply is recorded against it.')">Record a response in eHRMS</button></div>
         </div>
       </div>
 
@@ -774,6 +810,12 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <footer>MahaPAR · draft user windows for discussion with GAD · IDinsight, October 2026 · demo data, no real official records</footer>
 
 <div class="toast" id="toast"></div>
+<div class="modal" id="logModal"><div class="box">
+  <h2>Choose from your work log</h2>
+  <p class="sub">Up to three entries. They are copied into 2.2 for you to edit; the log itself is unchanged.</p>
+  <div id="logPick"></div>
+  <div class="btnrow"><button class="btn" onclick="useLog()">Add to 2.2</button><button class="btn grey" onclick="closeLog()">Cancel</button></div>
+</div></div>
 <div class="modal" id="pastModal"><div class="box">
   <h2>Past cycles</h2>
   <p class="sub">Closed cycles remain available to view and export.</p>
@@ -865,6 +907,33 @@ function words(s){return s.trim()?s.trim().split(/\s+/).length:0;}
 function wc(ta,c,max){const n=words(document.getElementById(ta).value);const el=document.getElementById(c);
  el.textContent=n+' / '+max+' words';el.classList.toggle('bad',n>max);
  if(ta==='t22'){const k=document.getElementById('chk22');if(k)k.textContent=n+' words';}}
+const WORKLOG=[
+ {d:'12 Jun 2025',t:'Redesigned the land-records grievance workflow on eOffice',o:'Average disposal time cut from 41 days to 23 across six talukas'},
+ {d:'04 Aug 2025',t:'Cleared the backlog of 1,340 grievance cases',o:'Section pendency brought to nil for the first time since 2022'},
+ {d:'19 Sep 2025',t:'Brought RTI replies within the statutory period',o:'214 of 218 applications answered within 30 days'},
+ {d:'02 Nov 2025',t:'Trained 14 talathis on the new mutation module',o:'All six talukas now filing mutations online'},
+ {d:'27 Dec 2025',t:'Drafted the revised office procedure for land-records custody',o:'Approved by the Deputy Secretary and circulated'},
+ {d:'15 Feb 2026',t:'Represented the section at the divisional land-records review',o:'Three pending district proposals cleared'},
+ {d:'09 Mar 2026',t:'Filed the Q3 and Q4 returns within the due date',o:'After Q1 was filed late earlier in the year'},
+];
+function renderLog(){
+ const l=document.getElementById('logList');
+ if(l)l.innerHTML=WORKLOG.map(e=>`<div class='memo' style='border-left-color:var(--blue)'>
+   <div class='top'><b>${e.t}</b><span class='meta'>${e.d}</span></div><p>${e.o}</p></div>`).join('');
+ const p=document.getElementById('logPick');
+ if(p)p.innerHTML=WORKLOG.map((e,i)=>`<label class='chk2'><input type='checkbox' value='${i}'>
+   <span><b>${e.t}</b><small>${e.d} · ${e.o}</small></span></label>`).join('');
+}
+function openLog(){document.getElementById('logModal').classList.add('on');}
+function closeLog(){document.getElementById('logModal').classList.remove('on');}
+function useLog(){
+ const picked=[...document.querySelectorAll('#logPick input:checked')].map(c=>WORKLOG[+c.value]);
+ if(!picked.length){toast('Select at least one entry.');return;}
+ if(picked.length>3){toast('Choose up to three entries.');return;}
+ document.getElementById('t22').value=picked.map(e=>e.t+'. '+e.o+'.').join(' ');
+ wc('t22','c22',100);closeLog();
+ toast(picked.length+' entries added to 2.2. Edit them as you wish before signing.');
+}
 function openPast(){document.getElementById('pastModal').classList.add('on');}
 function closePast(){document.getElementById('pastModal').classList.remove('on');}
 function openNRC(){document.getElementById('nrcModal').classList.add('on');}
@@ -873,9 +942,10 @@ function closeNRC(ok){document.getElementById('nrcModal').classList.remove('on')
 
 /* ---------------- self-appraisal ---------------- */
 function selfStep(n){
- for(let i=1;i<=5;i++)document.getElementById('self'+i).classList.toggle('on',i===n);
+ for(let i=1;i<=7;i++)document.getElementById('self'+i).classList.toggle('on',i===n);
  document.querySelectorAll('#selfSteps li').forEach((li,i)=>{
-  li.classList.toggle('on',i===n-1);li.classList.toggle('done',i<n-1);});
+  li.classList.toggle('on',i===n-1);li.classList.toggle('done',i<n-1&&n<=5);});
+ document.querySelectorAll('#yearSteps li').forEach((li,i)=>li.classList.toggle('on',n===6+i));
  window.scrollTo({top:220,behavior:'smooth'});
 }
 function submitSelf(){cyclePos=3;renderCycle();
@@ -1044,7 +1114,7 @@ function signReviewing(){
 
 /* ---------------- init ---------------- */
 document.getElementById('mBody').addEventListener('input',wcMemo);
-buildScales();renderChips();renderMemos();renderCycle();
+buildScales();renderChips();renderMemos();renderCycle();renderLog();
 wc('t22','c22',100);wc('t23','c23',50);wc('t33','c33',100);wc('t34','c34',50);wc('t52','c52',30);wc('tRep','cRep',200);
 wcMemo();calc();
 </script>
