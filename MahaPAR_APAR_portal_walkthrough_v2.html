@@ -235,10 +235,10 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card">
         <h2>Custodian actions</h2>
         <ul class="steplist" id="custSteps">
-          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Authority mapping<small>Who reports on whom · No Report Certificates</small></div></li>
-          <li onclick="custStep(2)"><span class="n">2</span><div>What is pending<small>Across stages · send reminders</small></div></li>
-          <li onclick="custStep(3)"><span class="n">3</span><div>Memo tracking<small>Counts only, not contents</small></div></li>
-          <li onclick="custStep(4)"><span class="n">4</span><div>Run the cycle<small>Open, disclose, export</small></div></li>
+          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Initiate cycle and complete authority mapping<small>Open the cycle · who reports on whom · No Report Certificates</small></div></li>
+          <li onclick="custStep(2)"><span class="n">2</span><div>Track what is pending across the APAR cycle<small>Stage by stage · with whom · remind</small></div></li>
+          <li onclick="custStep(3)"><span class="n">3</span><div>Facilitate the APAR cycle<small>Expedite · disclose · export</small></div></li>
+          <li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Counts only, not contents</small></div></li>
         </ul>
       </div>
       <div class="card">
@@ -256,6 +256,16 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
     <div>
       <!-- 1 · authority mapping, with the NRC queue inside it -->
       <div class="wiz on" id="cust1">
+        <div class="card">
+          <h2>Open the cycle and set the workflow</h2>
+          <div class="sub">The cycle must be opened before any APAR can be filled. Opening it creates an APAR for every official whose reporting chain is mapped.</div>
+          <table>
+            <tr><td><b>Cycle 2025–26</b><br><span style="color:var(--muted);font-size:12px">Opened 14 Apr 2026 · 1,284 APARs created</span></td><td><span class="tag ok">Open</span></td></tr>
+            <tr><td><b>Cycle 2026–27</b><br><span style="color:var(--muted);font-size:12px">Opens APARs for all mapped officials</span></td><td><button class="btn sm" onclick="toast('Cycle 2026–27 would be created and APARs opened for all mapped officials.')">Open cycle</button></td></tr>
+            <tr><td><b>Stage deadlines</b><br><span style="color:var(--muted);font-size:12px">As notified by GAD</span></td><td><button class="btn sm ghost" onclick="toast('Set the closing date for each stage of the cycle.')">Set dates</button></td></tr>
+          </table>
+          <div class="note warn" style="margin-top:12px">⚠️ 4 officials have no reporting officer mapped, so no APAR was created for them. Complete the mapping below.</div>
+        </div>
         <div class="card">
           <h2>Authority mapping</h2>
           <div class="sub">Who each official has named as their reporting and reviewing officer, checked against eHRMS. If the two do not agree, the APAR cannot move until it is settled.</div>
@@ -309,8 +319,21 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </div>
       </div>
 
-      <!-- 3 · memo tracking -->
+      <!-- 3 · facilitate the cycle -->
       <div class="wiz" id="cust3">
+        <div class="card">
+          <h2>Facilitate the APAR cycle</h2>
+          <div class="sub">Keeping the cycle moving, and closing it out.</div>
+          <table>
+            <tr><td><b>Expedite a stage before its deadline</b><br><span style="color:var(--muted);font-size:12px">544 APARs are with reporting officers; the stage closes on 31 May</span></td><td><button class="btn sm amber" onclick="toast('Reminder sent to every reporting officer with an APAR still pending, naming the officials concerned and the closing date.')">Expedite</button></td></tr>
+            <tr><td><b>Disclose completed APARs</b><br><span style="color:var(--muted);font-size:12px">Runs only after the reviewing stage closes on 30 June</span></td><td><button class="btn sm grey" onclick="toast('Disclosure runs only after the reviewing stage closes on 30 Jun.')">Not yet due</button></td></tr>
+            <tr><td><b>Export the register</b><br><span style="color:var(--muted);font-size:12px">Mapping, stage status and timeliness, as Excel</span></td><td><button class="btn sm ghost" onclick="toast('Export of the mapping and timeliness register.')">Export</button></td></tr>
+          </table>
+          <div class="note info" style="margin-top:12px">ℹ️ Reminders for APARs already past their deadline are sent from section 2.</div>
+        </div>
+      </div>
+      <!-- 4 · memo tracking -->
+      <div class="wiz" id="cust4">
         <div class="card">
           <h2>Memo tracking</h2>
           <div class="sub">The custodian can see how many memos were issued and whether they were answered. The custodian cannot read them.</div>
@@ -324,24 +347,10 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </div>
       </div>
 
-      <!-- 4 · run the cycle -->
-      <div class="wiz" id="cust4">
-        <div class="card">
-          <h2>Run the cycle</h2>
-          <div class="sub">Actions that apply to the cycle as a whole.</div>
-          <table>
-            <tr><td><b>Open the next cycle</b><br><span style="color:var(--muted);font-size:12px">Opens APARs for all mapped officials</span></td><td><button class="btn sm" onclick="toast('Cycle 2026–27 would be created and APARs opened for all mapped officials.')">Open 2026–27</button></td></tr>
-            <tr><td><b>Send deadline reminders</b><br><span style="color:var(--muted);font-size:12px">87 officials whose self-appraisal is pending</span></td><td><button class="btn sm ghost" onclick="toast('Reminders queued to 87 officials whose self-appraisal is pending.')">Send</button></td></tr>
-            <tr><td><b>Disclose completed APARs</b><br><span style="color:var(--muted);font-size:12px">Runs only after the reviewing stage closes</span></td><td><button class="btn sm grey" onclick="toast('Disclosure runs only after the reviewing stage closes on 30 Jun.')">Not yet due</button></td></tr>
-            <tr><td><b>Export the register</b><br><span style="color:var(--muted);font-size:12px">Mapping and timeliness, as Excel</span></td><td><button class="btn sm ghost" onclick="toast('Export of the mapping and timeliness register.')">Export</button></td></tr>
-          </table>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ======================= MEMOS ======================= -->
 <!-- ======================= SELF APPRAISAL ======================= -->
 <section class="pane on" id="pane-self">
   <div class="ph"><h1>Self-appraisal · Form A, Parts 1 and 2</h1>
@@ -702,7 +711,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card" style="margin-top:18px">
         <h2>Part 5 · accepting authority</h2>
         <div class="sub">Opens only where a stage was never completed.</div>
-        <div class="note danger">⚠️ Smt. J. K. More: the reporting officer never recorded an assessment. MahaPAR sent the APAR on without it on 01/06/2026.</div>
+        <div class="note danger">⚠️ Smt. J. K. More: the reporting stage was auto-forwarded on 01/06/2026 and never recorded.</div>
         <div class="radios"><label><input type="radio" name="miss" checked><span>Reporting officer stage missing</span></label><label><input type="radio" name="miss"><span>Reviewing officer stage missing</span></label></div>
         <textarea id="t52" oninput="wc('t52','c52',30)" placeholder="Action taken. Maximum 30 words."></textarea>
         <div class="counter" id="c52"></div>
@@ -725,7 +734,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <table>
           <tr><th>Item</th><th>Value</th></tr>
           <tr><td>Overall grade (95% once timeliness applies)</td><td><b id="dOverall">—</b></td></tr>
-          <tr><td>Timeliness marks (5%)</td><td><b style="color:var(--red)">−0.2</b> · 2 APARs went past their deadline with you</td></tr>
+          <tr><td>Timeliness marks (5%)</td><td><b style="color:var(--red)">−0.2</b> · 2 of your own stages auto-forwarded</td></tr>
           <tr><td><b>Final score</b></td><td><b id="dFinal">—</b> out of 10</td></tr>
           <tr><td>Integrity</td><td>Beyond doubt</td></tr>
           <tr><td>Memos issued during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>
