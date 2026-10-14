@@ -214,7 +214,6 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <button data-tab="self" class="on" onclick="go('self')">My APAR: self-appraisal</button>
   <button data-tab="reporting" onclick="go('reporting')">Reporting officer <span class="count" id="repCount">3</span></button>
   <button data-tab="reviewing" onclick="go('reviewing')">Reviewing officer <span class="count">1</span></button>
-  <button data-tab="disclosure" onclick="go('disclosure')">Disclosure &amp; representation</button>
 </nav>
 
 <div class="rolebar"><span class="dot"></span><span>Signed in as <b id="roleName">Shri A. B. Sawant</b> · <span id="roleDesc">Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719</span></span><span class="formflag">Based on <b>Form A</b> · Group A and B officials · draft v4</span></div>
@@ -264,12 +263,11 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <h2>Initiate the cycle and set the workflow</h2>
           <div class="sub">A cycle is initiated after the assessment year ends. Initiating it creates an APAR for every official whose reporting chain is mapped.</div>
           <table>
-            <tr><td><b>Cycle 2025–26</b><br><span style="color:var(--muted);font-size:12px">Assessment year 1 Apr 2025 – 31 Mar 2026 · initiated 14 Apr 2026 · 1,284 APARs created</span></td><td><span class="tag warn">In progress · stage 3 of 8</span></td></tr>
-            <tr><td><b>Cycle 2024–25</b><br><span style="color:var(--muted);font-size:12px">1,261 APARs · all closed 28 Nov 2025</span></td><td><span class="tag ok">Closed</span></td></tr>
-            <tr><td><b>Cycle 2026–27</b><br><span style="color:var(--muted);font-size:12px">Can be initiated after 31 Mar 2027</span></td><td><button class="btn sm grey" onclick="toast('The next cycle can be initiated once the assessment year ends on 31 Mar 2027.')">Not yet due</button></td></tr>
+            <tr><td><b>Cycle 2025–26</b><br><span style="color:var(--muted);font-size:12px">Assessment year 1 Apr 2025 – 31 Mar 2026 · 1,284 APARs</span></td><td><span class="tag warn">In progress · stage 3 of 8</span></td></tr>
+            <tr><td><b>Cycle 2026–27</b><br><span style="color:var(--muted);font-size:12px">Creates an APAR for every mapped official</span></td><td><button class="btn sm" onclick="toast('Cycle 2026–27 opened. APARs created for all mapped officials.')">Open cycle</button></td></tr>
             <tr><td><b>Stage deadlines</b><br><span style="color:var(--muted);font-size:12px">As notified by GAD</span></td><td><button class="btn sm ghost" onclick="toast('Set the closing date for each stage of the cycle.')">Set dates</button></td></tr>
           </table>
-          <div class="note warn" style="margin-top:12px">⚠️ 4 officials have no reporting officer mapped, so no APAR was created for them. Complete the mapping below.</div>
+          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="openPast()">View past cycles</button></div>
         </div>
         <div class="card">
           <h2>Authority mapping</h2>
@@ -320,6 +318,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <tr><td>Self-appraisal</td><td>1,197</td><td>1,109</td><td>88</td><td>87</td></tr>
             <tr><td>Reporting</td><td>653</td><td>612</td><td>41</td><td>544</td></tr>
             <tr><td>Reviewing</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>Awaiting disclosure</td><td>—</td><td>—</td><td>—</td><td><b>14</b></td></tr>
           </table>
         </div>
       </div>
@@ -333,7 +332,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <tr><td><b>Send reminders</b><br><span style="color:var(--muted);font-size:12px">544 APARs are still pending across stages; the reporting stage closes on 31 May</span></td>
               <td style="white-space:nowrap"><button class="btn sm amber" onclick="toast('Reminder sent to everyone holding a pending APAR, naming the officials concerned and the closing date.')">Send bulk reminders</button>
               <button class="btn sm ghost" onclick="custStep(2)" style="margin-left:6px">Act on individual pendencies &rsaquo;</button></td></tr>
-            <tr><td><b>Disclose completed APARs</b><br><span style="color:var(--muted);font-size:12px">Runs only after the reviewing stage closes on 30 June</span></td><td><button class="btn sm grey" onclick="toast('Disclosure runs only after the reviewing stage closes on 30 Jun.')">Not yet due</button></td></tr>
+            <tr><td><b>Disclose completed APARs to officials</b><br><span style="color:var(--muted);font-size:12px">14 APARs are complete and awaiting disclosure. The rest follow as the reviewing stage closes on 30 June.</span></td><td style="white-space:nowrap"><button class="btn sm amber" onclick="toast('14 APARs disclosed. Each official is notified and has 15 days to represent.')">Disclose 14</button></td></tr>
+            <tr><td><b>Representations received</b><br><span style="color:var(--muted);font-size:12px">None yet. They appear here once officials begin representing.</span></td><td><span class="tag grey">0</span></td></tr>
             <tr><td><b>Export the register</b><br><span style="color:var(--muted);font-size:12px">Mapping, stage status and timeliness, as Excel</span></td><td><button class="btn sm ghost" onclick="toast('Export of the mapping and timeliness register.')">Export</button></td></tr>
           </table>
           <div class="note info" style="margin-top:12px">ℹ️ Bulk reminders go to everyone with an APAR pending. To see who each one is waiting with and remind them individually, go to <b>Track what is pending</b>.</div>
@@ -385,6 +385,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <li onclick="selfStep(2)"><span class="n">2</span><div>Reporting chain and NRC<small>Part 1.1–1.2</small></div></li>
           <li onclick="selfStep(3)"><span class="n">3</span><div>Self-appraisal form<small>Part 2.1–2.6 · one page</small></div></li>
           <li onclick="selfStep(4)"><span class="n">4</span><div>Review and sign<small>DSC / eSign</small></div></li>
+          <li onclick="selfStep(5)"><span class="n">5</span><div>Outcome and representation<small>After disclosure · 15 days</small></div></li>
         </ul>
       </div>
       <div class="card">
@@ -524,6 +525,32 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="btnrow"><button class="btn grey" onclick="selfStep(3)">Back to the form</button><button class="btn ghost" onclick="toast('Draft saved. Nothing has gone to your reporting officer.')">Save draft</button><button class="btn" onclick="submitSelf()">Sign with DSC / eSign and submit</button></div>
         </div>
       </div>
+
+      <!-- step 5 · outcome and representation -->
+      <div class="wiz" id="self5">
+        <div class="card">
+          <h2>Your APAR 2025–26</h2>
+          <div class="sub">Disclosed to you on 12 July 2026 · you may represent until 27 July 2026</div>
+          <table>
+            <tr><th>Item</th><th>Value</th></tr>
+            <tr><td>Overall grade (95% once timeliness applies)</td><td><b id="dOverall">—</b></td></tr>
+            <tr><td>Timeliness marks (5%)</td><td><b style="color:var(--red)">−0.2</b> · 2 of your own stages auto-forwarded</td></tr>
+            <tr><td><b>Final score</b></td><td><b id="dFinal">—</b> out of 10</td></tr>
+            <tr><td>Integrity</td><td>Beyond doubt</td></tr>
+            <tr><td>Memos issued to you during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>
+          </table>
+          <div class="ro" style="margin-top:14px"><b>Overall assessment recorded by the reporting officer</b><span id="d33">—</span></div>
+        </div>
+        <div class="card">
+          <h2>Submit a representation</h2>
+          <div class="hint">One representation, within 15 days of disclosure.</div>
+          <textarea id="tRep" oninput="wc('tRep','cRep',200)" placeholder="State what you are representing against and why. Maximum 200 words."></textarea>
+          <div class="counter" id="cRep"></div>
+          <div class="note info">ℹ️ The memos issued to you and your replies are attached to your representation automatically.</div>
+          <div class="btnrow"><button class="btn amber" onclick="toast('Representation submitted.')">Submit representation</button><button class="btn grey" onclick="toast('APAR accepted and closed.')">Accept and close</button></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -742,63 +769,22 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 </section>
 
 <!-- ======================= DISCLOSURE ======================= -->
-<section class="pane" id="pane-disclosure">
-  <div class="ph"><h1>Disclosure and representation</h1>
-  <p>Every outcome is disclosed through MahaPAR. The official has 15 days to represent. Because the memos and the official's responses are already on record, a representation argues about the assessment, not about whether the concern was ever raised.</p></div>
-
-  <div class="grid g-2-1">
-    <div>
-      <div class="card">
-        <h2>APAR 2025–26 · Shri A. B. Sawant</h2>
-        <div class="sub">Disclosed on 12 July 2026 · representation window closes 27 July 2026</div>
-        <table>
-          <tr><th>Item</th><th>Value</th></tr>
-          <tr><td>Overall grade (95% once timeliness applies)</td><td><b id="dOverall">—</b></td></tr>
-          <tr><td>Timeliness marks (5%)</td><td><b style="color:var(--red)">−0.2</b> · 2 of your own stages auto-forwarded</td></tr>
-          <tr><td><b>Final score</b></td><td><b id="dFinal">—</b> out of 10</td></tr>
-          <tr><td>Integrity</td><td>Beyond doubt</td></tr>
-          <tr><td>Memos issued during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>
-        </table>
-        <div class="ro" style="margin-top:14px"><b>Overall assessment recorded by the reporting officer</b><span id="d33">—</span></div>
-      </div>
-      <div class="card">
-        <h2>Submit a representation</h2>
-        <div class="hint">One representation, within 15 days of disclosure. It goes to the accepting authority.</div>
-        <textarea id="tRep" oninput="wc('tRep','cRep',200)" placeholder="State what you are representing against and why. Maximum 200 words."></textarea>
-        <div class="counter" id="cRep"></div>
-        <div class="note info">ℹ️ The memos issued to you and your responses are attached automatically to your representation.</div>
-        <div class="btnrow"><button class="btn amber" onclick="toast('Representation submitted. The accepting authority has it, with the memo record attached.')">Submit representation</button><button class="btn grey" onclick="toast('APAR accepted and closed.')">Accept and close</button></div>
-      </div>
-    </div>
-    <div>
-      <div class="card">
-        <h2>Why the memo record matters here</h2>
-        <p style="font-size:12.5px;color:#374151">The concern raised by JS Badgeri is that reporting officers avoid low grades because nothing was documented. Three things in these windows close that gap:</p>
-        <ul style="font-size:12.5px;margin:10px 0 0 16px;color:#374151">
-          <li style="margin-bottom:7px"><b>A memo can be issued any day of the year</b>, from the reporting officer's own window, in under a minute.</li>
-          <li style="margin-bottom:7px"><b>The official is told what it means</b> — that a response, or no response, may be considered at APAR time — so the record is fair before it is used.</li>
-          <li style="margin-bottom:7px"><b>The record surfaces by itself at grading</b>, on the dimension it concerns, and attaches as evidence when the grade falls below the benchmark.</li>
-          <li><b>The custodian can see who issues none.</b> A reporting officer with 18 subordinates and zero memos, grading everyone above 6, is visible to GAD.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h2>Still to be decided by GAD</h2>
-        <ul style="font-size:12.5px;margin-left:16px;color:#374151">
-          <li style="margin-bottom:6px">Whether a memo must exist before a grade below the benchmark can be signed, or whether it stays advisory as drafted.</li>
-          <li style="margin-bottom:6px">How long before the cycle closes a memo may still be issued, so the year-end rush does not become the record.</li>
-          <li style="margin-bottom:6px">Whether an unanswered memo carries any automatic weight, or only informs the reporting officer's judgment.</li>
-          <li>Split of the 5% timeliness marks between stages.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <footer>MahaPAR · draft user windows for discussion with GAD · IDinsight, October 2026 · demo data, no real official records</footer>
 
 <div class="toast" id="toast"></div>
+<div class="modal" id="pastModal"><div class="box">
+  <h2>Past cycles</h2>
+  <p class="sub">Closed cycles remain available to view and export.</p>
+  <table>
+    <tr><th>Cycle</th><th>APARs</th><th>Closed on</th><th></th></tr>
+    <tr><td>2024–25</td><td>1,261</td><td>28 Nov 2025</td><td><button class="btn sm ghost" onclick="toast('Opens the 2024–25 cycle, read only.')">Open</button></td></tr>
+    <tr><td>2023–24</td><td>1,247</td><td>30 Nov 2024</td><td><button class="btn sm ghost" onclick="toast('Opens the 2023–24 cycle, read only.')">Open</button></td></tr>
+    <tr><td>2022–23</td><td>1,198</td><td>02 Dec 2023</td><td><button class="btn sm ghost" onclick="toast('Opens the 2022–23 cycle, read only.')">Open</button></td></tr>
+  </table>
+  <div class="btnrow"><button class="btn grey" onclick="closePast()">Close</button></div>
+</div></div>
 <div class="modal" id="nrcModal"><div class="box">
   <h2>Verify Part 1 and issue NRC</h2>
   <p class="sub">Smt. J. K. More · Assistant Section Officer</p>
@@ -879,13 +865,15 @@ function words(s){return s.trim()?s.trim().split(/\s+/).length:0;}
 function wc(ta,c,max){const n=words(document.getElementById(ta).value);const el=document.getElementById(c);
  el.textContent=n+' / '+max+' words';el.classList.toggle('bad',n>max);
  if(ta==='t22'){const k=document.getElementById('chk22');if(k)k.textContent=n+' words';}}
+function openPast(){document.getElementById('pastModal').classList.add('on');}
+function closePast(){document.getElementById('pastModal').classList.remove('on');}
 function openNRC(){document.getElementById('nrcModal').classList.add('on');}
 function closeNRC(ok){document.getElementById('nrcModal').classList.remove('on');
  if(ok)toast('No Report Certificate issued for 01/04/2025 – 10/06/2025. Part 1 verified.');}
 
 /* ---------------- self-appraisal ---------------- */
 function selfStep(n){
- for(let i=1;i<=4;i++)document.getElementById('self'+i).classList.toggle('on',i===n);
+ for(let i=1;i<=5;i++)document.getElementById('self'+i).classList.toggle('on',i===n);
  document.querySelectorAll('#selfSteps li').forEach((li,i)=>{
   li.classList.toggle('on',i===n-1);li.classList.toggle('done',i<n-1);});
  window.scrollTo({top:220,behavior:'smooth'});
@@ -1051,7 +1039,7 @@ function signReviewing(){
  cyclePos=5;renderCycle();
  toast(nrev?('Part 4 signed with '+nrev+' grade(s) revised. The APAR goes to the custodian for disclosure.')
   :'Part 4 signed in agreement. The APAR goes to the custodian for disclosure.');
- setTimeout(()=>go('disclosure'),900);
+ setTimeout(()=>{go('self');selfStep(5);},900);
 }
 
 /* ---------------- init ---------------- */
