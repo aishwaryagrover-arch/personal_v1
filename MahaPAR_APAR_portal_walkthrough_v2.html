@@ -221,93 +221,121 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
 <!-- ======================= CUSTODIAN ======================= -->
 <section class="pane" id="pane-custodian">
-  <div class="ph"><h1>Custodian window: authority mapping and cycle workflow</h1>
-  <p>The custodian opens the cycle, records who reports on whom, checks Part 1, issues No Report Certificates and keeps track of what is pending. The custodian does not see or change any grade.</p></div>
+  <div class="ph"><h1>Custodian window</h1>
+  <p>As custodian you are responsible for four things in this cycle: recording who reports on whom and issuing No Report Certificates; keeping track of what is pending and sending reminders; seeing that memos are being issued during the year; and running the cycle itself. You do not see or change any grade.</p></div>
 
   <div class="grid g-3" style="margin-bottom:18px">
-    <div class="ctile amber"><span>Officials in this cycle</span><b>1,284</b><i>Cycle 2025–26, opened 14 Apr 2026</i></div>
-    <div class="ctile blue"><span>Reporting chain mapped</span><b>96%</b><i>4 officials not yet mapped</i></div>
-    <div class="ctile pink" onclick="togglePend()" style="cursor:pointer"><span>APARs past their deadline at some stage</span><b>47</b><i>Click to see what is pending, and with whom &rsaquo;</i></div>
+    <div class="ctile amber" onclick="custStep(1)" style="cursor:pointer"><span>Officials in this cycle</span><b>1,284</b><i>4 not yet mapped &rsaquo;</i></div>
+    <div class="ctile blue" onclick="custStep(2)" style="cursor:pointer"><span>APARs completed so far</span><b>612</b><i>of 1,284 &rsaquo;</i></div>
+    <div class="ctile pink" onclick="custStep(2)" style="cursor:pointer"><span>APARs past their deadline at some stage</span><b>47</b><i>See what is pending, and with whom &rsaquo;</i></div>
   </div>
 
-
-  <div class="hidebox" id="pendPanel">
-    <div class="card" style="border-left:4px solid var(--red)">
-      <h2>What is pending, and with whom</h2>
-      <div class="sub">The 47 APARs where a stage has passed its deadline, longest wait first. These are the officials mapped to you.</div>
-      <div class="btnrow" style="margin-bottom:14px">
-        <button class="btn amber" onclick="toast('Reminder sent to all 47. Each person is told which APAR is waiting with them and by when it is due.')">Send a reminder to everyone on this list</button>
-        <button class="btn grey" onclick="toast('List exported to Excel.')">Export list</button>
-      </div>
-      <table>
-        <tr><th>Official</th><th>Post</th><th>Waiting at</th><th>Waiting with</th><th>Overdue by</th><th></th></tr>
-        <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Reporting</td><td>Shri R. S. Gokhale</td><td><span class="tag red">61 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri R. S. Gokhale.')">Remind</button></td></tr>
-        <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td>Self-appraisal</td><td>The official</td><td><span class="tag red">48 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri N. P. Bhosale.')">Remind</button></td></tr>
-        <tr><td><b>Shri T. V. Kulkarni</b></td><td>Section Officer</td><td>Reporting</td><td>Shri C. D. Joshi</td><td><span class="tag warn">22 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri C. D. Joshi.')">Remind</button></td></tr>
-        <tr><td><b>Smt. P. R. Shelke</b></td><td>Senior Clerk</td><td>Self-appraisal</td><td>The official</td><td><span class="tag warn">14 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. P. R. Shelke.')">Remind</button></td></tr>
-        <tr><td><b>Shri D. M. Ingle</b></td><td>Asst Section Officer</td><td>Reporting</td><td>Shri C. D. Joshi</td><td><span class="tag warn">9 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri C. D. Joshi.')">Remind</button></td></tr>
-        <tr><td colspan="6" style="color:var(--muted)">… and 42 more. Shri C. D. Joshi has 19 of the 47 waiting with him.</td></tr>
-      </table>
-      <div class="note warn" style="margin-top:14px">⚠️ If a stage is still not completed 15 days after the deadline, MahaPAR sends the APAR on to the next stage without it, and records it as late against the person who held it.</div>
-    </div>
-  </div>
-
-  <div class="grid g-2-1">
-    <div>
-      <div class="card">
-        <h2>Authority mapping</h2>
-        <div class="sub">Who each official has named as their reporting and reviewing officer, checked against eHRMS. If the two do not agree, the APAR cannot move until it is settled.</div>
-        <table>
-          <tr><th>Official</th><th>Post</th><th>Reporting officer</th><th>Reviewing officer</th><th>Status</th><th></th></tr>
-          <tr><td><b>Shri A. B. Sawant</b></td><td>Section Officer</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this official.')">View</button></td></tr>
-          <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Shri R. S. Gokhale <span class="tag grey">2 chgs</span></td><td>Shri E. F. Rane</td><td><span class="tag warn">NRC requested</span></td><td><button class="btn sm" onclick="openNRC()">Act</button></td></tr>
-          <tr><td><b>Shri L. M. Pawar</b></td><td>Senior Clerk (Form B)</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this official.')">View</button></td></tr>
-          <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td><span style="color:var(--red)">Not mapped</span></td><td>Shri E. F. Rane</td><td><span class="tag red">Blocked</span></td><td><button class="btn sm amber" onclick="toast('Mapping screen: assign a reporting officer from the eHRMS chain, or record the post as vacant.')">Map</button></td></tr>
-        </table>
-        <div class="note warn" style="margin-top:14px">⚠️ <b>4 officials have no reporting officer mapped.</b> Until the chain is complete, timeliness marks cannot be calculated and the accepting authority (Part 5) will have to close those APARs manually.</div>
-      </div>
-
-      <div class="card">
-        <h2>Memo oversight</h2>
-        <div class="sub">The custodian can see how many memos were issued and whether they were answered. The custodian cannot read them.</div>
-        <table>
-          <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Unanswered</th><th>Officials with zero memos</th></tr>
-          <tr><td>Shri C. D. Joshi</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
-          <tr><td>Shri R. S. Gokhale</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
-          <tr><td>Shri E. F. Rane</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
-        </table>
-        <div class="note info" style="margin-top:14px">ℹ️ This shows which reporting officers raised no concern at any point in the year, and then graded everyone above the benchmark at the end of it.</div>
-      </div>
-    </div>
-
+  <div class="grid g-1-2">
     <div>
       <div class="card">
         <h2>Custodian actions</h2>
-        <div class="btnrow" style="flex-direction:column">
-          <button class="btn wide" onclick="toast('Cycle 2026–27 would be created and APARs opened for all mapped officials.')">Create next cycle</button>
-          <button class="btn wide ghost" onclick="toast('Reminders queued to 88 officials whose self-appraisal is pending.')">Send deadline reminders</button>
-          <button class="btn wide ghost" onclick="toast('Disclosure runs only after the reviewing stage closes.')">Disclose completed APARs</button>
-          <button class="btn wide grey" onclick="toast('Export of the mapping and timeliness register.')">Export register</button>
-        </div>
+        <ul class="steplist" id="custSteps">
+          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Authority mapping<small>Who reports on whom · No Report Certificates</small></div></li>
+          <li onclick="custStep(2)"><span class="n">2</span><div>What is pending<small>Across stages · send reminders</small></div></li>
+          <li onclick="custStep(3)"><span class="n">3</span><div>Memo tracking<small>Counts only, not contents</small></div></li>
+          <li onclick="custStep(4)"><span class="n">4</span><div>Run the cycle<small>Open, disclose, export</small></div></li>
+        </ul>
       </div>
       <div class="card">
-        <h2>NRC queue</h2>
-        <div class="sub">Where an official served under a reporting officer for less than 3 months.</div>
-        <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Pending</span></div>
-          <div class="meta">Under Shri R. S. Gokhale · 01/04/2025 – 10/06/2025 · 2 months 10 days</div>
-          <div class="btnrow"><button class="btn sm" onclick="openNRC()">Verify and issue</button><button class="btn sm grey" onclick="toast('Rejection needs a recorded reason.')">Reject</button></div>
-        </div>
-        <div class="note info">ℹ️ A No Report Certificate simply records that there was no reporting officer for that period. It does not count against the official in any way, including for promotion.</div>
-      </div>
-      <div class="card">
-        <h2>Timeliness register</h2>
-        <div class="sub">You do not fill this in. MahaPAR works it out from the dates on which each stage was signed.</div>
+        <h2>This cycle</h2>
         <table>
-          <tr><th>Stage</th><th>On time</th><th>Late</th></tr>
-          <tr><td>Self-appraisal</td><td>1,109</td><td>88</td></tr>
-          <tr><td>Reporting</td><td>612</td><td>41</td></tr>
-          <tr><td>Reviewing</td><td>—</td><td>—</td></tr>
+          <tr><td>Cycle opened</td><td><b>14 Apr 2026</b></td></tr>
+          <tr><td>Self-appraisal closed</td><td><b>30 Apr</b></td></tr>
+          <tr><td>Reporting stage closes</td><td><b style="color:var(--amber)">31 May</b></td></tr>
+          <tr><td>Reviewing stage closes</td><td><b>30 Jun</b></td></tr>
+          <tr><td>Cycle closes</td><td><b>30 Nov</b></td></tr>
         </table>
+      </div>
+    </div>
+
+    <div>
+      <!-- 1 · authority mapping, with the NRC queue inside it -->
+      <div class="wiz on" id="cust1">
+        <div class="card">
+          <h2>Authority mapping</h2>
+          <div class="sub">Who each official has named as their reporting and reviewing officer, checked against eHRMS. If the two do not agree, the APAR cannot move until it is settled.</div>
+          <table>
+            <tr><th>Official</th><th>Post</th><th>Reporting officer</th><th>Reviewing officer</th><th>Status</th><th></th></tr>
+            <tr><td><b>Shri A. B. Sawant</b></td><td>Section Officer</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this official.')">View</button></td></tr>
+            <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Shri R. S. Gokhale <span class="tag grey">2 chgs</span></td><td>Shri E. F. Rane</td><td><span class="tag warn">NRC requested</span></td><td><button class="btn sm" onclick="openNRC()">Act</button></td></tr>
+            <tr><td><b>Shri L. M. Pawar</b></td><td>Senior Clerk (Form B)</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this official.')">View</button></td></tr>
+            <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td><span style="color:var(--red)">Not mapped</span></td><td>Shri E. F. Rane</td><td><span class="tag red">Blocked</span></td><td><button class="btn sm amber" onclick="toast('Mapping screen: assign a reporting officer from the eHRMS chain, or record the post as vacant.')">Map</button></td></tr>
+          </table>
+          <div class="note warn" style="margin-top:14px">⚠️ <b>4 officials have no reporting officer mapped.</b> Until the chain is complete, timeliness marks cannot be calculated and the accepting authority (Part 5) will have to close those APARs manually.</div>
+          <div class="rule"></div>
+          <h3>No Report Certificates awaiting your decision</h3>
+          <div class="sub">Where an official served under a reporting officer for less than 3 months.</div>
+          <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Pending</span></div>
+            <div class="meta">Under Shri R. S. Gokhale · 01/04/2025 – 10/06/2025 · 2 months 10 days</div>
+            <div class="btnrow"><button class="btn sm" onclick="openNRC()">Verify and issue</button><button class="btn sm grey" onclick="toast('Rejection needs a recorded reason.')">Reject</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 · what is pending -->
+      <div class="wiz" id="cust2">
+        <div class="card">
+          <h2>What is pending, and with whom</h2>
+          <div class="sub">The 47 APARs where a stage has passed its deadline, longest wait first. These are the officials mapped to you.</div>
+          <div class="btnrow" style="margin-bottom:14px">
+            <button class="btn amber" onclick="toast('Reminder sent to all 47. Each person is told which APAR is waiting with them and by when it is due.')">Send a reminder to everyone on this list</button>
+            <button class="btn grey" onclick="toast('List exported to Excel.')">Export list</button>
+          </div>
+          <table>
+            <tr><th>Official</th><th>Post</th><th>Waiting at</th><th>Waiting with</th><th>Overdue by</th><th></th></tr>
+            <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Reporting</td><td>Shri R. S. Gokhale</td><td><span class="tag red">61 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri R. S. Gokhale.')">Remind</button></td></tr>
+            <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td>Self-appraisal</td><td>The official</td><td><span class="tag red">48 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri N. P. Bhosale.')">Remind</button></td></tr>
+            <tr><td><b>Shri T. V. Kulkarni</b></td><td>Section Officer</td><td>Reporting</td><td>Shri C. D. Joshi</td><td><span class="tag warn">22 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri C. D. Joshi.')">Remind</button></td></tr>
+            <tr><td><b>Smt. P. R. Shelke</b></td><td>Senior Clerk</td><td>Self-appraisal</td><td>The official</td><td><span class="tag warn">14 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. P. R. Shelke.')">Remind</button></td></tr>
+            <tr><td><b>Shri D. M. Ingle</b></td><td>Asst Section Officer</td><td>Reporting</td><td>Shri C. D. Joshi</td><td><span class="tag warn">9 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri C. D. Joshi.')">Remind</button></td></tr>
+            <tr><td colspan="6" style="color:var(--muted)">… and 42 more. Shri C. D. Joshi has 19 of the 47 waiting with him.</td></tr>
+          </table>
+          <div class="note warn" style="margin-top:14px">⚠️ If a stage is still not completed 15 days after the deadline, MahaPAR sends the APAR on to the next stage without it, and records it as late against the person who held it.</div>
+        </div>
+        <div class="card">
+          <h2>Stage by stage</h2>
+          <div class="sub">You do not fill this in. MahaPAR works it out from the dates on which each stage was signed.</div>
+          <table>
+            <tr><th>Stage</th><th>Completed</th><th>On time</th><th>Late</th><th>Still pending</th></tr>
+            <tr><td>Self-appraisal</td><td>1,197</td><td>1,109</td><td>88</td><td>87</td></tr>
+            <tr><td>Reporting</td><td>653</td><td>612</td><td>41</td><td>544</td></tr>
+            <tr><td>Reviewing</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3 · memo tracking -->
+      <div class="wiz" id="cust3">
+        <div class="card">
+          <h2>Memo tracking</h2>
+          <div class="sub">The custodian can see how many memos were issued and whether they were answered. The custodian cannot read them.</div>
+          <table>
+            <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Unanswered</th><th>Officials with zero memos</th></tr>
+            <tr><td>Shri C. D. Joshi</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
+            <tr><td>Shri R. S. Gokhale</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
+            <tr><td>Shri E. F. Rane</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
+          </table>
+          <div class="note info" style="margin-top:14px">ℹ️ This shows which reporting officers raised no concern at any point in the year, and then graded everyone above the benchmark at the end of it.</div>
+        </div>
+      </div>
+
+      <!-- 4 · run the cycle -->
+      <div class="wiz" id="cust4">
+        <div class="card">
+          <h2>Run the cycle</h2>
+          <div class="sub">Actions that apply to the cycle as a whole.</div>
+          <table>
+            <tr><td><b>Open the next cycle</b><br><span style="color:var(--muted);font-size:12px">Opens APARs for all mapped officials</span></td><td><button class="btn sm" onclick="toast('Cycle 2026–27 would be created and APARs opened for all mapped officials.')">Open 2026–27</button></td></tr>
+            <tr><td><b>Send deadline reminders</b><br><span style="color:var(--muted);font-size:12px">87 officials whose self-appraisal is pending</span></td><td><button class="btn sm ghost" onclick="toast('Reminders queued to 87 officials whose self-appraisal is pending.')">Send</button></td></tr>
+            <tr><td><b>Disclose completed APARs</b><br><span style="color:var(--muted);font-size:12px">Runs only after the reviewing stage closes</span></td><td><button class="btn sm grey" onclick="toast('Disclosure runs only after the reviewing stage closes on 30 Jun.')">Not yet due</button></td></tr>
+            <tr><td><b>Export the register</b><br><span style="color:var(--muted);font-size:12px">Mapping and timeliness, as Excel</span></td><td><button class="btn sm ghost" onclick="toast('Export of the mapping and timeliness register.')">Export</button></td></tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -802,11 +830,9 @@ function setRole(r){
 const CYCLE=[['Cycle created','done'],['Part 1 verified','done'],['Self-appraisal','now'],['Reporting stage',''],
  ['Reviewing stage',''],['Disclosure',''],['Representation',''],['APAR closed','']];
 let cyclePos=2;
-function togglePend(){
- const p=document.getElementById('pendPanel');
- const on=!p.classList.contains('on');
- p.classList.toggle('on',on);
- if(on)setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'nearest'}),30);
+function custStep(n){
+ for(let i=1;i<=4;i++)document.getElementById('cust'+i).classList.toggle('on',i===n);
+ document.querySelectorAll('#custSteps li').forEach((li,i)=>li.classList.toggle('on',i===n-1));
 }
 function renderCycle(){
  document.getElementById('cycleStrip').innerHTML=CYCLE.map((c,i)=>{
