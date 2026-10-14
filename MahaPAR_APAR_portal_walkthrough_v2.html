@@ -237,8 +237,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <ul class="steplist" id="custSteps">
           <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Initiate cycle and complete authority mapping<small>Open the cycle · who reports on whom · No Report Certificates</small></div></li>
           <li onclick="custStep(2)"><span class="n">2</span><div>Track what is pending across the APAR cycle<small>Stage by stage · with whom · remind</small></div></li>
-          <li onclick="custStep(3)"><span class="n">3</span><div>Facilitate the APAR cycle<small>Expedite · disclose · export</small></div></li>
-          <li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Counts only, not contents</small></div></li>
+          <li onclick="custStep(3)"><span class="n">3</span><div>Facilitate the APAR cycle<small>Send reminders · disclose · export</small></div></li>
+          <li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Unanswered memos · remind</small></div></li>
         </ul>
       </div>
       <div class="card">
@@ -325,25 +325,41 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <h2>Facilitate the APAR cycle</h2>
           <div class="sub">Keeping the cycle moving, and closing it out.</div>
           <table>
-            <tr><td><b>Expedite a stage before its deadline</b><br><span style="color:var(--muted);font-size:12px">544 APARs are with reporting officers; the stage closes on 31 May</span></td><td><button class="btn sm amber" onclick="toast('Reminder sent to every reporting officer with an APAR still pending, naming the officials concerned and the closing date.')">Expedite</button></td></tr>
+            <tr><td><b>Send reminders</b><br><span style="color:var(--muted);font-size:12px">544 APARs are still pending across stages; the reporting stage closes on 31 May</span></td>
+              <td style="white-space:nowrap"><button class="btn sm amber" onclick="toast('Reminder sent to everyone holding a pending APAR, naming the officials concerned and the closing date.')">Send bulk reminders</button>
+              <button class="btn sm ghost" onclick="custStep(2)" style="margin-left:6px">Act on individual pendencies &rsaquo;</button></td></tr>
             <tr><td><b>Disclose completed APARs</b><br><span style="color:var(--muted);font-size:12px">Runs only after the reviewing stage closes on 30 June</span></td><td><button class="btn sm grey" onclick="toast('Disclosure runs only after the reviewing stage closes on 30 Jun.')">Not yet due</button></td></tr>
             <tr><td><b>Export the register</b><br><span style="color:var(--muted);font-size:12px">Mapping, stage status and timeliness, as Excel</span></td><td><button class="btn sm ghost" onclick="toast('Export of the mapping and timeliness register.')">Export</button></td></tr>
           </table>
-          <div class="note info" style="margin-top:12px">ℹ️ Reminders for APARs already past their deadline are sent from section 2.</div>
+          <div class="note info" style="margin-top:12px">ℹ️ Bulk reminders go to everyone with an APAR pending. To see who each one is waiting with and remind them individually, go to <b>Track what is pending</b>.</div>
         </div>
       </div>
       <!-- 4 · memo tracking -->
       <div class="wiz" id="cust4">
         <div class="card">
-          <h2>Memo tracking</h2>
-          <div class="sub">The custodian can see how many memos were issued and whether they were answered. The custodian cannot read them.</div>
+          <h2>Memos awaiting a reply from the official</h2>
+          <div class="sub">A memo was issued during the year and the official has not replied by the due date. You can remind them. You cannot read the memo.</div>
+          <div class="btnrow" style="margin-bottom:14px">
+            <button class="btn amber" onclick="toast('Reminder sent to both officials, asking them to record a reply in eHRMS.')">Remind both officials</button>
+          </div>
           <table>
-            <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Unanswered</th><th>Officials with zero memos</th></tr>
+            <tr><th>Official</th><th>Memo issued by</th><th>Issued on</th><th>Reply was due</th><th>Overdue by</th><th></th></tr>
+            <tr><td><b>Shri A. B. Sawant</b></td><td>Shri C. D. Joshi</td><td>18 Aug 2025</td><td>30 Sep 2025</td><td><span class="tag red">41 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri A. B. Sawant to record a reply in eHRMS.')">Remind</button></td></tr>
+            <tr><td><b>Smt. J. K. More</b></td><td>Shri E. F. Rane</td><td>02 Feb 2026</td><td>16 Feb 2026</td><td><span class="tag warn">12 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. J. K. More to record a reply in eHRMS.')">Remind</button></td></tr>
+          </table>
+          <div class="note info" style="margin-top:14px">ℹ️ A reply left unrecorded can count against the official when the APAR is graded. Reminding them keeps that fair.</div>
+        </div>
+
+        <div class="card">
+          <h2>Memos issued, by reporting officer</h2>
+          <div class="sub">Counts only, for GAD's review. There is no action for the custodian here.</div>
+          <table>
+            <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials with zero memos</th></tr>
             <tr><td>Shri C. D. Joshi</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
             <tr><td>Shri R. S. Gokhale</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
             <tr><td>Shri E. F. Rane</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
           </table>
-          <div class="note info" style="margin-top:14px">ℹ️ This shows which reporting officers raised no concern at any point in the year, and then graded everyone above the benchmark at the end of it.</div>
+          <div class="note warn" style="margin-top:14px">⚠️ The custodian does not prompt a reporting officer to issue memos. Whether a concern is worth recording is the reporting officer's judgement, and a nudge from the custodian could be read as pressure on the assessment. This table is for GAD.</div>
         </div>
       </div>
 
