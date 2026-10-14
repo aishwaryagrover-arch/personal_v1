@@ -198,7 +198,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
     <span style="color:var(--muted)">Walk through as</span>
     <select id="roleSel" onchange="setRole(this.value)">
       <option value="custodian">Shri G. H. Mane — Custodian / Establishment Officer</option>
-      <option value="officer" selected>Shri A. B. Sawant — Section Officer (appraisee)</option>
+      <option value="official" selected>Shri A. B. Sawant — Section Officer (appraisee)</option>
       <option value="reporting">Shri C. D. Joshi — Deputy Secretary (reporting officer)</option>
       <option value="reviewing">Shri E. F. Rane — Joint Secretary (reviewing officer)</option>
     </select>
@@ -222,39 +222,61 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <!-- ======================= CUSTODIAN ======================= -->
 <section class="pane" id="pane-custodian">
   <div class="ph"><h1>Custodian window: authority mapping and cycle workflow</h1>
-  <p>The custodian creates the cycle, maps every officer to a reporting and reviewing officer, verifies Part 1, issues No Report Certificates, and watches where the cycle is stuck. Nothing here is a grade — the custodian never sees or changes an assessment.</p></div>
+  <p>The custodian opens the cycle, records who reports on whom, checks Part 1, issues No Report Certificates and keeps track of what is pending. The custodian does not see or change any grade.</p></div>
 
   <div class="grid g-3" style="margin-bottom:18px">
-    <div class="ctile amber"><span>Officers in this cycle</span><b>1,284</b><i>Cycle 2025–26, opened 14 Apr 2026</i></div>
-    <div class="ctile blue"><span>Reporting chain mapped</span><b>96%</b><i>4 officers not yet mapped</i></div>
-    <div class="ctile pink"><span>Stages overdue, auto-forward pending</span><b>47</b><i>Self-appraisal and reporting stages</i></div>
+    <div class="ctile amber"><span>Officials in this cycle</span><b>1,284</b><i>Cycle 2025–26, opened 14 Apr 2026</i></div>
+    <div class="ctile blue"><span>Reporting chain mapped</span><b>96%</b><i>4 officials not yet mapped</i></div>
+    <div class="ctile pink" onclick="togglePend()" style="cursor:pointer"><span>APARs past their deadline at some stage</span><b>47</b><i>Click to see what is pending, and with whom &rsaquo;</i></div>
+  </div>
+
+
+  <div class="hidebox" id="pendPanel">
+    <div class="card" style="border-left:4px solid var(--red)">
+      <h2>What is pending, and with whom</h2>
+      <div class="sub">The 47 APARs where a stage has passed its deadline, longest wait first. These are the officials mapped to you.</div>
+      <div class="btnrow" style="margin-bottom:14px">
+        <button class="btn amber" onclick="toast('Reminder sent to all 47. Each person is told which APAR is waiting with them and by when it is due.')">Send a reminder to everyone on this list</button>
+        <button class="btn grey" onclick="toast('List exported to Excel.')">Export list</button>
+      </div>
+      <table>
+        <tr><th>Official</th><th>Post</th><th>Waiting at</th><th>Waiting with</th><th>Overdue by</th><th></th></tr>
+        <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Reporting</td><td>Shri R. S. Gokhale</td><td><span class="tag red">61 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri R. S. Gokhale.')">Remind</button></td></tr>
+        <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td>Self-appraisal</td><td>The official</td><td><span class="tag red">48 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri N. P. Bhosale.')">Remind</button></td></tr>
+        <tr><td><b>Shri T. V. Kulkarni</b></td><td>Section Officer</td><td>Reporting</td><td>Shri C. D. Joshi</td><td><span class="tag warn">22 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri C. D. Joshi.')">Remind</button></td></tr>
+        <tr><td><b>Smt. P. R. Shelke</b></td><td>Senior Clerk</td><td>Self-appraisal</td><td>The official</td><td><span class="tag warn">14 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. P. R. Shelke.')">Remind</button></td></tr>
+        <tr><td><b>Shri D. M. Ingle</b></td><td>Asst Section Officer</td><td>Reporting</td><td>Shri C. D. Joshi</td><td><span class="tag warn">9 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri C. D. Joshi.')">Remind</button></td></tr>
+        <tr><td colspan="6" style="color:var(--muted)">… and 42 more. Shri C. D. Joshi has 19 of the 47 waiting with him.</td></tr>
+      </table>
+      <div class="note warn" style="margin-top:14px">⚠️ If a stage is still not completed 15 days after the deadline, MahaPAR sends the APAR on to the next stage without it, and records it as late against the person who held it.</div>
+    </div>
   </div>
 
   <div class="grid g-2-1">
     <div>
       <div class="card">
         <h2>Authority mapping</h2>
-        <div class="sub">Part 1.1 as declared by each officer, against the chain in eHRMS. A mismatch blocks the APAR until it is settled.</div>
+        <div class="sub">Who each official has named as their reporting and reviewing officer, checked against eHRMS. If the two do not agree, the APAR cannot move until it is settled.</div>
         <table>
-          <tr><th>Officer</th><th>Post</th><th>Reporting officer</th><th>Reviewing officer</th><th>Status</th><th></th></tr>
-          <tr><td><b>Shri A. B. Sawant</b></td><td>Section Officer</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this officer.')">View</button></td></tr>
+          <tr><th>Official</th><th>Post</th><th>Reporting officer</th><th>Reviewing officer</th><th>Status</th><th></th></tr>
+          <tr><td><b>Shri A. B. Sawant</b></td><td>Section Officer</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this official.')">View</button></td></tr>
           <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Shri R. S. Gokhale <span class="tag grey">2 chgs</span></td><td>Shri E. F. Rane</td><td><span class="tag warn">NRC requested</span></td><td><button class="btn sm" onclick="openNRC()">Act</button></td></tr>
-          <tr><td><b>Shri L. M. Pawar</b></td><td>Senior Clerk (Form B)</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this officer.')">View</button></td></tr>
+          <tr><td><b>Shri L. M. Pawar</b></td><td>Senior Clerk (Form B)</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this official.')">View</button></td></tr>
           <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td><span style="color:var(--red)">Not mapped</span></td><td>Shri E. F. Rane</td><td><span class="tag red">Blocked</span></td><td><button class="btn sm amber" onclick="toast('Mapping screen: assign a reporting officer from the eHRMS chain, or record the post as vacant.')">Map</button></td></tr>
         </table>
-        <div class="note warn" style="margin-top:14px">⚠️ <b>4 officers have no reporting officer mapped.</b> Until the chain is complete, timeliness marks cannot be calculated and the accepting authority (Part 5) will have to close those APARs manually.</div>
+        <div class="note warn" style="margin-top:14px">⚠️ <b>4 officials have no reporting officer mapped.</b> Until the chain is complete, timeliness marks cannot be calculated and the accepting authority (Part 5) will have to close those APARs manually.</div>
       </div>
 
       <div class="card">
         <h2>Memo oversight</h2>
-        <div class="sub">The custodian sees that memos exist and whether they were answered — never their contents. This is the audit trail that makes a low grade defensible.</div>
+        <div class="sub">The custodian can see how many memos were issued and whether they were answered. The custodian cannot read them.</div>
         <table>
-          <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Unanswered</th><th>Officers with zero memos</th></tr>
+          <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Unanswered</th><th>Officials with zero memos</th></tr>
           <tr><td>Shri C. D. Joshi</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
           <tr><td>Shri R. S. Gokhale</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
           <tr><td>Shri E. F. Rane</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
         </table>
-        <div class="note info" style="margin-top:14px">ℹ️ GAD can use this to see which reporting officers never record a concern during the year, and then grade everyone above the benchmark at the end of it.</div>
+        <div class="note info" style="margin-top:14px">ℹ️ This shows which reporting officers raised no concern at any point in the year, and then graded everyone above the benchmark at the end of it.</div>
       </div>
     </div>
 
@@ -262,24 +284,24 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card">
         <h2>Custodian actions</h2>
         <div class="btnrow" style="flex-direction:column">
-          <button class="btn wide" onclick="toast('Cycle 2026–27 would be created and APARs opened for all mapped officers.')">Create next cycle</button>
-          <button class="btn wide ghost" onclick="toast('Reminders queued to 88 officers whose self-appraisal is pending.')">Send deadline reminders</button>
+          <button class="btn wide" onclick="toast('Cycle 2026–27 would be created and APARs opened for all mapped officials.')">Create next cycle</button>
+          <button class="btn wide ghost" onclick="toast('Reminders queued to 88 officials whose self-appraisal is pending.')">Send deadline reminders</button>
           <button class="btn wide ghost" onclick="toast('Disclosure runs only after the reviewing stage closes.')">Disclose completed APARs</button>
           <button class="btn wide grey" onclick="toast('Export of the mapping and timeliness register.')">Export register</button>
         </div>
       </div>
       <div class="card">
         <h2>NRC queue</h2>
-        <div class="sub">Service under a reporting officer of less than 3 months.</div>
+        <div class="sub">Where an official served under a reporting officer for less than 3 months.</div>
         <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Pending</span></div>
           <div class="meta">Under Shri R. S. Gokhale · 01/04/2025 – 10/06/2025 · 2 months 10 days</div>
           <div class="btnrow"><button class="btn sm" onclick="openNRC()">Verify and issue</button><button class="btn sm grey" onclick="toast('Rejection needs a recorded reason.')">Reject</button></div>
         </div>
-        <div class="note info">ℹ️ An NRC is not a bar to promotion.</div>
+        <div class="note info">ℹ️ A No Report Certificate simply records that there was no reporting officer for that period. It does not count against the official in any way, including for promotion.</div>
       </div>
       <div class="card">
         <h2>Timeliness register</h2>
-        <div class="sub">Part 6 is generated, never entered.</div>
+        <div class="sub">You do not fill this in. MahaPAR works it out from the dates on which each stage was signed.</div>
         <table>
           <tr><th>Stage</th><th>On time</th><th>Late</th></tr>
           <tr><td>Self-appraisal</td><td>1,109</td><td>88</td></tr>
@@ -295,19 +317,18 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <!-- ======================= SELF APPRAISAL ======================= -->
 <section class="pane on" id="pane-self">
   <div class="ph"><h1>Self-appraisal · Form A, Parts 1 and 2</h1>
-  <p>Four sections. Part 1 arrives pre-filled from Sevaarth; the officer confirms the chain, then fills the whole of Part 2 on a single scroll. Memos received during the year sit beside the form, so nothing in the assessment is a surprise.</p></div>
+  <p>Four sections. Part 1 is already filled in from Sevaarth. Confirm who reported on you, then complete Part 2 and sign. Any memos issued to you during the year are shown alongside.</p></div>
 
   <div class="grid g-1-2">
     <div>
       <div class="card">
         <h2>Sections</h2>
         <ul class="steplist" id="selfSteps">
-          <li class="on" onclick="selfStep(1)"><span class="n">1</span><div>Officer details<small>Part 1 · pre-filled</small></div></li>
+          <li class="on" onclick="selfStep(1)"><span class="n">1</span><div>Official details<small>Part 1 · pre-filled</small></div></li>
           <li onclick="selfStep(2)"><span class="n">2</span><div>Reporting chain and NRC<small>Part 1.1–1.2</small></div></li>
           <li onclick="selfStep(3)"><span class="n">3</span><div>Self-appraisal form<small>Part 2.1–2.6 · one page</small></div></li>
           <li onclick="selfStep(4)"><span class="n">4</span><div>Review and sign<small>DSC / eSign</small></div></li>
         </ul>
-        <div class="note info" style="margin-top:10px">ℹ️ The whole of Part 2 is on one page. Scroll through it; nothing is hidden behind another button.</div>
       </div>
       <div class="card">
         <h2>Memos received this year</h2>
@@ -322,7 +343,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <!-- step 1 -->
       <div class="wiz on" id="self1">
         <div class="card">
-          <div class="part">Part 1 · officer details</div>
+          <div class="part">Part 1 · official details</div>
           <div class="note info">ℹ️ Grey fields come from Sevaarth and your service record. To correct one, raise a service-record request; it cannot be edited here.</div>
           <div class="two">
             <div class="ro"><b>Name</b>Shri A. B. Sawant</div>
@@ -343,25 +364,24 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="card">
           <div class="part">Part 1.1 · reporting chain</div>
           <div class="q">Who reported on you this year?</div>
-          <div class="hint">Add a row for each change of officer during the year. The establishment officer verifies this before the form moves on.</div>
+          <div class="hint">Add a row for each change of official during the year. The establishment officer verifies this before the form moves on.</div>
           <table>
             <tr><th>Role</th><th>Name and post</th><th>From</th><th>To</th></tr>
             <tr><td>Reporting officer</td><td><select><option>Shri C. D. Joshi — Deputy Secretary</option><option>Shri R. S. Gokhale — Deputy Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
             <tr><td>Reviewing officer</td><td><select><option>Shri E. F. Rane — Joint Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
             <tr><td>Accepting authority</td><td><select><option>Not applicable</option><option>Pr. Secretary, Revenue &amp; Forest</option></select></td><td colspan="2" style="color:var(--muted);font-size:12px">Acts only where a stage is missing (Part 5)</td></tr>
           </table>
-          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A row is added for the next change of officer.')">+ Add another officer</button></div>
+          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A row is added for the next change of official.')">+ Add another official</button></div>
           <div class="rule"></div>
           <div class="part">Part 1.2 · No Report Certificate</div>
           <div class="checks"><label><input type="checkbox"><span>I served under this reporting officer for less than 3 months and request an NRC for this period.</span></label></div>
-          <div class="note info">ℹ️ The establishment officer verifies and issues the NRC in MahaPAR. An NRC is not a bar to promotion.</div>
+          <div class="note info">ℹ️ The establishment officer checks this and issues the certificate in MahaPAR. It records that there was no reporting officer for that period, and does not count against you in any way.</div>
           <div class="btnrow"><button class="btn grey" onclick="selfStep(1)">Back</button><button class="btn" onclick="selfStep(3)">Continue</button></div>
         </div>
       </div>
 
       <!-- step 3 · the whole of Part 2 on one scroll -->
       <div class="wiz" id="self3">
-        <div class="note info" style="margin-bottom:14px">ℹ️ <b>Part 2 in full.</b> Targets, your work this year, training and the technical-cadre question are all on this page. Scroll down to complete them, then continue to review and sign.</div>
         <div class="card">
           <div class="part">Part 2.1 · targets</div>
           <div class="q">Were targets set for your post this year?</div>
@@ -432,7 +452,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <h3>Check before you sign</h3>
           <div class="sub">Everything recorded in Parts 1 and 2. Select any row to go back to it.</div>
           <table style="margin-top:8px">
-            <tr onclick="selfStep(1)" style="cursor:pointer"><td>Part 1 · officer details and leave</td><td><span class="tag ok">Complete</span></td></tr>
+            <tr onclick="selfStep(1)" style="cursor:pointer"><td>Part 1 · official details and leave</td><td><span class="tag ok">Complete</span></td></tr>
             <tr onclick="selfStep(2)" style="cursor:pointer"><td>Part 1.1–1.2 · reporting chain and NRC</td><td><span class="tag ok">Complete</span></td></tr>
             <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.1 Targets</td><td><span class="tag ok">2 entered</span></td></tr>
             <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.2 Most significant contribution</td><td><span class="tag ok" id="chk22">31 words</span></td></tr>
@@ -459,9 +479,9 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <div class="card">
     <h2>Pending with me</h2>
     <table>
-      <tr><th>Officer</th><th>Form</th><th>Self-appraisal</th><th>Memos issued this year</th><th>Deadline</th><th></th></tr>
+      <tr><th>Official</th><th>Form</th><th>Self-appraisal</th><th>Memos issued this year</th><th>Deadline</th><th></th></tr>
       <tr><td><b>Shri A. B. Sawant</b> · Section Officer</td><td>A</td><td><span class="tag ok">Submitted 28 Apr</span></td><td><span class="tag warn">2 · 1 unanswered</span></td><td>31 May 2026</td><td><button class="btn sm" onclick="scrollTo(0,520)">Open</button></td></tr>
-      <tr><td><b>Smt. J. K. More</b> · Asst Section Officer</td><td>A</td><td><span class="tag red">Auto-forwarded</span></td><td><span class="tag grey">None</span></td><td><span style="color:var(--red)">Overdue 4 days</span></td><td><button class="btn sm ghost" onclick="toast('Demo shows one APAR in full. This officer has no memo record, so a below-benchmark grade would carry no documentation.')">Open</button></td></tr>
+      <tr><td><b>Smt. J. K. More</b> · Asst Section Officer</td><td>A</td><td><span class="tag red">Deadline passed</span></td><td><span class="tag grey">None</span></td><td><span style="color:var(--red)">Overdue 4 days</span></td><td><button class="btn sm ghost" onclick="toast('Demo shows one APAR in full. This official has no memo record, so a below-benchmark grade would carry no documentation.')">Open</button></td></tr>
       <tr><td><b>Shri L. M. Pawar</b> · Senior Clerk</td><td>B</td><td><span class="tag ok">Submitted 22 Apr</span></td><td><span class="tag warn">1 · answered</span></td><td>31 May 2026</td><td><button class="btn sm ghost" onclick="toast('Form B has five items in two halves of 50%, plus a fitness judgment.')">Open</button></td></tr>
     </table>
   </div>
@@ -469,7 +489,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <div class="grid g-2-1">
     <div>
       <div class="card">
-        <h2>What the officer wrote</h2>
+        <h2>What the official wrote</h2>
         <div class="sub">Part 2, read-only.</div>
         <div class="ro"><b>2.2 Most significant contribution</b>Redesigned the district land-records grievance workflow on eOffice. Cut average disposal time from 41 days to 23 days across six talukas and cleared a backlog of 1,340 cases.</div>
         <table>
@@ -503,7 +523,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <textarea id="mBody" placeholder="State the specific instance, date and what improvement is expected. Maximum 150 words."></textarea>
             <div class="counter" id="mCount">0 / 150 words</div></label>
           <label class="f"><span>Response due by</span><input type="date" id="mDue" value="2025-09-30"></label>
-          <div class="checks"><label><input type="checkbox" id="mNotify" checked><span>Notify the officer that their response, or failure to respond, may be considered during the APAR assessment.</span></label></div>
+          <div class="checks"><label><input type="checkbox" id="mNotify" checked><span>Notify the official that their response, or failure to respond, may be considered during the APAR assessment.</span></label></div>
           <div class="btnrow"><button class="btn" onclick="sendMemo()">Sign and send memo</button><button class="btn grey" onclick="show('memoComposer',0)">Cancel</button></div>
         </div>
 
@@ -512,8 +532,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
       <div class="card">
         <div class="part">Part 3.1 · grading</div>
-        <div class="q">Grade each dimension from 1 to 10, compared with officers at the same level</div>
-        <div class="hint">System data is reference for the dimension it sits under; it is not weighted separately.</div>
+        <div class="q">Grade each dimension from 1 to 10, compared with officials at the same level</div>
+        <div class="hint">The figures shown under a heading are there to help you judge it. They do not add to or subtract from the score by themselves.</div>
 
         <div class="grp">Work output · 40%</div>
         <div class="dim"><div class="nm">1. Delivery of planned work</div><div class="cv">Targets met, timeliness, unforeseen tasks</div>
@@ -541,7 +561,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </div>
 
         <div class="hidebox" id="lowBox">
-          <div class="note danger">⚠️ <b>This overall grade is below the benchmark of 6.</b> You may attach memos or notices issued during the year as proof that the officer was advised and given opportunities to improve.</div>
+          <div class="note danger">⚠️ <b>This overall grade is below the benchmark of 6.</b> You may attach memos or notices issued during the year as proof that the official was advised and given opportunities to improve.</div>
           <div class="checks"><label><input type="checkbox" id="attachMemo" checked onchange="renderAttach()"><span>Attach the memo record for this year as evidence</span></label></div>
           <div id="attachList"></div>
         </div>
@@ -565,7 +585,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
         <div class="rule"></div>
         <div class="part">Part 3.4</div>
-        <div class="q">Do you agree with the officer's self-appraisal in Part 2?</div>
+        <div class="q">Do you agree with the official's self-appraisal in Part 2?</div>
         <div class="radios">
           <label><input type="radio" name="ag" checked onclick="show('agBox',0)"><span>Yes</span></label>
           <label><input type="radio" name="ag" onclick="show('agBox',1)"><span>No — state the facts</span></label>
@@ -573,7 +593,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="hidebox" id="agBox"><textarea id="t34" oninput="wc('t34','c34',50)" placeholder="State the facts. Maximum 50 words."></textarea><div class="counter" id="c34"></div></div>
 
         <div class="note info" style="margin-top:14px">ℹ️ Signing locks Part 3 and sends the APAR to the reviewing officer, Shri E. F. Rane.</div>
-        <div class="btnrow"><button class="btn ghost" onclick="toast('Draft saved. The officer cannot see a draft.')">Save draft</button><button class="btn" id="signRep" onclick="signReporting()">Sign and forward</button></div>
+        <div class="btnrow"><button class="btn ghost" onclick="toast('Draft saved. The official cannot see a draft.')">Save draft</button><button class="btn" id="signRep" onclick="signReporting()">Sign and forward</button></div>
       </div>
     </div>
 
@@ -654,7 +674,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card" style="margin-top:18px">
         <h2>Part 5 · accepting authority</h2>
         <div class="sub">Opens only where a stage was never completed.</div>
-        <div class="note danger">⚠️ Smt. J. K. More: the reporting stage was auto-forwarded on 01/06/2026 and never recorded.</div>
+        <div class="note danger">⚠️ Smt. J. K. More: the reporting officer never recorded an assessment. MahaPAR sent the APAR on without it on 01/06/2026.</div>
         <div class="radios"><label><input type="radio" name="miss" checked><span>Reporting officer stage missing</span></label><label><input type="radio" name="miss"><span>Reviewing officer stage missing</span></label></div>
         <textarea id="t52" oninput="wc('t52','c52',30)" placeholder="Action taken. Maximum 30 words."></textarea>
         <div class="counter" id="c52"></div>
@@ -667,7 +687,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <!-- ======================= DISCLOSURE ======================= -->
 <section class="pane" id="pane-disclosure">
   <div class="ph"><h1>Disclosure and representation</h1>
-  <p>Every outcome is disclosed through MahaPAR. The officer has 15 days to represent. Because the memos and the officer's responses are already on record, a representation argues about the assessment, not about whether the concern was ever raised.</p></div>
+  <p>Every outcome is disclosed through MahaPAR. The official has 15 days to represent. Because the memos and the official's responses are already on record, a representation argues about the assessment, not about whether the concern was ever raised.</p></div>
 
   <div class="grid g-2-1">
     <div>
@@ -677,7 +697,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <table>
           <tr><th>Item</th><th>Value</th></tr>
           <tr><td>Overall grade (95% once timeliness applies)</td><td><b id="dOverall">—</b></td></tr>
-          <tr><td>Timeliness marks (5%)</td><td><b style="color:var(--red)">−0.2</b> · 2 of your own stages auto-forwarded</td></tr>
+          <tr><td>Timeliness marks (5%)</td><td><b style="color:var(--red)">−0.2</b> · 2 APARs went past their deadline with you</td></tr>
           <tr><td><b>Final score</b></td><td><b id="dFinal">—</b> out of 10</td></tr>
           <tr><td>Integrity</td><td>Beyond doubt</td></tr>
           <tr><td>Memos issued during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>
@@ -699,7 +719,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <p style="font-size:12.5px;color:#374151">The concern raised by JS Badgeri is that reporting officers avoid low grades because nothing was documented. Three things in these windows close that gap:</p>
         <ul style="font-size:12.5px;margin:10px 0 0 16px;color:#374151">
           <li style="margin-bottom:7px"><b>A memo can be issued any day of the year</b>, from the reporting officer's own window, in under a minute.</li>
-          <li style="margin-bottom:7px"><b>The officer is told what it means</b> — that a response, or no response, may be considered at APAR time — so the record is fair before it is used.</li>
+          <li style="margin-bottom:7px"><b>The official is told what it means</b> — that a response, or no response, may be considered at APAR time — so the record is fair before it is used.</li>
           <li style="margin-bottom:7px"><b>The record surfaces by itself at grading</b>, on the dimension it concerns, and attaches as evidence when the grade falls below the benchmark.</li>
           <li><b>The custodian can see who issues none.</b> A reporting officer with 18 subordinates and zero memos, grading everyone above 6, is visible to GAD.</li>
         </ul>
@@ -719,7 +739,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
 </main>
 
-<footer>MahaPAR · draft user windows for discussion with GAD · IDinsight, October 2026 · demo data, no real officer records</footer>
+<footer>MahaPAR · draft user windows for discussion with GAD · IDinsight, October 2026 · demo data, no real official records</footer>
 
 <div class="toast" id="toast"></div>
 <div class="modal" id="nrcModal"><div class="box">
@@ -730,7 +750,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
     <label><input type="radio" name="nrc" checked><span>Verified — issue the No Report Certificate for this period</span></label>
     <label><input type="radio" name="nrc"><span>Reject — service was 3 months or more (reason required)</span></label>
   </div>
-  <div class="note info">ℹ️ An NRC is not a bar to promotion. The reviewing officer's assessment stands for the rest of the year.</div>
+  <div class="note info">ℹ️ The certificate only records that there was no reporting officer for that period. It does not count against the official. The reviewing officer's assessment stands for the rest of the year.</div>
   <div class="btnrow"><button class="btn" onclick="closeNRC(1)">Sign and issue</button><button class="btn grey" onclick="closeNRC(0)">Cancel</button></div>
 </div></div>
 
@@ -742,9 +762,9 @@ const DIMNAMES={d1:'1. Delivery of planned work',d2:'2. Quality of work',d3:'3. 
 const grades={}; const revised={};
 const ROLES={
  custodian:['Shri G. H. Mane','Custodian / Establishment Officer, Revenue &amp; Forest Dept'],
- officer:['Shri A. B. Sawant','Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719'],
- reporting:['Shri C. D. Joshi','Deputy Secretary · reporting officer for 24 officers'],
- reviewing:['Shri E. F. Rane','Joint Secretary · reviewing officer for 9 officers']
+ official:['Shri A. B. Sawant','Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719'],
+ reporting:['Shri C. D. Joshi','Deputy Secretary · reporting officer for 24 officials'],
+ reviewing:['Shri E. F. Rane','Joint Secretary · reviewing officer for 9 officials']
 };
 let memos=[
  {id:1,to:'Shri A. B. Sawant',from:'Shri C. D. Joshi',date:'18 Aug 2025',cat:'Delivery of planned work',
@@ -776,12 +796,18 @@ function go(t){
 function setRole(r){
  document.getElementById('roleName').textContent=ROLES[r][0];
  document.getElementById('roleDesc').innerHTML=ROLES[r][1];
- go(r==='officer'?'self':r);
+ go(r==='official'?'self':r);
  toast('Now walking through as '+ROLES[r][0]+'.');
 }
 const CYCLE=[['Cycle created','done'],['Part 1 verified','done'],['Self-appraisal','now'],['Reporting stage',''],
  ['Reviewing stage',''],['Disclosure',''],['Representation',''],['APAR closed','']];
 let cyclePos=2;
+function togglePend(){
+ const p=document.getElementById('pendPanel');
+ const on=!p.classList.contains('on');
+ p.classList.toggle('on',on);
+ if(on)setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'nearest'}),30);
+}
 function renderCycle(){
  document.getElementById('cycleStrip').innerHTML=CYCLE.map((c,i)=>{
   const st=i<cyclePos?'done':(i===cyclePos?'now':'');
@@ -837,7 +863,7 @@ function sendMemo(){
   due:document.getElementById('mDue').value||'not set',status:'await',resp:''});
  document.getElementById('mSub').value='';document.getElementById('mBody').value='';wcMemo();
  renderMemos(); show('memoComposer',0);
- toast('Memo signed and sent in eHRMS. The officer is notified that the response, or absence of one, may be considered at APAR time.');
+ toast('Memo signed and sent in eHRMS. The official is notified that the response, or absence of one, may be considered at APAR time.');
 }
 function wcMemo(){const n=words(document.getElementById('mBody').value);
  const el=document.getElementById('mCount');el.textContent=n+' / 150 words';el.classList.toggle('bad',n>150);}
@@ -848,7 +874,7 @@ function memoCard(m,showResp){
  return `<div class="memo ${cls}"><div class="top"><b>${m.sub}</b>${tag}</div>
   <div class="meta">To ${m.to} · from ${m.from} · issued ${m.date} · response due ${m.due} · ${m.cat}</div>
   <p>${m.body}</p>
-  ${showResp&&m.resp?`<div class="resp"><b>Officer's response</b>${m.resp}</div>`:''}
+  ${showResp&&m.resp?`<div class="resp"><b>Official's response</b>${m.resp}</div>`:''}
   ${showResp&&m.status==='none'?`<div class="note warn" style="margin:9px 0 0">⚠️ No response was recorded by the due date.</div>`:''}
   </div>`;
 }
@@ -869,7 +895,7 @@ function renderAttach(){
  const mine=memos.filter(m=>m.to==='Shri A. B. Sawant');
  box.innerHTML=on?`<table><tr><th>Memo</th><th>Issued</th><th>Response</th></tr>`+
   mine.map(m=>`<tr><td>${m.sub}</td><td>${m.date}</td><td>${m.status==='none'?'<span class="tag red">None</span>':'<span class="tag ok">On record</span>'}</td></tr>`).join('')+
-  `</table><div class="note info" style="margin-top:10px">ℹ️ These memos attach to the APAR as evidence that the officer was advised and given opportunities to improve.</div>`:'';
+  `</table><div class="note info" style="margin-top:10px">ℹ️ These memos attach to the APAR as evidence that the official was advised and given opportunities to improve.</div>`:'';
 }
 function insertMemoRef(){
  const mine=memos.filter(m=>m.to==='Shri A. B. Sawant');
