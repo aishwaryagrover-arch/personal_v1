@@ -195,7 +195,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
 <nav id="nav">
   <button data-tab="custodian" onclick="go('custodian')">Custodian: mapping &amp; workflow</button>
-  <button data-tab="memos" onclick="go('memos')">Memos <span class="count" id="memoCount">4</span></button>
+  <button data-tab="memos" onclick="go('memos')">eHRMS: memos <span class="count" id="memoCount">4</span></button>
   <button data-tab="self" class="on" onclick="go('self')">My APAR: self-appraisal</button>
   <button data-tab="reporting" onclick="go('reporting')">Reporting officer <span class="count" id="repCount">3</span></button>
   <button data-tab="reviewing" onclick="go('reviewing')">Reviewing officer <span class="count">1</span></button>
@@ -297,16 +297,30 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
 <!-- ======================= MEMOS ======================= -->
 <section class="pane" id="pane-memos">
-  <div class="ph"><h1>Memos: a running record during the year</h1>
-  <p>Responding to the point raised by JS Badgeri: reporting officers hesitate to grade below the benchmark because nothing was documented during the year. MahaPAR lets a reporting officer issue a memo at any point in the assessment year, the officer respond to it, and both appear automatically on the grading screen when the APAR opens.</p></div>
+  <div class="ph"><h1>Memos are issued in eHRMS, and read by MahaPAR</h1>
+  <p>Responding to the point raised in the GAD discussion: reporting officers hesitate to grade below the benchmark because nothing was recorded during the year. A memo is issued at any time of year — which is why it belongs in eHRMS, where the reporting chain is already maintained, and not in MahaPAR, which opens only when a cycle is running. MahaPAR reads the memos for the assessment year when the APAR reaches the grading stage.</p></div>
 
-  <div class="note warn"><b>How the memo record is used.</b> A memo is a record of a performance concern, not a punishment and not a disciplinary proceeding. The officer is notified that the response — or the absence of one — may be considered at APAR time. Memos issued in the assessment year attach themselves to that year's APAR and are visible to the officer, the reporting officer, the reviewing officer and, as a count only, the custodian.</p></div>
+  <div class="card" style="border-left:4px solid var(--saffron)">
+    <h2>Where the memo sits, and how it reaches the APAR</h2>
+    <div class="sub">The record is created once, in eHRMS. MahaPAR does not hold a separate memo module.</div>
+    <div class="flow">
+      <div class="node" style="border-left:3px solid var(--saffron)"><b>1 · eHRMS, any day of the year</b><small>The reporting officer issues the memo to a subordinate from their own eHRMS window. The chain is already mapped there.</small></div>
+      <div class="node" style="border-left:3px solid var(--saffron)"><b>2 · eHRMS, officer's window</b><small>The officer sees it beside their leave and service record, and replies within the due date.</small></div>
+      <div class="node" style="border-left:3px solid var(--blue)"><b>3 · MahaPAR, at grading</b><small>MahaPAR pulls the memos dated within the assessment year and shows them on the dimension each concerns.</small></div>
+      <div class="node" style="border-left:3px solid var(--blue)"><b>4 · MahaPAR, below benchmark</b><small>Where the overall grade falls under 6, the memo record attaches to the APAR as evidence.</small></div>
+    </div>
+    <div class="note info" style="margin-top:12px">ℹ️ <b>No standalone memo window is needed in MahaPAR.</b> Issuing and replying happen in eHRMS; MahaPAR only reads the register. The screens below show the eHRMS side.</div>
+  </div>
+
+  <div class="note warn"><b>How the memo record is used.</b> A memo is a record of a performance concern. It is not a punishment and not a proceeding under the disciplinary rules. The officer is told that the reply — or the absence of one — may be considered at APAR time. Memos dated within the assessment year attach to that year's APAR and are visible to the officer, the reporting officer and the reviewing officer; the custodian sees counts only.</div>
+
+  <div class="note danger"><b>For GAD's decision.</b> Because the memo will sit in eHRMS alongside the service record, it should be stated in the circular that it is a performance-concern memo and carries no disciplinary consequence by itself. Without that, officers may read it as an adverse service entry.</div>
 
   <div class="grid g-1-2">
     <div>
       <div class="card" id="memoComposer">
-        <h2>Send a memo</h2>
-        <div class="sub">Reporting officers only. Available all year, not only at APAR time.</div>
+        <h2>eHRMS · issue a memo</h2>
+        <div class="sub">In the reporting officer's eHRMS window. Available any day of the year, whether or not an APAR cycle is open.</div>
         <label class="f"><span>To (your subordinate)</span>
           <select id="mTo"><option>Shri A. B. Sawant — Section Officer</option><option>Smt. J. K. More — Asst Section Officer</option><option>Shri L. M. Pawar — Senior Clerk</option></select></label>
         <label class="f"><span>Concern relates to</span>
@@ -328,13 +342,13 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
     </div>
     <div>
       <div class="card">
-        <h2>Memo register · cycle 2025–26</h2>
+        <h2>eHRMS · memos issued, 2025–26</h2>
         <div class="sub" id="memoSummary"></div>
         <div id="memoList"></div>
       </div>
       <div class="card">
-        <h2>What the officer sees</h2>
-        <div class="sub">The same memo in the appraisee's window, with the reply box and the consequence stated plainly.</div>
+        <h2>eHRMS · what the officer sees</h2>
+        <div class="sub">In the officer's own eHRMS window, beside leave and service record, with the reply box and the consequence stated plainly.</div>
         <div class="memo none"><div class="top"><b>Delay in filing quarterly returns</b><span class="tag red">No response · 41 days</span></div>
           <div class="meta">From Shri C. D. Joshi, Deputy Secretary · issued 18 Aug 2025 · response was due 30 Sep 2025</div>
           <p>Quarterly returns for Q1 were filed 23 days late despite two reminders. Returns for Q2 are to be filed within the statutory date.</p>
@@ -535,8 +549,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <h2>Memo record for this assessment year</h2>
         <div class="sub">Issued by you during 2025–26. Shown here automatically; you cannot add a memo dated in the past.</div>
         <div id="repMemos"></div>
-        <div class="btnrow"><button class="btn amber" onclick="go('memos')">Send a new memo</button></div>
-        <div class="note info" style="margin-top:12px">ℹ️ A memo issued now is dated today and attaches to the <b>current</b> cycle, not to the year being assessed. Issue memos when the concern arises.</div>
+        <div class="btnrow"><button class="btn amber" onclick="go('memos')">Issue a memo in eHRMS</button></div>
+        <div class="note info" style="margin-top:12px">ℹ️ Memos are issued in eHRMS, not here. One issued today is dated today and attaches to the <b>current</b> cycle, not to the year being assessed — so a concern should be recorded when it arises.</div>
       </div>
 
       <div class="card">
