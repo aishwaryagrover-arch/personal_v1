@@ -171,6 +171,18 @@ tr:last-child td{border-bottom:none}
 .ro{background:#F7F8FA;border:1px solid var(--border);border-radius:8px;padding:11px 13px;font-size:13px;margin-bottom:12px}
 .ro b{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px;font-weight:600}
 footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
+
+/* custodian count tiles — colour taken from the eHRMS APAR wireframes */
+.ctile{border-radius:14px;padding:16px 18px;color:#fff;position:relative;overflow:hidden;
+  box-shadow:0 4px 14px rgba(23,54,93,.13)}
+.ctile.amber{background:linear-gradient(135deg,#F7A83E,#F2C14E)}
+.ctile.blue{background:linear-gradient(135deg,#4E9AF1,#2F7BE0)}
+.ctile.pink{background:linear-gradient(135deg,#FB7BA2,#F4597F)}
+.ctile span{font-size:12.5px;display:block;opacity:.95;max-width:78%;line-height:1.35}
+.ctile b{font-size:32px;font-weight:700;display:block;line-height:1;margin-top:6px}
+.ctile i{font-style:normal;font-size:11.5px;opacity:.9;display:block;margin-top:4px}
+.ctile::after{content:'';position:absolute;right:-24px;top:-24px;width:86px;height:86px;
+  border-radius:50%;background:rgba(255,255,255,.16)}
 </style>
 </head>
 <body>
@@ -213,24 +225,9 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <p>The custodian creates the cycle, maps every officer to a reporting and reviewing officer, verifies Part 1, issues No Report Certificates, and watches where the cycle is stuck. Nothing here is a grade — the custodian never sees or changes an assessment.</p></div>
 
   <div class="grid g-3" style="margin-bottom:18px">
-    <div class="stat"><b>1,284</b><span>Officers in this cycle</span></div>
-    <div class="stat"><b>96%</b><span>Reporting chain mapped</span></div>
-    <div class="stat"><b>47</b><span>Stages overdue, auto-forward pending</span></div>
-  </div>
-
-  <div class="card">
-    <h2>Cycle workflow and where it stands</h2>
-    <div class="sub">Each stage has a GAD-notified deadline. A stage not completed by then is forwarded automatically and recorded as late.</div>
-    <div class="flow">
-      <div class="node"><b>1. Cycle created</b><small>14 Apr 2026 · 1,284 APARs opened</small><br><span class="tag ok">Done</span></div>
-      <div class="node"><b>2. Part 1 verified</b><small>Establishment officer · 1,231 of 1,284</small><br><span class="tag ok">Done</span></div>
-      <div class="node"><b>3. Self-appraisal</b><small>Due 30 Apr · 1,109 submitted, 88 auto-forwarded</small><br><span class="tag warn">In progress</span></div>
-      <div class="node"><b>4. Reporting stage</b><small>Due 31 May · 612 signed</small><br><span class="tag warn">In progress</span></div>
-      <div class="node"><b>5. Reviewing stage</b><small>Due 30 Jun</small><br><span class="tag grey">Not started</span></div>
-      <div class="node"><b>6. Disclosure</b><small>Custodian discloses in MahaPAR</small><br><span class="tag grey">Not started</span></div>
-      <div class="node"><b>7. Representation</b><small>15 days from disclosure</small><br><span class="tag grey">Not started</span></div>
-      <div class="node"><b>8. APAR closed</b><small>Custodian closes the cycle</small><br><span class="tag grey">Not started</span></div>
-    </div>
+    <div class="ctile amber"><span>Officers in this cycle</span><b>1,284</b><i>Cycle 2025–26, opened 14 Apr 2026</i></div>
+    <div class="ctile blue"><span>Reporting chain mapped</span><b>96%</b><i>4 officers not yet mapped</i></div>
+    <div class="ctile pink"><span>Stages overdue, auto-forward pending</span><b>47</b><i>Self-appraisal and reporting stages</i></div>
   </div>
 
   <div class="grid g-2-1">
