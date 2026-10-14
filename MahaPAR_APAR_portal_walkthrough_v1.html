@@ -175,7 +175,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 </head>
 <body>
 
-<div class="a11y"><span>Government of Maharashtra · General Administration Department</span><span><b>DRAFT FOR DISCUSSION</b> · IDinsight with GAD · October 2026 · demo data</span></div>
+<div class="a11y"><span>Government of Maharashtra · General Administration Department</span><span><b>DRAFT FOR DISCUSSION</b> · IDinsight with GAD · October 2026 · demo data · all names and figures are illustrative</span></div>
 
 <header class="site-header">
   <div class="brand">
@@ -185,10 +185,10 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <div class="whoami">
     <span style="color:var(--muted)">Walk through as</span>
     <select id="roleSel" onchange="setRole(this.value)">
-      <option value="custodian">Ashil V. Naik — Custodian / Establishment Officer</option>
-      <option value="officer" selected>Vishal V. Dhole — Section Officer (appraisee)</option>
-      <option value="reporting">Satish S. Nair — Deputy Secretary (reporting officer)</option>
-      <option value="reviewing">Dinesh D. Patil — Joint Secretary (reviewing officer)</option>
+      <option value="custodian">Shri G. H. Mane — Custodian / Establishment Officer</option>
+      <option value="officer" selected>Shri A. B. Sawant — Section Officer (appraisee)</option>
+      <option value="reporting">Shri C. D. Joshi — Deputy Secretary (reporting officer)</option>
+      <option value="reviewing">Shri E. F. Rane — Joint Secretary (reviewing officer)</option>
     </select>
   </div>
 </header>
@@ -202,7 +202,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <button data-tab="disclosure" onclick="go('disclosure')">Disclosure &amp; representation</button>
 </nav>
 
-<div class="rolebar"><span class="dot"></span><span>Signed in as <b id="roleName">Vishal V. Dhole</b> · <span id="roleDesc">Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719</span></span></div>
+<div class="rolebar"><span class="dot"></span><span>Signed in as <b id="roleName">Shri A. B. Sawant</b> · <span id="roleDesc">Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719</span></span></div>
 
 <div class="cycle" id="cycleStrip"></div>
 
@@ -241,10 +241,10 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="sub">Part 1.1 as declared by each officer, against the chain in eHRMS. A mismatch blocks the APAR until it is settled.</div>
         <table>
           <tr><th>Officer</th><th>Post</th><th>Reporting officer</th><th>Reviewing officer</th><th>Status</th><th></th></tr>
-          <tr><td><b>Vishal V. Dhole</b></td><td>Section Officer</td><td>Satish S. Nair</td><td>Dinesh D. Patil</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this officer.')">View</button></td></tr>
-          <tr><td><b>Sunita R. Kale</b></td><td>Asst Section Officer</td><td>A. K. Desai <span class="tag grey">2 chgs</span></td><td>Dinesh D. Patil</td><td><span class="tag warn">NRC requested</span></td><td><button class="btn sm" onclick="openNRC()">Act</button></td></tr>
-          <tr><td><b>Prakash D. Shinde</b></td><td>Senior Clerk (Form B)</td><td>Satish S. Nair</td><td>Dinesh D. Patil</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this officer.')">View</button></td></tr>
-          <tr><td><b>Anil B. Jadhav</b></td><td>Section Officer</td><td><span style="color:var(--red)">Not mapped</span></td><td>Dinesh D. Patil</td><td><span class="tag red">Blocked</span></td><td><button class="btn sm amber" onclick="toast('Mapping screen: assign a reporting officer from the eHRMS chain, or record the post as vacant.')">Map</button></td></tr>
+          <tr><td><b>Shri A. B. Sawant</b></td><td>Section Officer</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this officer.')">View</button></td></tr>
+          <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Shri R. S. Gokhale <span class="tag grey">2 chgs</span></td><td>Shri E. F. Rane</td><td><span class="tag warn">NRC requested</span></td><td><button class="btn sm" onclick="openNRC()">Act</button></td></tr>
+          <tr><td><b>Shri L. M. Pawar</b></td><td>Senior Clerk (Form B)</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this officer.')">View</button></td></tr>
+          <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td><span style="color:var(--red)">Not mapped</span></td><td>Shri E. F. Rane</td><td><span class="tag red">Blocked</span></td><td><button class="btn sm amber" onclick="toast('Mapping screen: assign a reporting officer from the eHRMS chain, or record the post as vacant.')">Map</button></td></tr>
         </table>
         <div class="note warn" style="margin-top:14px">⚠️ <b>4 officers have no reporting officer mapped.</b> Until the chain is complete, timeliness marks cannot be calculated and the accepting authority (Part 5) will have to close those APARs manually.</div>
       </div>
@@ -254,9 +254,9 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="sub">The custodian sees that memos exist and whether they were answered — never their contents. This is the audit trail that makes a low grade defensible.</div>
         <table>
           <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Unanswered</th><th>Officers with zero memos</th></tr>
-          <tr><td>Satish S. Nair</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
-          <tr><td>A. K. Desai</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
-          <tr><td>Dinesh D. Patil</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
+          <tr><td>Shri C. D. Joshi</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
+          <tr><td>Shri R. S. Gokhale</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
+          <tr><td>Shri E. F. Rane</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
         </table>
         <div class="note info" style="margin-top:14px">ℹ️ GAD can use this to see which reporting officers never record a concern during the year, and then grade everyone above the benchmark at the end of it.</div>
       </div>
@@ -275,8 +275,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card">
         <h2>NRC queue</h2>
         <div class="sub">Service under a reporting officer of less than 3 months.</div>
-        <div class="memo"><div class="top"><b>Sunita R. Kale</b><span class="tag warn">Pending</span></div>
-          <div class="meta">Under A. K. Desai · 01/04/2025 – 10/06/2025 · 2 months 10 days</div>
+        <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Pending</span></div>
+          <div class="meta">Under Shri R. S. Gokhale · 01/04/2025 – 10/06/2025 · 2 months 10 days</div>
           <div class="btnrow"><button class="btn sm" onclick="openNRC()">Verify and issue</button><button class="btn sm grey" onclick="toast('Rejection needs a recorded reason.')">Reject</button></div>
         </div>
         <div class="note info">ℹ️ An NRC is not a bar to promotion.</div>
@@ -308,7 +308,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <h2>Send a memo</h2>
         <div class="sub">Reporting officers only. Available all year, not only at APAR time.</div>
         <label class="f"><span>To (your subordinate)</span>
-          <select id="mTo"><option>Vishal V. Dhole — Section Officer</option><option>Sunita R. Kale — Asst Section Officer</option><option>Prakash D. Shinde — Senior Clerk</option></select></label>
+          <select id="mTo"><option>Shri A. B. Sawant — Section Officer</option><option>Smt. J. K. More — Asst Section Officer</option><option>Shri L. M. Pawar — Senior Clerk</option></select></label>
         <label class="f"><span>Concern relates to</span>
           <select id="mCat">
             <option>Delivery of planned work</option><option>Quality of work</option>
@@ -336,7 +336,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <h2>What the officer sees</h2>
         <div class="sub">The same memo in the appraisee's window, with the reply box and the consequence stated plainly.</div>
         <div class="memo none"><div class="top"><b>Delay in filing quarterly returns</b><span class="tag red">No response · 41 days</span></div>
-          <div class="meta">From Satish S. Nair, Deputy Secretary · issued 18 Aug 2025 · response was due 30 Sep 2025</div>
+          <div class="meta">From Shri C. D. Joshi, Deputy Secretary · issued 18 Aug 2025 · response was due 30 Sep 2025</div>
           <p>Quarterly returns for Q1 were filed 23 days late despite two reminders. Returns for Q2 are to be filed within the statutory date.</p>
           <div class="note warn" style="margin:10px 0 0">⚠️ You did not respond by the due date. This memo and the absence of a response may be considered when your APAR is assessed.</div>
           <div class="btnrow"><button class="btn sm" onclick="toast('The reply window closed on 30 Sep 2025. A late reply can still be recorded and is shown as late.')">Respond late</button></div>
@@ -349,20 +349,19 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <!-- ======================= SELF APPRAISAL ======================= -->
 <section class="pane on" id="pane-self">
   <div class="ph"><h1>Self-appraisal · Form A, Parts 1 and 2</h1>
-  <p>Six steps. Part 1 arrives pre-filled from Sevaarth; the officer confirms the chain and fills Part 2 within the word limits. Memos received during the year sit beside the form, so nothing in the assessment is a surprise.</p></div>
+  <p>Four sections. Part 1 arrives pre-filled from Sevaarth; the officer confirms the chain, then fills the whole of Part 2 on a single scroll. Memos received during the year sit beside the form, so nothing in the assessment is a surprise.</p></div>
 
   <div class="grid g-1-2">
     <div>
       <div class="card">
-        <h2>Steps</h2>
+        <h2>Sections</h2>
         <ul class="steplist" id="selfSteps">
           <li class="on" onclick="selfStep(1)"><span class="n">1</span><div>Officer details<small>Part 1 · pre-filled</small></div></li>
           <li onclick="selfStep(2)"><span class="n">2</span><div>Reporting chain and NRC<small>Part 1.1–1.2</small></div></li>
-          <li onclick="selfStep(3)"><span class="n">3</span><div>Targets<small>Part 2.1 · if set</small></div></li>
-          <li onclick="selfStep(4)"><span class="n">4</span><div>Your work this year<small>Part 2.2–2.3</small></div></li>
-          <li onclick="selfStep(5)"><span class="n">5</span><div>Training<small>Part 2.4–2.5</small></div></li>
-          <li onclick="selfStep(6)"><span class="n">6</span><div>Review and sign<small>Part 2.6 · DSC / eSign</small></div></li>
+          <li onclick="selfStep(3)"><span class="n">3</span><div>Self-appraisal form<small>Part 2.1–2.6 · one page</small></div></li>
+          <li onclick="selfStep(4)"><span class="n">4</span><div>Review and sign<small>DSC / eSign</small></div></li>
         </ul>
+        <div class="note info" style="margin-top:10px">ℹ️ The whole of Part 2 is on one page. Scroll through it; nothing is hidden behind another button.</div>
       </div>
       <div class="card">
         <h2>Memos received this year</h2>
@@ -378,7 +377,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="part">Part 1 · officer details</div>
           <div class="note info">ℹ️ Grey fields come from Sevaarth and your service record. To correct one, raise a service-record request; it cannot be edited here.</div>
           <div class="two">
-            <div class="ro"><b>Name</b>Vishal Vinayak Dhole</div>
+            <div class="ro"><b>Name</b>Shri A. B. Sawant</div>
             <div class="ro"><b>Sevaarth ID</b>2048-7719</div>
             <div class="ro"><b>Cadre and group</b>Maharashtra Secretariat Service · Group B</div>
             <div class="ro"><b>Present post and office</b>Section Officer, Revenue &amp; Forest Dept, Mantralaya</div>
@@ -399,8 +398,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="hint">Add a row for each change of officer during the year. The establishment officer verifies this before the form moves on.</div>
           <table>
             <tr><th>Role</th><th>Name and post</th><th>From</th><th>To</th></tr>
-            <tr><td>Reporting officer</td><td><select><option>Satish S. Nair — Deputy Secretary</option><option>A. K. Desai — Deputy Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
-            <tr><td>Reviewing officer</td><td><select><option>Dinesh D. Patil — Joint Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
+            <tr><td>Reporting officer</td><td><select><option>Shri C. D. Joshi — Deputy Secretary</option><option>Shri R. S. Gokhale — Deputy Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
+            <tr><td>Reviewing officer</td><td><select><option>Shri E. F. Rane — Joint Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
             <tr><td>Accepting authority</td><td><select><option>Not applicable</option><option>Pr. Secretary, Revenue &amp; Forest</option></select></td><td colspan="2" style="color:var(--muted);font-size:12px">Acts only where a stage is missing (Part 5)</td></tr>
           </table>
           <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A row is added for the next change of officer.')">+ Add another officer</button></div>
@@ -412,8 +411,9 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </div>
       </div>
 
-      <!-- step 3 -->
+      <!-- step 3 · the whole of Part 2 on one scroll -->
       <div class="wiz" id="self3">
+        <div class="note info" style="margin-bottom:14px">ℹ️ <b>Part 2 in full.</b> Targets, your work this year, training and the technical-cadre question are all on this page. Scroll down to complete them, then continue to review and sign.</div>
         <div class="card">
           <div class="part">Part 2.1 · targets</div>
           <div class="q">Were targets set for your post this year?</div>
@@ -430,12 +430,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
               <tr><td><input type="text" placeholder="Target 3"></td><td><input type="text" placeholder="Achievement"></td></tr>
             </table>
           </div>
-          <div class="btnrow" style="margin-top:12px"><button class="btn grey" onclick="selfStep(2)">Back</button><button class="btn" onclick="selfStep(4)">Continue</button></div>
         </div>
-      </div>
 
-      <!-- step 4 -->
-      <div class="wiz" id="self4">
         <div class="card">
           <div class="part">Part 2.2</div>
           <div class="q">Your most significant contribution this year</div>
@@ -449,12 +445,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <textarea id="t23" oninput="wc('t23','c23',50)" placeholder="Optional — leave blank if none"></textarea>
           <div class="counter" id="c23"></div>
           <div class="note info" style="margin-top:12px">ℹ️ If a memo was issued to you during the year, answer it in the memo itself rather than here. Your reply is already on record and is shown to the reporting officer.</div>
-          <div class="btnrow"><button class="btn grey" onclick="selfStep(3)">Back</button><button class="btn" onclick="selfStep(5)">Continue</button></div>
         </div>
-      </div>
 
-      <!-- step 5 -->
-      <div class="wiz" id="self5">
         <div class="card">
           <div class="part">Part 2.4 · training completed</div>
           <div class="sub">Pulled from your iGOT record. Add anything iGOT does not hold.</div>
@@ -471,12 +463,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="hint">Choose up to three. Examples for each category are in the annexure.</div>
           <div class="chips" id="trainChips"></div>
           <div class="note info" id="chipNote">ℹ️ 0 of 3 selected.</div>
-          <div class="btnrow"><button class="btn grey" onclick="selfStep(4)">Back</button><button class="btn" onclick="selfStep(6)">Continue</button></div>
         </div>
-      </div>
 
-      <!-- step 6 -->
-      <div class="wiz" id="self6">
         <div class="card">
           <div class="part">Part 2.6 · technical cadre</div>
           <div class="q">Do you belong to a technical cadre?</div>
@@ -486,19 +474,29 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <label><input type="radio" name="tech" onclick="show('techBox',1)"><span>Yes — open the module for my cadre</span></label>
           </div>
           <div class="hidebox" id="techBox"><div class="note warn">⚠️ Module content is to be designed with each department. MahaPAR opens the cadre module here.</div></div>
-          <div class="rule"></div>
+          <div class="btnrow" style="margin-top:14px"><button class="btn grey" onclick="selfStep(2)">Back</button><button class="btn" onclick="selfStep(4)">Continue to review and sign</button></div>
+        </div>
+      </div>
+
+      <!-- step 4 · review and sign -->
+      <div class="wiz" id="self4">
+        <div class="card">
           <h3>Check before you sign</h3>
+          <div class="sub">Everything recorded in Parts 1 and 2. Select any row to go back to it.</div>
           <table style="margin-top:8px">
-            <tr><td>Part 1 details and reporting chain</td><td><span class="tag ok">Complete</span></td></tr>
-            <tr><td>2.1 Targets</td><td><span class="tag ok">2 entered</span></td></tr>
-            <tr><td>2.2 Most significant contribution</td><td><span class="tag ok" id="chk22">31 words</span></td></tr>
-            <tr><td>2.3 Systemic factors</td><td><span class="tag grey">Optional</span></td></tr>
-            <tr><td>2.4 Training</td><td><span class="tag ok">20 hours</span></td></tr>
+            <tr onclick="selfStep(1)" style="cursor:pointer"><td>Part 1 · officer details and leave</td><td><span class="tag ok">Complete</span></td></tr>
+            <tr onclick="selfStep(2)" style="cursor:pointer"><td>Part 1.1–1.2 · reporting chain and NRC</td><td><span class="tag ok">Complete</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.1 Targets</td><td><span class="tag ok">2 entered</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.2 Most significant contribution</td><td><span class="tag ok" id="chk22">31 words</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.3 Systemic factors</td><td><span class="tag grey">Optional · skipped</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.4 Training completed</td><td><span class="tag ok">20 hours</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.5 Training needed</td><td><span class="tag grey">Optional</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.6 Technical cadre</td><td><span class="tag ok">No</span></td></tr>
             <tr><td>Memos issued to you this year</td><td><span class="tag warn" id="chkMemo">2 · 1 unanswered</span></td></tr>
           </table>
           <div class="note warn" style="margin-top:14px">⚠️ One memo issued to you on 18 Aug 2025 has no response on record. You may still record a late response; it will be shown as late.</div>
-          <div class="note info">ℹ️ Signing locks Part 2 and sends the APAR to Satish S. Nair, Deputy Secretary. Paper forms are not accepted.</div>
-          <div class="btnrow"><button class="btn grey" onclick="selfStep(5)">Back</button><button class="btn ghost" onclick="toast('Draft saved. Nothing has gone to your reporting officer.')">Save draft</button><button class="btn" onclick="submitSelf()">Sign with DSC / eSign and submit</button></div>
+          <div class="note info">ℹ️ Signing locks Part 2 and sends the APAR to Shri C. D. Joshi, Deputy Secretary. Paper forms are not accepted.</div>
+          <div class="btnrow"><button class="btn grey" onclick="selfStep(3)">Back to the form</button><button class="btn ghost" onclick="toast('Draft saved. Nothing has gone to your reporting officer.')">Save draft</button><button class="btn" onclick="submitSelf()">Sign with DSC / eSign and submit</button></div>
         </div>
       </div>
     </div>
@@ -514,9 +512,9 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
     <h2>Pending with me</h2>
     <table>
       <tr><th>Officer</th><th>Form</th><th>Self-appraisal</th><th>Memos issued this year</th><th>Deadline</th><th></th></tr>
-      <tr><td><b>Vishal V. Dhole</b> · Section Officer</td><td>A</td><td><span class="tag ok">Submitted 28 Apr</span></td><td><span class="tag warn">2 · 1 unanswered</span></td><td>31 May 2026</td><td><button class="btn sm" onclick="scrollTo(0,520)">Open</button></td></tr>
-      <tr><td><b>Sunita R. Kale</b> · Asst Section Officer</td><td>A</td><td><span class="tag red">Auto-forwarded</span></td><td><span class="tag grey">None</span></td><td><span style="color:var(--red)">Overdue 4 days</span></td><td><button class="btn sm ghost" onclick="toast('Demo shows one APAR in full. This officer has no memo record, so a below-benchmark grade would carry no documentation.')">Open</button></td></tr>
-      <tr><td><b>Prakash D. Shinde</b> · Senior Clerk</td><td>B</td><td><span class="tag ok">Submitted 22 Apr</span></td><td><span class="tag warn">1 · answered</span></td><td>31 May 2026</td><td><button class="btn sm ghost" onclick="toast('Form B has five items in two halves of 50%, plus a fitness judgment.')">Open</button></td></tr>
+      <tr><td><b>Shri A. B. Sawant</b> · Section Officer</td><td>A</td><td><span class="tag ok">Submitted 28 Apr</span></td><td><span class="tag warn">2 · 1 unanswered</span></td><td>31 May 2026</td><td><button class="btn sm" onclick="scrollTo(0,520)">Open</button></td></tr>
+      <tr><td><b>Smt. J. K. More</b> · Asst Section Officer</td><td>A</td><td><span class="tag red">Auto-forwarded</span></td><td><span class="tag grey">None</span></td><td><span style="color:var(--red)">Overdue 4 days</span></td><td><button class="btn sm ghost" onclick="toast('Demo shows one APAR in full. This officer has no memo record, so a below-benchmark grade would carry no documentation.')">Open</button></td></tr>
+      <tr><td><b>Shri L. M. Pawar</b> · Senior Clerk</td><td>B</td><td><span class="tag ok">Submitted 22 Apr</span></td><td><span class="tag warn">1 · answered</span></td><td>31 May 2026</td><td><button class="btn sm ghost" onclick="toast('Form B has five items in two halves of 50%, plus a fitness judgment.')">Open</button></td></tr>
     </table>
   </div>
 
@@ -603,7 +601,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </div>
         <div class="hidebox" id="agBox"><textarea id="t34" oninput="wc('t34','c34',50)" placeholder="State the facts. Maximum 50 words."></textarea><div class="counter" id="c34"></div></div>
 
-        <div class="note info" style="margin-top:14px">ℹ️ Signing locks Part 3 and sends the APAR to the reviewing officer, Dinesh D. Patil.</div>
+        <div class="note info" style="margin-top:14px">ℹ️ Signing locks Part 3 and sends the APAR to the reviewing officer, Shri E. F. Rane.</div>
         <div class="btnrow"><button class="btn ghost" onclick="toast('Draft saved. The officer cannot see a draft.')">Save draft</button><button class="btn" id="signRep" onclick="signReporting()">Sign and forward</button></div>
       </div>
     </div>
@@ -642,8 +640,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <div class="grid g-2-1">
     <div>
       <div class="card">
-        <h2>Vishal V. Dhole · Section Officer</h2>
-        <div class="sub">Reported on by Satish S. Nair, Deputy Secretary · signed 19 May 2026</div>
+        <h2>Shri A. B. Sawant · Section Officer</h2>
+        <div class="sub">Reported on by Shri C. D. Joshi, Deputy Secretary · signed 19 May 2026</div>
         <table>
           <tr><th>Dimension</th><th>Reporting officer's grade</th><th>Memo record</th></tr>
           <tr><td>1. Delivery of planned work</td><td><b id="rv1">—</b></td><td><span class="tag red">1 unanswered</span></td></tr>
@@ -685,7 +683,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card" style="margin-top:18px">
         <h2>Part 5 · accepting authority</h2>
         <div class="sub">Opens only where a stage was never completed.</div>
-        <div class="note danger">⚠️ Sunita R. Kale: the reporting stage was auto-forwarded on 01/06/2026 and never recorded.</div>
+        <div class="note danger">⚠️ Smt. J. K. More: the reporting stage was auto-forwarded on 01/06/2026 and never recorded.</div>
         <div class="radios"><label><input type="radio" name="miss" checked><span>Reporting officer stage missing</span></label><label><input type="radio" name="miss"><span>Reviewing officer stage missing</span></label></div>
         <textarea id="t52" oninput="wc('t52','c52',30)" placeholder="Action taken. Maximum 30 words."></textarea>
         <div class="counter" id="c52"></div>
@@ -703,7 +701,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <div class="grid g-2-1">
     <div>
       <div class="card">
-        <h2>APAR 2025–26 · Vishal V. Dhole</h2>
+        <h2>APAR 2025–26 · Shri A. B. Sawant</h2>
         <div class="sub">Disclosed on 12 July 2026 · representation window closes 27 July 2026</div>
         <table>
           <tr><th>Item</th><th>Value</th></tr>
@@ -755,8 +753,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <div class="toast" id="toast"></div>
 <div class="modal" id="nrcModal"><div class="box">
   <h2>Verify Part 1 and issue NRC</h2>
-  <p class="sub">Sunita R. Kale · Assistant Section Officer</p>
-  <div class="note warn">⚠️ Served under A. K. Desai from 01/04/2025 to 10/06/2025 — 2 months 10 days, less than 3 months.</div>
+  <p class="sub">Smt. J. K. More · Assistant Section Officer</p>
+  <div class="note warn">⚠️ Served under Shri R. S. Gokhale from 01/04/2025 to 10/06/2025 — 2 months 10 days, less than 3 months.</div>
   <div class="radios">
     <label><input type="radio" name="nrc" checked><span>Verified — issue the No Report Certificate for this period</span></label>
     <label><input type="radio" name="nrc"><span>Reject — service was 3 months or more (reason required)</span></label>
@@ -772,25 +770,25 @@ const DIMNAMES={d1:'1. Delivery of planned work',d2:'2. Quality of work',d3:'3. 
  d4:'4. Judgement and initiative',d5:'5. Collaboration and communication',d6:'6. Responsibility and conduct'};
 const grades={}; const revised={};
 const ROLES={
- custodian:['Ashil V. Naik','Custodian / Establishment Officer, Revenue &amp; Forest Dept'],
- officer:['Vishal V. Dhole','Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719'],
- reporting:['Satish S. Nair','Deputy Secretary · reporting officer for 24 officers'],
- reviewing:['Dinesh D. Patil','Joint Secretary · reviewing officer for 9 officers']
+ custodian:['Shri G. H. Mane','Custodian / Establishment Officer, Revenue &amp; Forest Dept'],
+ officer:['Shri A. B. Sawant','Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719'],
+ reporting:['Shri C. D. Joshi','Deputy Secretary · reporting officer for 24 officers'],
+ reviewing:['Shri E. F. Rane','Joint Secretary · reviewing officer for 9 officers']
 };
 let memos=[
- {id:1,to:'Vishal V. Dhole',from:'Satish S. Nair',date:'18 Aug 2025',cat:'Delivery of planned work',
+ {id:1,to:'Shri A. B. Sawant',from:'Shri C. D. Joshi',date:'18 Aug 2025',cat:'Delivery of planned work',
   sub:'Delay in filing quarterly returns',
   body:'Quarterly returns for Q1 were filed 23 days late despite two reminders. Returns for Q2 are to be filed within the statutory date.',
   due:'30 Sep 2025',status:'none',resp:''},
- {id:2,to:'Vishal V. Dhole',from:'Satish S. Nair',date:'06 Jan 2026',cat:'Responsibility and conduct',
+ {id:2,to:'Shri A. B. Sawant',from:'Shri C. D. Joshi',date:'06 Jan 2026',cat:'Responsibility and conduct',
   sub:'Absence from the section without intimation',
   body:'Absent from the section on 2 and 3 January without prior intimation. Leave is to be applied for in advance on eHRMS.',
   due:'20 Jan 2026',status:'answered',
   resp:'Both days were spent at the Collectorate for the land-records migration review; the tour was approved verbally but not recorded on eHRMS. Noted for the future.'},
- {id:3,to:'Prakash D. Shinde',from:'Satish S. Nair',date:'11 Nov 2025',cat:'Punctuality and attendance',
+ {id:3,to:'Shri L. M. Pawar',from:'Shri C. D. Joshi',date:'11 Nov 2025',cat:'Punctuality and attendance',
   sub:'Repeated late reporting',body:'Late reporting recorded on 14 occasions between July and October.',
   due:'25 Nov 2025',status:'answered',resp:'Commute disrupted by the metro works; shifted to an earlier service from November.'},
- {id:4,to:'Sunita R. Kale',from:'Dinesh D. Patil',date:'02 Feb 2026',cat:'Quality of work',
+ {id:4,to:'Smt. J. K. More',from:'Shri E. F. Rane',date:'02 Feb 2026',cat:'Quality of work',
   sub:'Errors in pension case calculations',body:'Three pension cases returned by the AG office for calculation errors.',
   due:'16 Feb 2026',status:'none',resp:''}
 ];
@@ -835,13 +833,13 @@ function closeNRC(ok){document.getElementById('nrcModal').classList.remove('on')
 
 /* ---------------- self-appraisal ---------------- */
 function selfStep(n){
- for(let i=1;i<=6;i++)document.getElementById('self'+i).classList.toggle('on',i===n);
+ for(let i=1;i<=4;i++)document.getElementById('self'+i).classList.toggle('on',i===n);
  document.querySelectorAll('#selfSteps li').forEach((li,i)=>{
   li.classList.toggle('on',i===n-1);li.classList.toggle('done',i<n-1);});
  window.scrollTo({top:220,behavior:'smooth'});
 }
 function submitSelf(){cyclePos=3;renderCycle();
- toast('Part 2 signed with eSign and locked. The APAR is now with Satish S. Nair, due 31 May 2026.');
+ toast('Part 2 signed with eSign and locked. The APAR is now with Shri C. D. Joshi, due 31 May 2026.');
  setTimeout(()=>go('reporting'),900);}
 function renderChips(){
  const box=document.getElementById('trainChips');
@@ -862,7 +860,7 @@ function sendMemo(){
  const sub=document.getElementById('mSub').value.trim()||'Performance concern';
  const body=document.getElementById('mBody').value.trim()||'(no detail entered)';
  if(words(body)>150){toast('The memo is over 150 words. Shorten it before signing.');return;}
- memos.unshift({id:Date.now(),to:document.getElementById('mTo').value.split(' — ')[0],from:'Satish S. Nair',
+ memos.unshift({id:Date.now(),to:document.getElementById('mTo').value.split(' — ')[0],from:'Shri C. D. Joshi',
   date:new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}),
   cat:document.getElementById('mCat').value,sub,body,
   due:document.getElementById('mDue').value||'not set',status:'await',resp:''});
@@ -884,7 +882,7 @@ function memoCard(m,showResp){
   </div>`;
 }
 function renderMemos(){
- const mine=memos.filter(m=>m.to==='Vishal V. Dhole');
+ const mine=memos.filter(m=>m.to==='Shri A. B. Sawant');
  document.getElementById('memoList').innerHTML=memos.map(m=>memoCard(m,true)).join('');
  document.getElementById('memoCount').textContent=memos.length;
  const un=memos.filter(m=>m.status==='none').length;
@@ -901,13 +899,13 @@ function renderMemos(){
 function renderAttach(){
  const box=document.getElementById('attachList');if(!box)return;
  const on=document.getElementById('attachMemo').checked;
- const mine=memos.filter(m=>m.to==='Vishal V. Dhole');
+ const mine=memos.filter(m=>m.to==='Shri A. B. Sawant');
  box.innerHTML=on?`<table><tr><th>Memo</th><th>Issued</th><th>Response</th></tr>`+
   mine.map(m=>`<tr><td>${m.sub}</td><td>${m.date}</td><td>${m.status==='none'?'<span class="tag red">None</span>':'<span class="tag ok">On record</span>'}</td></tr>`).join('')+
   `</table><div class="note info" style="margin-top:10px">ℹ️ These memos attach to the APAR as evidence that the officer was advised and given opportunities to improve.</div>`:'';
 }
 function insertMemoRef(){
- const mine=memos.filter(m=>m.to==='Vishal V. Dhole');
+ const mine=memos.filter(m=>m.to==='Shri A. B. Sawant');
  const t=document.getElementById('t33');
  const txt=mine.map(m=>`${m.sub} (memo ${m.date}, ${m.status==='none'?'no response':'responded'})`).join('; ');
  t.value=(t.value?t.value.trim()+' ':'')+'Memo record: '+txt+'.';
@@ -964,7 +962,7 @@ function signReporting(){
  const overall=keys.reduce((a,k)=>a+grades[k]*WEIGHTS[k],0);
  if(overall<6&&!document.getElementById('attachMemo').checked)
   toast('Signed without memo evidence. The custodian register will show a below-benchmark grade with no documentation.');
- else toast('Part 3 signed and locked. The APAR is now with Dinesh D. Patil, reviewing officer.');
+ else toast('Part 3 signed and locked. The APAR is now with Shri E. F. Rane, reviewing officer.');
  document.getElementById('rv33').textContent=document.getElementById('t33').value;
  document.getElementById('d33').textContent=document.getElementById('t33').value;
  cyclePos=4;renderCycle();setTimeout(()=>go('reviewing'),900);
