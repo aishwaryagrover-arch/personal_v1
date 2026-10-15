@@ -220,7 +220,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <button data-tab="reviewing" onclick="go('reviewing')">Reviewing officer <span class="count">1</span></button>
 </nav>
 
-<div class="rolebar"><span class="dot"></span><span>Signed in as <b id="roleName">Shri A. B. Sawant</b> · <span id="roleDesc">Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719</span></span><span class="formflag">Based on <b>Form A</b> · Group A and B officials · draft v4</span></div>
+<div class="rolebar"><span class="dot"></span><span>Signed in as <b id="roleName">Shri A. B. Sawant</b> · <span id="roleDesc">Section Officer, Revenue &amp; Forest Dept · Group B · PMIS 2048-7719</span></span><span class="formflag">Based on <b>Form A</b> · Group A and B officials · draft v4</span></div>
 
 <div class="cycle" id="cycleStrip"></div>
 
@@ -242,7 +242,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card">
         <h2>Custodian actions</h2>
         <ul class="steplist" id="custSteps">
-          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Initiate cycle and authority mapping<small>Initiate the cycle · who reports on whom · No Report Certificates</small></div></li>
+          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Initiate cycle and authority mapping<small>Initiate the cycle · map who reports on whom · validate NRCs</small></div></li>
           <li onclick="custStep(2)"><span class="n">2</span><div>Track what is pending across the APAR cycle<small>Stage by stage · with whom · remind</small></div></li>
           <li onclick="custStep(3)"><span class="n">3</span><div>Facilitate the APAR cycle<small>Send reminders · disclose · export</small></div></li>
           <li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Unanswered memos · remind</small></div></li>
@@ -275,21 +275,42 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </div>
         <div class="card">
           <h2>Authority mapping</h2>
-          <div class="sub">Who each official has named as their reporting and reviewing officer, checked against eHRMS. If the two do not agree, the APAR cannot move until it is settled.</div>
-          <table>
-            <tr><th>Official</th><th>Post</th><th>Reporting officer</th><th>Reviewing officer</th><th>Status</th><th></th></tr>
-            <tr><td><b>Shri A. B. Sawant</b></td><td>Section Officer</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this official.')">View</button></td></tr>
-            <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Shri R. S. Gokhale <span class="tag grey">2 chgs</span></td><td>Shri E. F. Rane</td><td><span class="tag warn">NRC requested</span></td><td><button class="btn sm" onclick="openNRC()">Act</button></td></tr>
-            <tr><td><b>Shri L. M. Pawar</b></td><td>Senior Clerk (Form B)</td><td>Shri C. D. Joshi</td><td>Shri E. F. Rane</td><td><span class="tag ok">Verified</span></td><td><button class="btn sm ghost" onclick="toast('Part 1 is already verified for this official.')">View</button></td></tr>
-            <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td><span style="color:var(--red)">Not mapped</span></td><td>Shri E. F. Rane</td><td><span class="tag red">Blocked</span></td><td><button class="btn sm amber" onclick="toast('Mapping screen: assign a reporting officer from the eHRMS chain, or record the post as vacant.')">Map</button></td></tr>
+          <div class="sub">Map every official to a reporting and reviewing officer, with the period each served under them. MahaPAR works out the duration and decides whether an APAR is created or a No Report Certificate is issued.</div>
+          <table style="font-size:12px">
+            <tr><th>Official</th><th>Reporting officer<br>Reviewing officer</th><th>From<br>To</th><th>Duration</th><th>MahaPAR action</th></tr>
+            <tr><td style="min-width:120px"><b>Shri A. B. Sawant</b><br><span style="color:var(--muted)">Section Officer</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="2025-04-01" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
+              <td>12 months</td><td><span class="tag ok">APAR created</span></td></tr>
+            <tr><td style="min-width:120px"><b>Smt. J. K. More</b><br><span style="color:var(--muted)">Asst Section Officer</span><br><span class="tag grey">period 1 of 2</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Shri R. S. Gokhale — Dy Secretary</option><option>Shri C. D. Joshi — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="2025-04-01" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2025-06-10" style="width:132px;display:block"></td>
+              <td>2 months<br>10 days</td><td><span class="tag warn">Under 3 months — NRC generated</span></td></tr>
+            <tr><td style="min-width:120px"><span style="color:var(--muted)">↳ period 2 of 2</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="2025-06-11" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
+              <td>9 months<br>20 days</td><td><span class="tag ok">APAR created</span></td></tr>
+            <tr><td style="min-width:120px"><b>Shri L. M. Pawar</b><br><span style="color:var(--muted)">Senior Clerk · Form B</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="2025-04-01" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
+              <td>12 months</td><td><span class="tag ok">APAR created</span></td></tr>
+            <tr><td style="min-width:120px"><b>Shri N. P. Bhosale</b><br><span style="color:var(--muted)">Section Officer</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Select reporting officer</option><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="" style="width:132px;display:block"></td>
+              <td>—</td><td><span class="tag red">Not mapped · no APAR</span></td></tr>
           </table>
-          <div class="note warn" style="margin-top:14px">⚠️ <b>4 officials have no reporting officer mapped.</b> Until the chain is complete, timeliness marks cannot be calculated and the accepting authority (Part 5) will have to close those APARs manually.</div>
+          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A further period is added for this official, where the reporting officer changed during the year.')">+ Add a period</button><button class="btn sm" onclick="toast('Mapping saved. MahaPAR has created 3 APARs and generated 1 No Report Certificate for your validation.')">Save mapping</button></div>
+          <div class="note warn" style="margin-top:12px">⚠️ <b>1 official is not yet mapped.</b> No APAR is created until a reporting officer and a period are recorded.</div>
+          <div class="note info">ℹ️ Officials can see this mapping in their own window but cannot change it. They may raise a request for a change, which comes to you.</div>
           <div class="rule"></div>
-          <h3>No Report Certificates awaiting your decision</h3>
-          <div class="sub">Where an official served under a reporting officer for less than 3 months.</div>
-          <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Pending</span></div>
+          <h3>No Report Certificates generated by MahaPAR</h3>
+          <div class="sub">Generated automatically where the mapped period is under 3 months. Your validation issues the certificate.</div>
+          <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Awaiting your validation</span></div>
             <div class="meta">Under Shri R. S. Gokhale · 01/04/2025 – 10/06/2025 · 2 months 10 days</div>
-            <div class="btnrow"><button class="btn sm" onclick="openNRC()">Verify and issue</button><button class="btn sm grey" onclick="toast('Rejection needs a recorded reason.')">Reject</button></div>
+            <div class="btnrow"><button class="btn sm" onclick="openNRC()">Validate and issue</button><button class="btn sm grey" onclick="toast('Rejecting needs a recorded reason, and sends the period back to mapping.')">Reject</button></div>
+          </div>
+          <div class="memo answered"><div class="top"><b>Change requests from officials</b><span class="tag grey">0</span></div>
+            <div class="meta">Requests to correct a mapping appear here for you to act on.</div>
           </div>
         </div>
       </div>
@@ -378,7 +399,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <!-- ======================= SELF APPRAISAL ======================= -->
 <section class="pane on" id="pane-self">
   <div class="ph"><h1>Self-appraisal · Form A, Parts 1 and 2</h1>
-  <p>Four sections. Part 1 is already filled in from Sevaarth. Confirm who reported on you, then complete Part 2 and sign. Any memos issued to you during the year are shown alongside. <b>Form B, for Group C employees, uses the same four sections with a shorter Part 2 — one optional 50-word entry in place of 2.1 to 2.6.</b></p></div>
+  <p>Four sections. Part 1 is already filled in from PMIS and your reporting chain is mapped by the custodian. Check them, then complete Part 2 and sign. Any memos issued to you during the year are shown alongside. <b>Form B, for Group C employees, uses the same four sections with a shorter Part 2 — one optional 50-word entry in place of 2.1 to 2.6.</b></p></div>
 
   <div class="grid g-1-2">
     <div>
@@ -386,7 +407,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <h2>My APAR — sections</h2>
         <ul class="steplist" id="selfSteps">
           <li class="on" onclick="selfStep(1)"><span class="n">1</span><div>Official details<small>Part 1 · pre-filled</small></div></li>
-          <li onclick="selfStep(2)"><span class="n">2</span><div>Reporting chain and NRC<small>Part 1.1–1.2</small></div></li>
+          <li onclick="selfStep(2)"><span class="n">2</span><div>Your reporting chain<small>Mapped by the custodian</small></div></li>
           <li onclick="selfStep(3)"><span class="n">3</span><div>Self-appraisal form<small>Part 2.1–2.6 · one page</small></div></li>
           <li onclick="selfStep(4)"><span class="n">4</span><div>Review and sign<small>DSC / eSign</small></div></li>
           <li onclick="selfStep(5)"><span class="n">5</span><div>Outcome and representation<small>After disclosure · 15 days</small></div></li>
@@ -407,10 +428,10 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="wiz on" id="self1">
         <div class="card">
           <div class="part">Part 1 · official details</div>
-          <div class="note info">ℹ️ Grey fields come from Sevaarth and your service record. To correct one, raise a service-record request; it cannot be edited here.</div>
+          <div class="note info">ℹ️ Grey fields come from PMIS and your service record. To correct one, raise a service-record request; it cannot be edited here.</div>
           <div class="two">
             <div class="ro"><b>Name</b>Shri A. B. Sawant</div>
-            <div class="ro"><b>Sevaarth ID</b>2048-7719</div>
+            <div class="ro"><b>PMIS ID</b>2048-7719</div>
             <div class="ro"><b>Cadre and group</b>Maharashtra Secretariat Service · Group B</div>
             <div class="ro"><b>Present post and office</b>Section Officer, Revenue &amp; Forest Dept, Mantralaya</div>
             <div class="ro"><b>Date of appointment to present post</b>12 June 2023</div>
@@ -425,21 +446,28 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <!-- step 2 -->
       <div class="wiz" id="self2">
         <div class="card">
-          <div class="part">Part 1.1 · reporting chain</div>
-          <div class="q">Who reported on you this year?</div>
-          <div class="hint">Add a row for each change of official during the year. The establishment officer verifies this before the form moves on.</div>
+          <div class="part">Part 1.1 · your reporting chain</div>
+          <div class="q">Who reported on you this year</div>
+          <div class="hint">Mapped by the custodian from PMIS records. You cannot edit it here. If anything is not correct, raise a request for a change.</div>
           <table>
             <tr><th>Role</th><th>Name and post</th><th>From</th><th>To</th></tr>
-            <tr><td>Reporting officer</td><td><select><option>Shri C. D. Joshi — Deputy Secretary</option><option>Shri R. S. Gokhale — Deputy Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
-            <tr><td>Reviewing officer</td><td><select><option>Shri E. F. Rane — Joint Secretary</option></select></td><td><input type="date" value="2025-04-01"></td><td><input type="date" value="2026-03-31"></td></tr>
-            <tr><td>Accepting authority</td><td><select><option>Not applicable</option><option>Pr. Secretary, Revenue &amp; Forest</option></select></td><td colspan="2" style="color:var(--muted);font-size:12px">Acts only where a stage is missing (Part 5)</td></tr>
+            <tr><td>Reporting officer</td><td>Shri C. D. Joshi — Deputy Secretary</td><td>01/04/2025</td><td>31/03/2026</td></tr>
+            <tr><td>Reviewing officer</td><td>Shri E. F. Rane — Joint Secretary</td><td>01/04/2025</td><td>31/03/2026</td></tr>
+            <tr><td>Accepting authority</td><td>Not applicable</td><td colspan="2" style="color:var(--muted);font-size:12px">Acts only where a stage is missing (Part 5)</td></tr>
           </table>
-          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A row is added for the next change of official.')">+ Add another official</button></div>
-          <div class="rule"></div>
-          <div class="part">Part 1.2 · No Report Certificate</div>
-          <div class="checks"><label><input type="checkbox"><span>I served under this reporting officer for less than 3 months and request an NRC for this period.</span></label></div>
-          <div class="note info">ℹ️ The establishment officer checks this and issues the certificate in MahaPAR. It records that there was no reporting officer for that period, and does not count against you in any way.</div>
-          <div class="btnrow"><button class="btn grey" onclick="selfStep(1)">Back</button><button class="btn" onclick="selfStep(3)">Continue</button></div>
+          <div class="note info" style="margin-top:12px">ℹ️ You served under one reporting officer for the full year, so a single APAR has been created. Where an official serves under a reporting officer for less than 3 months, MahaPAR issues a No Report Certificate for that period instead.</div>
+          <div class="btnrow"><button class="btn ghost" onclick="show('reqBox',1)">Raise a request for a change</button></div>
+          <div class="hidebox" id="reqBox" style="margin-top:12px">
+            <div class="rule"></div>
+            <div class="q">What needs correcting?</div>
+            <div class="hint">Your request goes to the custodian, Shri G. H. Mane.</div>
+            <label class="f"><span>What is not correct</span>
+              <select><option>Reporting officer is not correct</option><option>Reviewing officer is not correct</option><option>The dates are not correct</option><option>A period is missing</option><option>Other</option></select></label>
+            <textarea id="tReq" oninput="wc('tReq','cReq',100)" placeholder="State what the record should say. Maximum 100 words."></textarea>
+            <div class="counter" id="cReq">0 / 100 words</div>
+            <div class="btnrow"><button class="btn" onclick="toast('Request sent to the custodian. You will be notified when it is acted on.');show('reqBox',0)">Send request</button><button class="btn grey" onclick="show('reqBox',0)">Cancel</button></div>
+          </div>
+          <div class="btnrow" style="margin-top:12px"><button class="btn grey" onclick="selfStep(1)">Back</button><button class="btn" onclick="selfStep(3)">Continue</button></div>
         </div>
       </div>
 
@@ -847,7 +875,7 @@ const DIMNAMES={d1:'1. Delivery of planned work',d2:'2. Quality of work',d3:'3. 
 const grades={}; const revised={};
 const ROLES={
  custodian:['Shri G. H. Mane','Custodian / Establishment Officer, Revenue &amp; Forest Dept'],
- official:['Shri A. B. Sawant','Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719'],
+ official:['Shri A. B. Sawant','Section Officer, Revenue &amp; Forest Dept · Group B · PMIS 2048-7719'],
  reporting:['Shri C. D. Joshi','Deputy Secretary · reporting officer for 24 officials'],
  reviewing:['Shri E. F. Rane','Joint Secretary · reviewing officer for 9 officials']
 };
@@ -1115,7 +1143,7 @@ function signReviewing(){
 /* ---------------- init ---------------- */
 document.getElementById('mBody').addEventListener('input',wcMemo);
 buildScales();renderChips();renderMemos();renderCycle();renderLog();
-wc('t22','c22',100);wc('t23','c23',50);wc('t33','c33',100);wc('t34','c34',50);wc('t52','c52',30);wc('tRep','cRep',200);
+wc('t22','c22',100);wc('t23','c23',50);wc('t33','c33',100);wc('t34','c34',50);wc('t52','c52',30);wc('tRep','cRep',200);wc('tReq','cReq',100);
 wcMemo();calc();
 </script>
 </body>
