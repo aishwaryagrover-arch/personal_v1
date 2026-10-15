@@ -269,38 +269,34 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="wiz on" id="cust1">
         <div class="card">
           <h2>Authority mapping</h2>
-          <div class="sub">Map every official to a reporting and reviewing officer, with the period each served under them. MahaPAR works out the duration and decides whether an APAR is created or a No Report Certificate is issued.</div>
+          <div class="sub">Map every official to a reporting and reviewing officer, with the period each served under them. MahaPAR works out the duration and decides whether an APAR workflow is created or a No Report Certificate is issued.</div>
           <table style="font-size:12px">
             <tr><th>Official</th><th>Reporting officer<br>Reviewing officer</th><th>From<br>To</th><th>Duration</th><th>MahaPAR action</th></tr>
             <tr><td style="min-width:120px"><b>Shri A. B. Sawant</b><br><span style="color:var(--muted)">Section Officer</span></td>
               <td><select style="display:block;margin-bottom:5px"><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
               <td><input type="date" value="2025-04-01" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
-              <td>12 months</td><td><span class="tag ok">APAR created</span></td></tr>
-            <tr><td style="min-width:120px"><b>Smt. J. K. More</b><br><span style="color:var(--muted)">Asst Section Officer</span><br><span class="tag grey">period 1 of 2</span></td>
-              <td><select style="display:block;margin-bottom:5px"><option>Shri R. S. Gokhale — Dy Secretary</option><option>Shri C. D. Joshi — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
-              <td><input type="date" value="2025-04-01" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2025-06-10" style="width:132px;display:block"></td>
-              <td>2 months<br>10 days</td><td><span class="tag warn">Under 3 months — NRC generated</span></td></tr>
-            <tr><td style="min-width:120px"><span style="color:var(--muted)">↳ period 2 of 2</span></td>
-              <td><select style="display:block;margin-bottom:5px"><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
-              <td><input type="date" value="2025-06-11" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
-              <td>9 months<br>20 days</td><td><span class="tag ok">APAR created</span></td></tr>
+              <td>12 months</td><td><span class="tag ok">APAR workflow created</span></td></tr>
             <tr><td style="min-width:120px"><b>Shri L. M. Pawar</b><br><span style="color:var(--muted)">Senior Clerk · Form B</span></td>
               <td><select style="display:block;margin-bottom:5px"><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
               <td><input type="date" value="2025-04-01" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
-              <td>12 months</td><td><span class="tag ok">APAR created</span></td></tr>
+              <td>12 months</td><td><span class="tag ok">APAR workflow created</span></td></tr>
+            <tr><td style="min-width:120px"><b>Smt. J. K. More</b><br><span style="color:var(--muted)">Asst Section Officer</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Shri R. S. Gokhale — Dy Secretary</option><option>Shri C. D. Joshi — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="2026-01-20" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
+              <td>2 months<br>10 days</td><td><span class="tag warn">Under 3 months — NRC generated</span></td></tr>
             <tr><td style="min-width:120px"><b>Shri N. P. Bhosale</b><br><span style="color:var(--muted)">Section Officer</span></td>
-              <td><select style="display:block;margin-bottom:5px"><option>Select reporting officer</option><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Select reporting officer</option><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Select reviewing officer</option><option>Shri E. F. Rane — Jt Secretary</option></select></td>
               <td><input type="date" value="" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="" style="width:132px;display:block"></td>
-              <td>—</td><td><span class="tag red">Not mapped · no APAR</span></td></tr>
+              <td>—</td><td><span class="tag red">Not mapped · no workflow</span></td></tr>
           </table>
-          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A further period is added for this official, where the reporting officer changed during the year.')">+ Add a period</button><button class="btn sm" onclick="toast('Mapping saved. MahaPAR has created 3 APARs and generated 1 No Report Certificate for your validation.')">Save mapping</button></div>
-          <div class="note warn" style="margin-top:12px">⚠️ <b>1 official is not yet mapped.</b> No APAR is created until a reporting officer and a period are recorded.</div>
+          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A further period is added where the reporting officer changed during the year.')">+ Add a period</button><button class="btn sm" onclick="toast('Mapping saved. MahaPAR has created 2 APAR workflows and generated 1 No Report Certificate for your validation.')">Save mapping</button></div>
+          <div class="note warn" style="margin-top:12px">⚠️ <b>1 official is not yet mapped.</b> No APAR workflow is created until a reporting officer and a period are recorded.</div>
           <div class="note info">ℹ️ Officials can see this mapping in their own window but cannot change it. They may raise a request for a change, which comes to you.</div>
           <div class="rule"></div>
           <h3>No Report Certificates generated by MahaPAR</h3>
           <div class="sub">Generated automatically where the mapped period is under 3 months. Your validation issues the certificate.</div>
           <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Awaiting your validation</span></div>
-            <div class="meta">Under Shri R. S. Gokhale · 01/04/2025 – 10/06/2025 · 2 months 10 days</div>
+            <div class="meta">Under Shri R. S. Gokhale · 20/01/2026 – 31/03/2026 · 2 months 10 days</div>
             <div class="btnrow"><button class="btn sm" onclick="openNRC()">Validate and issue</button><button class="btn sm grey" onclick="toast('Rejecting needs a recorded reason, and sends the period back to mapping.')">Reject</button></div>
           </div>
           <div class="memo answered"><div class="top"><b>Change requests from officials</b><span class="tag grey">0</span></div>
