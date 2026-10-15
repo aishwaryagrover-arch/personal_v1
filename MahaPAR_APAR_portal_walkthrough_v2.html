@@ -242,7 +242,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card">
         <h2>Custodian actions</h2>
         <ul class="steplist" id="custSteps">
-          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Initiate cycle and authority mapping<small>Initiate the cycle · map who reports on whom · validate NRCs</small></div></li>
+          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Authority mapping<small>Map who reports on whom · validate NRCs</small></div></li>
           <li onclick="custStep(2)"><span class="n">2</span><div>Track what is pending across the APAR cycle<small>Stage by stage · with whom · remind</small></div></li>
           <li onclick="custStep(3)"><span class="n">3</span><div>Facilitate the APAR cycle<small>Send reminders · disclose · export</small></div></li>
           <li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Unanswered memos · remind</small></div></li>
@@ -257,22 +257,19 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <tr><td>Reviewing stage closes</td><td><b>30 Jun</b></td></tr>
           <tr><td>Cycle closes</td><td><b>30 Nov</b></td></tr>
         </table>
+        <div class="btnrow" style="margin-top:12px">
+          <button class="btn ghost sm" onclick="openPast()">View past cycles</button>
+          <button class="btn ghost sm" onclick="toast('Set the closing date for each stage of the cycle.')">Set dates</button>
+        </div>
+        <div class="btnrow" style="margin-top:6px">
+          <button class="btn sm" onclick="toast('Cycle 2026–27 opened. APARs created for all mapped officials.')">Open cycle 2026–27</button>
+        </div>
       </div>
     </div>
 
     <div>
       <!-- 1 · authority mapping, with the NRC queue inside it -->
       <div class="wiz on" id="cust1">
-        <div class="card">
-          <h2>Initiate the cycle and set the workflow</h2>
-          <div class="sub">A cycle is initiated after the assessment year ends. Initiating it creates an APAR for every official whose reporting chain is mapped.</div>
-          <table>
-            <tr><td><b>Cycle 2025–26</b><br><span style="color:var(--muted);font-size:12px">Assessment year 1 Apr 2025 – 31 Mar 2026 · 1,284 APARs</span></td><td><span class="tag warn">In progress · stage 3 of 8</span></td></tr>
-            <tr><td><b>Cycle 2026–27</b><br><span style="color:var(--muted);font-size:12px">Creates an APAR for every mapped official</span></td><td><button class="btn sm" onclick="toast('Cycle 2026–27 opened. APARs created for all mapped officials.')">Open cycle</button></td></tr>
-            <tr><td><b>Stage deadlines</b><br><span style="color:var(--muted);font-size:12px">As notified by GAD</span></td><td><button class="btn sm ghost" onclick="toast('Set the closing date for each stage of the cycle.')">Set dates</button></td></tr>
-          </table>
-          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="openPast()">View past cycles</button></div>
-        </div>
         <div class="card">
           <h2>Authority mapping</h2>
           <div class="sub">Map every official to a reporting and reviewing officer, with the period each served under them. MahaPAR works out the duration and decides whether an APAR is created or a No Report Certificate is issued.</div>
