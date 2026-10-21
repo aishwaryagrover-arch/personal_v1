@@ -25,8 +25,8 @@ RED = "#D92D20"
 # (box on the wireframe), (note text), side, note y on canvas
 NOTES = [
  dict(box=(58, 312, 712, 38), side="L", ny=330,
-      title="Could the stage that is open today be marked?",
-      body="Something like “Self Appraisal · open now · closes 31 May · 14 days left”. "
+      title="Could the stage that is live today be marked?",
+      body="Something like “Self Appraisal · live now · closes 31 May · 14 days left”. "
            "The other four rows could stay exactly as they are — only one stage is live "
            "at any time, and that is the one piece of information most officials come for."),
  dict(box=(222, 267, 73, 21), side="L", ny=200,
@@ -43,9 +43,10 @@ NOTES = [
       body="The top three questions only, as drop-downs, below “A little guidance”. "
            "The fuller list could stay behind the FAQs tab above."),
  dict(box=(655, 1230, 262, 52), side="R", ny=1190,
-      title="Could the footer link the related portals?",
-      body="eHRMS / Maha HRMS and the promotion portal, alongside the MahaPAR links, "
-           "so an official can move between them without searching for each one."),
+      title="Could the footer also carry related portals?",
+      body="In addition to “Explore MahaPAR”, a second set of links on its right for "
+           "the related portals — Maha HRMS and the promotion portal — so an official "
+           "can move between them without searching for each one."),
 ]
 
 b64 = base64.b64encode(open(SHOT, "rb").read()).decode()
