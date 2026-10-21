@@ -35,9 +35,8 @@ NOTES = [
            "in the sign-in card."),
  dict(box=(58, 626, 1162, 32), side="R", ny=620,
       title="Could this band carry the live deadline and the help centre contact?",
-      body="The stage that is currently open with its closing date, and the help centre "
-           "number and email for anyone who is stuck. At present the band describes the "
-           "page rather than carrying anything an official can act on."),
+      body="The stage that is currently live with its closing date, and the help centre "
+           "number and email for anyone who is stuck."),
  dict(box=(58, 1062, 1162, 110), side="R", ny=1020,
       title="Can we explore a short FAQ section here?",
       body="The top three only, as drop-downs, matching the three things an official most "
