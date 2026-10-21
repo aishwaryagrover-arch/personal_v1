@@ -12,6 +12,7 @@ import base64, subprocess, os
 D   = "/home/user/personal_v1/mahapar_review_assets"
 SHOT = f"{D}/wf_clean.png"
 OUT  = "/home/user/personal_v1/MahaPAR_landing_page_suggestions.png"
+PDF  = "/home/user/personal_v1/MahaPAR_landing_page_suggestions.pdf"
 
 SW, SH = 1278, 1370          # wireframe size
 LG, RG = 430, 560            # left and right margins for notes
@@ -75,7 +76,8 @@ for i, n in enumerate(NOTES, 1):
                   f"fill='none' stroke='{RED}' stroke-width='2.4' marker-end='url(#a)'/>")
 
 HTML = f"""<!DOCTYPE html><html><head><meta charset='utf-8'><style>
-*{{margin:0;padding:0;box-sizing:border-box}}
+@page{{size:{CW/96:.3f}in {CH/96:.3f}in;margin:0}}
+*{{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 body{{width:{CW}px;height:{CH}px;background:#fff;position:relative;
   font-family:system-ui,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}}
 .shot{{position:absolute;left:{SX}px;top:{SY}px;width:{SW}px;height:{SH}px;
@@ -111,5 +113,10 @@ subprocess.run([
     "--no-sandbox", f"--window-size={CW},{CH}", "--force-device-scale-factor=2",
     "--virtual-time-budget=6000", f"--screenshot={OUT}", html_path],
     check=True, capture_output=True)
+subprocess.run([
+    "/opt/pw-browsers/chromium-1194/chrome-linux/chrome", "--headless", "--disable-gpu",
+    "--no-sandbox", "--virtual-time-budget=6000", "--no-pdf-header-footer",
+    f"--print-to-pdf={PDF}", html_path], check=True, capture_output=True)
 os.remove(html_path)
 print("wrote", OUT, os.path.getsize(OUT) // 1024, "KB")
+print("wrote", PDF, os.path.getsize(PDF) // 1024, "KB")
