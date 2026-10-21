@@ -34,11 +34,10 @@ NOTES = [
       body="“conplete” → “complete” in this line, and “goverment” → “government” "
            "in the sign-in card."),
  dict(box=(58, 626, 1162, 32), side="R", ny=620,
-      title="Could this band carry the deadline and the help centre numbers?",
-      body="For example: “Self-appraisal closes 31 May · Help centre 022-2279 4298, "
-           "Monday to Friday 10 am – 5 pm · support-mahapar@nic.in”. These are the "
-           "details from the earlier landing page, and they would give the band something "
-           "an official can act on."),
+      title="Could this band carry the live deadline and the help centre contact?",
+      body="The stage that is currently open with its closing date, and the help centre "
+           "number and email for anyone who is stuck. At present the band describes the "
+           "page rather than carrying anything an official can act on."),
  dict(box=(58, 1062, 1162, 110), side="R", ny=1020,
       title="Can we explore a short FAQ section here?",
       body="The top three questions only, as drop-downs, below “A little guidance”. "
