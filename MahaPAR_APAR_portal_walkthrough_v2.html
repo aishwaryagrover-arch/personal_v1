@@ -466,7 +466,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="card">
           <div class="part">Part 2.1 · targets</div>
           <div class="q">Were targets set for your post this year?</div>
-          <div class="hint">Fill this only if targets were set. Once KPIs are linked to MahaPAR, targets will be chosen from a drop-down instead of typed.</div>
+          <div class="hint">Fill this only if targets were set for your post.</div>
+          <div class="note info">&#8505;&#65039; <b>Pre-population is the intended end state.</b> For posts covered by the role-mapping exercise, the key activities and responsibilities of the post will be filled in here automatically. Until that data is available, enter them yourself.</div>
           <div class="radios">
             <label><input type="radio" name="tgt" checked onclick="show('tgtBox',1)"><span>Yes — enter targets and achievements</span></label>
             <label><input type="radio" name="tgt" onclick="show('tgtBox',0)"><span>No targets were set for my post</span></label>
@@ -672,6 +673,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="part">Part 3.1 · grading</div>
         <div class="q">Grade each dimension from 1 to 10, compared with officials at the same level</div>
         <div class="hint">The figures shown under a heading are there to help you judge it. They do not add to or subtract from the score by themselves.</div>
+        <div class="note info">&#8505;&#65039; <b>Before you grade, see the annexure.</b> It sets out what each dimension means for different kinds of posts, so that an official is judged on what their own work involves. Collaboration and communication, for example, is read differently for a file-processing post and for a public-facing one.</div>
 
         <div class="grp">Work output · 40%</div>
         <div class="dim"><div class="nm">1. Delivery of planned work</div><div class="cv">Targets met, timeliness, unforeseen tasks</div>
@@ -714,6 +716,31 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="hidebox" id="doubtBox"><div class="note danger">⚠️ Record the reasons in a separate confidential note. MahaPAR will not accept the signature until the note is filed.</div></div>
 
         <div class="rule"></div>
+
+        <div class="part">Part 3.5 · training</div>
+        <div class="q">Training asked for by the official</div>
+        <div class="hint">Recorded by the official in Part 2.5. Confirm whether you agree.</div>
+        <div class="chips">
+          <span class="chip on">Domain rules and procedures</span>
+          <span class="chip on">IT and digital tools</span>
+          <span class="chip on">Team leadership</span>
+        </div>
+        <div class="radios">
+          <label><input type="radio" name="trval" checked><span>I agree with these</span></label>
+          <label><input type="radio" name="trval"><span>I agree in part. My remarks are below.</span></label>
+          <label><input type="radio" name="trval"><span>I do not agree. My remarks are below.</span></label>
+        </div>
+        <div class="rule"></div>
+        <div class="q">Training you recommend for this official</div>
+        <div class="hint">In addition to what the official has asked for. Choose any that apply, and name a course where you have one in mind.</div>
+        <div class="chips" id="roTrainChips"></div>
+        <label class="f" style="margin-top:4px"><span>Course or programme, if you have one in mind</span>
+          <input type="text" placeholder="e.g. iGOT: Budget preparation for drawing and disbursing officers"></label>
+        <textarea id="t35" oninput="wc('t35','c35',50)" placeholder="Remarks on training, if any. Maximum 50 words."></textarea>
+        <div class="counter" id="c35">0 / 50 words</div>
+
+        <div class="rule"></div>
+
         <div class="part">Part 3.3 · compulsory</div>
         <div class="q">Overall assessment</div>
         <div class="hint">Cover: main strengths · one area to develop · any significant failure · attitude towards persons with disabilities, women and weaker sections · the specific accomplishment or failure behind any grade of 1–2 or 9–10.</div>
@@ -764,7 +791,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <!-- ======================= REVIEWING ======================= -->
 <section class="pane" id="pane-reviewing">
   <div class="ph"><h1>Reviewing officer · Form A, Part 4</h1>
-  <p>Agreeing takes two clicks. Disagreeing opens only the dimensions chosen for revision, each with a 30-word reason, and MahaPAR recalculates the overall grade against the reporting officer's.</p></div>
+  <p>The reviewing officer is asked about the overall score only, not the six dimensions. Agreeing takes two clicks. Disagreeing opens two fields: your own overall score, and why you differ.</p></div>
 
   <div class="grid g-2-1">
     <div>
@@ -787,15 +814,21 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
       <div class="card">
         <div class="part">Part 4.1</div>
-        <div class="q">Do you agree with the reporting officer's assessment?</div>
+        <div class="q">Do you agree with the reporting officer's overall score of <b id="rvBase">—</b>?</div>
+        <div class="hint">You are asked about the overall score only. The six dimension scores behind it are shown above for reference.</div>
         <div class="radios">
-          <label><input type="radio" name="rvag" checked onclick="show('revBox',0);revCalc()"><span><b>Yes</b> — sign; nothing more is needed</span></label>
-          <label><input type="radio" name="rvag" onclick="show('revBox',1);revCalc()"><span><b>No</b> — revise the grades I disagree with</span></label>
+          <label><input type="radio" name="rvag" checked onclick="show('revBox',0);setRvAgree(1)"><span><b>Yes</b> — sign; nothing more is needed</span></label>
+          <label><input type="radio" name="rvag" onclick="show('revBox',1);setRvAgree(0)"><span><b>No</b> — record my own overall score</span></label>
         </div>
         <div class="hidebox" id="revBox">
-          <div class="part" style="margin-top:12px">Part 4.2 · revise only what you disagree with</div>
-          <div id="revDims"></div>
-          <div class="note warn">⚠️ A revised grade of 1–2 or 9–10 needs the specific accomplishment or failure behind it, in the reason box.</div>
+          <div class="part" style="margin-top:12px">Part 4.2</div>
+          <div class="q">Your overall score</div>
+          <div class="scale" id="rvScale" style="margin-bottom:12px"></div>
+          <div class="q">Why you differ from the reporting officer</div>
+          <div class="hint">State the reason for the score you have given.</div>
+          <textarea id="rvWhy" oninput="wc('rvWhy','rvWhyC',50)" placeholder="Maximum 50 words."></textarea>
+          <div class="counter" id="rvWhyC">0 / 50 words</div>
+          <div class="note warn">⚠️ A score of 1–2 or 9–10 needs the specific accomplishment or failure behind it.</div>
         </div>
         <div class="note info">ℹ️ Signing locks Part 4. The APAR goes to the custodian for disclosure.</div>
         <div class="btnrow"><button class="btn" onclick="signReviewing()">Sign and forward</button></div>
@@ -803,10 +836,10 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
     </div>
     <div>
       <div class="scoreboard">
-        <small>Revised overall grade</small>
+        <small>Overall score on this APAR</small>
         <div class="big" id="revBig">—</div>
-        <small id="revWas">No revision</small>
-        <div class="ln" style="margin-top:12px"><span>Dimensions revised</span><b id="revCount">0</b></div>
+        <small id="revWas">As recorded by the reporting officer</small>
+        <div class="ln" style="margin-top:12px"><span>Reporting officer</span><b id="revCount">—</b></div>
         <div class="ln"><span>Benchmark</span><b>6.0</b></div>
       </div>
       <div class="card" style="margin-top:18px">
@@ -862,7 +895,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 const WEIGHTS={d1:.20,d2:.20,d3:.15,d4:.15,d5:.15,d6:.15};
 const DIMNAMES={d1:'1. Delivery of planned work',d2:'2. Quality of work',d3:'3. Knowledge and its application',
  d4:'4. Judgement and initiative',d5:'5. Collaboration and communication',d6:'6. Responsibility and conduct'};
-const grades={}; const revised={};
+const grades={}; let rvScore=null, rvAgree=true;
 const ROLES={
  custodian:['Shri G. H. Mane','Custodian / Establishment Officer, Revenue &amp; Forest Dept'],
  official:['Shri A. B. Sawant','Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719'],
@@ -969,6 +1002,11 @@ function selfStep(n){
 function submitSelf(){cyclePos=3;renderCycle();
  toast('Part 2 signed with eSign and locked. The APAR is now with Shri C. D. Joshi, due 31 May 2026.');
  setTimeout(()=>go('reporting'),900);}
+function renderRoChips(){
+ const box=document.getElementById('roTrainChips');if(!box)return;
+ const L=['iGOT course','Domain knowledge','Functional skills','Behavioural skills','Budget management','Project management','Team leadership','Communication'];
+ box.innerHTML=L.map((t,i)=>`<button class="chip" onclick="this.classList.toggle('on')">${t}</button>`).join('');
+}
 function renderChips(){
  const box=document.getElementById('trainChips');
  box.innerHTML=TRAIN.map((t,i)=>`<button class="chip" data-i="${i}" onclick="toggleChip(${i})">${t}</button>`).join('')
@@ -1094,46 +1132,40 @@ function signReporting(){
 
 /* ---------------- reviewing ---------------- */
 function buildRevDims(){
- const box=document.getElementById('revDims');if(!box)return;
- box.innerHTML=Object.keys(WEIGHTS).map(k=>`
-  <div class="dim"><div class="nm">${DIMNAMES[k]}</div>
-   <div class="cv">Reporting officer: <b>${grades[k]||'—'}</b> → your grade</div>
-   <div class="scale" data-rev="${k}">${[1,2,3,4,5,6,7,8,9,10].map(n=>
-     `<button class="${revised[k]===n?'on':''}" onclick="setRev('${k}',${n})">${n}</button>`).join('')}</div>
-   <textarea style="margin-top:9px;min-height:60px" id="rr_${k}" oninput="wc('rr_${k}','rc_${k}',30)" placeholder="Reason. Maximum 30 words."></textarea>
-   <div class="counter" id="rc_${k}">0 / 30 words</div>
-  </div>`).join('');
+ const box=document.getElementById('rvScale');if(!box)return;
+ box.innerHTML=[1,2,3,4,5,6,7,8,9,10].map(n=>
+   `<button class="${rvScore===n?'on':''}${rvScore===n&&(n<=2||n>=9)?' extreme':''}" onclick="setRv(${n})">${n}</button>`).join('');
 }
-function setRev(k,n){
- if(revised[k]===n)delete revised[k];else revised[k]=n;
- buildRevDims();revCalc();
-}
+function setRv(n){ rvScore=(rvScore===n?null:n); buildRevDims(); revCalc(); }
+function setRvAgree(a){ rvAgree=!!a; if(a)rvScore=null; buildRevDims(); revCalc(); }
 function revCalc(){
  const keys=Object.keys(WEIGHTS),have=keys.filter(k=>grades[k]);
- if(have.length<6){document.getElementById('revBig').textContent='—';return;}
- const base=keys.reduce((a,k)=>a+grades[k]*WEIGHTS[k],0);
- const now=keys.reduce((a,k)=>a+((revised[k]||grades[k])*WEIGHTS[k]),0);
- const nrev=Object.keys(revised).length;
- document.getElementById('revBig').textContent=now.toFixed(1);
- document.getElementById('revCount').textContent=nrev;
- document.getElementById('revWas').textContent=nrev?('was '+base.toFixed(1)+' before revision'):'No revision';
+ const base=have.length===6?keys.reduce((a,k)=>a+grades[k]*WEIGHTS[k],0):null;
+ const b=document.getElementById('rvBase');
+ if(b)b.textContent=base!==null?base.toFixed(1):'—';
+ document.getElementById('revCount').textContent=base!==null?base.toFixed(1):'—';
+ const shown=(!rvAgree&&rvScore)?rvScore.toFixed(1):(base!==null?base.toFixed(1):'—');
+ document.getElementById('revBig').textContent=shown;
+ document.getElementById('revWas').textContent=(!rvAgree&&rvScore)
+   ? 'Recorded by you, in place of '+(base!==null?base.toFixed(1):'—')
+   : 'As recorded by the reporting officer';
 }
 function signReviewing(){
- const nrev=Object.keys(revised).length;
- for(const k of Object.keys(revised)){
-  const t=document.getElementById('rr_'+k);
-  if(t&&words(t.value)===0){toast('Each revised grade needs a reason. '+DIMNAMES[k]+' has none.');return;}
+ if(!rvAgree){
+  if(!rvScore){toast('Record your own overall score before signing.');return;}
+  if(words(document.getElementById('rvWhy').value)===0){
+   toast('State why you differ from the reporting officer.');return;}
  }
  cyclePos=5;renderCycle();
- toast(nrev?('Part 4 signed with '+nrev+' grade(s) revised. The APAR goes to the custodian for disclosure.')
-  :'Part 4 signed in agreement. The APAR goes to the custodian for disclosure.');
+ toast(rvAgree?'Part 4 signed in agreement. The APAR goes to the custodian for disclosure.'
+   :'Part 4 signed with your own overall score of '+rvScore.toFixed(1)+'. The APAR goes to the custodian for disclosure.');
  setTimeout(()=>{go('self');selfStep(5);},900);
 }
 
 /* ---------------- init ---------------- */
 document.getElementById('mBody').addEventListener('input',wcMemo);
-buildScales();renderChips();renderMemos();renderCycle();renderLog();
-wc('t22','c22',100);wc('t23','c23',50);wc('t33','c33',100);wc('t34','c34',50);wc('t52','c52',30);wc('tRep','cRep',200);wc('tReq','cReq',100);
+buildScales();renderChips();renderRoChips();renderMemos();renderCycle();renderLog();
+wc('t22','c22',100);wc('t23','c23',50);wc('t33','c33',100);wc('t34','c34',50);wc('t52','c52',30);wc('tRep','cRep',200);wc('tReq','cReq',100);wc('t35','c35',50);wc('rvWhy','rvWhyC',50);
 wcMemo();calc();
 </script>
 </body>
