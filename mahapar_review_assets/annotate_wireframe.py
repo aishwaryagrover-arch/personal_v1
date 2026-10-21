@@ -24,41 +24,29 @@ RED = "#D92D20"
 
 # (box on the wireframe), (note text), side, note y on canvas
 NOTES = [
- dict(box=(58, 312, 712, 38), side="L", ny=300,
-      title="Show the stage that is open today",
-      body="“Self Appraisal · open now · closes 31 May · 14 days left”. "
-           "The other four rows stay as they are — only one stage is ever live."),
+ dict(box=(58, 312, 712, 38), side="L", ny=330,
+      title="Could the stage that is open today be marked?",
+      body="Something like “Self Appraisal · open now · closes 31 May · 14 days left”. "
+           "The other four rows could stay exactly as they are — only one stage is live "
+           "at any time, and that is the one piece of information most officials come for."),
  dict(box=(222, 267, 73, 21), side="L", ny=200,
-      title="Typo", body="“conplete” → “complete”"),
- dict(box=(58, 428, 712, 38), side="L", ny=470,
-      title="Add the right to represent",
-      body="One line on this row: “The appraisal is shared with you. You may "
-           "submit a representation within 15 days.” No sixth step needed."),
- dict(box=(58, 1228, 520, 64), side="L", ny=1180,
-      title="Footer",
-      body="“Content managed by the General Administration Department. Designed "
-           "and developed by NIC Maharashtra.” Add the last-updated date, and the "
-           "helpline number and support email as plain text, not only a button."),
- dict(box=(1036, 54, 64, 22), side="R", ny=120,
-      title="Drop this nav item",
-      body="All five deadlines are already on screen in the hero."),
- dict(box=(968, 446, 242, 70), side="R", ny=400,
-      title="Don’t dead-end the people most likely to be stuck",
-      body="The portal does not issue email IDs. Replace the button with one line: "
-           "“No government email ID? Contact your establishment officer, or register "
-           "on Parichay (SACCESS).”  Also: “goverment” → “government”."),
- dict(box=(58, 626, 1162, 32), side="R", ny=690,
-      title="This describes the page; it does not carry a notice",
-      body="Put the latest GR or circular here with its date — or remove the band. "
-           "It is prime space below the hero."),
- dict(box=(646, 818, 584, 236), side="R", ny=870,
-      title="Same card twice",
-      body="“Understanding the APAR workflow” is repeated. Three cards is enough."),
- dict(box=(58, 1062, 1162, 110), side="R", ny=1060,
-      title="Add three FAQs here, as drop-downs",
-      body="Just three — the questions the helpdesk is actually asked, answered in a "
-           "line or two each, below “A little guidance”. The full list can stay behind "
-           "the FAQs tab above."),
+      title="Two small typos",
+      body="“conplete” → “complete” in this line, and “goverment” → “government” "
+           "in the sign-in card."),
+ dict(box=(58, 626, 1162, 32), side="R", ny=620,
+      title="Could this band carry the deadline and the help centre numbers?",
+      body="For example: “Self-appraisal closes 31 May · Help centre 022-2279 4298, "
+           "Monday to Friday 10 am – 5 pm · support-mahapar@nic.in”. These are the "
+           "details from the earlier landing page, and they would give the band something "
+           "an official can act on."),
+ dict(box=(58, 1062, 1162, 110), side="R", ny=1020,
+      title="Can we explore a short FAQ section here?",
+      body="The top three questions only, as drop-downs, below “A little guidance”. "
+           "The fuller list could stay behind the FAQs tab above."),
+ dict(box=(655, 1230, 262, 52), side="R", ny=1190,
+      title="Could the footer link the related portals?",
+      body="eHRMS / Maha HRMS and the promotion portal, alongside the MahaPAR links, "
+           "so an official can move between them without searching for each one."),
 ]
 
 b64 = base64.b64encode(open(SHOT, "rb").read()).decode()
