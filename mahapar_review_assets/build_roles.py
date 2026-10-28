@@ -186,23 +186,24 @@ ol{{margin:6px 0 0 20px;padding:0}} li{{margin-bottom:10px}}
   <p>If a stage is not completed by its date, MahaPAR forwards the APAR to the next stage, records the delay, and deducts timeliness marks from the APAR of the official who held it. These marks are 5 per cent of the final score, that is &minus;0.5 to +0.5 on the 10-point scale, and they sit in Part 6, which MahaPAR generates on its own. Timeliness is counted for every role an official holds in the cycle: their own self-appraisal, their assessments as a reporting officer, and their reviews as a reviewing officer.</p>
 </div>
 
-<h2>A. Officers in the APAR chain</h2>
-{''.join(block(*r) for r in CHAIN)}
-
-<div class="pb"></div>
-<h2>B. Administrative and monitoring roles</h2>
-{''.join(block(*r) for r in ADMIN)}
-
-<div class="pb"></div>
-<h2>C. What happens if a stage is not completed</h2>
-<table><tr><th style="width:40%">Situation</th><th>What happens next</th></tr>
-{''.join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in ESCALATION)}</table>
-<p class="note">Follow-up runs upward: official, custodian, Cadre Monitoring Authority, Sub Department Monitoring Authority, GAD. Reminders to an official are sent by the custodian. Each level above follows up with the level below it, not with the official.</p>
-
-<h2>D. The cycle at a glance</h2>
+<h2>A. The cycle at a glance</h2>
 <table>{''.join(f"<tr><td class='c' style='width:22%'><b>{d}</b></td><td>{e}</td></tr>" for d, e in TIMELINE)}</table>
 <p class="note"><b>Note on the dates.</b> The dates shown are the ones proposed in the stakeholder draft, modelled on Gujarat&rsquo;s cycle, which gives each stage about 30 days. They will be finalised in consultation with GAD.</p>
 <p class="note">After the reviewing stage the completed APAR is disclosed to the official by the custodian. The official may submit one representation within 15 days of disclosure. No entries are accepted after the cycle closes.</p>
+
+<div class="pb"></div>
+<h2>B. Officers in the APAR chain</h2>
+{''.join(block(*r) for r in CHAIN)}
+
+<div class="pb"></div>
+<h2>C. Administrative and monitoring roles</h2>
+{''.join(block(*r) for r in ADMIN)}
+
+<div class="pb"></div>
+<h2>D. What happens if a stage is not completed</h2>
+<table><tr><th style="width:40%">Situation</th><th>What happens next</th></tr>
+{''.join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in ESCALATION)}</table>
+<p class="note">Follow-up runs upward: official, custodian, Cadre Monitoring Authority, Sub Department Monitoring Authority, GAD. Reminders to an official are sent by the custodian. Each level above follows up with the level below it, not with the official.</p>
 
 </body></html>"""
 
