@@ -140,51 +140,47 @@ def rows(items):
     out = []
     for r, ref, when, how in items:
         out.append(f"<tr><td>{r}</td><td class='c'>{ref or '&ndash;'}</td>"
-                   f"<td class='c'>{when or '&ndash;'}</td><td class='how'>{how or '&ndash;'}</td></tr>")
+                   f"<td class='c'>{when or '&ndash;'}</td><td>{how or '&ndash;'}</td></tr>")
     return "".join(out)
 
 
 def block(title, scope, items):
     return f"""<div class="role">
   <h3>{title}</h3><p class="scope">{scope}</p>
-  <table><tr><th style="width:30%">Responsibility</th><th style="width:8%">Form</th>
-  <th style="width:14%">By when</th><th>How it is done in MahaPAR</th></tr>{rows(items)}</table></div>"""
+  <table><tr><th style="width:32%">Responsibility</th><th style="width:9%">Form</th>
+  <th style="width:15%">By when</th><th>How it is done in MahaPAR</th></tr>{rows(items)}</table></div>"""
 
 
 HTML = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
 <title>APAR roles and responsibilities</title>
 <style>
-@page{{size:A4 landscape;margin:14mm 12mm}}
+@page{{size:A4 portrait;margin:18mm 15mm}}
 *{{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-body{{font-family:'Segoe UI',system-ui,sans-serif;color:#111827;font-size:10.5px;margin:0;line-height:1.45}}
-h1{{font-size:21px;margin:0 0 4px;color:#1B3A6B}}
-.sub{{font-size:10.5px;color:#4B5563;margin:0 0 14px}}
-h2{{font-size:13.5px;color:#1B3A6B;margin:20px 0 8px;border-bottom:2px solid #1B3A6B;padding-bottom:4px}}
-h3{{font-size:12px;margin:0 0 2px;color:#111827}}
-.scope{{font-size:10px;color:#6B7280;margin:0 0 6px}}
-.role{{margin-bottom:16px;break-inside:avoid}}
-table{{width:100%;border-collapse:collapse}}
-th{{background:#1B3A6B;color:#fff;text-align:left;font-weight:600;font-size:9.8px;padding:5px 7px}}
-td{{border:1px solid #D1D5DB;padding:5px 7px;vertical-align:top}}
+body{{font-family:'Times New Roman',Georgia,serif;color:#000;font-size:13px;margin:0;line-height:1.5}}
+h1{{font-size:21px;margin:0 0 6px;text-align:center}}
+.sub{{font-size:12px;margin:0 0 16px;text-align:center}}
+h2{{font-size:16px;margin:26px 0 10px;border-bottom:1.5px solid #000;padding-bottom:4px}}
+h3{{font-size:14px;margin:0 0 2px}}
+.scope{{font-size:12.5px;margin:0 0 8px;font-style:italic}}
+.role{{margin-bottom:20px}}
+table{{width:100%;border-collapse:collapse;margin-bottom:4px}}
+th{{background:#E8E8E8;color:#000;text-align:left;font-weight:700;font-size:12.5px;padding:6px 8px;border:1px solid #000}}
+td{{border:1px solid #000;padding:6px 8px;vertical-align:top;font-size:12.5px}}
 td.c{{white-space:nowrap}}
-td.how{{color:#1F2937}}
-tr:nth-child(even) td{{background:#F7F8FA}}
-.lead{{background:#EEF3FA;border-left:4px solid #1B3A6B;padding:9px 12px;margin-bottom:16px}}
-.lead p{{margin:0 0 5px}} .lead p:last-child{{margin:0}}
-ol,ul{{margin:4px 0 0 16px;padding:0}} li{{margin-bottom:4px}}
-.tl td{{border:1px solid #D1D5DB}} .tl td.d{{font-weight:600;white-space:nowrap;width:14%}}
-.open b{{display:block;margin-bottom:2px}}
+.lead{{border:1px solid #000;padding:10px 12px;margin-bottom:18px}}
+.lead p{{margin:0 0 7px}} .lead p:last-child{{margin:0}}
+ol{{margin:6px 0 0 20px;padding:0}} li{{margin-bottom:10px}}
+.note{{font-size:12.5px;margin:6px 0 0}}
 .pb{{break-before:page}}
-.keep{{break-before:page}}
 </style></head><body>
 
 <h1>APAR under MahaPAR: who does what, by when, and how</h1>
-<p class="sub">Draft for discussion with GAD &middot; IDinsight &middot; follows Form A (Group A and B) and Form B (Group C), current drafts &middot; deadlines are proposals</p>
+<p class="sub">Draft for discussion with GAD | IDinsight | Follows Form A (Group A and B officials) and Form B (Group C employees), current drafts</p>
 
 <div class="lead">
   <p>The APAR covers the financial year just ended, 1 April to 31 March, and the cycle opens on the following 1 April. The APAR for 2025-26 opens on 1 April 2026.</p>
   <p>Every part is filed in MahaPAR and signed with a digital signature or eSign. Paper forms are not accepted.</p>
-  <p>If a stage is not completed by its date, MahaPAR forwards the APAR to the next stage, records the delay, and deducts timeliness marks from the APAR of the official who held it. These marks are 5% of the final score, that is &minus;0.5 to +0.5 on the 10-point scale, and they sit in Part 6, which MahaPAR generates on its own. Timeliness is counted for every role an official holds in the cycle: their own self-appraisal, their assessments as a reporting officer, and their reviews as a reviewing officer.</p>
+  <p>If a stage is not completed by its date, MahaPAR forwards the APAR to the next stage, records the delay, and deducts timeliness marks from the APAR of the official who held it. These marks are 5 per cent of the final score, that is &minus;0.5 to +0.5 on the 10-point scale, and they sit in Part 6, which MahaPAR generates on its own. Timeliness is counted for every role an official holds in the cycle: their own self-appraisal, their assessments as a reporting officer, and their reviews as a reviewing officer.</p>
 </div>
 
 <h2>A. Officers in the APAR chain</h2>
@@ -196,19 +192,20 @@ ol,ul{{margin:4px 0 0 16px;padding:0}} li{{margin-bottom:4px}}
 
 <div class="pb"></div>
 <h2>C. What happens if a stage is not completed</h2>
-<table><tr><th style="width:42%">Situation</th><th>What happens next</th></tr>
+<table><tr><th style="width:40%">Situation</th><th>What happens next</th></tr>
 {''.join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in ESCALATION)}</table>
-<p class="sub" style="margin-top:8px">Follow-up runs upward: official, custodian, Cadre Monitoring Authority, Sub Department Monitoring Authority, GAD. Reminders to an official are sent by the custodian. Each level above follows up with the level below it, not with the official.</p>
+<p class="note">Follow-up runs upward: official, custodian, Cadre Monitoring Authority, Sub Department Monitoring Authority, GAD. Reminders to an official are sent by the custodian. Each level above follows up with the level below it, not with the official.</p>
 
 <h2>D. The cycle at a glance</h2>
-<table class="tl">{''.join(f"<tr><td class='d'>{d}</td><td>{e}</td></tr>" for d, e in TIMELINE)}</table>
-<p class="sub" style="margin-top:8px"><b>Note on the dates.</b> The dates shown are the ones proposed in the stakeholder draft, modelled on Gujarat's cycle, which gives each stage about 30 days. They will be finalised in consultation with GAD.</p>
-<p class="sub" style="margin-top:8px">After the reviewing stage the completed APAR is disclosed to the official by the custodian. The official may submit one representation within 15 days of disclosure. No entries are accepted after the cycle closes.</p>
+<table>{''.join(f"<tr><td class='c' style='width:22%'><b>{d}</b></td><td>{e}</td></tr>" for d, e in TIMELINE)}</table>
+<p class="note"><b>Note on the dates.</b> The dates shown are the ones proposed in the stakeholder draft, modelled on Gujarat&rsquo;s cycle, which gives each stage about 30 days. They will be finalised in consultation with GAD.</p>
+<p class="note">After the reviewing stage the completed APAR is disclosed to the official by the custodian. The official may submit one representation within 15 days of disclosure. No entries are accepted after the cycle closes.</p>
 
-<h2 class="keep">E. Points for GAD to confirm</h2>
-<div class="open"><ol>
-{''.join(f"<li><b>{t}</b>{b}</li>" for t, b in OPEN)}
-</ol></div>
+<div class="pb"></div>
+<h2>E. Points for GAD to confirm</h2>
+<ol>
+{''.join(f"<li><b>{t}</b><br>{b}</li>" for t, b in OPEN)}
+</ol>
 
 </body></html>"""
 
