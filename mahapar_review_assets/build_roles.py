@@ -132,7 +132,7 @@ OPEN = [
 def rows(items):
     out = []
     for n, (r, ref, when, how) in enumerate(items, 1):
-        out.append(f"<tr><td class='c'>{n}</td><td>{r}</td><td class='c'>{ref or '&ndash;'}</td>"
+        out.append(f"<tr><td>{r}</td><td class='c'>{ref or '&ndash;'}</td>"
                    f"<td class='c'>{when or '&ndash;'}</td><td>{how or '&ndash;'}</td></tr>")
     return "".join(out)
 
@@ -142,14 +142,14 @@ def block(title, scope, items):
     return f"""<div class="role">
   <h3>{title}</h3><p class="scope">{scope}</p>
   <p class="count">{n} action{"s" if n != 1 else ""}</p>
-  <table><tr><th style="width:4%">No.</th><th style="width:26%">Responsibility</th><th style="width:8%">Form</th>
-  <th style="width:13%">By when</th><th>How it is done in MahaPAR</th></tr>{rows(items)}</table></div>"""
+  <table><tr><th style="width:28%">Responsibility</th><th style="width:8%">Form</th>
+  <th style="width:14%">By when</th><th>How it is done in MahaPAR</th></tr>{rows(items)}</table></div>"""
 
 
 HTML = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
 <title>APAR roles and responsibilities</title>
 <style>
-@page{{size:A4 portrait;margin:18mm 15mm}}
+@page{{size:A4 portrait;margin:16mm 12mm}}
 *{{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 body{{font-family:'Times New Roman',Georgia,serif;color:#000;font-size:13px;margin:0;line-height:1.5}}
 h1{{font-size:21px;margin:0 0 6px;text-align:center}}
