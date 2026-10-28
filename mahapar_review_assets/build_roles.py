@@ -32,9 +32,18 @@ CHAIN = [
   "The officer under whom the official served for three months or more in the year.",
   [("<b>Issue a memo during the year where an official mapped to you needs to improve.</b>", "", "Through the year, as the concern arises",
     "Memos are raised in eHRMS, where the reporting chain is maintained, and can be issued on any day of the year. A memo cannot be back-dated, so a concern recorded only at grading time attaches to the next cycle, not to the year being assessed. MahaPAR reads the memos at grading."),
-   ("<b>Complete the assessment of each official mapped to you.</b> This covers: grading the six dimensions, and the technical module where the official is in a technical cadre; justifying any grade of 1 to 2 or 9 to 10; attaching memos where the overall grade is below the benchmark; recording integrity; writing the overall assessment; stating agreement with the self-appraisal; and confirming or changing the training nominations.",
+   ("<b>Read the self-appraisal of the official before grading.</b>", "Part 2", "15 June",
+    "The whole of Part 2 opens above the grading table: the key activities and targets with achievements, the most significant contribution, any systemic factors, the trainings completed and the training the official has asked for. The memo record for the year, with whether each memo was answered, opens alongside it."),
+   ("""<b>Record your own assessment.</b> This covers:
+      <ul><li>grading the six dimensions, and the technical module where the official is in a technical cadre</li>
+      <li>justifying any grade of 1 to 2 or 9 to 10 by a specific accomplishment or failure</li>
+      <li>attaching the memos issued during the year where the overall grade is below the benchmark of 6</li>
+      <li>recording integrity</li>
+      <li>writing the overall assessment</li>
+      <li>stating whether you agree with the self-appraisal</li>
+      <li>confirming or changing the training the official asked for, and recommending up to three trainings</li></ul>""",
     "Part 3", "15 June",
-    "The whole of Part 2 opens above the grading table, so the self-appraisal, the targets and the training requested are read before grading. Annexure 3 explains what each dimension looks like in a desk post and in a field post. System data on iGOT hours, eOffice use and attendance is shown for reference and is not weighted. The justification box opens automatically for a grade of 1 to 2 or 9 to 10, and the stage cannot be signed until it is filled; memos issued during the year are shown against the dimension they relate to, with whether the official answered them, and can be cited there. Where the overall grade is below 6, the memo record for the year and the replies can be attached with one click. Doubtful integrity requires reasons in a separate confidential note. Under training nominations the officer agrees with or changes what the official asked for in 2.5 and may recommend up to three trainings, each marked domain, functional or behavioural.")]),
+    "Annexure 3 explains what each dimension looks like in a desk post and in a field post. System data on iGOT hours, eOffice use and attendance is shown for reference and is not weighted. The justification box opens automatically for a grade of 1 to 2 or 9 to 10, and the stage cannot be signed until it is filled; memos are shown against the dimension they relate to and can be cited there. Where the overall grade is below 6, the memo record and the replies are attached with one click. Doubtful integrity requires reasons in a separate confidential note. Each recommended training is marked domain, functional or behavioural.")]),
 
  ("Reviewing officer",
   "The officer immediately senior to the reporting officer in the mapped chain.",
@@ -70,7 +79,7 @@ ADMIN = [
    ("Close the cycle on the date notified by GAD.", "", "31 December",
     "No entries are accepted after the cycle closes. Closed cycles stay available for viewing and export.")]),
 
- ("Cadre Monitoring Authority, point of contact",
+ ("Cadre Monitoring Authority",
   "One cadre across all offices, for example Assistant Police Inspector.",
   [("Watch how the cadre is progressing through the cycle and see which APARs are generated, closed or pending.", "", "Throughout the cycle",
     "<b>View Cadre Report</b>, with the count at each stage for the whole cadre."),
@@ -79,7 +88,7 @@ ADMIN = [
    ("Take up offices in the cadre where pendency is not moving, with the custodians concerned.", "", "After the custodian's own follow-up",
     "Reminders to officials are sent by the custodian. The Cadre Monitoring Authority follows up with the custodian, not with the official.")]),
 
- ("Sub Department Monitoring Authority, point of contact",
+ ("Sub Department Monitoring Authority",
   "One whole sub department, for example MH-POLICE.",
   [("Watch how each office and each cadre of the sub department is doing.", "", "Throughout the cycle",
     "<b>Overall Service</b> for the sub department as a whole, <b>OU Wise</b> for each office and <b>Individual Officers</b> for a single record."),
@@ -165,7 +174,8 @@ td{{border:1px solid #000;padding:6px 8px;vertical-align:top;font-size:12.5px}}
 td.c{{white-space:nowrap}}
 .lead{{border:1px solid #000;padding:10px 12px;margin-bottom:18px}}
 .lead p{{margin:0 0 7px}} .lead p:last-child{{margin:0}}
-ol{{margin:6px 0 0 20px;padding:0}} li{{margin-bottom:10px}}
+ol{{margin:6px 0 0 20px;padding:0}}
+td ul{{margin:4px 0 0 16px;padding:0}} td li{{margin-bottom:3px}} li{{margin-bottom:10px}}
 .note{{font-size:12.5px;margin:6px 0 0}}
 .pb{{break-before:page}}
 </style></head><body>
