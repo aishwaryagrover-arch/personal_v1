@@ -15,45 +15,36 @@ CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
 # role: (title, one-line scope, [(responsibility, form ref, by when, how in MahaPAR)])
 CHAIN = [
  ("Official reported upon",
-  "Every Group A, B and C employee for whom an APAR is generated.",
-  [("Check the pre-filled details and report any error.", "Part 1", "15 April",
-    "Open My APAR. The details come from Sevaarth and the service record. Use <b>Request a correction</b> to send an error to the custodian."),
-   ("Check the reporting chain mapped for the year, including each change of post, and ask for a correction if it is wrong.", "1.1", "15 April",
-    "The chain is shown as a row for each period. <b>Request a correction</b> sends it to the custodian."),
-   ("Check the No Report Certificate raised for any period of less than three months.", "1.2", "15 April",
-    "MahaPAR raises the NRC automatically from the mapped period. The custodian verifies and issues it."),
-   ("Complete and submit the self-appraisal.", "Part 2", "15 May",
-    "One page covering 2.1 to 2.6. The work log kept during the year can be pulled into 2.2. Signed with DSC or eSign."),
-   ("Read the disclosed APAR and submit a representation if any.", "Part 6", "Within 15 days of disclosure",
-    "The outcome opens in My APAR with one representation box. Memos issued during the year and the replies are attached automatically.")]),
+  "Every Group A and Group B official for whom an APAR is generated.",
+  [("<b>Keep a work log through the year.</b> Record noteworthy tasks and activities as they happen.",
+    "2.2", "Through the year",
+    "The work log is open all year in MahaPAR and the eHRMS app. Entries can be pulled into the self-appraisal (2.2) when the cycle opens, so the official is not writing the year from memory in May."),
+   ("<b>Respond to any memo issued to you by the reporting officer.</b>", "", "Within the date given in the memo",
+    "Memos are issued and answered in eHRMS through the year. The reply is recorded against the memo itself and is shown to the reporting officer at grading, along with whether the memo was answered."),
+   ("<b>Check Part 1 and the reporting chain mapped for you</b>, and ask for a correction where it is wrong.", "Part 1, 1.1, 1.2", "15 April",
+    "Details come from Sevaarth and the service record. The chain is shown as a row for each period and is mapped by the custodian. <b>Request a correction</b> sends an error to the custodian. Where eHRMS is not yet live, leave or absence of 30 days or more is entered by the official. Any No Report Certificate raised for a period of less than three months is shown here for checking."),
+   ("<b>Fill and submit the self-appraisal.</b>", "Part 2", "15 May",
+    "The whole of Part 2 on one page: key activities and targets with achievements (2.1), the most significant contribution (2.2), any systemic factors (2.3), trainings completed (2.4), up to three training areas needed (2.5), and the technical cadre module where applicable (2.6). Signed with DSC or eSign."),
+   ("<b>Read the disclosed APAR and submit a representation if any.</b>", "Part 6", "Within 15 days of disclosure",
+    "The outcome opens in MahaPAR with one representation box. The memos issued during the year and the replies are attached automatically.")]),
 
  ("Reporting officer",
   "The officer under whom the official served for three months or more in the year.",
-  [("Read the self-appraisal in full before grading.", "Part 2", "15 June",
-    "The whole of Part 2 opens above the grading table, including the targets, the training completed and the training requested."),
-   ("Grade the official on the six dimensions from 1 to 10, against officials at the same level.", "3.1", "15 June",
-    "Annexure 3 explains what each dimension looks like in a desk post and in a field post. System data on iGOT hours, eOffice use and attendance is shown for reference and is not weighted."),
-   ("Justify any grade of 1 to 2 or 9 to 10 by a specific accomplishment or failure.", "3.3", "15 June",
-    "The justification box opens automatically when such a grade is given, and the stage cannot be signed until it is filled. Memos issued to the official during the year are shown against the dimension they relate to, with whether the official answered them, and can be cited in the justification for a low grade."),
-   ("Where the overall grade is below the benchmark of 6, attach the memos issued to the official during the year.", "3.1", "15 June",
-    "The memo record for the year is shown alongside and can be attached with one click, along with the official's replies. A memo cannot be back-dated, so a concern must be recorded in eHRMS when it arises and not at grading."),
-   ("Record integrity.", "3.2", "15 June",
-    "Doubtful requires reasons in a separate confidential note. MahaPAR will not accept a fit recommendation with doubtful integrity unless a reason is given."),
-   ("Write the overall assessment.", "3.3", "15 June", "Compulsory, maximum 100 words."),
-   ("State whether you agree with the self-appraisal.", "3.4", "15 June", "Answered after your own assessment is complete."),
-   ("Confirm or change the training the official requested, and recommend up to three trainings.", "3.5", "15 June",
-    "Each training is marked domain, functional or behavioural. iGOT courses can be selected directly.")]),
+  [("<b>Issue a memo during the year where an official mapped to you needs to improve.</b>", "", "Through the year, as the concern arises",
+    "Memos are raised in eHRMS, where the reporting chain is maintained, and can be issued on any day of the year. A memo cannot be back-dated, so a concern recorded only at grading time attaches to the next cycle, not to the year being assessed. MahaPAR reads the memos at grading."),
+   ("<b>Complete the assessment of each official mapped to you.</b> This covers: grading the six dimensions, and the technical module where the official is in a technical cadre; justifying any grade of 1 to 2 or 9 to 10; attaching memos where the overall grade is below the benchmark; recording integrity; writing the overall assessment; stating agreement with the self-appraisal; and confirming or changing the training nominations.",
+    "Part 3", "15 June",
+    "The whole of Part 2 opens above the grading table, so the self-appraisal, the targets and the training requested are read before grading. Annexure 3 explains what each dimension looks like in a desk post and in a field post. System data on iGOT hours, eOffice use and attendance is shown for reference and is not weighted. The justification box opens automatically for a grade of 1 to 2 or 9 to 10, and the stage cannot be signed until it is filled; memos issued during the year are shown against the dimension they relate to, with whether the official answered them, and can be cited there. Where the overall grade is below 6, the memo record for the year and the replies can be attached with one click. Doubtful integrity requires reasons in a separate confidential note. Under training nominations the officer agrees with or changes what the official asked for in 2.5 and may recommend up to three trainings, each marked domain, functional or behavioural.")]),
 
  ("Reviewing officer",
   "The officer immediately senior to the reporting officer in the mapped chain.",
-  [("Agree with the reporting officer's overall grade, or record your own.", "4.1", "15 July",
-    "Agreeing takes two clicks. Dimension-wise grades are not revised."),
-   ("Where you differ, record your own overall grade and the reason.", "4.2", "15 July",
-    "Your grade replaces the reporting officer's overall grade. A grade of 1 to 2 or 9 to 10 needs the specific accomplishment or failure behind it.")]),
+  [("<b>Complete the review of each APAR that comes to you.</b> Agree with the reporting officer&rsquo;s overall grade, or record your own overall grade with the reason.",
+    "Part 4", "15 July",
+    "Agreeing takes two clicks. Dimension-wise grades are not revised. Where you differ, your grade replaces the reporting officer&rsquo;s overall grade, and a grade of 1 to 2 or 9 to 10 needs the specific accomplishment or failure behind it.")]),
 
  ("Accepting authority (only if GAD adds this stage)",
   "Maharashtra's current forms have no accepting stage. If GAD adds one, it acts only where a stage was never completed; it is not an appellate stage and does not revise grades.",
-  [("Record which stage is missing and the action taken, so that the APAR is not left incomplete.", "Part 5", "31 July",
+  [("<b>Record which stage is missing and the action taken</b>, so that the APAR is not left incomplete.", "Part 5", "31 July",
     "The stage opens only where MahaPAR auto-forwarded a stage that was never recorded.")]),
 ]
 
@@ -75,7 +66,9 @@ ADMIN = [
    ("Disclose the completed APAR to the official and record any representation.", "Part 6", "After the reviewing stage",
     "Disclosure is a custodian action in MahaPAR. The 15-day representation window runs from the date of disclosure."),
    ("Supply APARs to the Departmental Promotion Committee.", "", "On requisition",
-    "Closed APARs are exported from the register for the cadre and period asked for.")]),
+    "Closed APARs are exported from the register for the cadre and period asked for."),
+   ("Close the cycle on the date notified by GAD.", "", "31 December",
+    "No entries are accepted after the cycle closes. Closed cycles stay available for viewing and export.")]),
 
  ("Cadre Monitoring Authority, point of contact",
   "One cadre across all offices, for example Assistant Police Inspector.",
@@ -102,7 +95,7 @@ ADMIN = [
     "Part 6 is generated by MahaPAR; no officer enters it."),
    ("Monitor pendency across the state and identify where action is needed first.", "", "Throughout the cycle",
     "Department, service, cadre and office wise reports, with stage deadlines tracked in one place."),
-   ("Settle the points left open in the forms, including the split of the timeliness marks between the three duties.", "Part 6", "Before the cycle opens", "")]),
+   ]),
 ]
 
 ESCALATION = [
@@ -148,9 +141,9 @@ def block(title, scope, items):
     n = len(items)
     return f"""<div class="role">
   <h3>{title}</h3><p class="scope">{scope}</p>
-  <p class="count">{n} actions</p>
-  <table><tr><th style="width:5%">No.</th><th style="width:29%">Responsibility</th><th style="width:9%">Form</th>
-  <th style="width:15%">By when</th><th>How it is done in MahaPAR</th></tr>{rows(items)}</table></div>"""
+  <p class="count">{n} action{"s" if n != 1 else ""}</p>
+  <table><tr><th style="width:4%">No.</th><th style="width:26%">Responsibility</th><th style="width:8%">Form</th>
+  <th style="width:13%">By when</th><th>How it is done in MahaPAR</th></tr>{rows(items)}</table></div>"""
 
 
 HTML = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
@@ -178,7 +171,7 @@ ol{{margin:6px 0 0 20px;padding:0}} li{{margin-bottom:10px}}
 </style></head><body>
 
 <h1>APAR under MahaPAR: who does what, by when, and how</h1>
-<p class="sub">Draft for discussion with GAD | IDinsight | Follows Form A (Group A and B officials) and Form B (Group C employees), current drafts</p>
+<p class="sub">Draft for discussion with GAD | IDinsight | Based on Form A, for Group A and Group B officials, current draft</p>
 
 <div class="lead">
   <p>The APAR covers the financial year just ended, 1 April to 31 March, and the cycle opens on the following 1 April. The APAR for 2025-26 opens on 1 April 2026.</p>
