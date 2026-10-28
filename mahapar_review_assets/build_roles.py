@@ -97,7 +97,7 @@ ADMIN = [
    ("Report to GAD on offices where pendency continues after follow-up.", "", "Monthly during the cycle",
     "The sub department register can be exported for reporting.")]),
 
- ("General Administration Department (state administrator)",
+ ("General Administration Department (senior leadership, state-level administration)",
   "The state-level view of every department, service, cadre and office.",
   [("Notify the cycle dates each year.", "", "Before 1 April", "Set centrally for all departments."),
    ("Monitor pendency across the state and follow it up with the Sub Department Monitoring Authority and the Cadre Monitoring Authority concerned.", "", "Throughout the cycle",
@@ -139,8 +139,8 @@ OPEN = [
 def rows(items):
     out = []
     for n, (r, ref, when, how) in enumerate(items, 1):
-        out.append(f"<tr><td>{r}</td><td class='c'>{ref or '&ndash;'}</td>"
-                   f"<td class='c'>{when or '&ndash;'}</td><td>{how or '&ndash;'}</td></tr>")
+        out.append(f"<tr><td>{r}</td><td>{ref or '&ndash;'}</td>"
+                   f"<td>{when or '&ndash;'}</td><td>{how or '&ndash;'}</td></tr>")
     return "".join(out)
 
 
@@ -149,8 +149,8 @@ def block(title, scope, items):
     return f"""<div class="role">
   <h3>{title}</h3><p class="scope">{scope}</p>
   <p class="count">{n} action{"s" if n != 1 else ""}</p>
-  <table><thead><tr><th style="width:28%">Responsibility</th><th style="width:8%">Form</th>
-  <th style="width:14%">By when</th><th>How it is done in MahaPAR</th></tr></thead><tbody>{rows(items)}</tbody></table></div>"""
+  <table><thead><tr><th style="width:33%">Responsibility</th><th style="width:7%">Form</th>
+  <th style="width:12%">By when</th><th>How it is done in MahaPAR</th></tr></thead><tbody>{rows(items)}</tbody></table></div>"""
 
 
 HTML = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
