@@ -1,0 +1,218 @@
+#!/usr/bin/env python3
+"""
+Builds the APAR roles and responsibilities annexure (content only, no GR
+header, signature block or distribution list).
+
+Content follows Form A v4.1 and Form B v3 wherever the older stakeholder
+draft differs; the differences are listed on the last page for GAD.
+"""
+import subprocess, os
+
+OUT = "/home/user/personal_v1/MahaPAR_APAR_roles_and_responsibilities.pdf"
+HTMLOUT = "/home/user/personal_v1/MahaPAR_APAR_roles_and_responsibilities.html"
+CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+
+# role: (title, one-line scope, [(responsibility, form ref, by when, how in MahaPAR)])
+CHAIN = [
+ ("Official reported upon",
+  "Every Group A, B and C employee for whom an APAR is generated.",
+  [("Check the pre-filled details and report any error.", "Part 1", "15 April",
+    "Open My APAR. The details come from Sevaarth and the service record. Use <b>Request a correction</b> to send an error to the custodian."),
+   ("Check the reporting chain mapped for the year, including each change of post, and ask for a correction if it is wrong.", "1.1", "15 April",
+    "The chain is shown as a row for each period. <b>Request a correction</b> sends it to the custodian."),
+   ("Check the No Report Certificate raised for any period of less than three months.", "1.2", "15 April",
+    "MahaPAR raises the NRC automatically from the mapped period. The custodian verifies and issues it."),
+   ("Complete and submit the self-appraisal.", "Part 2", "15 May",
+    "One page covering 2.1 to 2.6. The work log kept during the year can be pulled into 2.2. Signed with DSC or eSign."),
+   ("Read the disclosed APAR and submit a representation if any.", "Part 6", "Within 15 days of disclosure",
+    "The outcome opens in My APAR with one representation box. Memos issued during the year and the replies are attached automatically.")]),
+
+ ("Reporting officer",
+  "The officer under whom the official served for three months or more in the year.",
+  [("Read the self-appraisal in full before grading.", "Part 2", "15 June",
+    "The whole of Part 2 opens above the grading table, including the targets, the training completed and the training requested."),
+   ("Grade the official on the six dimensions from 1 to 10, against officials at the same level.", "3.1", "15 June",
+    "Annexure 3 explains what each dimension looks like in a desk post and in a field post. System data on iGOT hours, eOffice use and attendance is shown for reference and is not weighted."),
+   ("Justify any grade of 1 to 2 or 9 to 10 by a specific accomplishment or failure.", "3.3", "15 June",
+    "The justification box opens automatically when such a grade is given, and the stage cannot be signed until it is filled."),
+   ("Where the overall grade is below the benchmark of 6, attach the memos issued to the official during the year.", "3.1", "15 June",
+    "The memo record for the year is shown alongside and can be attached with one click. A memo cannot be back-dated, so a concern must be recorded in eHRMS when it arises."),
+   ("Record integrity.", "3.2", "15 June",
+    "Doubtful requires reasons in a separate confidential note. MahaPAR will not accept a fit recommendation with doubtful integrity unless a reason is given."),
+   ("Write the overall assessment.", "3.3", "15 June", "Compulsory, maximum 100 words."),
+   ("State whether you agree with the self-appraisal.", "3.4", "15 June", "Answered after your own assessment is complete."),
+   ("Confirm or change the training the official requested, and recommend up to three trainings.", "3.5", "15 June",
+    "Each training is marked domain, functional or behavioural. iGOT courses can be selected directly.")]),
+
+ ("Reviewing officer",
+  "The officer immediately senior to the reporting officer in the mapped chain.",
+  [("Agree with the reporting officer's overall grade, or record your own.", "4.1", "15 July",
+    "Agreeing takes two clicks. Dimension-wise grades are not revised."),
+   ("Where you differ, record your own overall grade and the reason.", "4.2", "15 July",
+    "Your grade replaces the reporting officer's overall grade. A grade of 1 to 2 or 9 to 10 needs the specific accomplishment or failure behind it.")]),
+
+ ("Accepting authority",
+  "Acts only where a stage was never completed. It is not an appellate stage and does not revise grades.",
+  [("Record which stage is missing and the action taken, so that the APAR is not left incomplete.", "Part 5", "31 July",
+    "The stage opens only where MahaPAR auto-forwarded a stage that was never recorded.")]),
+]
+
+ADMIN = [
+ ("Custodian (establishment officer)",
+  "Responsible for APAR data of one office (organisation unit).",
+  [("Open the cycle for the year and notify the dates set by GAD.", "", "1 April",
+    "<b>Initiate cycle and complete authority mapping</b>. Past cycles can be viewed and exported from the same place."),
+   ("Map each official's tenures and reporting and reviewing officers for the year, and verify Part 1.", "Part 1, 1.1", "30 April",
+    "Selected from drop-down lists. Once office orders are digitised and linked to eHRMS this will be pre-filled and the custodian will only validate or correct it."),
+   ("Verify and issue No Report Certificates.", "1.2", "30 April",
+    "MahaPAR raises the NRC from the mapped period; the custodian verifies the period and signs."),
+   ("Act on correction requests raised by officials on Part 1 and the chain.", "Part 1, 1.1", "30 April",
+    "Requests appear in the mapping screen against the official who raised them."),
+   ("Track what is pending across the cycle and follow it up.", "", "Throughout the cycle",
+    "<b>Track what is pending across APAR cycle</b> shows the count at each stage. <b>Facilitate APAR cycle</b> carries two actions: send bulk reminders to all pendencies, or open an individual pendency and follow it up."),
+   ("Track memos issued in the office and remind officials who have not answered one.", "", "Throughout the cycle",
+    "The memo tracking section lists officials with unanswered memos and sends them a reminder. The custodian does not read the memo content."),
+   ("Disclose the completed APAR to the official and record any representation.", "Part 6", "After the reviewing stage",
+    "Disclosure is a custodian action in MahaPAR. The 15-day representation window runs from the date of disclosure."),
+   ("Supply APARs to the Departmental Promotion Committee.", "", "On requisition",
+    "Closed APARs are exported from the register for the cadre and period asked for.")]),
+
+ ("Cadre Monitoring Authority, point of contact",
+  "One cadre across all offices, for example Assistant Police Inspector.",
+  [("Watch how the cadre is progressing through the cycle and see which APARs are generated, closed or pending.", "", "Throughout the cycle",
+    "<b>View Cadre Report</b>, with the count at each stage for the whole cadre."),
+   ("Open an individual official's details and past APARs where a case needs to be examined.", "", "As required",
+    "From the cadre report, an official's record and closed APARs can be opened directly."),
+   ("Take up offices in the cadre where pendency is not moving, with the custodians concerned.", "", "After the custodian's own follow-up",
+    "Reminders to officials are sent by the custodian. The Cadre Monitoring Authority follows up with the custodian, not with the official.")]),
+
+ ("Service Monitoring Authority, point of contact",
+  "One whole service, for example the police service. Shown as Sub Department Monitoring Authority in the earlier role diagram.",
+  [("Watch how each office and each cadre of the service is doing.", "", "Throughout the cycle",
+    "<b>Overall Service</b> for the service as a whole, <b>OU Wise</b> for each office and <b>Individual Officers</b> for a single record."),
+   ("Follow up on pending APARs in the service, office by office.", "", "Throughout the cycle",
+    "OU Wise ranks offices by pendency, so the offices needing attention first are visible without a search."),
+   ("Report to GAD on offices where pendency continues after follow-up.", "", "Monthly during the cycle",
+    "The service register can be exported for reporting.")]),
+
+ ("General Administration Department (state administrator)",
+  "The state-level view of every department, service, cadre and office.",
+  [("Notify the cycle dates each year.", "", "Before 1 April", "Set centrally for all departments."),
+   ("Configure pre-filling, automatic forwarding, grade calculation and the timeliness marks.", "Part 6", "Before 1 April",
+    "Part 6 is generated by MahaPAR; no officer enters it."),
+   ("Monitor pendency across the state and identify where action is needed first.", "", "Throughout the cycle",
+    "Department, service, cadre and office wise reports, with stage deadlines tracked in one place."),
+   ("Settle the points left open in the forms, including the split of the timeliness marks between the three duties.", "Part 6", "Before the cycle opens", "")]),
+]
+
+ESCALATION = [
+ ("Official does not confirm Part 1 by 15 April", "The custodian completes the mapping from the service record."),
+ ("Official does not submit the self-appraisal by 15 May", "The reporting officer assesses on the available record."),
+ ("Reporting officer does not complete the stage by 15 June", "MahaPAR forwards the APAR and the reviewing officer completes the assessment."),
+ ("Reviewing officer does not complete the stage by 15 July", "The reporting officer's assessment becomes final."),
+ ("A stage is never completed at all", "The accepting authority records the missing stage and the action taken (Part 5)."),
+ ("Pendency in an office is not moving", "Custodian sends reminders, then the Cadre Monitoring Authority takes it up with the custodian, then the Service Monitoring Authority, then GAD."),
+]
+
+TIMELINE = [("31 March", "Reporting year ends"), ("1 April", "Cycle opens"),
+            ("15 April", "Official confirms Part 1"), ("30 April", "Custodian verifies Part 1 and the mapping"),
+            ("15 May", "Self-appraisal"), ("15 June", "Reporting officer"),
+            ("15 July", "Reviewing officer"), ("31 July", "Accepting authority, where a stage is missing"),
+            ("31 December", "Cycle closes")]
+
+OPEN = [
+ ("The reporting chain is now mapped by the custodian",
+  "The earlier draft had the official enter the reporting and reviewing officers for the custodian to verify. Form A v4.1 places the mapping with the custodian and leaves the official a correction request. The responsibility has moved between two roles, so the resolution should say so plainly."),
+ ("The reviewing officer works on the overall grade only",
+  "The earlier draft allowed the reviewing officer to revise individual dimensions, with MahaPAR recalculating. Form A v4.1 asks only about the overall grade and states that dimension-wise grades are not revised."),
+ ("The accepting authority is not an appellate stage",
+  "The earlier draft let the accepting authority record a revised overall grade. Form A v4.1 opens Part 5 only where the reporting or reviewing stage is missing, and asks only which stage is missing and what action was taken."),
+ ("Form references have shifted",
+  "In Form A v4.1 grading is 3.1, integrity 3.2, the overall assessment 3.3, agreement with the self-appraisal 3.4 and training nominations 3.5. The technical cadre question is 2.6, with four modules, T1 to T4."),
+ ("Deadlines",
+  "The dates above are the ones proposed in the stakeholder draft, modelled on Gujarat's cycle, which gives each stage about 30 days. The digital walkthrough currently shows 31 May for the reporting stage. One of the two needs to be corrected once GAD confirms the dates."),
+ ("New roles need to be nominated",
+  "The Cadre Monitoring Authority and Service Monitoring Authority points of contact do not exist today. The resolution should require each department to nominate them and intimate GAD within a stated period."),
+]
+
+
+def rows(items):
+    out = []
+    for r, ref, when, how in items:
+        out.append(f"<tr><td>{r}</td><td class='c'>{ref or '&ndash;'}</td>"
+                   f"<td class='c'>{when or '&ndash;'}</td><td class='how'>{how or '&ndash;'}</td></tr>")
+    return "".join(out)
+
+
+def block(title, scope, items):
+    return f"""<div class="role">
+  <h3>{title}</h3><p class="scope">{scope}</p>
+  <table><tr><th style="width:30%">Responsibility</th><th style="width:8%">Form</th>
+  <th style="width:14%">By when</th><th>How it is done in MahaPAR</th></tr>{rows(items)}</table></div>"""
+
+
+HTML = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>APAR roles and responsibilities</title>
+<style>
+@page{{size:A4 landscape;margin:14mm 12mm}}
+*{{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+body{{font-family:'Segoe UI',system-ui,sans-serif;color:#111827;font-size:10.5px;margin:0;line-height:1.45}}
+h1{{font-size:21px;margin:0 0 4px;color:#1B3A6B}}
+.sub{{font-size:10.5px;color:#4B5563;margin:0 0 14px}}
+h2{{font-size:13.5px;color:#1B3A6B;margin:20px 0 8px;border-bottom:2px solid #1B3A6B;padding-bottom:4px}}
+h3{{font-size:12px;margin:0 0 2px;color:#111827}}
+.scope{{font-size:10px;color:#6B7280;margin:0 0 6px}}
+.role{{margin-bottom:16px;break-inside:avoid}}
+table{{width:100%;border-collapse:collapse}}
+th{{background:#1B3A6B;color:#fff;text-align:left;font-weight:600;font-size:9.8px;padding:5px 7px}}
+td{{border:1px solid #D1D5DB;padding:5px 7px;vertical-align:top}}
+td.c{{white-space:nowrap}}
+td.how{{color:#1F2937}}
+tr:nth-child(even) td{{background:#F7F8FA}}
+.lead{{background:#EEF3FA;border-left:4px solid #1B3A6B;padding:9px 12px;margin-bottom:16px}}
+.lead p{{margin:0 0 5px}} .lead p:last-child{{margin:0}}
+ol,ul{{margin:4px 0 0 16px;padding:0}} li{{margin-bottom:4px}}
+.tl td{{border:1px solid #D1D5DB}} .tl td.d{{font-weight:600;white-space:nowrap;width:14%}}
+.open b{{display:block;margin-bottom:2px}}
+.pb{{break-before:page}}
+.keep{{break-before:page}}
+</style></head><body>
+
+<h1>APAR under MahaPAR: who does what, by when, and how</h1>
+<p class="sub">Draft for discussion with GAD &middot; IDinsight &middot; follows Form A (Group A and B) and Form B (Group C), current drafts &middot; deadlines are proposals</p>
+
+<div class="lead">
+  <p>The APAR covers the financial year just ended, 1 April to 31 March, and the cycle opens on the following 1 April. The APAR for 2025-26 opens on 1 April 2026.</p>
+  <p>Every part is filed in MahaPAR and signed with a digital signature or eSign. Paper forms are not accepted.</p>
+  <p>If a stage is not completed by its date, MahaPAR forwards the APAR to the next stage, records the delay, and deducts timeliness marks from the APAR of the official who held it. These marks are 5% of the final score, that is &minus;0.5 to +0.5 on the 10-point scale, and they sit in Part 6, which MahaPAR generates on its own. Timeliness is counted for every role an official holds in the cycle: their own self-appraisal, their assessments as a reporting officer, and their reviews as a reviewing officer.</p>
+</div>
+
+<h2>A. Officers in the APAR chain</h2>
+{''.join(block(*r) for r in CHAIN)}
+
+<div class="pb"></div>
+<h2>B. Administrative and monitoring roles</h2>
+{''.join(block(*r) for r in ADMIN)}
+
+<div class="pb"></div>
+<h2>C. What happens if a stage is not completed</h2>
+<table><tr><th style="width:42%">Situation</th><th>What happens next</th></tr>
+{''.join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in ESCALATION)}</table>
+<p class="sub" style="margin-top:8px">Follow-up runs upward: official, custodian, Cadre Monitoring Authority, Service Monitoring Authority, GAD. Reminders to an official are sent by the custodian. Each level above follows up with the level below it, not with the official.</p>
+
+<h2>D. The cycle at a glance</h2>
+<table class="tl">{''.join(f"<tr><td class='d'>{d}</td><td>{e}</td></tr>" for d, e in TIMELINE)}</table>
+<p class="sub" style="margin-top:8px">After the reviewing stage the completed APAR is disclosed to the official by the custodian. The official may submit one representation within 15 days of disclosure. No entries are accepted after the cycle closes.</p>
+
+<h2 class="keep">E. Points for GAD to confirm</h2>
+<div class="open"><ol>
+{''.join(f"<li><b>{t}</b>{b}</li>" for t, b in OPEN)}
+</ol></div>
+
+</body></html>"""
+
+open(HTMLOUT, "w").write(HTML)
+subprocess.run([CHROME, "--headless", "--disable-gpu", "--no-sandbox",
+                "--virtual-time-budget=6000", "--no-pdf-header-footer",
+                f"--print-to-pdf={OUT}", HTMLOUT], check=True, capture_output=True)
+print("wrote", OUT, os.path.getsize(OUT) // 1024, "KB")
