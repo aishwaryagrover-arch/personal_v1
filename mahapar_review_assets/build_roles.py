@@ -149,32 +149,34 @@ def block(title, scope, items):
     return f"""<div class="role">
   <h3>{title}</h3><p class="scope">{scope}</p>
   <p class="count">{n} action{"s" if n != 1 else ""}</p>
-  <table><tr><th style="width:28%">Responsibility</th><th style="width:8%">Form</th>
-  <th style="width:14%">By when</th><th>How it is done in MahaPAR</th></tr>{rows(items)}</table></div>"""
+  <table><thead><tr><th style="width:28%">Responsibility</th><th style="width:8%">Form</th>
+  <th style="width:14%">By when</th><th>How it is done in MahaPAR</th></tr></thead><tbody>{rows(items)}</tbody></table></div>"""
 
 
 HTML = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
 <title>APAR roles and responsibilities</title>
 <style>
-@page{{size:A4 portrait;margin:16mm 12mm}}
+@page{{size:A4 portrait;margin:15mm 10mm}}
 *{{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 body{{font-family:'Times New Roman',Georgia,serif;color:#000;font-size:13px;margin:0;line-height:1.5}}
-h1{{font-size:21px;margin:0 0 6px;text-align:center}}
+h1{{font-size:21px;margin:0 0 6px;text-align:center;color:#1B3A6B}}
 .sub{{font-size:12px;margin:0 0 16px;text-align:center}}
-h2{{font-size:16px;margin:26px 0 10px;border-bottom:1.5px solid #000;padding-bottom:4px}}
-h3{{font-size:14px;margin:0 0 2px}}
-.scope{{font-size:12.5px;margin:0 0 3px;font-style:italic}}
-.count{{font-size:12.5px;margin:0 0 8px;font-weight:700}}
+h2{{font-size:16px;margin:26px 0 10px;color:#1B3A6B;border-bottom:1.5px solid #1B3A6B;padding-bottom:4px;break-after:avoid}}
+h3{{font-size:14px;margin:0 0 2px;color:#1B3A6B;break-after:avoid}}
+.scope{{font-size:12.5px;margin:0 0 3px;font-style:italic;break-after:avoid}}
+.count{{font-size:12.5px;margin:0 0 8px;font-weight:700;break-after:avoid}}
 .role{{margin-bottom:20px}}
 table{{width:100%;border-collapse:collapse;margin-bottom:4px}}
-th{{background:#E8E8E8;color:#000;text-align:left;font-weight:700;font-size:12.5px;padding:6px 8px;border:1px solid #000}}
+th{{background:#1B3A6B;color:#fff;text-align:left;font-weight:700;font-size:12.5px;padding:7px 8px;border:1px solid #1B3A6B}}
 td{{border:1px solid #000;padding:6px 8px;vertical-align:top;font-size:12.5px}}
 td.c{{white-space:nowrap}}
-.lead{{border:1px solid #000;padding:10px 12px;margin-bottom:18px}}
+.lead{{border:1px solid #1B3A6B;border-left:5px solid #1B3A6B;padding:10px 12px;margin-bottom:18px}}
 .lead p{{margin:0 0 7px}} .lead p:last-child{{margin:0}}
 ol{{margin:6px 0 0 20px;padding:0}}
 td ul{{margin:4px 0 0 16px;padding:0}} td li{{margin-bottom:3px}} li{{margin-bottom:10px}}
 .note{{font-size:12.5px;margin:6px 0 0}}
+thead{{display:table-header-group}}
+tr{{break-inside:avoid}}
 .pb{{break-before:page}}
 </style></head><body>
 
@@ -202,8 +204,8 @@ td ul{{margin:4px 0 0 16px;padding:0}} td li{{margin-bottom:3px}} li{{margin-bot
 
 <div class="pb"></div>
 <h2>D. What happens if a stage is not completed</h2>
-<table><tr><th style="width:40%">Situation</th><th>What happens next</th></tr>
-{''.join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in ESCALATION)}</table>
+<table><thead><tr><th style="width:40%">Situation</th><th>What happens next</th></tr></thead><tbody>
+{''.join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in ESCALATION)}</tbody></table>
 <p class="note">Follow-up runs upward: official, custodian, Cadre Monitoring Authority, Sub Department Monitoring Authority, GAD. Reminders to an official are sent by the custodian. Each level above follows up with the level below it, not with the official.</p>
 
 </body></html>"""
