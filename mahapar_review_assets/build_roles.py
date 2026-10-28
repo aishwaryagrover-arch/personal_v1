@@ -201,12 +201,6 @@ ol{{margin:6px 0 0 20px;padding:0}} li{{margin-bottom:10px}}
 <p class="note"><b>Note on the dates.</b> The dates shown are the ones proposed in the stakeholder draft, modelled on Gujarat&rsquo;s cycle, which gives each stage about 30 days. They will be finalised in consultation with GAD.</p>
 <p class="note">After the reviewing stage the completed APAR is disclosed to the official by the custodian. The official may submit one representation within 15 days of disclosure. No entries are accepted after the cycle closes.</p>
 
-<div class="pb"></div>
-<h2>E. Points for GAD to confirm</h2>
-<ol>
-{''.join(f"<li><b>{t}</b><br>{b}</li>" for t, b in OPEN)}
-</ol>
-
 </body></html>"""
 
 open(HTMLOUT, "w").write(HTML)
