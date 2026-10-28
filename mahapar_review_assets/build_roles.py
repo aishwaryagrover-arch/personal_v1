@@ -167,7 +167,7 @@ h3{{font-size:14px;margin:0 0 2px;color:#1B3A6B;break-after:avoid}}
 .count{{font-size:12.5px;margin:0 0 8px;font-weight:700;break-after:avoid}}
 .role{{margin-bottom:20px}}
 table{{width:100%;border-collapse:collapse;margin-bottom:4px}}
-th{{background:#1B3A6B;color:#fff;text-align:left;font-weight:700;font-size:12.5px;padding:7px 8px;border:1px solid #1B3A6B}}
+th{{background:#CBD9EC;color:#102A4C;text-align:left;font-weight:700;font-size:12.5px;padding:7px 8px;border:1px solid #000}}
 td{{border:1px solid #000;padding:6px 8px;vertical-align:top;font-size:12.5px}}
 td.c{{white-space:nowrap}}
 .lead{{border:1px solid #1B3A6B;border-left:5px solid #1B3A6B;padding:10px 12px;margin-bottom:18px}}
