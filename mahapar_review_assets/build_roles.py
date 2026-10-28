@@ -51,8 +51,8 @@ CHAIN = [
    ("Where you differ, record your own overall grade and the reason.", "4.2", "15 July",
     "Your grade replaces the reporting officer's overall grade. A grade of 1 to 2 or 9 to 10 needs the specific accomplishment or failure behind it.")]),
 
- ("Accepting authority",
-  "Acts only where a stage was never completed. It is not an appellate stage and does not revise grades.",
+ ("Accepting authority (only if GAD adds this stage)",
+  "Maharashtra's current forms have no accepting stage. If GAD adds one, it acts only where a stage was never completed; it is not an appellate stage and does not revise grades.",
   [("Record which stage is missing and the action taken, so that the APAR is not left incomplete.", "Part 5", "31 July",
     "The stage opens only where MahaPAR auto-forwarded a stage that was never recorded.")]),
 ]
@@ -86,14 +86,14 @@ ADMIN = [
    ("Take up offices in the cadre where pendency is not moving, with the custodians concerned.", "", "After the custodian's own follow-up",
     "Reminders to officials are sent by the custodian. The Cadre Monitoring Authority follows up with the custodian, not with the official.")]),
 
- ("Service Monitoring Authority, point of contact",
-  "One whole service, for example the police service. Shown as Sub Department Monitoring Authority in the earlier role diagram.",
-  [("Watch how each office and each cadre of the service is doing.", "", "Throughout the cycle",
-    "<b>Overall Service</b> for the service as a whole, <b>OU Wise</b> for each office and <b>Individual Officers</b> for a single record."),
-   ("Follow up on pending APARs in the service, office by office.", "", "Throughout the cycle",
+ ("Sub Department Monitoring Authority, point of contact",
+  "One whole sub department, for example MH-POLICE.",
+  [("Watch how each office and each cadre of the sub department is doing.", "", "Throughout the cycle",
+    "<b>Overall Service</b> for the sub department as a whole, <b>OU Wise</b> for each office and <b>Individual Officers</b> for a single record."),
+   ("Follow up on pending APARs in the sub department, office by office.", "", "Throughout the cycle",
     "OU Wise ranks offices by pendency, so the offices needing attention first are visible without a search."),
    ("Report to GAD on offices where pendency continues after follow-up.", "", "Monthly during the cycle",
-    "The service register can be exported for reporting.")]),
+    "The sub department register can be exported for reporting.")]),
 
  ("General Administration Department (state administrator)",
   "The state-level view of every department, service, cadre and office.",
@@ -110,14 +110,14 @@ ESCALATION = [
  ("Official does not submit the self-appraisal by 15 May", "The reporting officer assesses on the available record."),
  ("Reporting officer does not complete the stage by 15 June", "MahaPAR forwards the APAR and the reviewing officer completes the assessment."),
  ("Reviewing officer does not complete the stage by 15 July", "The reporting officer's assessment becomes final."),
- ("A stage is never completed at all", "The accepting authority records the missing stage and the action taken (Part 5)."),
- ("Pendency in an office is not moving", "Custodian sends reminders, then the Cadre Monitoring Authority takes it up with the custodian, then the Service Monitoring Authority, then GAD."),
+ ("A stage is never completed at all", "Where GAD adds an accepting stage, the accepting authority records the missing stage and the action taken (Part 5)."),
+ ("Pendency in an office is not moving", "Custodian sends reminders, then the Cadre Monitoring Authority takes it up with the custodian, then the Sub Department Monitoring Authority, then GAD."),
 ]
 
 TIMELINE = [("31 March", "Reporting year ends"), ("1 April", "Cycle opens"),
             ("15 April", "Official confirms Part 1"), ("30 April", "Custodian verifies Part 1 and the mapping"),
             ("15 May", "Self-appraisal"), ("15 June", "Reporting officer"),
-            ("15 July", "Reviewing officer"), ("31 July", "Accepting authority, where a stage is missing"),
+            ("15 July", "Reviewing officer"), ("31 July", "Accepting authority, if GAD adds this stage and a stage is missing"),
             ("31 December", "Cycle closes")]
 
 OPEN = [
@@ -126,13 +126,13 @@ OPEN = [
  ("The reviewing officer works on the overall grade only",
   "The earlier draft allowed the reviewing officer to revise individual dimensions, with MahaPAR recalculating. Form A v4.1 asks only about the overall grade and states that dimension-wise grades are not revised."),
  ("The accepting authority is not an appellate stage",
-  "The earlier draft let the accepting authority record a revised overall grade. Form A v4.1 opens Part 5 only where the reporting or reviewing stage is missing, and asks only which stage is missing and what action was taken."),
+  "The accepting stage is optional and Maharashtra's current forms have none. If GAD adds it, the earlier draft let it record a revised overall grade, while Form A v4.1 opens Part 5 only where the reporting or reviewing stage is missing and asks only which stage is missing and what action was taken. The second is followed here."),
  ("Form references have shifted",
   "In Form A v4.1 grading is 3.1, integrity 3.2, the overall assessment 3.3, agreement with the self-appraisal 3.4 and training nominations 3.5. The technical cadre question is 2.6, with four modules, T1 to T4."),
  ("Deadlines",
   "The dates above are the ones proposed in the stakeholder draft, modelled on Gujarat's cycle, which gives each stage about 30 days. The digital walkthrough currently shows 31 May for the reporting stage. One of the two needs to be corrected once GAD confirms the dates."),
  ("New roles need to be nominated",
-  "The Cadre Monitoring Authority and Service Monitoring Authority points of contact do not exist today. The resolution should require each department to nominate them and intimate GAD within a stated period."),
+  "The Cadre Monitoring Authority and Sub Department Monitoring Authority points of contact do not exist today. The resolution should require each department to nominate them and intimate GAD within a stated period."),
 ]
 
 
@@ -198,10 +198,11 @@ ol,ul{{margin:4px 0 0 16px;padding:0}} li{{margin-bottom:4px}}
 <h2>C. What happens if a stage is not completed</h2>
 <table><tr><th style="width:42%">Situation</th><th>What happens next</th></tr>
 {''.join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in ESCALATION)}</table>
-<p class="sub" style="margin-top:8px">Follow-up runs upward: official, custodian, Cadre Monitoring Authority, Service Monitoring Authority, GAD. Reminders to an official are sent by the custodian. Each level above follows up with the level below it, not with the official.</p>
+<p class="sub" style="margin-top:8px">Follow-up runs upward: official, custodian, Cadre Monitoring Authority, Sub Department Monitoring Authority, GAD. Reminders to an official are sent by the custodian. Each level above follows up with the level below it, not with the official.</p>
 
 <h2>D. The cycle at a glance</h2>
 <table class="tl">{''.join(f"<tr><td class='d'>{d}</td><td>{e}</td></tr>" for d, e in TIMELINE)}</table>
+<p class="sub" style="margin-top:8px"><b>Note on the dates.</b> The dates shown are the ones proposed in the stakeholder draft, modelled on Gujarat's cycle, which gives each stage about 30 days. They will be finalised in consultation with GAD.</p>
 <p class="sub" style="margin-top:8px">After the reviewing stage the completed APAR is disclosed to the official by the custodian. The official may submit one representation within 15 days of disclosure. No entries are accepted after the cycle closes.</p>
 
 <h2 class="keep">E. Points for GAD to confirm</h2>
