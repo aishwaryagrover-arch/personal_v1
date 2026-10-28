@@ -138,16 +138,18 @@ OPEN = [
 
 def rows(items):
     out = []
-    for r, ref, when, how in items:
-        out.append(f"<tr><td>{r}</td><td class='c'>{ref or '&ndash;'}</td>"
+    for n, (r, ref, when, how) in enumerate(items, 1):
+        out.append(f"<tr><td class='c'>{n}</td><td>{r}</td><td class='c'>{ref or '&ndash;'}</td>"
                    f"<td class='c'>{when or '&ndash;'}</td><td>{how or '&ndash;'}</td></tr>")
     return "".join(out)
 
 
 def block(title, scope, items):
+    n = len(items)
     return f"""<div class="role">
   <h3>{title}</h3><p class="scope">{scope}</p>
-  <table><tr><th style="width:32%">Responsibility</th><th style="width:9%">Form</th>
+  <p class="count">{n} actions</p>
+  <table><tr><th style="width:5%">No.</th><th style="width:29%">Responsibility</th><th style="width:9%">Form</th>
   <th style="width:15%">By when</th><th>How it is done in MahaPAR</th></tr>{rows(items)}</table></div>"""
 
 
@@ -161,7 +163,8 @@ h1{{font-size:21px;margin:0 0 6px;text-align:center}}
 .sub{{font-size:12px;margin:0 0 16px;text-align:center}}
 h2{{font-size:16px;margin:26px 0 10px;border-bottom:1.5px solid #000;padding-bottom:4px}}
 h3{{font-size:14px;margin:0 0 2px}}
-.scope{{font-size:12.5px;margin:0 0 8px;font-style:italic}}
+.scope{{font-size:12.5px;margin:0 0 3px;font-style:italic}}
+.count{{font-size:12.5px;margin:0 0 8px;font-weight:700}}
 .role{{margin-bottom:20px}}
 table{{width:100%;border-collapse:collapse;margin-bottom:4px}}
 th{{background:#E8E8E8;color:#000;text-align:left;font-weight:700;font-size:12.5px;padding:6px 8px;border:1px solid #000}}
