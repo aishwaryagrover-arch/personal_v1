@@ -131,6 +131,8 @@ tr:last-child td{border-bottom:none}
 .scale button:hover{border-color:var(--blue);color:var(--blue)}
 .scale button.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:700}
 .scale button.on.extreme{background:var(--amber);border-color:var(--amber)}
+.scale button.off{background:#F3F4F6;border-color:#E5E7EB;color:#C3C8D0;cursor:not-allowed}
+.scale button.off:hover{border-color:#E5E7EB;color:#C3C8D0}
 .sys{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
 .sys em{font-style:normal;background:#F3F4F6;border-radius:6px;padding:4px 9px;font-size:11px;color:#475569}
 .sys em b{color:var(--navy)}
@@ -470,7 +472,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
         <!-- technical module first: it decides what 2.1 asks for -->
         <div class="card">
-          <div class="part">Part 2.6 · technical cadre</div>
+          <div class="part">Part 2.0 · technical module</div>
           <div class="hint">Answered first, because it decides what Part 2.1 asks you for.</div>
           <div class="q">Do you belong to a technical cadre?</div>
           <div class="radios">
@@ -573,7 +575,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.3 Systemic factors</td><td><span class="tag grey">Optional · skipped</span></td></tr>
             <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.4 Learning and development</td><td><span class="tag ok" id="chkLnd">—</span></td></tr>
             <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.5 Training needed</td><td><span class="tag grey">Optional</span></td></tr>
-            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.6 Technical cadre</td><td><span class="tag ok" id="chkTech">No</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.0 Technical module</td><td><span class="tag ok" id="chkTech">No</span></td></tr>
             <tr><td>Memos issued to you this year</td><td><span class="tag warn" id="chkMemo">2 · 1 unanswered</span></td></tr>
           </table>
           <div class="note warn" style="margin-top:14px">⚠️ One memo issued to you on 18 Aug 2025 has no response on record. You may still record a late response; it will be shown as late.</div>
@@ -688,7 +690,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="part" style="margin-top:14px">Part 2.4 · learning and development</div>
         <div class="tscroll"><table id="lndWrote"></table></div>
         <div class="ro" style="margin-top:14px"><b>2.5 Additional training requested</b>Project management · Budget management · IT and digital tools</div>
-        <div class="ro"><b>2.6 Technical cadre</b><span id="wrote26">Not applicable. The official is not in a technical cadre, so no module grades are included.</span></div>
+        <div class="ro"><b>2.0 Technical module</b><span id="wrote26">Not applicable. The official is not in a technical cadre, so no module grades are included.</span></div>
         <div class="note info">&#8505;&#65039; You respond to the training request in <b>Part 3.8</b> below.</div>
         </div>
       </div>
@@ -892,12 +894,6 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <tr><td>Integrity</td><td>Beyond doubt</td><td></td></tr>
         </table>
         <div class="ro" style="margin-top:14px"><b>3.5 Overall assessment, as recorded</b><span id="rv33" style="font-size:13px">Not yet signed. Complete the reporting officer window first.</span></div>
-      </div>
-
-      <div class="card">
-        <h2>As recorded by the reporting officer</h2>
-        <div class="sub">Group averages only. The reviewing officer is asked about the overall grade, not the individual items.</div>
-        <table id="revSummary"></table>
       </div>
 
       <div class="card">
@@ -1290,8 +1286,12 @@ function renderKpiGrade(){
  const menu=menuFor()||[];const box=document.getElementById('kpiGrade');if(!box)return;
  box.innerHTML=MYKPIS.map((r,i)=>{
   const [lo,hi]=KPI_RANGE[r.ys];
-  const btns=Array.from({length:hi-lo+1},(_,x)=>lo+x).map(n=>
-    `<button class="${kpiMark[i]===n?'on':''}${kpiMark[i]===n&&(n<=2||n>=9)?' extreme':''}" onclick="setKpiMark(${i},${n})">${n}</button>`).join('');
+  // the full 1 to 10 scale is shown; marks outside the band are greyed out
+  const btns=Array.from({length:10},(_,x)=>x+1).map(n=>{
+    const live=n>=lo&&n<=hi;
+    const cls=(live?'':'off ')+(kpiMark[i]===n?'on':'')+(kpiMark[i]===n&&(n<=2||n>=9)?' extreme':'');
+    return `<button class="${cls.trim()}" ${live?`onclick="setKpiMark(${i},${n})"`:'disabled title="Outside the band for the status recorded by the official"'}>${n}</button>`;
+  }).join('');
   const needRem=r.ys==='not'||!!r.rev;
   return `<div class="dim"><div class="nm">${menu[r.m]?menu[r.m].k:'—'}</div>
    <div class="cv">Target: ${r.rev||r.tgt} · achieved: ${r.ach||'not stated'} · record: ${r.ev||'not stated'}</div>
@@ -1454,7 +1454,7 @@ function signReporting(){
 }
 
 function renderRevSummary(work,fun,per,overall){
- const el=document.getElementById('revSummary');if(!el)return;
+ const el=document.getElementById('revSummary');if(!el)return;   // the card was removed; kept for safety
  const f=n=>n==null?'—':n.toFixed(1);
  el.innerHTML='<tr><th style="width:58%">Group</th><th>Average</th><th>Weight</th></tr>'
   +`<tr><td>Work output${kpiOn?' · average of the KPI marks':' · average of dimensions 1 and 2'}</td><td><b>${f(work)}</b></td><td>40%</td></tr>`
