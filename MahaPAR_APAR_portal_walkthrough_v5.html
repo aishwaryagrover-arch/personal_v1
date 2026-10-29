@@ -136,6 +136,12 @@ tr:last-child td{border-bottom:none}
 .sys{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
 .dim .sys+.scale{margin-top:11px}
 .sys em{line-height:1.4}
+.ftag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;
+  border-radius:5px;padding:3px 7px;margin-left:8px;vertical-align:2px}
+.ftag.mod{background:#FEF3C7;color:#92400E}
+.ftag.form{background:#E7EEF8;color:var(--navy)}
+.card.mod{border-left:4px solid var(--amber)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-bottom:12px;align-items:center}
 .sys em{font-style:normal;background:#F3F4F6;border-radius:6px;padding:4px 9px;font-size:11px;color:#475569}
 .sys em b{color:var(--navy)}
 .sys em.memo{background:#FEF3C7;color:#92400E}
@@ -429,6 +435,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="two">
             <div class="ro"><b>Name</b>Shri A. B. Sawant</div>
             <div class="ro"><b>Sevaarth ID</b>2048-7719</div>
+            <div class="ro"><b>MahaID</b>MH-2048-7719-08</div>
             <div class="ro"><b>Cadre and group</b>Maharashtra Secretariat Service · Group B</div>
             <div class="ro"><b>Present post and office</b>Section Officer, Revenue &amp; Forest Dept, Mantralaya</div>
             <div class="ro"><b>Date of appointment to present post</b>12 June 2023</div>
@@ -472,9 +479,14 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <!-- step 3 · the whole of Part 2 on one scroll -->
       <div class="wiz" id="self3">
 
+        <div class="legend">
+          <span><span class="ftag mod">Cadre module</span> fields that come from the module for your cadre</span>
+          <span><span class="ftag form">Form A</span> fields common to every Group A and B official</span>
+        </div>
+
         <!-- technical module first: it decides what 2.1 asks for -->
-        <div class="card">
-          <div class="part">Part 2.0 · technical module selection</div>
+        <div class="card mod">
+          <div class="part">Part 2.0 · technical module selection <span class="ftag mod">Cadre module</span></div>
           <div class="hint">Answered first, because it decides what Part 2.1 asks you for.</div>
           <div class="q">Do you belong to a technical cadre?</div>
           <div class="radios">
@@ -490,8 +502,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           </div>
         </div>
 
-        <div class="card">
-          <div class="part">Part 2.1</div>
+        <div class="card" id="card21">
+          <div class="part">Part 2.1 <span class="ftag form" id="tag21">Form A</span></div>
 
           <!-- general form: free-text targets -->
           <div id="genBox">
@@ -516,7 +528,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </div>
 
         <div class="card">
-          <div class="part">Part 2.2</div>
+          <div class="part">Part 2.2 <span class="ftag form">Form A</span></div>
           <div class="q">Your most significant contribution this year</div>
           <div class="hint">One or two pieces of work: what you did, and what changed as a result. No attachments.</div>
           <textarea id="t22" oninput="wc('t22','c22',100)" style="min-height:120px">Redesigned the district land-records grievance workflow on eOffice. Cut average disposal time from 41 days to 23 days across six talukas and cleared a backlog of 1,340 cases.</textarea>
@@ -532,7 +544,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </div>
 
         <div class="card">
-          <div class="part">Part 2.4 · learning and development during the year</div>
+          <div class="part">Part 2.4 · learning and development during the year <span class="ftag form">Form A</span></div>
           <div class="sub">iGOT courses are pulled from your iGOT record; confirm each one. Add anything else below. Total hours are shown to your reporting officer while grading.</div>
           <div class="tscroll"><table id="lndTable"></table></div>
           <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="show('lndAdd',1)">+ Add training, a workshop or a qualification</button></div>
@@ -731,7 +743,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       </div>
 
       <div class="card">
-        <div class="part">Part 3.1 · work output · 40%</div>
+        <div class="part">Part 3.1 · work output · 40% <span class="ftag form" id="tag31">Form A</span></div>
         <div class="q" id="q31">Grade each dimension from 1 to 10, compared with officials at the same level</div>
         <div class="hint">The figures shown under a heading are there to help you judge it. They do not add to or subtract from the score by themselves.</div>
         <div class="note info">&#8505;&#65039; Please see <b>Annexure 3</b> for additional explanation on how each dimension can be graded for different kinds of posts, so that an official is assessed on these dimensions based on what their own work involves. For example, the &lsquo;Collaboration and communication&rsquo; dimension may require different behaviours or skills for a post mainly dealing with file-processing as opposed to a public-facing one.
@@ -1222,11 +1234,18 @@ function setTech(on){
  document.getElementById('genWrote').style.display=kpiOn?'none':'table';
  document.getElementById('kpiOffNote').style.display=kpiOn?'none':'block';
  document.getElementById('chkTech').textContent=kpiOn?'Yes':'No';
+ const t31=document.getElementById('tag31');
+ t31.className='ftag '+(kpiOn?'mod':'form');
+ t31.textContent=kpiOn?'Cadre module':'Form A';
  document.getElementById('q31').textContent=kpiOn
   ?'Mark each KPI, then grade the attributes below'
   :'Grade each dimension from 1 to 10, compared with officials at the same level';
  document.getElementById('wOutSrc').textContent=kpiOn?'average of the KPI marks':'average of dimensions 1 and 2';
  document.getElementById('chk21lbl').textContent=kpiOn?'2.1 KPIs':'2.1 Targets';
+ const c21=document.getElementById('card21'), t21=document.getElementById('tag21');
+ c21.classList.toggle('mod',kpiOn);
+ t21.className='ftag '+(kpiOn?'mod':'form');
+ t21.textContent=kpiOn?'Cadre module':'Form A';
  document.getElementById('wrote21').textContent=kpiOn?'Part 2.1 · KPIs for the year':'Part 2.1 · key activities, responsibilities and targets';
  document.getElementById('wrote26').textContent=kpiOn
   ?('In a technical cadre. Module: '+document.getElementById('techMod').value+' · '+document.getElementById('techDesig').value+'. The KPI menu for this designation applies.')
