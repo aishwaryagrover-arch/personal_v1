@@ -134,6 +134,8 @@ tr:last-child td{border-bottom:none}
 .scale button.off{background:#F3F4F6;border-color:#E5E7EB;color:#C3C8D0;cursor:not-allowed}
 .scale button.off:hover{border-color:#E5E7EB;color:#C3C8D0}
 .sys{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.dim .sys+.scale{margin-top:11px}
+.sys em{line-height:1.4}
 .sys em{font-style:normal;background:#F3F4F6;border-radius:6px;padding:4px 9px;font-size:11px;color:#475569}
 .sys em b{color:var(--navy)}
 .sys em.memo{background:#FEF3C7;color:#92400E}
@@ -472,7 +474,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
         <!-- technical module first: it decides what 2.1 asks for -->
         <div class="card">
-          <div class="part">Part 2.0 · technical module</div>
+          <div class="part">Part 2.0 · technical module selection</div>
           <div class="hint">Answered first, because it decides what Part 2.1 asks you for.</div>
           <div class="q">Do you belong to a technical cadre?</div>
           <div class="radios">
@@ -1297,7 +1299,7 @@ function renderKpiGrade(){
    <div class="cv">Target: ${r.rev||r.tgt} · achieved: ${r.ach||'not stated'} · record: ${r.ev||'not stated'}</div>
    <div class="sys"><em>Status recorded by the official <b>${CATLABEL[r.ys]}</b></em><em>Marks open <b>${lo} to ${hi}</b></em>${r.rev?'<em class="memo">Target revised at mid-year</em>':''}</div>
    <div class="scale">${btns}</div>
-   ${needRem?`<input type="text" style="margin-top:8px" placeholder="Remark (required: ${r.ys==='not'?'not completed':'target revised'})" value="${kpiRem[i]||''}" oninput="kpiRem[${i}]=this.value">`:''}
+   ${needRem?`<input type="text" style="margin-top:11px" placeholder="Remark (required: ${r.ys==='not'?'not completed':'target revised'})" value="${kpiRem[i]||''}" oninput="kpiRem[${i}]=this.value">`:''}
    </div>`;}).join('');
 }
 function setKpiMark(i,n){kpiMark[i]=(kpiMark[i]===n?null:n);renderKpiGrade();calc();}
