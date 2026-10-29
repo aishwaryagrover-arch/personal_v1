@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MahaPAR APAR Walkthrough</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --navy:#1C3D6B;--navy2:#162F55;--navy3:#0D1F3C;--saffron:#E87722;--saffron2:#C96010;
+ --off:#F4F6FA;--border:#DDE3EF;--text:#1A202C;--muted:#64748B;--light:#A8C4E0;
+ --green:#16A34A;--red:#DC2626;--amber:#D97706;--blue:#2563EB;--bluesoft:#EFF5FF;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--off);color:var(--text);font-size:14px;line-height:1.55}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none}
+
+/* ---------- chrome ---------- */
+.a11y{background:#1E1E1E;padding:5px 24px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#BBB}
+.a11y b{color:var(--saffron)}
+.site-header{background:#fff;border-bottom:3px solid var(--saffron);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:14px}
+.seal{width:52px;height:52px;display:block;object-fit:contain}
+.brand strong{font-size:19px;color:var(--navy);display:block;letter-spacing:-.01em}
+.brand span{font-size:12px;color:var(--muted)}
+.whoami{display:flex;align-items:center;gap:10px;font-size:12px}
+.whoami select{padding:8px 12px;border:1px solid var(--border);border-radius:7px;font-family:inherit;font-size:13px;background:#fff;color:var(--navy);font-weight:600}
+nav{background:var(--navy);display:flex;padding:0 24px;overflow-x:auto}
+nav button{padding:12px 18px;font-size:13px;color:var(--light);background:none;border-bottom:3px solid transparent;white-space:nowrap}
+nav button:hover{color:#fff;background:rgba(255,255,255,.06)}
+nav button.on{color:#fff;border-bottom-color:var(--saffron);font-weight:600}
+nav .count{background:rgba(255,255,255,.18);border-radius:99px;padding:1px 7px;font-size:11px;margin-left:6px}
+
+/* role banner */
+.rolebar{background:#E8EEF8;border-bottom:1px solid var(--border);padding:9px 24px;font-size:12.5px;color:var(--navy);display:flex;gap:10px;align-items:center}
+.rolebar b{font-weight:700}
+.formflag{margin-left:auto;background:#FFF6E6;color:#9A6413;border:1px solid #FADCA4;
+  border-radius:999px;padding:4px 13px;font-size:11.5px;white-space:nowrap}
+.formflag b{font-weight:700}
+.rolebar .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+
+/* cycle strip */
+.cycle{background:#fff;border-bottom:1px solid var(--border);padding:14px 24px;display:flex;gap:6px;align-items:center;overflow-x:auto}
+.cyc{flex:1;min-width:120px;border-radius:7px;padding:8px 10px;background:#F6F8FC;border:1px solid var(--border)}
+.cyc small{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:block}
+.cyc b{font-size:12.5px}
+.cyc.done{background:#ECFDF3;border-color:#BBF7D0}.cyc.done b{color:#166534}
+.cyc.now{background:#FFF7ED;border-color:#FED7AA}.cyc.now b{color:#9A3412}
+.cyc .arrow{color:#CBD5E1}
+
+main{padding:22px 24px 70px;max-width:1420px;margin:0 auto}
+.pane{display:none}.pane.on{display:block}
+.ph{margin-bottom:16px}
+.ph h1{font-size:21px;color:var(--navy);font-weight:700}
+.ph p{font-size:13px;color:var(--muted);max-width:900px;margin-top:4px}
+
+.grid{display:grid;gap:18px}
+.g-2-1{grid-template-columns:minmax(0,2fr) minmax(300px,1fr)}
+.g-1-2{grid-template-columns:minmax(260px,1fr) minmax(0,2.4fr)}
+.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:1080px){.g-2-1,.g-1-2,.g-3{grid-template-columns:1fr}}
+
+.card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:18px}
+.card h2{font-size:15px;color:var(--navy);margin-bottom:3px}
+.card h3{font-size:13.5px;margin-bottom:3px}
+.card .sub{font-size:12px;color:var(--muted);margin-bottom:14px}
+.rule{height:1px;background:var(--border);margin:14px -18px}
+.part{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--saffron);margin-bottom:6px}
+.q{font-size:14px;font-weight:600;margin-bottom:3px}
+.hint{font-size:12px;color:var(--muted);margin-bottom:9px}
+
+label.f{display:block;margin-bottom:12px}
+label.f span{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-bottom:3px}
+input[type=text],input[type=date],select,textarea{width:100%;border:1px solid var(--border);border-radius:7px;padding:9px 11px;font-family:inherit;font-size:13.5px;background:#fff;color:var(--text)}
+textarea{resize:vertical;min-height:90px}
+input:focus,select:focus,textarea:focus{outline:2px solid #BFD4F6;border-color:var(--blue)}
+input:disabled,textarea:disabled{background:#F6F7FA;color:#64748B}
+.counter{font-size:11.5px;color:var(--muted);text-align:right;margin-top:4px}
+.counter.bad{color:var(--red);font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.btn{display:inline-block;background:var(--blue);color:#fff;border-radius:7px;padding:10px 18px;font-size:13.5px;font-weight:600}
+.btn.ghost{background:var(--bluesoft);color:var(--blue)}
+.btn.amber{background:var(--saffron)}
+.btn.grey{background:#E5E8EF;color:#475569}
+.btn.red{background:var(--red)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.sm{padding:6px 12px;font-size:12px}
+.btn.wide{width:100%;text-align:center}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+.note{border-radius:8px;padding:11px 13px;font-size:12.5px;margin-bottom:14px;line-height:1.5}
+.note.info{background:var(--bluesoft);color:#1E3A8A}
+.note.warn{background:#FEF6E7;color:#92590B}
+.note.danger{background:#FEF2F2;color:#991B1B}
+.note.ok{background:#ECFDF3;color:#166534}
+.note b{font-weight:700}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--border);background:#FAFBFD}
+td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:99px}
+.tag.ok{background:#ECFDF3;color:#166534}
+.tag.warn{background:#FEF3C7;color:#92400E}
+.tag.red{background:#FEE2E2;color:#991B1B}
+.tag.blue{background:var(--bluesoft);color:#1E3A8A}
+.tag.grey{background:#F1F5F9;color:#475569}
+
+/* steps sidebar */
+.steplist{list-style:none}
+.steplist li{padding:10px 12px;border-radius:8px;font-size:13px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;margin-bottom:3px}
+.steplist li:hover{background:#F6F8FC}
+.steplist li.on{background:var(--navy);color:#fff}
+.steplist li.on small{color:#B9CCE6}
+.steplist li.done .n{background:var(--green);color:#fff}
+.steplist .n{width:21px;height:21px;border-radius:50%;background:#E2E8F0;color:#475569;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:1px}
+.steplist li.on .n{background:var(--saffron);color:#fff}
+.steplist li>div{font-weight:700}
+.steplist small{display:block;font-size:11px;color:var(--muted);font-weight:400}
+.wiz{display:none}.wiz.on{display:block}
+
+/* grading */
+.grp{font-size:12px;font-weight:700;color:var(--navy);background:#F1F5FB;padding:7px 11px;border-radius:7px;margin:16px 0 10px}
+.dim{border:1px solid var(--border);border-radius:9px;padding:12px;margin-bottom:10px}
+.dim .nm{font-size:13.5px;font-weight:600}
+.dim .cv{font-size:11.5px;color:var(--muted);margin:2px 0 9px}
+.scale{display:flex;gap:5px;flex-wrap:wrap}
+.scale button{width:38px;height:34px;border:1px solid var(--border);border-radius:6px;background:#fff;font-size:12.5px;color:#64748B}
+.scale button:hover{border-color:var(--blue);color:var(--blue)}
+.scale button.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:700}
+.scale button.on.extreme{background:var(--amber);border-color:var(--amber)}
+.sys{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.sys em{font-style:normal;background:#F3F4F6;border-radius:6px;padding:4px 9px;font-size:11px;color:#475569}
+.sys em b{color:var(--navy)}
+.sys em.memo{background:#FEF3C7;color:#92400E}
+.scoreboard{position:sticky;top:12px;background:var(--navy);color:#fff;border-radius:10px;padding:16px}
+.scoreboard .big{font-size:38px;font-weight:700;line-height:1}
+.scoreboard small{font-size:11px;opacity:.8;display:block}
+.scoreboard .ln{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.scoreboard .ln:last-child{border:none}
+.scoreboard.low{background:#7F1D1D}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.chip{border:1px solid var(--border);border-radius:99px;padding:6px 13px;font-size:12px;background:#fff;color:#475569}
+.chip.on{background:var(--bluesoft);border-color:var(--blue);color:var(--navy);font-weight:600}
+.radios label,.checks label{display:flex;gap:9px;align-items:flex-start;font-size:13px;margin-bottom:8px;cursor:pointer}
+.radios input,.checks input{margin-top:3px}
+.chk2{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--border);border-radius:9px;padding:9px 11px;margin-bottom:7px;cursor:pointer}
+.chk2 input{margin-top:3px}
+.chk2 b{font-size:13px;display:block}
+.chk2 small{font-size:11.5px;color:var(--muted)}
+.typecell label{display:inline-flex;align-items:center;gap:5px;margin-right:12px;font-size:12px;white-space:nowrap}
+.hidebox{display:none}.hidebox.on{display:block}
+
+.memo{border:1px solid var(--border);border-left:4px solid var(--saffron);border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:10px;background:#fff}
+.memo .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:4px}
+.memo .top b{font-size:13px}
+.memo .meta{font-size:11px;color:var(--muted)}
+.memo p{font-size:12.5px;margin-top:5px}
+.memo .resp{background:#F6F8FC;border-radius:7px;padding:9px 11px;font-size:12.5px;margin-top:9px}
+.memo .resp b{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block}
+.memo.none{border-left-color:var(--red)}
+.memo.answered{border-left-color:var(--green)}
+
+.stat{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.stat b{font-size:28px;color:var(--navy);display:block;line-height:1.1}
+.stat span{font-size:12px;color:var(--muted)}
+.flow{display:flex;gap:10px;flex-wrap:wrap}
+.flow .node{flex:1;min-width:150px;border:1px solid var(--border);border-radius:9px;padding:11px 12px;background:#fff}
+.flow .node b{font-size:12.5px;display:block}
+.flow .node small{font-size:11px;color:var(--muted)}
+.toast{position:fixed;right:22px;bottom:22px;background:var(--navy3);color:#fff;padding:13px 17px;border-radius:9px;font-size:13px;box-shadow:0 10px 26px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:.2s;z-index:99;max-width:340px}
+.toast.on{opacity:1;transform:none}
+.modal{position:fixed;inset:0;background:rgba(13,31,60,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100}
+.modal.on{display:flex}
+.modal .box{background:#fff;border-radius:12px;width:100%;max-width:560px;max-height:90vh;overflow:auto;padding:22px}
+.modal h2{font-size:17px;color:var(--navy);margin-bottom:3px}
+.ro{background:#F7F8FA;border:1px solid var(--border);border-radius:8px;padding:11px 13px;font-size:13px;margin-bottom:12px}
+.ro b{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px;font-weight:600}
+footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
+
+/* custodian count tiles — colour taken from the eHRMS APAR wireframes */
+.ctile{border-radius:14px;padding:16px 18px;color:#fff;position:relative;overflow:hidden;
+  box-shadow:0 4px 14px rgba(23,54,93,.13)}
+.ctile.amber{background:linear-gradient(135deg,#F7A83E,#F2C14E)}
+.ctile.blue{background:linear-gradient(135deg,#4E9AF1,#2F7BE0)}
+.ctile.pink{background:linear-gradient(135deg,#FB7BA2,#F4597F)}
+.ctile span{font-size:12.5px;display:block;opacity:.95;max-width:78%;line-height:1.35}
+.ctile b{font-size:32px;font-weight:700;display:block;line-height:1;margin-top:6px}
+.ctile i{font-style:normal;font-size:11.5px;opacity:.9;display:block;margin-top:4px}
+.ctile::after{content:'';position:absolute;right:-24px;top:-24px;width:86px;height:86px;
+  border-radius:50%;background:rgba(255,255,255,.16)}
+</style>
+</head>
+<body>
+
+<div class="a11y"><span>Government of Maharashtra · General Administration Department</span><span><b>DRAFT FOR DISCUSSION</b> · IDinsight with GAD · October 2026 · demo data · all names and figures are illustrative</span></div>
+
+<header class="site-header">
+  <div class="brand">
+    <img class="seal" src="data:image/png;base64,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" alt="MahaPAR">
+    <div><strong>MahaPAR</strong><span>Performance Appraisal Report System · Cycle 2025–26</span></div>
+  </div>
+  <div class="whoami">
+    <span style="color:var(--muted)">Walk through as</span>
+    <select id="roleSel" onchange="setRole(this.value)">
+      <option value="custodian">Shri G. H. Mane — Custodian / Establishment Officer</option>
+      <option value="official" selected>Shri A. B. Sawant — Section Officer (appraisee)</option>
+      <option value="reporting">Shri C. D. Joshi — Deputy Secretary (reporting officer)</option>
+      <option value="reviewing">Shri E. F. Rane — Joint Secretary (reviewing officer)</option>
+    </select>
+  </div>
+</header>
+
+<nav id="nav">
+  <button data-tab="custodian" onclick="go('custodian')">Custodian: mapping &amp; workflow</button>
+  <button data-tab="self" class="on" onclick="go('self')">My APAR: self-appraisal</button>
+  <button data-tab="reporting" onclick="go('reporting')">Reporting officer <span class="count" id="repCount">3</span></button>
+  <button data-tab="reviewing" onclick="go('reviewing')">Reviewing officer <span class="count">1</span></button>
+</nav>
+
+<div class="rolebar"><span class="dot"></span><span>Signed in as <b id="roleName">Shri A. B. Sawant</b> · <span id="roleDesc">Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719</span></span><span class="formflag">Based on <b>Form A</b> · Group A and B officials · draft v4</span></div>
+
+<div class="cycle" id="cycleStrip"></div>
+
+<main>
+
+<!-- ======================= CUSTODIAN ======================= -->
+<section class="pane" id="pane-custodian">
+  <div class="ph"><h1>Custodian window</h1>
+  <p>As custodian you are responsible for four things in this cycle: recording who reports on whom and issuing No Report Certificates; keeping track of what is pending and sending reminders; seeing that memos are being issued during the year; and running the cycle itself. You do not see or change any grade.</p></div>
+
+  <div class="grid g-3" style="margin-bottom:18px">
+    <div class="ctile amber" onclick="custStep(1)" style="cursor:pointer"><span>Officials in this cycle</span><b>1,284</b><i>4 not yet mapped &rsaquo;</i></div>
+    <div class="ctile blue" onclick="custStep(2)" style="cursor:pointer"><span>APARs completed so far</span><b>612</b><i>of 1,284 &rsaquo;</i></div>
+    <div class="ctile pink" onclick="custStep(2)" style="cursor:pointer"><span>APARs past their deadline at some stage</span><b>47</b><i>See what is pending, and with whom &rsaquo;</i></div>
+  </div>
+
+  <div class="grid g-1-2">
+    <div>
+      <div class="card">
+        <h2>Custodian actions</h2>
+        <ul class="steplist" id="custSteps">
+          <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Authority mapping<small>Map who reports on whom · validate NRCs</small></div></li>
+          <li onclick="custStep(2)"><span class="n">2</span><div>Track what is pending across the APAR cycle<small>Stage by stage · with whom · remind</small></div></li>
+          <li onclick="custStep(3)"><span class="n">3</span><div>Facilitate the APAR cycle<small>Send reminders · disclose · export</small></div></li>
+          <li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Unanswered memos · remind</small></div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>This cycle</h2>
+        <table>
+          <tr><td>Cycle initiated</td><td><b>14 Apr 2026</b></td></tr>
+          <tr><td>Self-appraisal closed</td><td><b>30 Apr</b></td></tr>
+          <tr><td>Reporting stage closes</td><td><b style="color:var(--amber)">31 May</b></td></tr>
+          <tr><td>Reviewing stage closes</td><td><b>30 Jun</b></td></tr>
+          <tr><td>Cycle closes</td><td><b>30 Nov</b></td></tr>
+        </table>
+        <div class="btnrow" style="margin-top:12px">
+          <button class="btn ghost sm" onclick="openPast()">View past cycles</button>
+          <button class="btn ghost sm" onclick="toast('Past cycles exported to Excel.')">Export</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <!-- 1 · authority mapping, with the NRC queue inside it -->
+      <div class="wiz on" id="cust1">
+        <div class="card">
+          <h2>Authority mapping</h2>
+          <div class="sub">Map every official to a reporting and reviewing officer, with the period each served under them. MahaPAR works out the duration and decides whether an APAR workflow is created or an NRC is auto-generated.</div>
+          <table style="font-size:12px">
+            <tr><th>Official</th><th>Reporting officer<br>Reviewing officer</th><th>From<br>To</th><th>Duration</th><th>MahaPAR action</th></tr>
+            <tr><td style="min-width:120px"><b>Shri A. B. Sawant</b><br><span style="color:var(--muted)">Section Officer</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="2025-04-01" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
+              <td>12 months</td><td><span class="tag ok">APAR workflow created</span></td></tr>
+            <tr><td style="min-width:120px"><b>Shri L. M. Pawar</b><br><span style="color:var(--muted)">Senior Clerk · Form B</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="2025-04-01" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
+              <td>12 months</td><td><span class="tag ok">APAR workflow created</span></td></tr>
+            <tr><td style="min-width:120px"><b>Smt. J. K. More</b><br><span style="color:var(--muted)">Asst Section Officer</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Shri R. S. Gokhale — Dy Secretary</option><option>Shri C. D. Joshi — Dy Secretary</option></select><select><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="2026-01-20" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="2026-03-31" style="width:132px;display:block"></td>
+              <td>2 months<br>10 days</td><td><span class="tag warn">Under 3 months — NRC auto-generated</span></td></tr>
+            <tr><td style="min-width:120px"><b>Shri N. P. Bhosale</b><br><span style="color:var(--muted)">Section Officer</span></td>
+              <td><select style="display:block;margin-bottom:5px"><option>Select reporting officer</option><option>Shri C. D. Joshi — Dy Secretary</option><option>Shri R. S. Gokhale — Dy Secretary</option></select><select><option>Select reviewing officer</option><option>Shri E. F. Rane — Jt Secretary</option></select></td>
+              <td><input type="date" value="" style="width:132px;display:block;margin-bottom:5px"><input type="date" value="" style="width:132px;display:block"></td>
+              <td>—</td><td><span class="tag red">Not mapped · no workflow</span></td></tr>
+          </table>
+          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="toast('A further period is added where the reporting officer changed during the year.')">+ Add a period</button><button class="btn sm" onclick="toast('Mapping saved. MahaPAR has created 2 APAR workflows and generated 1 No Report Certificate for your validation.')">Save mapping</button></div>
+          <div class="note warn" style="margin-top:12px">⚠️ <b>1 official is not yet mapped.</b> No APAR workflow is created until a reporting officer and a period are recorded.</div>
+          <div class="note info">ℹ️ Officials can see this mapping in their own window but cannot change it. They may raise a request for a change, which comes to you.</div>
+          <div class="note info">ℹ️ <b>Future direction:</b> once e-office orders are fully digitised, this mapping will be pre-filled from eHRMS and the custodian will only validate or correct it, rather than enter it.</div>
+          <div class="rule"></div>
+          <h3>NRC auto-generated by the MahaPAR system</h3>
+          <div class="sub">Auto-generated where the mapped period is under 3 months. Your validation issues the certificate.</div>
+          <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Awaiting your validation</span></div>
+            <div class="meta">Under Shri R. S. Gokhale · 20/01/2026 – 31/03/2026 · 2 months 10 days</div>
+            <div class="btnrow"><button class="btn sm" onclick="openNRC()">Validate and issue</button><button class="btn sm grey" onclick="toast('Rejecting needs a recorded reason, and sends the period back to mapping.')">Reject</button></div>
+          </div>
+          <div class="memo answered"><div class="top"><b>Change requests from officials</b><span class="tag grey">0</span></div>
+            <div class="meta">Requests to correct a mapping appear here for you to act on.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 · what is pending -->
+      <div class="wiz" id="cust2">
+        <div class="card">
+          <h2>What is pending, and with whom</h2>
+          <div class="sub">The 47 APARs where a stage has passed its deadline, longest wait first. These are the officials mapped to you.</div>
+          <div class="btnrow" style="margin-bottom:14px">
+            <button class="btn amber" onclick="toast('Reminder sent to all 47. Each person is told which APAR is waiting with them and by when it is due.')">Send a reminder to everyone on this list</button>
+            <button class="btn grey" onclick="toast('List exported to Excel.')">Export list</button>
+          </div>
+          <table>
+            <tr><th>Official</th><th>Post</th><th>Waiting at</th><th>Waiting with</th><th>Overdue by</th><th></th></tr>
+            <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Reporting</td><td>Shri R. S. Gokhale</td><td><span class="tag red">61 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri R. S. Gokhale.')">Remind</button></td></tr>
+            <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td>Self-appraisal</td><td>The official</td><td><span class="tag red">48 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri N. P. Bhosale.')">Remind</button></td></tr>
+            <tr><td><b>Shri T. V. Kulkarni</b></td><td>Section Officer</td><td>Reporting</td><td>Shri C. D. Joshi</td><td><span class="tag warn">22 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri C. D. Joshi.')">Remind</button></td></tr>
+            <tr><td><b>Smt. P. R. Shelke</b></td><td>Senior Clerk</td><td>Self-appraisal</td><td>The official</td><td><span class="tag warn">14 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. P. R. Shelke.')">Remind</button></td></tr>
+            <tr><td><b>Shri D. M. Ingle</b></td><td>Asst Section Officer</td><td>Reporting</td><td>Shri C. D. Joshi</td><td><span class="tag warn">9 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri C. D. Joshi.')">Remind</button></td></tr>
+            <tr><td colspan="6" style="color:var(--muted)">… and 42 more. Shri C. D. Joshi has 19 of the 47 waiting with him.</td></tr>
+          </table>
+          <div class="note warn" style="margin-top:14px">⚠️ If a stage is still not completed 15 days after the deadline, MahaPAR sends the APAR on to the next stage without it, and records it as late against the person who held it.</div>
+        </div>
+        <div class="card">
+          <h2>Stage by stage</h2>
+          <div class="sub">You do not fill this in. MahaPAR works it out from the dates on which each stage was signed.</div>
+          <table>
+            <tr><th>Stage</th><th>Completed</th><th>On time</th><th>Late</th><th>Still pending</th></tr>
+            <tr><td>Self-appraisal</td><td>1,197</td><td>1,109</td><td>88</td><td>87</td></tr>
+            <tr><td>Reporting</td><td>653</td><td>612</td><td>41</td><td>544</td></tr>
+            <tr><td>Reviewing</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>Awaiting disclosure</td><td>—</td><td>—</td><td>—</td><td><b>14</b></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3 · facilitate the cycle -->
+      <div class="wiz" id="cust3">
+        <div class="card">
+          <h2>Facilitate the APAR cycle</h2>
+          <div class="sub">Keeping the cycle moving, and closing it out.</div>
+          <table>
+            <tr><td><b>Send reminders</b><br><span style="color:var(--muted);font-size:12px">544 APARs are still pending across stages; the reporting stage closes on 31 May</span></td>
+              <td style="white-space:nowrap"><button class="btn sm amber" onclick="toast('Reminder sent to everyone holding a pending APAR, naming the officials concerned and the closing date.')">Send bulk reminders</button>
+              <button class="btn sm ghost" onclick="custStep(2)" style="margin-left:6px">Act on individual pendencies &rsaquo;</button></td></tr>
+            <tr><td><b>Disclose completed APARs to officials</b><br><span style="color:var(--muted);font-size:12px">14 APARs are complete and awaiting disclosure. The rest follow as the reviewing stage closes on 30 June.</span></td><td style="white-space:nowrap"><button class="btn sm amber" onclick="toast('14 APARs disclosed. Each official is notified and has 15 days to represent.')">Disclose 14</button></td></tr>
+            <tr><td><b>Representations received</b><br><span style="color:var(--muted);font-size:12px">None yet. They appear here once officials begin representing.</span></td><td><span class="tag grey">0</span></td></tr>
+            <tr><td><b>Export the register</b><br><span style="color:var(--muted);font-size:12px">Mapping, stage status and timeliness, as Excel</span></td><td><button class="btn sm ghost" onclick="toast('Export of the mapping and timeliness register.')">Export</button></td></tr>
+          </table>
+          <div class="note info" style="margin-top:12px">ℹ️ Bulk reminders go to everyone with an APAR pending. To see who each one is waiting with and remind them individually, go to <b>Track what is pending</b>.</div>
+        </div>
+      </div>
+      <!-- 4 · memo tracking -->
+      <div class="wiz" id="cust4">
+        <div class="card">
+          <h2>Memos awaiting a reply from the official</h2>
+          <div class="sub">A memo was issued during the year and the official has not replied by the due date. You can remind them.</div>
+          <div class="btnrow" style="margin-bottom:14px">
+            <button class="btn amber" onclick="toast('Reminder sent to both officials, asking them to record a reply in eHRMS.')">Remind both officials</button>
+          </div>
+          <table>
+            <tr><th>Official</th><th>Memo issued by</th><th>Issued on</th><th>Reply was due</th><th>Overdue by</th><th></th></tr>
+            <tr><td><b>Shri A. B. Sawant</b></td><td>Shri C. D. Joshi</td><td>18 Aug 2025</td><td>30 Sep 2025</td><td><span class="tag red">41 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri A. B. Sawant to record a reply in eHRMS.')">Remind</button></td></tr>
+            <tr><td><b>Smt. J. K. More</b></td><td>Shri E. F. Rane</td><td>02 Feb 2026</td><td>16 Feb 2026</td><td><span class="tag warn">12 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. J. K. More to record a reply in eHRMS.')">Remind</button></td></tr>
+          </table>
+          <div class="note info" style="margin-top:14px">ℹ️ A reply left unrecorded can count against the official when the APAR is graded. Reminding them keeps that fair.</div>
+        </div>
+
+        <div class="card">
+          <h2>Memos issued, by reporting officer</h2>
+          <div class="sub">Counts only, for GAD's review. There is no action for the custodian here.</div>
+          <table>
+            <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials with zero memos</th></tr>
+            <tr><td>Shri C. D. Joshi</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
+            <tr><td>Shri R. S. Gokhale</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
+            <tr><td>Shri E. F. Rane</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SELF APPRAISAL ======================= -->
+<section class="pane on" id="pane-self">
+  <div class="ph"><h1>Self-appraisal · Form A, Parts 1 and 2</h1>
+  <p>Four sections. Part 1 is already filled in and your reporting chain is mapped by the custodian. Check them, then complete Part 2 and sign. Any memos issued to you during the year are shown alongside. <b>Form B, for Group C employees, follows the same four sections, with a shorter optional self-appraisal and a shorter reporting officer section.</b></p></div>
+
+  <div class="grid g-1-2">
+    <div>
+      <div class="card">
+        <h2>My APAR — sections</h2>
+        <ul class="steplist" id="selfSteps">
+          <li class="on" onclick="selfStep(1)"><span class="n">1</span><div>Official details<small>Part 1 · pre-filled</small></div></li>
+          <li onclick="selfStep(2)"><span class="n">2</span><div>Your reporting chain<small>Mapped by the custodian</small></div></li>
+          <li onclick="selfStep(3)"><span class="n">3</span><div>Self-appraisal form<small>Part 2.1–2.6 · one page</small></div></li>
+          <li onclick="selfStep(4)"><span class="n">4</span><div>Review and sign<small>DSC / eSign</small></div></li>
+          <li onclick="selfStep(5)"><span class="n">5</span><div>Outcome and representation<small>After disclosure · 15 days</small></div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>During the year</h2>
+        <div class="sub">Kept all year, not only when the APAR is open.</div>
+        <ul class="steplist" id="yearSteps">
+          <li onclick="selfStep(8)"><span class="n">&#9679;</span><div>My KPIs<small id="kpiCountSm">Opens for technical cadres</small></div></li>
+          <li onclick="selfStep(6)"><span class="n">&#9679;</span><div>My work log<small id="logCount">7 entries this year</small></div></li>
+          <li onclick="selfStep(7)"><span class="n">&#9679;</span><div>Memos received<small>2 · 1 awaiting your reply</small></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <!-- step 1 -->
+      <div class="wiz on" id="self1">
+        <div class="card">
+          <div class="part">Part 1 · official details</div>
+          <div class="note info">ℹ️ Grey fields come from PMIS and your service record. To correct one, raise a service-record request; it cannot be edited here.</div>
+          <div class="two">
+            <div class="ro"><b>Name</b>Shri A. B. Sawant</div>
+            <div class="ro"><b>Sevaarth ID</b>2048-7719</div>
+            <div class="ro"><b>Cadre and group</b>Maharashtra Secretariat Service · Group B</div>
+            <div class="ro"><b>Present post and office</b>Section Officer, Revenue &amp; Forest Dept, Mantralaya</div>
+            <div class="ro"><b>Date of appointment to present post</b>12 June 2023</div>
+            <div class="ro"><b>Period of report</b>1 April 2025 to 31 March 2026</div>
+          </div>
+          <div class="ro"><b>Leave or absence of 30 days or more</b>Earned leave, 34 days (10 Nov to 13 Dec 2025)</div>
+          <div class="hint" style="margin-top:-6px">Pulled directly from eHRMS. Only leave of 30 days or more is shown; shorter leave adds nothing to grading.</div>
+          <div class="btnrow" style="margin-top:8px"><button class="btn ghost sm" onclick="toast('Request sent to the custodian to revalidate the leave record against eHRMS.')">This is not correct, request revalidation</button></div>
+          <div class="btnrow"><button class="btn" onclick="selfStep(2)">Continue</button></div>
+        </div>
+      </div>
+
+      <!-- step 2 -->
+      <div class="wiz" id="self2">
+        <div class="card">
+          <div class="part">Part 1.1 · your reporting chain</div>
+          <div class="q">Who reported on you this year</div>
+          <div class="hint">Mapped by the custodian. You cannot edit it here. If anything is not correct, raise a request for a change.</div>
+          <table>
+            <tr><th>Role</th><th>Name and post</th><th>From</th><th>To</th></tr>
+            <tr><td>Reporting officer</td><td>Shri C. D. Joshi — Deputy Secretary</td><td>01/04/2025</td><td>31/03/2026</td></tr>
+            <tr><td>Reviewing officer</td><td>Shri E. F. Rane — Joint Secretary</td><td>01/04/2025</td><td>31/03/2026</td></tr>
+            <tr><td>Accepting authority</td><td>Not applicable</td><td colspan="2" style="color:var(--muted);font-size:12px">Acts only where a stage is missing (Part 5)</td></tr>
+          </table>
+          <div class="note info" style="margin-top:12px">ℹ️ You served under one reporting officer for the full year, so a single APAR has been created. Where an official serves under a reporting officer for less than 3 months, MahaPAR issues a No Report Certificate for that period instead.</div>
+          <div class="btnrow"><button class="btn ghost" onclick="show('reqBox',1)">Raise a request for a change</button></div>
+          <div class="hidebox" id="reqBox" style="margin-top:12px">
+            <div class="rule"></div>
+            <div class="q">What needs correcting?</div>
+            <div class="hint">Your request goes to the custodian, Shri G. H. Mane.</div>
+            <label class="f"><span>What is not correct</span>
+              <select><option>Reporting officer is not correct</option><option>Reviewing officer is not correct</option><option>The dates are not correct</option><option>A period is missing</option><option>Other</option></select></label>
+            <textarea id="tReq" oninput="wc('tReq','cReq',100)" placeholder="State what the record should say. Maximum 100 words."></textarea>
+            <div class="counter" id="cReq">0 / 100 words</div>
+            <div class="btnrow"><button class="btn" onclick="toast('Request sent to the custodian. You will be notified when it is acted on.');show('reqBox',0)">Send request</button><button class="btn grey" onclick="show('reqBox',0)">Cancel</button></div>
+          </div>
+          <div class="btnrow" style="margin-top:12px"><button class="btn grey" onclick="selfStep(1)">Back</button><button class="btn" onclick="selfStep(3)">Continue</button></div>
+        </div>
+      </div>
+
+      <!-- step 3 · the whole of Part 2 on one scroll -->
+      <div class="wiz" id="self3">
+
+        <!-- technical module first: it decides what 2.1 asks for -->
+        <div class="card">
+          <div class="part">Part 2.6 · technical cadre</div>
+          <div class="hint">Answered first, because it decides what Part 2.1 asks you for.</div>
+          <div class="q">Do you belong to a technical cadre?</div>
+          <div class="radios">
+            <label><input type="radio" name="tech" checked onclick="setTech(0)"><span>No</span></label>
+            <label><input type="radio" name="tech" onclick="setTech(1)"><span>Yes &mdash; MahaPAR opens the module for my cadre</span></label>
+          </div>
+          <div class="hidebox" id="techBox">
+            <div class="two">
+              <label class="f"><span>Module</span><select id="techMod" onchange="fillDesig()"></select></label>
+              <label class="f"><span>Designation held during the reporting period</span><select id="techDesig" onchange="setDesig()"></select></label>
+            </div>
+            <div class="note info" id="techNote"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="part">Part 2.1</div>
+
+          <!-- general form: free-text targets -->
+          <div id="genBox">
+            <div class="q">Key activities, responsibilities and targets for the year</div>
+            <div class="hint">Fill only if these were set for your post. Otherwise go to 2.2.</div>
+            <div class="note info">&#8505;&#65039; <b>Future direction:</b> role and KRA information pre-filled where available once role mapping for priority departments is complete; targets selected from a drop-down once KPIs are linked to MahaPAR.</div>
+            <table>
+              <tr><th style="width:50%">Key activity, responsibility or target</th><th>Achievement</th></tr>
+              <tr><td><input type="text" value="Disposal of land-records grievances for the section"></td><td><input type="text" value="Average disposal time reduced from 41 to 23 days"></td></tr>
+              <tr><td><input type="text" value="Clear 100% of RTI applications within statutory time"></td><td><input type="text" value="214 of 218 cleared within 30 days"></td></tr>
+              <tr><td><input type="text" placeholder="3."></td><td><input type="text" placeholder="Achievement"></td></tr>
+            </table>
+          </div>
+
+          <!-- technical cadre: the KPI table -->
+          <div class="hidebox" id="kpiBox">
+            <div class="q">Your KPIs for the year</div>
+            <div class="hint">Your KPIs, targets and mid-year progress come from <b>My KPIs</b>, which is open all year. Add the year-end status, what you achieved, and the record where it can be checked. Your reporting and reviewing officers see this table when grading.</div>
+            <div class="tscroll"><table id="kpiSelf"></table></div>
+            <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="selfStep(8)">Open My KPIs</button></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="part">Part 2.2</div>
+          <div class="q">Your most significant contribution this year</div>
+          <div class="hint">One or two pieces of work: what you did, and what changed as a result. No attachments.</div>
+          <textarea id="t22" oninput="wc('t22','c22',100)" style="min-height:120px">Redesigned the district land-records grievance workflow on eOffice. Cut average disposal time from 41 days to 23 days across six talukas and cleared a backlog of 1,340 cases.</textarea>
+          <div class="counter" id="c22"></div>
+          <div class="btnrow" style="margin-top:-4px"><button class="btn ghost sm" onclick="openLog()">Pull from my work log (7 entries)</button></div>
+          <div class="rule"></div>
+          <div class="part">Part 2.3 · optional</div>
+          <div class="q">Systemic factors (factors outside your control) that affected your work</div>
+          <div class="hint">For example technical constraints, budget or fund-release constraints, delays in approvals or sanctions, staffing shortages, or dependence on another office, agency or contractor.</div>
+          <textarea id="t23" oninput="wc('t23','c23',50)" placeholder="Optional — leave blank if none"></textarea>
+          <div class="counter" id="c23"></div>
+          <div class="note info" style="margin-top:12px">ℹ️ If a memo was issued to you during the year, answer it in the memo itself rather than here. Your reply is already on record and is shown to the reporting officer.</div>
+        </div>
+
+        <div class="card">
+          <div class="part">Part 2.4 · learning and development during the year</div>
+          <div class="sub">iGOT courses are pulled from your iGOT record; confirm each one. Add anything else below. Total hours are shown to your reporting officer while grading.</div>
+          <div class="tscroll"><table id="lndTable"></table></div>
+          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="show('lndAdd',1)">+ Add training, a workshop or a qualification</button></div>
+          <div class="hidebox" id="lndAdd" style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
+            <div class="two">
+              <label class="f"><span>Type</span>
+                <select id="lType" onchange="show('lRoleBox',this.value==='Workshop or conference')">
+                  <option value="Other training">Other training (institute, professional body, software, certification)</option>
+                  <option value="Workshop or conference">Workshop or conference</option>
+                  <option value="Qualification gained">Qualification gained</option>
+                </select></label>
+              <label class="f"><span>Title</span><input type="text" id="lTitle" placeholder="e.g. Budget preparation workshop"></label>
+              <label class="f"><span>Institute or organiser</span><input type="text" id="lBy" placeholder="e.g. YASHADA"></label>
+              <label class="f"><span>Dates</span><input type="text" id="lDates" placeholder="e.g. 3 to 4 Mar 2026"></label>
+              <label class="f"><span>Hours</span><input type="text" id="lHrs" placeholder="e.g. 12"></label>
+              <label class="f hidebox" id="lRoleBox"><span>Your role</span>
+                <select id="lRole"><option>Attended</option><option>Presented</option><option>Organised</option></select></label>
+            </div>
+            <div class="btnrow"><button class="btn sm" onclick="addLnd()">Add row</button><button class="btn sm grey" onclick="show('lndAdd',0)">Cancel</button></div>
+          </div>
+          <div class="rule"></div>
+          <div class="part">Part 2.5 · optional</div>
+          <div class="q">Any additional training you need?</div>
+          <div class="hint">Choose up to three. Examples for each category are in the annexure.</div>
+          <div class="chips" id="trainChips"></div>
+          <div class="note info" id="chipNote">ℹ️ 0 of 3 selected.</div>
+        </div>
+
+        <div class="btnrow" style="margin-top:-4px;margin-bottom:18px"><button class="btn grey" onclick="selfStep(2)">Back</button><button class="btn" onclick="selfStep(4)">Continue to review and sign</button></div>
+      </div>
+
+      <!-- step 4 · review and sign -->
+      <div class="wiz" id="self4">
+        <div class="card">
+          <h3>Check before you sign</h3>
+          <div class="sub">Everything recorded in Parts 1 and 2. Select any row to go back to it.</div>
+          <table style="margin-top:8px">
+            <tr onclick="selfStep(1)" style="cursor:pointer"><td>Part 1 · official details and leave</td><td><span class="tag ok">Complete</span></td></tr>
+            <tr onclick="selfStep(2)" style="cursor:pointer"><td>Part 1.1–1.2 · reporting chain and NRC</td><td><span class="tag ok">Complete</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td id="chk21lbl">2.1 Targets</td><td><span class="tag ok" id="chk21">2 entered</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.2 Most significant contribution</td><td><span class="tag ok" id="chk22">31 words</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.3 Systemic factors</td><td><span class="tag grey">Optional · skipped</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.4 Learning and development</td><td><span class="tag ok" id="chkLnd">—</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.5 Training needed</td><td><span class="tag grey">Optional</span></td></tr>
+            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.6 Technical cadre</td><td><span class="tag ok" id="chkTech">No</span></td></tr>
+            <tr><td>Memos issued to you this year</td><td><span class="tag warn" id="chkMemo">2 · 1 unanswered</span></td></tr>
+          </table>
+          <div class="note warn" style="margin-top:14px">⚠️ One memo issued to you on 18 Aug 2025 has no response on record. You may still record a late response; it will be shown as late.</div>
+          <div class="note info">ℹ️ Signing locks Part 2 and sends the APAR to Shri C. D. Joshi, Deputy Secretary. Paper forms are not accepted.</div>
+          <div class="btnrow"><button class="btn grey" onclick="selfStep(3)">Back to the form</button><button class="btn ghost" onclick="toast('Draft saved. Nothing has gone to your reporting officer.')">Save draft</button><button class="btn" onclick="submitSelf()">Sign with DSC / eSign and submit</button></div>
+        </div>
+      </div>
+
+
+      <!-- year-round · My KPIs -->
+      <div class="wiz" id="self8">
+        <div class="card">
+          <h2>My KPIs · 2025&ndash;26</h2>
+          <div class="sub">At the start of the year, pick 3 to 5 KPIs from the menu for your designation, with a target for each. Record mid-year progress by 31 October; a target may be revised then, with a reason. Your reporting officer can see this page. There is no separate mid-year marking.</div>
+          <div class="note warn">🔔 MahaPAR sends a reminder in October. This year&rsquo;s reminder went out on 1 Oct 2025; mid-year progress was recorded on 24 Oct 2025.</div>
+          <div id="kpiOffNote" class="note info">ℹ️ This page opens once a technical cadre and designation are selected in Part 2.6.</div>
+          <div class="tscroll"><table id="myKpiTable"></table></div>
+          <div class="btnrow" style="margin-top:12px"><button class="btn ghost sm" onclick="addMyKpi()">+ Add a KPI</button><button class="btn sm" onclick="toast('KPIs and targets saved. Your reporting officer can see them.')">Save</button></div>
+        </div>
+      </div>
+
+      <!-- year-round · work log -->
+      <div class="wiz" id="self6">
+        <div class="card">
+          <h2>My work log</h2>
+          <div class="sub">Record work as it happens through the year. When the APAR opens, you can pull entries straight into Part 2.2 instead of recalling them in April.</div>
+          <div class="two">
+            <label class="f"><span>Date</span><input type="date" value="2026-03-09"></label>
+            <label class="f"><span>What you did</span><input type="text" placeholder="e.g. Cleared the grievance backlog"></label>
+          </div>
+          <label class="f"><span>What changed as a result</span><input type="text" placeholder="e.g. Pendency brought to nil for the first time since 2022"></label>
+          <div class="btnrow"><button class="btn" onclick="toast('Entry added to your work log. Only you can see it until you use it in an APAR.')">Add to work log</button></div>
+          <div class="rule"></div>
+          <h3>Entries for 2025–26</h3>
+          <div id="logList"></div>
+          <div class="note info">&#8505;&#65039; The log is yours alone. Nothing here reaches your reporting officer unless you put it in the APAR.</div>
+        </div>
+      </div>
+
+      <!-- year-round · memos -->
+      <div class="wiz" id="self7">
+        <div class="card">
+          <h2>Memos received this year</h2>
+          <div class="sub">Issued in eHRMS by your reporting officer during the assessment period. These are visible on the grading screen.</div>
+          <div id="selfMemos"></div>
+          <div class="note info" style="margin-top:4px">&#8505;&#65039; Replies are recorded in eHRMS against the memo itself, not in this form.</div>
+          <div class="btnrow"><button class="btn ghost sm" onclick="toast('Opens the memo in eHRMS, where the reply is recorded against it.')">Record a response in eHRMS</button></div>
+        </div>
+      </div>
+
+      <!-- step 5 · outcome and representation -->
+      <div class="wiz" id="self5">
+        <div class="card">
+          <h2>Your APAR 2025–26</h2>
+          <div class="sub">Disclosed to you on 12 July 2026 · you may represent until 27 July 2026</div>
+          <table>
+            <tr><th>Item</th><th>Value</th></tr>
+            <tr><td>Overall grade (95% once timeliness applies)</td><td><b id="dOverall">—</b></td></tr>
+            <tr><td>Timeliness marks (5%)</td><td><b style="color:var(--red)">−0.2</b> · 2 of your own stages auto-forwarded</td></tr>
+            <tr><td><b>Final score</b></td><td><b id="dFinal">—</b> out of 10</td></tr>
+            <tr><td>Integrity</td><td>Beyond doubt</td></tr>
+            <tr><td>Memos issued to you during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>
+          </table>
+          <div class="ro" style="margin-top:14px"><b>Overall assessment recorded by the reporting officer</b><span id="d33">—</span></div>
+        </div>
+        <div class="card">
+          <h2>Submit a representation</h2>
+          <div class="hint">One representation, within 15 days of disclosure.</div>
+          <textarea id="tRep" oninput="wc('tRep','cRep',200)" placeholder="State what you are representing against and why. Maximum 200 words."></textarea>
+          <div class="counter" id="cRep"></div>
+          <div class="note info">ℹ️ The memos issued to you and your replies are attached to your representation automatically.</div>
+          <div class="btnrow"><button class="btn amber" onclick="toast('Representation submitted.')">Submit representation</button><button class="btn grey" onclick="toast('APAR accepted and closed.')">Accept and close</button></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================= REPORTING ======================= -->
+<section class="pane" id="pane-reporting">
+  <div class="ph"><h1>Reporting officer · Form A, Part 3</h1>
+  <p>The self-appraisal, the system data and the year's memo record all sit on one screen with the grades. Extreme grades and a below-benchmark overall grade open the justification the form requires; the memo record is what makes a low grade defensible.</p></div>
+
+  <div class="card">
+    <h2>Pending with me</h2>
+    <table>
+      <tr><th>Official</th><th>Form</th><th>Self-appraisal</th><th>Memos issued this year</th><th>Deadline</th><th></th></tr>
+      <tr><td><b>Shri A. B. Sawant</b> · Section Officer</td><td>A</td><td><span class="tag ok">Submitted 28 Apr</span></td><td><span class="tag warn">2 · 1 unanswered</span></td><td>31 May 2026</td><td><button class="btn sm" onclick="scrollTo(0,520)">Open</button></td></tr>
+      <tr><td><b>Smt. J. K. More</b> · Asst Section Officer</td><td>A</td><td><span class="tag red">Deadline passed</span></td><td><span class="tag grey">None</span></td><td><span style="color:var(--red)">Overdue 4 days</span></td><td><button class="btn sm ghost" onclick="toast('Demo shows one APAR in full. This official has no memo record, so a below-benchmark grade would carry no documentation.')">Open</button></td></tr>
+      <tr><td><b>Shri L. M. Pawar</b> · Senior Clerk</td><td>B</td><td><span class="tag ok">Submitted 22 Apr</span></td><td><span class="tag warn">1 · answered</span></td><td>31 May 2026</td><td><button class="btn sm ghost" onclick="toast('Form B has five items in two halves of 50%, plus a fitness judgment.')">Open</button></td></tr>
+    </table>
+  </div>
+
+  <div class="grid g-2-1">
+    <div>
+      <div class="card">
+        <h2 style="cursor:pointer" onclick="toggleCard('selfCardBody','selfCaret')">Self-appraisal of <span id="selfWho">Shri A. B. Sawant</span> <span id="selfCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9662;</span></h2>
+        <div class="sub">The whole of Part 2, read-only.</div>
+        <div class="hidebox on" id="selfCardBody">
+        <div class="part" id="wrote21">Part 2.1 · key activities, responsibilities and targets</div>
+        <div class="hidebox" id="kpiWroteBox"><div class="tscroll"><table id="kpiWrote"></table></div></div>
+        <table id="genWrote">
+          <tr><th style="width:50%">Key activity, responsibility or target</th><th>Achievement</th></tr>
+          <tr><td>Disposal of land-records grievances for the section</td><td>Average disposal time reduced from 41 to 23 days</td></tr>
+          <tr><td>Clear 100% of RTI applications within statutory time</td><td>214 of 218 cleared within 30 days</td></tr>
+          <tr><td>File all quarterly returns by the due date</td><td>3 of 4 on time; Q1 filed 23 days late</td></tr>
+        </table>
+        <div class="rule"></div>
+        <div class="ro"><b>2.2 Most significant contribution</b>Redesigned the district land-records grievance workflow on eOffice. Cut average disposal time from 41 days to 23 days across six talukas and cleared a backlog of 1,340 cases.</div>
+        <div class="ro"><b>2.3 Systemic factors that affected the work</b>Sanctioned clerical strength short by two posts for the whole year; scanning of old records pending with the district unit.</div>
+        <div class="part" style="margin-top:14px">Part 2.4 · learning and development</div>
+        <div class="tscroll"><table id="lndWrote"></table></div>
+        <div class="ro" style="margin-top:14px"><b>2.5 Additional training requested</b>Project management · Budget management · IT and digital tools</div>
+        <div class="ro"><b>2.6 Technical cadre</b><span id="wrote26">Not applicable. The official is not in a technical cadre, so no module grades are included.</span></div>
+        <div class="note info">&#8505;&#65039; You respond to the training request in <b>Part 3.8</b> below.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="cursor:pointer" onclick="toggleMemoCard()">Memo record for <span id="memoWho">Shri A. B. Sawant</span> for this assessment year <span id="memoCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9656;</span></h2>
+        <div class="sub">Issued by you to this official during 2025–26. Shown here automatically.</div>
+        <div class="hidebox" id="memoCardBody">
+        <div id="repMemos"></div>
+        <div class="btnrow"><button class="btn amber" onclick="show('memoComposer',1)">Issue a memo</button></div>
+        <div class="hidebox" id="memoComposer" style="margin-top:12px;border-top:1px solid var(--border);padding-top:14px">
+          <div class="part">eHRMS · issue a memo</div>
+          <div class="hint">Memos are raised in eHRMS, where your reporting chain is maintained, and can be issued any day of the year. MahaPAR reads them at grading.</div>
+          <div class="two">
+            <label class="f"><span>To (your subordinate)</span>
+              <select id="mTo"><option>Shri A. B. Sawant — Section Officer</option><option>Smt. J. K. More — Asst Section Officer</option><option>Shri L. M. Pawar — Senior Clerk</option></select></label>
+            <label class="f"><span>Concern relates to</span>
+              <select id="mCat">
+                <option>Delivery of planned work</option><option>Quality of work</option>
+                <option>Technical knowledge</option><option>Judgement and problem-solving</option>
+                <option>Collaboration and communication</option><option>Responsibility and conduct</option>
+                <option>Punctuality and attendance</option><option>Integrity-related concern</option>
+              </select></label>
+          </div>
+          <label class="f"><span>Subject</span><input type="text" id="mSub" placeholder="e.g. Delay in filing quarterly returns"></label>
+          <label class="f"><span>What the concern is, and what you expect to change</span>
+            <textarea id="mBody" placeholder="State the specific instance, date and what improvement is expected. Maximum 150 words."></textarea>
+            <div class="counter" id="mCount">0 / 150 words</div></label>
+          <label class="f"><span>Response due by</span><input type="date" id="mDue" value="2025-09-30"></label>
+          <div class="checks"><label><input type="checkbox" id="mNotify" checked><span>Notify the official that their response, or failure to respond, may be considered during the APAR assessment.</span></label></div>
+          <div class="btnrow"><button class="btn" onclick="sendMemo()">Sign and send memo</button><button class="btn grey" onclick="show('memoComposer',0)">Cancel</button></div>
+        </div>
+
+        <div class="note info" style="margin-top:12px">ℹ️ Memos are issued in eHRMS, not here. One issued today is dated today and attaches to the <b>current</b> cycle, not to the year being assessed — so a concern should be recorded when it arises.</div>
+      </div>
+      </div>
+
+      <div class="card">
+        <div class="part">Part 3.1 · work output · 40%</div>
+        <div class="q" id="q31">Grade each dimension from 1 to 10, compared with officials at the same level</div>
+        <div class="hint">The figures shown under a heading are there to help you judge it. They do not add to or subtract from the score by themselves.</div>
+        <div class="note info">&#8505;&#65039; Please see <b>Annexure 3</b> for additional explanation on how each dimension can be graded for different kinds of posts, so that an official is assessed on these dimensions based on what their own work involves. For example, the &lsquo;Collaboration and communication&rsquo; dimension may require different behaviours or skills for a post mainly dealing with file-processing as opposed to a public-facing one.
+          <div class="btnrow" style="margin-top:8px"><button class="btn ghost sm" onclick="openAnx()">Open Annexure 3</button></div></div>
+        <div class="part" style="cursor:pointer;margin-top:14px" onclick="toggleCard('sysBody','sysCaret')">System data for your reference <span id="sysCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9656;</span></div>
+        <div class="hidebox" id="sysBody">
+          <table>
+            <tr><th>Data</th><th>Informs dimension</th><th>Value</th></tr>
+            <tr><td>iGOT learning hours completed in the year</td><td>3. Technical knowledge</td><td>20 h</td></tr>
+            <tr><td>Share of files and receipts processed on eOffice</td><td>3. Technical knowledge</td><td>87%</td></tr>
+            <tr><td>Share of working days present (attendance)</td><td>6. Responsibility and conduct</td><td>96%</td></tr>
+          </table>
+          <div class="note info" style="margin-top:10px">&#8505;&#65039; This data is generated by MahaPAR for your reference while grading the dimensions it relates to. It does not add to or subtract from the score by itself. Where a source does not cover the official, for example no eOffice access, it is shown as not applicable.</div>
+          <div class="note info">&#8505;&#65039; <b>Future direction:</b> this box will be filled automatically once iGOT, eOffice and eHRMS are linked to MahaPAR.</div>
+        </div>
+
+        <!-- technical cadre: KPI marking replaces the two work-output dimensions -->
+        <div class="hidebox" id="kpiGradeBox">
+          <div class="hint">MahaPAR sets the category from the year-end status the official recorded, so only that band of marks opens: Completed 7 to 10, Partly completed 3 to 6, Not completed 1 to 2. A remark is required for Not completed, or where the target was revised.</div>
+          <div id="kpiGrade"></div>
+        </div>
+
+        <div id="genGradeBox">
+        <div class="dim"><div class="nm">1. Delivery of planned work</div><div class="cv">Targets met, timeliness, unforeseen tasks</div>
+          <div class="scale" data-dim="d1"></div>
+          <div class="sys"><em>Targets <b>3 of 4 on time</b></em><em class="memo">1 memo · <b>unanswered</b></em></div></div>
+        <div class="dim"><div class="nm">2. Quality of work</div><div class="cv">Accuracy, thoroughness, soundness of proposals</div>
+          <div class="scale" data-dim="d2"></div></div>
+
+        </div>
+
+        <div class="rule"></div>
+        <div class="part">Part 3.2 · functional competence · 30%</div>
+        <div class="dim"><div class="nm">3. Technical knowledge</div><div class="cv">Subject knowledge, rules and procedures, IT skills, applying them to the work</div>
+          <div class="scale" data-dim="d3"></div>
+          <div class="sys"><em>iGOT <b>20 h</b></em><em>eOffice <b>87%</b></em></div></div>
+        <div class="dim"><div class="nm">4. Judgement and problem-solving</div><div class="cv">Decisions under constraint, resourcefulness, solving problems within delegated powers</div>
+          <div class="scale" data-dim="d4"></div></div>
+
+        <div class="rule"></div>
+        <div class="part">Part 3.3 · personal attributes · 30%</div>
+        <div class="dim"><div class="nm">5. Collaboration and communication</div><div class="cv">Teamwork, coordination, dealings with the public</div>
+          <div class="scale" data-dim="d5"></div></div>
+        <div class="dim"><div class="nm">6. Responsibility and conduct</div><div class="cv">Attitude to work, discipline, punctuality</div>
+          <div class="scale" data-dim="d6"></div>
+          <div class="sys"><em>Attendance <b>96%</b></em><em class="memo">1 memo · <b>answered</b></em></div></div>
+
+        <div class="hidebox" id="extremeBox">
+          <div class="note warn">⚠️ <b>A grade of 1–2 or 9–10 needs the specific accomplishment or failure behind it</b>, recorded in 3.5 below. <span id="extremeList"></span></div>
+        </div>
+
+        <div class="hidebox" id="lowBox">
+          <div class="rule"></div>
+          <div class="part">Part 3.6 · memos or notices</div>
+          <div class="note danger">⚠️ <b>This overall grade is below the benchmark of 6.</b> You may attach memos or notices issued during the year as proof that the official was advised and given opportunities to improve.</div>
+          <div class="checks"><label><input type="checkbox" id="attachMemo" checked onchange="renderAttach()"><span>Attach the memo record for this year as evidence</span></label></div>
+          <div id="attachList"></div>
+        </div>
+
+        <div class="note info">&#8505;&#65039; <b>Future direction:</b> the grade above is not the final score. MahaPAR generates <b>Part 6</b> once every stage up to the reviewing officer&rsquo;s is complete; no officer enters it. Part 6 carries timeliness marks, worth <b>5% of the final score</b>, that is <b>&minus;0.5 to +0.5</b> on the 10-point scale. Timeliness is counted for every role an official holds in the cycle: their own self-appraisal, their assessments as a reporting officer, and their reviews as a reviewing officer. Each is counted as submitted on time, or late or not done, and the marks go to that official&rsquo;s own score.</div>
+
+        <div class="rule"></div>
+        <div class="part">Part 3.4 · integrity</div>
+        <div class="radios">
+          <label><input type="radio" name="integ" checked onclick="show('doubtBox',0)"><span>Beyond doubt</span></label>
+          <label><input type="radio" name="integ" onclick="show('doubtBox',0)"><span>Nothing adverse noticed</span></label>
+          <label><input type="radio" name="integ" onclick="show('doubtBox',1)"><span>Doubtful</span></label>
+        </div>
+        <div class="hidebox" id="doubtBox"><div class="note danger">⚠️ Record the reasons in a separate confidential note. MahaPAR will not accept the signature until the note is filed.</div></div>
+
+        <div class="rule"></div>
+
+        <div class="part">Part 3.8 · training needs</div>
+        <div class="q">(a) Trainings requested by the official in 2.5</div>
+        <div class="chips" style="margin-top:6px">
+          <span class="chip on">Domain rules and procedures</span>
+          <span class="chip on">IT and digital tools</span>
+          <span class="chip on">Team leadership</span>
+        </div>
+        <div class="radios">
+          <label><input type="radio" name="trval" checked onclick="show('trAdd',0)"><span>Agree</span></label>
+          <label><input type="radio" name="trval" onclick="show('trAdd',1)"><span>Agree with changes or additions</span></label>
+        </div>
+        <div class="hidebox" id="trAdd">
+          <label class="f"><span>Changes or additions</span><input type="text" placeholder="State what you would change or add"></label>
+        </div>
+
+        <div class="q" style="margin-top:14px">(b) Training you recommend, up to three</div>
+        <div class="hint">Select from the list; each one you select is added below, where you mark its type. Use <b>Other</b> for anything not listed.</div>
+        <div class="chips" id="roTrainChips"></div>
+        <table style="margin-top:10px" id="roNeedTable"></table>
+
+        <div class="rule"></div>
+
+        <div class="part">Part 3.5 · compulsory</div>
+        <div class="q">Overall assessment</div>
+        <div class="hint">Cover: main strengths · one area to develop · any significant failure · attitude towards persons with disabilities, women and weaker sections · the specific accomplishment or failure behind any grade of 1–2 or 9–10.</div>
+        <textarea id="t33" oninput="wc('t33','c33',100)" style="min-height:130px"></textarea>
+        <div class="counter" id="c33"></div>
+        <div class="btnrow" style="margin-top:4px"><button class="btn ghost sm" onclick="insertMemoRef()">Cite the memo record</button></div>
+
+        <div class="rule"></div>
+        <div class="part">Part 3.7</div>
+        <div class="q">Do you agree with the official's self-appraisal in Part 2?</div>
+        <div class="radios">
+          <label><input type="radio" name="ag" checked onclick="show('agBox',0)"><span>Yes</span></label>
+          <label><input type="radio" name="ag" onclick="show('agBox',1)"><span>No — state the facts</span></label>
+        </div>
+        <div class="hidebox" id="agBox"><textarea id="t34" oninput="wc('t34','c34',50)" placeholder="State the facts. Maximum 50 words."></textarea><div class="counter" id="c34"></div></div>
+
+        <div class="note info" style="margin-top:14px">ℹ️ Signing locks Part 3 and sends the APAR to the reviewing officer, Shri E. F. Rane.</div>
+        <div class="btnrow"><button class="btn ghost" onclick="toast('Draft saved. The official cannot see a draft.')">Save draft</button><button class="btn" id="signRep" onclick="signReporting()">Sign and forward</button></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="scoreboard" id="board">
+        <small>Overall grade · weighted average, calculated by MahaPAR (includes technical module grades, if any)</small>
+        <div class="big" id="bigGrade">—</div>
+        <small id="gradedCount">0 of 6 dimensions graded</small>
+        <div style="margin-top:12px">
+          <div class="ln"><span>Work output · 40%<br><small id="wOutSrc">average of dimensions 1 and 2</small></span><b id="wOut">—</b></div>
+          <div class="ln"><span>Functional competence · 30%<br><small>average of dimensions 3 and 4</small></span><b id="wFun">—</b></div>
+          <div class="ln"><span>Personal attributes · 30%<br><small>average of dimensions 5 and 6</small></span><b id="wPer">—</b></div>
+          <div class="ln"><span>Benchmark</span><b>6.0</b></div>
+        </div>
+        <div style="margin-top:12px;font-size:11.5px;opacity:.9" id="boardNote">Grade every dimension to see the overall grade.</div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h2>Try this</h2>
+        <div class="sub">The behaviour the feedback asks for.</div>
+        <ol style="font-size:12.5px;margin-left:16px;color:#374151">
+          <li style="margin-bottom:6px">Grade dimension 1 as <b>9</b> — the justification requirement opens.</li>
+          <li style="margin-bottom:6px">Grade several dimensions <b>4 or 5</b> — the overall grade falls below 6 and the memo evidence panel opens, pre-filled from this year's memo record.</li>
+          <li>Press <b>Cite the memo record</b> to pull the memo dates and response status into 3.5.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= REVIEWING ======================= -->
+<section class="pane" id="pane-reviewing">
+  <div class="ph"><h1>Reviewing officer · Form A, Part 4</h1>
+  <p>The reviewing officer is asked about the overall score only, not the six dimensions. Agreeing takes two clicks. Disagreeing opens two fields: your own overall score, and why you differ.</p></div>
+
+  <div class="grid g-2-1">
+    <div>
+      <div class="card">
+        <h2>Shri A. B. Sawant · Section Officer</h2>
+        <div class="sub">Reported on by Shri C. D. Joshi, Deputy Secretary · signed 19 May 2026</div>
+        <table>
+          <tr><th>Dimension</th><th>Reporting officer's grade</th><th>Memo record</th></tr>
+          <tr id="rvRow1"><td>1. Delivery of planned work</td><td><b id="rv1">—</b></td><td><span class="tag red">1 unanswered</span></td></tr>
+          <tr id="rvRow2"><td>2. Quality of work</td><td><b id="rv2">—</b></td><td></td></tr>
+          <tr id="rvRowKpi" style="display:none"><td>Work output · average of the KPI marks</td><td><b id="rvKpi">—</b></td><td><span class="tag red">1 unanswered</span></td></tr>
+          <tr><td>3. Technical knowledge</td><td><b id="rv3">—</b></td><td></td></tr>
+          <tr><td>4. Judgement and problem-solving</td><td><b id="rv4">—</b></td><td></td></tr>
+          <tr><td>5. Collaboration and communication</td><td><b id="rv5">—</b></td><td></td></tr>
+          <tr><td>6. Responsibility and conduct</td><td><b id="rv6">—</b></td><td><span class="tag ok">1 answered</span></td></tr>
+          <tr><td><b>Overall grade</b></td><td><b id="rvOverall">—</b></td><td></td></tr>
+          <tr><td>Integrity</td><td>Beyond doubt</td><td></td></tr>
+        </table>
+        <div class="ro" style="margin-top:14px"><b>3.5 Overall assessment, as recorded</b><span id="rv33" style="font-size:13px">Not yet signed. Complete the reporting officer window first.</span></div>
+      </div>
+
+      <div class="card">
+        <h2>As recorded by the reporting officer</h2>
+        <div class="sub">Group averages only. The reviewing officer is asked about the overall grade, not the individual items.</div>
+        <table id="revSummary"></table>
+      </div>
+
+      <div class="card">
+        <div class="part">Part 4.1</div>
+        <div class="q">Do you agree with the reporting officer's overall score of <b id="rvBase">—</b>?</div>
+        <div class="hint">You are asked about the overall score only. The six dimension scores behind it are shown above for reference.</div>
+        <div class="radios">
+          <label><input type="radio" name="rvag" checked onclick="show('revBox',0);setRvAgree(1)"><span><b>Yes</b> — sign; nothing more is needed</span></label>
+          <label><input type="radio" name="rvag" onclick="show('revBox',1);setRvAgree(0)"><span><b>No</b> — record my own overall score</span></label>
+        </div>
+        <div class="hidebox" id="revBox">
+          <div class="part" style="margin-top:12px">Part 4.2</div>
+          <div class="q">Your overall score</div>
+          <div class="scale" id="rvScale" style="margin-bottom:12px"></div>
+          <div class="q">Why you differ from the reporting officer</div>
+          <div class="hint">State the reason for the score you have given.</div>
+          <textarea id="rvWhy" oninput="wc('rvWhy','rvWhyC',50)" placeholder="Maximum 50 words."></textarea>
+          <div class="counter" id="rvWhyC">0 / 50 words</div>
+          <div class="note warn">⚠️ A score of 1–2 or 9–10 needs the specific accomplishment or failure behind it.</div>
+        </div>
+        <div class="note info">ℹ️ Signing locks Part 4. The APAR goes to the custodian for disclosure.</div>
+        <div class="btnrow"><button class="btn" onclick="signReviewing()">Sign and forward</button></div>
+      </div>
+    </div>
+    <div>
+      <div class="scoreboard">
+        <small>Overall score on this APAR</small>
+        <div class="big" id="revBig">—</div>
+        <small id="revWas">As recorded by the reporting officer</small>
+        <div class="ln" style="margin-top:12px"><span>Reporting officer</span><b id="revCount">—</b></div>
+        <div class="ln"><span>Benchmark</span><b>6.0</b></div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h2>Part 5 · accepting authority</h2>
+        <div class="sub">Opens only where a stage was never completed.</div>
+        <div class="note danger">⚠️ Smt. J. K. More: the reporting stage was auto-forwarded on 01/06/2026 and never recorded.</div>
+        <div class="radios"><label><input type="radio" name="miss" checked><span>Reporting officer stage missing</span></label><label><input type="radio" name="miss"><span>Reviewing officer stage missing</span></label></div>
+        <textarea id="t52" oninput="wc('t52','c52',30)" placeholder="Action taken. Maximum 30 words."></textarea>
+        <div class="counter" id="c52"></div>
+        <div class="btnrow"><button class="btn sm" onclick="toast('Part 5 signed. The APAR is closed without a reporting-stage assessment and the delay stays on record.')">Sign and close the stage</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= DISCLOSURE ======================= -->
+</main>
+
+<footer>MahaPAR · draft user windows for discussion with GAD · IDinsight, October 2026 · demo data, no real official records</footer>
+
+<div class="toast" id="toast"></div>
+<div class="modal" id="logModal"><div class="box">
+  <h2>Choose from your work log</h2>
+  <p class="sub">Up to three entries. They are copied into 2.2 for you to edit; the log itself is unchanged.</p>
+  <div id="logPick"></div>
+  <div class="btnrow"><button class="btn" onclick="useLog()">Add to 2.2</button><button class="btn grey" onclick="closeLog()">Cancel</button></div>
+</div></div>
+<div class="modal" id="pastModal"><div class="box">
+  <h2>Past cycles</h2>
+  <p class="sub">Closed cycles remain available to view and export.</p>
+  <table>
+    <tr><th>Cycle</th><th>APARs</th><th>Closed on</th><th></th></tr>
+    <tr><td>2024–25</td><td>1,261</td><td>28 Nov 2025</td><td><button class="btn sm ghost" onclick="toast('Opens the 2024–25 cycle, read only.')">Open</button></td></tr>
+    <tr><td>2023–24</td><td>1,247</td><td>30 Nov 2024</td><td><button class="btn sm ghost" onclick="toast('Opens the 2023–24 cycle, read only.')">Open</button></td></tr>
+    <tr><td>2022–23</td><td>1,198</td><td>02 Dec 2023</td><td><button class="btn sm ghost" onclick="toast('Opens the 2022–23 cycle, read only.')">Open</button></td></tr>
+  </table>
+  <div class="btnrow"><button class="btn grey" onclick="closePast()">Close</button></div>
+</div></div>
+<div class="modal" id="nrcModal"><div class="box">
+  <h2>Verify Part 1 and issue NRC</h2>
+  <p class="sub">Smt. J. K. More · Assistant Section Officer</p>
+  <div class="note warn">⚠️ Served under Shri R. S. Gokhale from 01/04/2025 to 10/06/2025 — 2 months 10 days, less than 3 months.</div>
+  <div class="radios">
+    <label><input type="radio" name="nrc" checked><span>Verified — issue the No Report Certificate for this period</span></label>
+    <label><input type="radio" name="nrc"><span>Reject — service was 3 months or more (reason required)</span></label>
+  </div>
+  <div class="note info">ℹ️ The certificate only records that there was no reporting officer for that period. It does not count against the official. The reviewing officer's assessment stands for the rest of the year.</div>
+  <div class="btnrow"><button class="btn" onclick="closeNRC(1)">Sign and issue</button><button class="btn grey" onclick="closeNRC(0)">Cancel</button></div>
+</div></div>
+<div class="modal" id="anxModal"><div class="box" style="max-width:1000px">
+  <h2>Annexure 3: What each dimension looks like in different roles</h2>
+  <p class="sub">[draft; to be developed with the Karmayogi Competency Model and CEGIS]</p>
+  <table>
+    <tr><th style="width:24%">Dimension (3.1)</th><th>File-processing or desk roles</th><th>Public-facing or field roles</th></tr>
+    <tr><td>1. Delivery of planned work</td><td>Files and tasks disposed of within timelines; pendency kept low</td><td>Scheme targets and services delivered on schedule; field visits completed</td></tr>
+    <tr><td>2. Quality of work</td><td>Accurate, well-reasoned notes and drafts that need little rework</td><td>Services delivered to standard; accurate reporting from the field</td></tr>
+    <tr><td>3. Technical knowledge</td><td>Correct use of rules, procedures, eOffice and IT tools</td><td>Scheme guidelines and local conditions applied correctly to cases</td></tr>
+    <tr><td>4. Judgement and problem-solving</td><td>Sound recommendations; decisions taken within delegated powers without unnecessary referral</td><td>Timely decisions on the ground; issues resolved without needless escalation</td></tr>
+    <tr><td>5. Collaboration and communication</td><td>Teamwork and coordination with other sections and departments; clear written communication</td><td>Grievance handling; dealing with the public; coordination with local bodies and other offices</td></tr>
+    <tr><td>6. Responsibility and conduct</td><td>Punctuality, ownership of files, discipline</td><td>Availability at headquarters and in the field; conduct in public dealings</td></tr>
+  </table>
+  <div class="note info" style="margin-top:12px">&#8505;&#65039; Illustrative descriptors for discussion. Final descriptors, including further role types, are to be drawn from the Karmayogi Competency Model, with inputs from CEGIS.</div>
+  <div class="btnrow"><button class="btn grey" onclick="closeAnx()">Close</button></div>
+</div></div>
+
+<script>
+/* ---------------- demo state ---------------- */
+const WEIGHTS={d1:.20,d2:.20,d3:.15,d4:.15,d5:.15,d6:.15};
+const DIMNAMES={d1:'1. Delivery of planned work',d2:'2. Quality of work',d3:'3. Technical knowledge',
+ d4:'4. Judgement and problem-solving',d5:'5. Collaboration and communication',d6:'6. Responsibility and conduct'};
+const grades={}; let rvScore=null, rvAgree=true;
+
+/* ---- technical cadres, their designations and KPI menus ---- */
+const MODULES={
+ 'T1 · Engineering':['Junior Engineer','Assistant Engineer Grade II','Assistant Engineer Grade I',
+   'Deputy Engineer (Sub-Divisional Engineer)','Executive Engineer and above'],
+ 'T2 · Public Health doctors':['Medical Officer','Senior Medical Officer','Public Health Officer',
+   'District Health Officer and above'],
+ 'T3 · Medical and veterinary faculty':['Assistant Professor','Associate Professor','Professor'],
+ 'T4 · Other college and university faculty':['Assistant Professor','Associate Professor','Professor']
+};
+/* KPI menu by module. Engineering is drawn from the department's draft list;
+   the others are to be designed with the department concerned. */
+const KPI_MENU={
+ 'T1 · Engineering':{
+  field:[{k:'Estimates prepared within set days of administrative approval',ev:'Estimates register'},
+         {k:'Works completed within contract period (% of works due)',ev:'Works register, measurement books'},
+         {k:'Quality tests done against the number required',ev:'Quality-test registers'},
+         {k:'Inspections done against required',ev:'Inspection register'},
+         {k:'Maintenance targets (km of road, buildings)',ev:'Maintenance register'}],
+  senior:[{k:'Physical and financial progress against the annual works programme',ev:'Works programme reports'},
+          {k:'Tenders finalised within set time',ev:'e-tendering records'},
+          {k:'Bills paid within set time',ev:'Payment records'},
+          {k:'Time and cost over-run cases, and savings',ev:'Works register'},
+          {k:'Reportees\u2019 APARs completed on time',ev:'MahaPAR'}]}
+};
+const SENIOR=['Deputy Engineer (Sub-Divisional Engineer)','Executive Engineer and above',
+ 'District Health Officer and above','Professor'];
+const KPI_RANGE={completed:[7,10],partly:[3,6],not:[1,2]};
+const CATLABEL={completed:'Completed',partly:'Partly completed',not:'Not completed'};
+
+/* the official's KPIs for the year, kept in My KPIs and used in 2.1 */
+let MYKPIS=[
+ {m:0,tgt:'All estimates within 15 days of administrative approval',mid:'7 of 8 within 15 days',rev:'',why:'',
+  ys:'partly',ach:'15 of 17 within 15 days',ev:'Estimates register 2025\u201326, entries 1 to 17'},
+ {m:1,tgt:'90% of the 10 works due',mid:'4 of 5 due works completed on time',rev:'',why:'',
+  ys:'partly',ach:'8 of 10 works (80%)',ev:'Works register; MB Nos. 211 to 220'},
+ {m:2,tgt:'All 240 required quality tests',mid:'118 of 120 done',rev:'',why:'',
+  ys:'completed',ach:'240 of 240 done',ev:'Quality-test register, Sub-Division 2'},
+ {m:4,tgt:'35 km of road maintained',mid:'12 km',rev:'28 km',why:'Fund release for 7 km moved to 2026\u201327',
+  ys:'partly',ach:'27 km',ev:'Maintenance register; MB No. 225'}
+];
+let kpiOn=false, kpiMark=[], kpiRem=[];
+
+/* learning and development, 2.4 */
+let LND=[
+ {type:'iGOT course',name:'eOffice for field offices',by:'iGOT Karmayogi',dates:'Jul 2025',hrs:6,role:'',igot:true},
+ {type:'iGOT course',name:'RTI Act: practice and timelines',by:'iGOT Karmayogi',dates:'Sep 2025',hrs:8,role:'',igot:true},
+ {type:'Other training',name:'Budget preparation and expenditure tracking',by:'YASHADA, Pune',dates:'8 to 10 Sep 2025',hrs:18,role:''}
+];
+const ROLES={
+ custodian:['Shri G. H. Mane','Custodian / Establishment Officer, Revenue &amp; Forest Dept'],
+ official:['Shri A. B. Sawant','Section Officer, Revenue &amp; Forest Dept · Group B · Sevaarth 2048-7719'],
+ reporting:['Shri C. D. Joshi','Deputy Secretary · reporting officer for 24 officials'],
+ reviewing:['Shri E. F. Rane','Joint Secretary · reviewing officer for 9 officials']
+};
+let memos=[
+ {id:1,to:'Shri A. B. Sawant',from:'Shri C. D. Joshi',date:'18 Aug 2025',cat:'Delivery of planned work',
+  sub:'Delay in filing quarterly returns',
+  body:'Quarterly returns for Q1 were filed 23 days late despite two reminders. Returns for Q2 are to be filed within the statutory date.',
+  due:'30 Sep 2025',status:'none',resp:''},
+ {id:2,to:'Shri A. B. Sawant',from:'Shri C. D. Joshi',date:'06 Jan 2026',cat:'Responsibility and conduct',
+  sub:'Absence from the section without intimation',
+  body:'Absent from the section on 2 and 3 January without prior intimation. Leave is to be applied for in advance on eHRMS.',
+  due:'20 Jan 2026',status:'answered',
+  resp:'Both days were spent at the Collectorate for the land-records migration review; the tour was approved verbally but not recorded on eHRMS. Noted for the future.'},
+ {id:3,to:'Shri L. M. Pawar',from:'Shri C. D. Joshi',date:'11 Nov 2025',cat:'Punctuality and attendance',
+  sub:'Repeated late reporting',body:'Late reporting recorded on 14 occasions between July and October.',
+  due:'25 Nov 2025',status:'answered',resp:'Commute disrupted by the metro works; shifted to an earlier service from November.'},
+ {id:4,to:'Smt. J. K. More',from:'Shri E. F. Rane',date:'02 Feb 2026',cat:'Quality of work',
+  sub:'Errors in pension case calculations',body:'Three pension cases returned by the AG office for calculation errors.',
+  due:'16 Feb 2026',status:'none',resp:''}
+];
+const TRAIN=['General rules and procedures','Domain rules and procedures','IT and digital tools','Budget management',
+ 'Project management','Project evaluation','Team leadership','Communication','Technical skills'];
+
+/* ---------------- navigation ---------------- */
+function go(t){
+ document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+ document.getElementById('pane-'+t).classList.add('on');
+ document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+ window.scrollTo({top:0,behavior:'smooth'}); renderCycle(t);
+}
+function setRole(r){
+ document.getElementById('roleName').textContent=ROLES[r][0];
+ document.getElementById('roleDesc').innerHTML=ROLES[r][1];
+ go(r==='official'?'self':r);
+ toast('Now walking through as '+ROLES[r][0]+'.');
+}
+const CYCLE=[['Cycle created','done'],['Part 1 verified','done'],['Self-appraisal','now'],['Reporting stage',''],
+ ['Reviewing stage',''],['Disclosure',''],['Representation',''],['APAR closed','']];
+let cyclePos=2;
+function custStep(n){
+ for(let i=1;i<=4;i++)document.getElementById('cust'+i).classList.toggle('on',i===n);
+ document.querySelectorAll('#custSteps li').forEach((li,i)=>li.classList.toggle('on',i===n-1));
+}
+function renderCycle(){
+ document.getElementById('cycleStrip').innerHTML=CYCLE.map((c,i)=>{
+  const st=i<cyclePos?'done':(i===cyclePos?'now':'');
+  return `<div class="cyc ${st}"><small>Stage ${i+1}</small><b>${c[0]}</b></div>`+
+   (i<CYCLE.length-1?'<span class="arrow">›</span>':'');
+ }).join('');
+}
+
+/* ---------------- helpers ---------------- */
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');
+ clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),4200);}
+function show(id,on){document.getElementById(id).classList.toggle('on',!!on);}
+function words(s){return s.trim()?s.trim().split(/\s+/).length:0;}
+function wc(ta,c,max){const n=words(document.getElementById(ta).value);const el=document.getElementById(c);
+ el.textContent=n+' / '+max+' words';el.classList.toggle('bad',n>max);
+ if(ta==='t22'){const k=document.getElementById('chk22');if(k)k.textContent=n+' words';}}
+const WORKLOG=[
+ {d:'12 Jun 2025',t:'Redesigned the land-records grievance workflow on eOffice',o:'Average disposal time cut from 41 days to 23 across six talukas'},
+ {d:'04 Aug 2025',t:'Cleared the backlog of 1,340 grievance cases',o:'Section pendency brought to nil for the first time since 2022'},
+ {d:'19 Sep 2025',t:'Brought RTI replies within the statutory period',o:'214 of 218 applications answered within 30 days'},
+ {d:'02 Nov 2025',t:'Trained 14 talathis on the new mutation module',o:'All six talukas now filing mutations online'},
+ {d:'27 Dec 2025',t:'Drafted the revised office procedure for land-records custody',o:'Approved by the Deputy Secretary and circulated'},
+ {d:'15 Feb 2026',t:'Represented the section at the divisional land-records review',o:'Three pending district proposals cleared'},
+ {d:'09 Mar 2026',t:'Filed the Q3 and Q4 returns within the due date',o:'After Q1 was filed late earlier in the year'},
+];
+function renderLog(){
+ const l=document.getElementById('logList');
+ if(l)l.innerHTML=WORKLOG.map(e=>`<div class='memo' style='border-left-color:var(--blue)'>
+   <div class='top'><b>${e.t}</b><span class='meta'>${e.d}</span></div><p>${e.o}</p></div>`).join('');
+ const p=document.getElementById('logPick');
+ if(p)p.innerHTML=WORKLOG.map((e,i)=>`<label class='chk2'><input type='checkbox' value='${i}'>
+   <span><b>${e.t}</b><small>${e.d} · ${e.o}</small></span></label>`).join('');
+}
+function openLog(){document.getElementById('logModal').classList.add('on');}
+function closeLog(){document.getElementById('logModal').classList.remove('on');}
+function useLog(){
+ const picked=[...document.querySelectorAll('#logPick input:checked')].map(c=>WORKLOG[+c.value]);
+ if(!picked.length){toast('Select at least one entry.');return;}
+ if(picked.length>3){toast('Choose up to three entries.');return;}
+ document.getElementById('t22').value=picked.map(e=>e.t+'. '+e.o+'.').join(' ');
+ wc('t22','c22',100);closeLog();
+ toast(picked.length+' entries added to 2.2. Edit them as you wish before signing.');
+}
+function openPast(){document.getElementById('pastModal').classList.add('on');}
+function closePast(){document.getElementById('pastModal').classList.remove('on');}
+function toggleCard(bodyId,caretId){
+  const on=document.getElementById(bodyId).classList.toggle('on');
+  document.getElementById(caretId).innerHTML = on ? '&#9662;' : '&#9656;';
+}
+function toggleMemoCard(){ toggleCard('memoCardBody','memoCaret'); }
+function openAnx(){document.getElementById('anxModal').classList.add('on');}
+function closeAnx(){document.getElementById('anxModal').classList.remove('on');}
+function openNRC(){document.getElementById('nrcModal').classList.add('on');}
+function closeNRC(ok){document.getElementById('nrcModal').classList.remove('on');
+ if(ok)toast('No Report Certificate issued for 01/04/2025 – 10/06/2025. Part 1 verified.');}
+
+/* ---------------- self-appraisal ---------------- */
+function selfStep(n){
+ for(let i=1;i<=8;i++){const el=document.getElementById('self'+i);if(el)el.classList.toggle('on',i===n);}
+ document.querySelectorAll('#selfSteps li').forEach((li,i)=>{
+  li.classList.toggle('on',i===n-1);li.classList.toggle('done',i<n-1&&n<=5);});
+ const YEAR=[8,6,7];
+ document.querySelectorAll('#yearSteps li').forEach((li,i)=>li.classList.toggle('on',n===YEAR[i]));
+ window.scrollTo({top:220,behavior:'smooth'});
+}
+function submitSelf(){cyclePos=3;renderCycle();
+ toast('Part 2 signed with eSign and locked. The APAR is now with Shri C. D. Joshi, due 31 May 2026.');
+ setTimeout(()=>go('reporting'),900);}
+const roPicked=[];
+function renderRoChips(){
+ const box=document.getElementById('roTrainChips');if(!box)return;
+ box.innerHTML=TRAIN.map((t,i)=>`<button class="chip${roPicked.some(p=>p.t===t)?' on':''}" onclick="pickRoNeed('${t.replace(/'/g,"\\'")}')">${t}</button>`).join('')
+  +`<button class="chip" onclick="pickRoNeed('Other')">Other…</button>`;
+ renderRoNeedTable();
+}
+function pickRoNeed(t){
+ const i=roPicked.findIndex(p=>p.t===t);
+ if(i>-1){roPicked.splice(i,1);}
+ else{if(roPicked.length>=3){toast('Up to three. Clear one to choose another.');return;}
+      roPicked.push({t,type:''});}
+ renderRoChips();
+}
+function renderRoNeedTable(){
+ const el=document.getElementById('roNeedTable');if(!el)return;
+ if(!roPicked.length){el.innerHTML='<tr><td style="color:var(--muted)">Nothing selected yet. Select up to three from the list above.</td></tr>';return;}
+ el.innerHTML='<tr><th style="width:55%">Training recommended</th><th>Type</th></tr>'+
+  roPicked.map((p,i)=>`<tr><td>${p.t==='Other'?'<input type="text" placeholder="State the training">':p.t}</td>
+   <td class="typecell">${['Domain','Functional','Behavioural'].map(ty=>
+     `<label><input type="radio" name="rt${i}" ${p.type===ty?'checked':''} onclick="roPicked[${i}].type='${ty}'"> ${ty}</label>`).join('')}</td></tr>`).join('');
+}
+function renderChips(){
+ const box=document.getElementById('trainChips');
+ box.innerHTML=TRAIN.map((t,i)=>`<button class="chip" data-i="${i}" onclick="toggleChip(${i})">${t}</button>`).join('')
+  +'<button class="chip" onclick="toast(\'A free-text box opens for Other.\')">Other…</button>';
+}
+function toggleChip(i){
+ const el=document.querySelector('.chip[data-i="'+i+'"]');
+ const n=document.querySelectorAll('.chip.on').length;
+ if(!el.classList.contains('on')&&n>=3){toast('Up to three areas. Clear one to choose another.');return;}
+ el.classList.toggle('on');
+ const c=document.querySelectorAll('.chip.on').length;
+ document.getElementById('chipNote').innerHTML='ℹ️ '+c+' of 3 selected.';
+}
+
+/* ---------------- technical module and KPIs ---------------- */
+function fillModules(){
+ const m=document.getElementById('techMod');
+ m.innerHTML=Object.keys(MODULES).map(k=>`<option>${k}</option>`).join('');
+ fillDesig();
+}
+function fillDesig(){
+ const mod=document.getElementById('techMod').value;
+ document.getElementById('techDesig').innerHTML=
+  MODULES[mod].map(d=>`<option>${d}</option>`).join('');
+ setDesig();
+}
+function menuFor(){
+ const mod=document.getElementById('techMod').value;
+ const des=document.getElementById('techDesig').value;
+ const m=KPI_MENU[mod]; if(!m)return null;
+ return m[SENIOR.includes(des)?'senior':'field'];
+}
+function setTech(on){
+ kpiOn=!!on;
+ show('techBox',kpiOn); show('kpiBox',kpiOn); show('kpiGradeBox',kpiOn); show('kpiWroteBox',kpiOn);
+ document.getElementById('genBox').style.display=kpiOn?'none':'block';
+ document.getElementById('genGradeBox').style.display=kpiOn?'none':'block';
+ document.getElementById('genWrote').style.display=kpiOn?'none':'table';
+ document.getElementById('kpiOffNote').style.display=kpiOn?'none':'block';
+ document.getElementById('chkTech').textContent=kpiOn?'Yes':'No';
+ document.getElementById('q31').textContent=kpiOn
+  ?'Mark each KPI, then grade the attributes below'
+  :'Grade each dimension from 1 to 10, compared with officials at the same level';
+ document.getElementById('wOutSrc').textContent=kpiOn?'average of the KPI marks':'average of dimensions 1 and 2';
+ document.getElementById('chk21lbl').textContent=kpiOn?'2.1 KPIs':'2.1 Targets';
+ document.getElementById('wrote21').textContent=kpiOn?'Part 2.1 · KPIs for the year':'Part 2.1 · key activities, responsibilities and targets';
+ document.getElementById('wrote26').textContent=kpiOn
+  ?('In a technical cadre. Module: '+document.getElementById('techMod').value+' · '+document.getElementById('techDesig').value+'. The KPI menu for this designation applies.')
+  :'Not applicable. The official is not in a technical cadre, so no module grades are included.';
+ if(kpiOn)setDesig(); else {document.getElementById('kpiCountSm').textContent='Opens for technical cadres';
+  document.getElementById('chk21').textContent='2 entered';}
+ calc();
+}
+function setDesig(){
+ const menu=menuFor();
+ const note=document.getElementById('techNote');
+ if(!menu){note.innerHTML='&#8505;&#65039; The KPI menu for this module is to be designed with the department concerned. Until then, Part 2.1 stays as the general targets table.';
+  show('kpiBox',0); return;}
+ note.innerHTML='&#8505;&#65039; MahaPAR opens the KPI menu for this designation. Pick 3 to 5 KPIs in <b>My KPIs</b> at the start of the year.';
+ show('kpiBox',1);
+ MYKPIS.forEach(r=>{if(r.m>=menu.length)r.m=0;});
+ kpiMark=MYKPIS.map(()=>null); kpiRem=MYKPIS.map(()=>'');
+ document.getElementById('kpiCountSm').textContent=MYKPIS.length+' KPIs · mid-year progress due 31 Oct';
+ document.getElementById('chk21').textContent=MYKPIS.length+' KPIs';
+ renderMyKpis(); renderKpiSelf(); renderKpiWrote(); renderKpiGrade(); calc();
+}
+function renderMyKpis(){
+ const menu=menuFor()||[];
+ document.getElementById('myKpiTable').innerHTML=
+  '<tr><th style="width:34%">KPI</th><th>Target</th><th>Mid-year progress</th><th>Revised target and reason</th></tr>'+
+  MYKPIS.map((r,i)=>`<tr><td>${menu[r.m]?menu[r.m].k:'—'}<br><span style="color:var(--muted);font-size:11.5px">Evidence: ${menu[r.m]?menu[r.m].ev:'—'}</span></td>
+   <td>${r.tgt}</td><td>${r.mid}</td>
+   <td>${r.rev?('<b>'+r.rev+'</b><br><span style="color:var(--muted);font-size:11.5px">'+r.why+'</span>'):'<span style="color:var(--muted)">Not revised</span>'}</td></tr>`).join('');
+}
+function addMyKpi(){
+ const menu=menuFor(); if(!menu){toast('Select a module and designation first.');return;}
+ if(MYKPIS.length>=5){toast('Up to five KPIs. Remove one before adding another.');return;}
+ MYKPIS.push({m:3,tgt:'Set a target for the year',mid:'Not yet recorded',rev:'',why:'',ys:'partly',ach:'',ev:''});
+ kpiMark.push(null);kpiRem.push('');
+ renderMyKpis();renderKpiSelf();renderKpiWrote();renderKpiGrade();calc();
+ document.getElementById('kpiCountSm').textContent=MYKPIS.length+' KPIs · mid-year progress due 31 Oct';
+ document.getElementById('chk21').textContent=MYKPIS.length+' KPIs';
+}
+function renderKpiSelf(){
+ const menu=menuFor()||[];
+ document.getElementById('kpiSelf').innerHTML=
+  '<tr><th style="width:26%">KPI</th><th>Target</th><th>Year-end status</th><th>What you achieved</th><th>Record</th></tr>'+
+  MYKPIS.map((r,i)=>`<tr><td>${menu[r.m]?menu[r.m].k:'—'}</td><td>${r.tgt}${r.rev?'<br><span style="color:var(--muted);font-size:11.5px">Revised at mid-year to '+r.rev+'</span>':''}</td>
+   <td><select onchange="setYs(${i},this.value)">
+     <option value="completed"${r.ys==='completed'?' selected':''}>Completed</option>
+     <option value="partly"${r.ys==='partly'?' selected':''}>Partly completed</option>
+     <option value="not"${r.ys==='not'?' selected':''}>Not completed</option></select></td>
+   <td><input type="text" value="${r.ach}" oninput="MYKPIS[${i}].ach=this.value;renderKpiWrote()"></td>
+   <td><input type="text" value="${r.ev}" oninput="MYKPIS[${i}].ev=this.value;renderKpiWrote()" placeholder="Register, file or measurement book"></td></tr>`).join('');
+}
+function setYs(i,v){MYKPIS[i].ys=v;kpiMark[i]=null;renderKpiSelf();renderKpiWrote();renderKpiGrade();calc();}
+function renderKpiWrote(){
+ const menu=menuFor()||[];const el=document.getElementById('kpiWrote');if(!el)return;
+ el.innerHTML='<tr><th style="width:28%">KPI</th><th>Target</th><th>Status</th><th>Achievement</th><th>Record</th></tr>'+
+  MYKPIS.map(r=>`<tr><td>${menu[r.m]?menu[r.m].k:'—'}</td><td>${r.rev||r.tgt}</td>
+   <td>${CATLABEL[r.ys]}</td><td>${r.ach||'—'}</td><td>${r.ev||'—'}</td></tr>`).join('');
+}
+function renderKpiGrade(){
+ const menu=menuFor()||[];const box=document.getElementById('kpiGrade');if(!box)return;
+ box.innerHTML=MYKPIS.map((r,i)=>{
+  const [lo,hi]=KPI_RANGE[r.ys];
+  const btns=Array.from({length:hi-lo+1},(_,x)=>lo+x).map(n=>
+    `<button class="${kpiMark[i]===n?'on':''}${kpiMark[i]===n&&(n<=2||n>=9)?' extreme':''}" onclick="setKpiMark(${i},${n})">${n}</button>`).join('');
+  const needRem=r.ys==='not'||!!r.rev;
+  return `<div class="dim"><div class="nm">${menu[r.m]?menu[r.m].k:'—'}</div>
+   <div class="cv">Target: ${r.rev||r.tgt} · achieved: ${r.ach||'not stated'} · record: ${r.ev||'not stated'}</div>
+   <div class="sys"><em>Status recorded by the official <b>${CATLABEL[r.ys]}</b></em><em>Marks open <b>${lo} to ${hi}</b></em>${r.rev?'<em class="memo">Target revised at mid-year</em>':''}</div>
+   <div class="scale">${btns}</div>
+   ${needRem?`<input type="text" style="margin-top:8px" placeholder="Remark (required: ${r.ys==='not'?'not completed':'target revised'})" value="${kpiRem[i]||''}" oninput="kpiRem[${i}]=this.value">`:''}
+   </div>`;}).join('');
+}
+function setKpiMark(i,n){kpiMark[i]=(kpiMark[i]===n?null:n);renderKpiGrade();calc();}
+
+/* ---------------- learning and development (2.4) ---------------- */
+function renderLnd(){
+ const total=LND.reduce((a,x)=>a+(+x.hrs||0),0);
+ const rows=LND.map((x,i)=>`<tr><td>${x.type}${x.igot?' <span class="tag ok">iGOT</span>':''}</td><td>${x.name}</td>
+   <td>${x.by}</td><td>${x.dates}</td><td>${x.hrs}</td><td>${x.role||'—'}</td></tr>`).join('');
+ const head='<tr><th>Type</th><th style="width:28%">Title</th><th>Institute or organiser</th><th>Dates</th><th>Hours</th><th>Role</th></tr>';
+ const foot=`<tr><td colspan="4"><b>Total hours</b></td><td><b>${total}</b></td><td></td></tr>`;
+ document.getElementById('lndTable').innerHTML=head+rows+foot;
+ const w=document.getElementById('lndWrote');
+ if(w)w.innerHTML=head.replace('<th>Role</th>','<th>Role</th>')+rows+foot;
+ const c=document.getElementById('chkLnd');
+ if(c)c.textContent=LND.length+' entries · '+total+' hours';
+}
+function addLnd(){
+ const g=id=>document.getElementById(id).value.trim();
+ if(!g('lTitle')){toast('Enter a title before adding the row.');return;}
+ LND.push({type:g('lType'),name:g('lTitle'),by:g('lBy')||'—',dates:g('lDates')||'—',
+  hrs:+g('lHrs')||0,role:g('lType')==='Workshop or conference'?g('lRole'):''});
+ ['lTitle','lBy','lDates','lHrs'].forEach(id=>document.getElementById(id).value='');
+ show('lndAdd',0);renderLnd();toast('Added to your learning and development record.');
+}
+
+/* ---------------- memos ---------------- */
+function sendMemo(){
+ const sub=document.getElementById('mSub').value.trim()||'Performance concern';
+ const body=document.getElementById('mBody').value.trim()||'(no detail entered)';
+ if(words(body)>150){toast('The memo is over 150 words. Shorten it before signing.');return;}
+ memos.unshift({id:Date.now(),to:document.getElementById('mTo').value.split(' — ')[0],from:'Shri C. D. Joshi',
+  date:new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}),
+  cat:document.getElementById('mCat').value,sub,body,
+  due:document.getElementById('mDue').value||'not set',status:'await',resp:''});
+ document.getElementById('mSub').value='';document.getElementById('mBody').value='';wcMemo();
+ renderMemos(); show('memoComposer',0);
+ toast('Memo signed and sent in eHRMS. The official is notified that the response, or absence of one, may be considered at APAR time.');
+}
+function wcMemo(){const n=words(document.getElementById('mBody').value);
+ const el=document.getElementById('mCount');el.textContent=n+' / 150 words';el.classList.toggle('bad',n>150);}
+function memoCard(m,showResp){
+ const cls=m.status==='none'?'none':(m.status==='answered'?'answered':'');
+ const tag=m.status==='none'?'<span class="tag red">No response</span>'
+  :m.status==='answered'?'<span class="tag ok">Responded</span>':'<span class="tag warn">Awaiting response</span>';
+ return `<div class="memo ${cls}"><div class="top"><b>${m.sub}</b>${tag}</div>
+  <div class="meta">To ${m.to} · from ${m.from} · issued ${m.date} · response due ${m.due} · ${m.cat}</div>
+  <p>${m.body}</p>
+  ${showResp&&m.resp?`<div class="resp"><b>Official's response</b>${m.resp}</div>`:''}
+  ${showResp&&m.status==='none'?`<div class="note warn" style="margin:9px 0 0">⚠️ No response was recorded by the due date.</div>`:''}
+  </div>`;
+}
+function renderMemos(){
+ const mine=memos.filter(m=>m.to==='Shri A. B. Sawant');
+ const q=id=>document.getElementById(id);
+ q('selfMemos').innerHTML=mine.length?mine.map(m=>memoCard(m,true)).join('')
+  :'<div class="note ok">No memos were issued to you this year.</div>';
+ q('repMemos').innerHTML=mine.map(m=>memoCard(m,true)).join('');
+ const unm=mine.filter(m=>m.status==='none').length;
+ q('chkMemo').textContent=mine.length+' · '+unm+' unanswered';
+ q('dMemo').textContent=mine.length+' · '+unm+' unanswered';
+ renderAttach();
+}
+function renderAttach(){
+ const box=document.getElementById('attachList');if(!box)return;
+ const on=document.getElementById('attachMemo').checked;
+ const mine=memos.filter(m=>m.to==='Shri A. B. Sawant');
+ box.innerHTML=on?`<table><tr><th>Memo</th><th>Issued</th><th>Response</th></tr>`+
+  mine.map(m=>`<tr><td>${m.sub}</td><td>${m.date}</td><td>${m.status==='none'?'<span class="tag red">None</span>':'<span class="tag ok">On record</span>'}</td></tr>`).join('')+
+  `</table><div class="note info" style="margin-top:10px">ℹ️ These memos attach to the APAR as evidence that the official was advised and given opportunities to improve.</div>`:'';
+}
+function insertMemoRef(){
+ const mine=memos.filter(m=>m.to==='Shri A. B. Sawant');
+ const t=document.getElementById('t33');
+ const txt=mine.map(m=>`${m.sub} (memo ${m.date}, ${m.status==='none'?'no response':'responded'})`).join('; ');
+ t.value=(t.value?t.value.trim()+' ':'')+'Memo record: '+txt+'.';
+ wc('t33','c33',100);toast('Memo dates and response status inserted into 3.5.');
+}
+
+/* ---------------- grading ---------------- */
+function buildScales(){
+ document.querySelectorAll('.scale[data-dim]').forEach(s=>{
+  const d=s.dataset.dim;
+  s.innerHTML=[1,2,3,4,5,6,7,8,9,10].map(n=>`<button onclick="setGrade('${d}',${n})">${n}</button>`).join('');
+ });
+}
+function setGrade(d,n){
+ grades[d]=n;
+ const s=document.querySelector('.scale[data-dim="'+d+'"]');
+ s.querySelectorAll('button').forEach((b,i)=>{
+  b.classList.toggle('on',i+1===n);b.classList.toggle('extreme',i+1===n&&(n<=2||n>=9));});
+ calc();
+}
+function groupAvg(ks){const g=ks.filter(k=>grades[k]);return g.length?g.reduce((a,k)=>a+grades[k],0)/g.length:null;}
+function kpiAvg(){const m=kpiMark.filter(x=>x);return m.length?m.reduce((a,b)=>a+b,0)/m.length:null;}
+function calc(){
+ const f1=n=>n==null?'—':n.toFixed(1);
+ const work=kpiOn?kpiAvg():groupAvg(['d1','d2']);
+ const fun=groupAvg(['d3','d4']), per=groupAvg(['d5','d6']);
+ const attrDone=['d3','d4','d5','d6'].every(k=>grades[k]);
+ const workDone=kpiOn?kpiMark.length>0&&kpiMark.every(x=>x):(grades.d1&&grades.d2);
+ document.getElementById('gradedCount').textContent=kpiOn
+  ?(kpiMark.filter(x=>x).length+' of '+kpiMark.length+' KPIs and '+['d3','d4','d5','d6'].filter(k=>grades[k]).length+' of 4 attributes graded')
+  :(Object.keys(WEIGHTS).filter(k=>grades[k]).length+' of 6 dimensions graded');
+ document.getElementById('wOut').textContent=f1(work);
+ document.getElementById('wFun').textContent=f1(fun);
+ document.getElementById('wPer').textContent=f1(per);
+ let overall=null;
+ if(workDone&&attrDone){overall=work*0.4+fun*0.3+per*0.3;
+  document.getElementById('bigGrade').textContent=overall.toFixed(1);}
+ else document.getElementById('bigGrade').textContent='—';
+ renderRevSummary(work,fun,per,overall);
+ const low=overall!==null&&overall<6;
+ document.getElementById('board').classList.toggle('low',low);
+ document.getElementById('boardNote').textContent=overall===null?(kpiOn?'Mark every KPI and grade every attribute to see the overall grade.':'Grade every dimension to see the overall grade.')
+  :(low?'Below the benchmark. Memo evidence and a recorded failure in 3.5 are expected.':'At or above the benchmark of 6.0.');
+ show('lowBox',low);
+ const keys=Object.keys(WEIGHTS);
+ const ext=keys.filter(k=>grades[k]&&(grades[k]<=2||grades[k]>=9)&&(kpiOn?k!=='d1'&&k!=='d2':true))
+   .map(k=>DIMNAMES[k]+' <b>('+grades[k]+')</b>');
+ if(kpiOn)kpiMark.forEach((m,i)=>{if(m&&(m<=2||m>=9))ext.push('KPI '+(i+1)+' <b>('+m+')</b>');});
+ show('extremeBox',ext.length>0);
+ if(ext.length)document.getElementById('extremeList').innerHTML='Open: '+ext.join(', ')+'.';
+ // mirror into reviewing + disclosure
+ keys.forEach(k=>{const el=document.getElementById('rv'+k[1]);if(el)el.textContent=grades[k]||'—';});
+ document.getElementById('rvOverall').textContent=overall!==null?overall.toFixed(1):'—';
+ document.getElementById('rvRow1').style.display=kpiOn?'none':'';
+ document.getElementById('rvRow2').style.display=kpiOn?'none':'';
+ document.getElementById('rvRowKpi').style.display=kpiOn?'':'none';
+ document.getElementById('rvKpi').textContent=kpiOn?(work==null?'—':work.toFixed(1)):'—';
+ document.getElementById('dOverall').textContent=overall!==null?overall.toFixed(1):'—';
+ document.getElementById('dFinal').textContent=overall!==null?Math.max(0,Math.min(10,overall*0.95+(-0.2))).toFixed(1):'—';
+ buildRevDims();revCalc();
+}
+function signReporting(){
+ const keys=Object.keys(WEIGHTS);
+ const attrDone=['d3','d4','d5','d6'].every(k=>grades[k]);
+ const workDone=kpiOn?kpiMark.length>0&&kpiMark.every(x=>x):(grades.d1&&grades.d2);
+ if(!workDone){toast(kpiOn?'Mark every KPI before signing.':'Grade all six dimensions before signing.');return;}
+ if(!attrDone){toast('Grade every attribute before signing.');return;}
+ if(kpiOn){const miss=MYKPIS.findIndex((r,i)=>(r.ys==='not'||r.rev)&&!(kpiRem[i]||'').trim());
+  if(miss>-1){toast('A remark is required for KPI '+(miss+1)+': not completed, or the target was revised.');return;}}
+ const n=words(document.getElementById('t33').value);
+ if(n===0){toast('Part 3.5, the overall assessment, is compulsory. MahaPAR will not accept the signature without it.');return;}
+ if(n>100){toast('3.5 is over 100 words. Shorten it before signing.');return;}
+ const work=kpiOn?kpiAvg():groupAvg(['d1','d2']);
+ const overall=work*0.4+groupAvg(['d3','d4'])*0.3+groupAvg(['d5','d6'])*0.3;
+ if(overall<6&&!document.getElementById('attachMemo').checked)
+  toast('Signed without memo evidence. The custodian register will show a below-benchmark grade with no documentation.');
+ else toast('Part 3 signed and locked. The APAR is now with Shri E. F. Rane, reviewing officer.');
+ document.getElementById('rv33').textContent=document.getElementById('t33').value;
+ document.getElementById('d33').textContent=document.getElementById('t33').value;
+ cyclePos=4;renderCycle();setTimeout(()=>go('reviewing'),900);
+}
+
+function renderRevSummary(work,fun,per,overall){
+ const el=document.getElementById('revSummary');if(!el)return;
+ const f=n=>n==null?'—':n.toFixed(1);
+ el.innerHTML='<tr><th style="width:58%">Group</th><th>Average</th><th>Weight</th></tr>'
+  +`<tr><td>Work output${kpiOn?' · average of the KPI marks':' · average of dimensions 1 and 2'}</td><td><b>${f(work)}</b></td><td>40%</td></tr>`
+  +`<tr><td>Functional competence · average of dimensions 3 and 4</td><td><b>${f(fun)}</b></td><td>30%</td></tr>`
+  +`<tr><td>Personal attributes · average of dimensions 5 and 6</td><td><b>${f(per)}</b></td><td>30%</td></tr>`
+  +`<tr><td><b>Overall grade recorded by the reporting officer</b></td><td><b>${f(overall)}</b></td><td></td></tr>`;
+}
+
+/* ---------------- reviewing ---------------- */
+function buildRevDims(){
+ const box=document.getElementById('rvScale');if(!box)return;
+ box.innerHTML=[1,2,3,4,5,6,7,8,9,10].map(n=>
+   `<button class="${rvScore===n?'on':''}${rvScore===n&&(n<=2||n>=9)?' extreme':''}" onclick="setRv(${n})">${n}</button>`).join('');
+}
+function setRv(n){ rvScore=(rvScore===n?null:n); buildRevDims(); revCalc(); }
+function setRvAgree(a){ rvAgree=!!a; if(a)rvScore=null; buildRevDims(); revCalc(); }
+function overallNow(){
+ const work=kpiOn?kpiAvg():groupAvg(['d1','d2']);
+ const fun=groupAvg(['d3','d4']), per=groupAvg(['d5','d6']);
+ const workDone=kpiOn?(kpiMark.length>0&&kpiMark.every(x=>x)):(grades.d1&&grades.d2);
+ if(!workDone||fun==null||per==null||!['d3','d4','d5','d6'].every(k=>grades[k]))return null;
+ return work*0.4+fun*0.3+per*0.3;
+}
+function revCalc(){
+ const base=overallNow();
+ const b=document.getElementById('rvBase');
+ if(b)b.textContent=base!==null?base.toFixed(1):'—';
+ document.getElementById('revCount').textContent=base!==null?base.toFixed(1):'—';
+ const shown=(!rvAgree&&rvScore)?rvScore.toFixed(1):(base!==null?base.toFixed(1):'—');
+ document.getElementById('revBig').textContent=shown;
+ document.getElementById('revWas').textContent=(!rvAgree&&rvScore)
+   ? 'Recorded by you, in place of '+(base!==null?base.toFixed(1):'—')
+   : 'As recorded by the reporting officer';
+}
+function signReviewing(){
+ if(!rvAgree){
+  if(!rvScore){toast('Record your own overall score before signing.');return;}
+  if(words(document.getElementById('rvWhy').value)===0){
+   toast('State why you differ from the reporting officer.');return;}
+ }
+ cyclePos=5;renderCycle();
+ toast(rvAgree?'Part 4 signed in agreement. The APAR goes to the custodian for disclosure.'
+   :'Part 4 signed with your own overall score of '+rvScore.toFixed(1)+'. The APAR goes to the custodian for disclosure.');
+ setTimeout(()=>{go('self');selfStep(5);},900);
+}
+
+/* ---------------- init ---------------- */
+document.getElementById('mBody').addEventListener('input',wcMemo);
+buildScales();renderChips();renderRoChips();renderMemos();renderCycle();renderLog();fillModules();setTech(0);renderLnd();
+wc('t22','c22',100);wc('t23','c23',50);wc('t33','c33',100);wc('t34','c34',50);wc('t52','c52',30);wc('tRep','cRep',200);wc('tReq','cReq',100);wc('rvWhy','rvWhyC',50);
+wcMemo();calc();
+</script>
+</body>
+</html>
