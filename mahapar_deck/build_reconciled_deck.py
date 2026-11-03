@@ -202,20 +202,43 @@ footer(s, 2)
 
 # ══════════════════════════════════════════════ 3 · effort across stages
 s = new_slide()
-header(s, "The redesigned forms reduce completion effort at every stage",
+header(s, "The redesigned forms cut effort at every stage of the cycle",
        "Counted from the current forms against drafts A and B")
 
-COLS = [h(176), h(150), h(150), h(140), h(160), h(88)]
+# ---- four headline boxes -------------------------------------------------
+HEAD = [("11 → 2", "Pages in the form",
+         "Form A, Group A and B.  Form B: 8 → 1 for Group C"),
+        ("17–25 → 7", "Dimensions appraised",
+         "Form A.  Form B: 14 → 6"),
+        ("13 → 3", "Open-ended fields",
+         "Across all three stages of the APAR"),
+        ("60–90 → 25–35", "Minutes per APAR",
+         "All three stages together")]
+bw = (CW - 3 * h(12)) / 4
+bh_ = h(126)
+for i, (big, lab, sub) in enumerate(HEAD):
+    x = PAD + (bw + h(12)) * i
+    card = rect(s, x, BODY_T, bw, bh_, fill=GREY, line=BORDER, radius=0.06)
+    rect(s, x, BODY_T, bw, h(4), fill=BLUE)
+    b, a = big.split(" → ")
+    shape_text(card,
+               [[_r(lab.upper(), pt(10.5), DIM, True)],
+                [_r(b, pt(26), RED, True), _r("  →  ", pt(18), DIM),
+                 _r(a, pt(26), GREEN, True)],
+                [_r(sub, pt(10.5), DIM)]],
+               anchor=MSO_ANCHOR.TOP, line_spacing=1.2, space_after=pt(6),
+               m_left=h(14), m_right=h(12), m_top=h(16), m_bottom=h(10))
+
+# ---- stage-wise table ----------------------------------------------------
+COLS = [h(250), h(180), h(200), h(160), h(240), h(154)]
 HEADS = ["APAR stage", "Questions / fields", "Open-ended questions",
          "Pages in the form", "Completion time", "Time saved"]
 ROWS = [("Self-appraisal", "7 → 6", "5 → 1", "2 → ½", "45–60 min → 15–20 min", "~65%"),
         ("Reporting officer", "9 → 5", "6 → 2", "4 → 1", "30–45 min → 10–15 min", "~67%"),
-        ("Reviewing officer", "6 → 1", "2 → 0", "1 → ⅕", "15–20 min → 2–5 min", "~80%"),
-        ("Whole APAR, Group A and B", "22 → 12", "13 → 3", "11 → 2",
-         "60–90 min → 25–35 min", "~65%")]
+        ("Reviewing officer", "6 → 1", "2 → 0", "1 → ⅕", "15–20 min → 2–5 min", "~80%")]
 
-ty = BODY_T + h(6)
-hh, rh = h(36), h(62)
+ty = BODY_T + bh_ + h(16)
+hh, rh = h(34), h(54)
 cx = PAD
 for i, (cwid, lab) in enumerate(zip(COLS, HEADS)):
     cell = rect(s, cx, ty, cwid, hh, fill=NAVY)
@@ -226,8 +249,7 @@ for i, (cwid, lab) in enumerate(zip(COLS, HEADS)):
 ry = ty + hh
 for r, row in enumerate(ROWS):
     cx = PAD
-    last = (r == len(ROWS) - 1)
-    bg = RGBColor(0xEE, 0xF2, 0xF9) if last else (WHITE if r % 2 == 0 else RGBColor(0xFA, 0xFB, 0xFD))
+    bg = WHITE if r % 2 == 0 else RGBColor(0xFA, 0xFB, 0xFD)
     for i, (cwid, val) in enumerate(zip(COLS, row)):
         cell = rect(s, cx, ry, cwid, rh, fill=bg, line=BORDER, line_w=0.5)
         if i == 0:
@@ -246,18 +268,30 @@ for r, row in enumerate(ROWS):
         cx += cwid
     ry += rh
 
-note = rect(s, PAD, ry + h(16), CW, h(44), fill=GREY, line=BORDER, radius=0.06)
-shape_text(note, [[_r("Whole form:  ", pt(12), NAVY, True),
-                   _r("Form A replaces Forms 1 and 3 to 6 for Group A and B, and rated items "
-                      "fall from 17–25 to 7. For Group C, a one-page Form B replaces the "
-                      "eight-page Form 2, with rated items down from 14 to 6.",
-                      pt(12), TEXT)]],
-           anchor=MSO_ANCHOR.MIDDLE, line_spacing=1.4, m_left=h(14), m_right=h(14))
-
-callout(s, ry + h(16) + h(44) + h(12),
-        [_r("Across 65,000 Group A and B officers:  ", pt(12.5), NAVY, True),
-         _r("about 60–90 minutes per APAR today, about 25–35 minutes once simplified — "
-            "roughly 40–45 lakh officer-minutes saved each cycle.", pt(12.5), NAVY)])
+# ---- what is driving the saving -----------------------------------------
+dy = ry + h(16)
+dh = BODY_B - (dy + h(22))
+drivers = [
+    ("Shorter, sharper forms", BLUE,
+     "Six forms become two. Rated items consolidated under the existing weights. "
+     "Narrative kept only where it carries weight."),
+    ("Data that fills itself", GREEN,
+     "Identity, leave and training pre-filled from Sevaarth, eHRMS and iGOT. "
+     "The overall grade calculated by MahaPAR."),
+    ("Process and interface", AMBER,
+     "One screen per stage, automatic forwarding and reminders, agreement in two "
+     "clicks, pendency visible as it builds."),
+]
+dw = (CW - 2 * h(12)) / 3
+for i, (title, colr, body) in enumerate(drivers):
+    x = PAD + (dw + h(12)) * i
+    card = rect(s, x, dy + h(22), dw, dh, fill=WHITE, line=BORDER, radius=0.06)
+    rect(s, x, dy + h(22), h(4), dh, fill=colr)
+    shape_text(card, [[_r(title, pt(12.5), NAVY, True)], [_r(body, pt(11), DIM)]],
+               anchor=MSO_ANCHOR.TOP, line_spacing=1.38, space_after=pt(5),
+               m_left=h(18), m_right=h(14), m_top=h(12))
+text(s, PAD, dy, CW, h(18),
+     [[_r("WHAT DRIVES THE SAVING", pt(10.5), DIM, True)]])
 footer(s, 3)
 
 # ══════════════════════════════════════════════════ 4 · self-appraisal
