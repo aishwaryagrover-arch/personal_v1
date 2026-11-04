@@ -162,24 +162,48 @@ for i, (stage, o, n) in enumerate(rows):
     pic(s, f"{SCR}/crops/{n}.png", PAD + h(476), y + h(6), w=h(390), hh=rh - h(12))
 footer(s, 2, "shows all three stages, but nothing on it can actually be read")
 
-# ══════════════════════════════════ 3 · one stage, full size
-s = slide("Option 3 · One stage per slide, at a readable size",
-          "Reporting officer shown as the example")
-label(s, PAD, BODY_T, h(330), "Current · Form 1, Section 3 · 17 rated items", RED, REDLT)
-pic(s, f"{SCR}/crops/old_rep.png", PAD, BODY_T + h(36), w=h(330), hh=BODY_B - BODY_T - h(80))
-arrow(s, PAD + h(344), BODY_T + h(140), h(40), h(60))
-
-nx = PAD + h(396)
-label(s, nx, BODY_T, h(330), "Form A · Part 3.1 · 7 dimensions", GREEN, GREENLT)
-px, py, pw, ph = pic(s, f"{SCR}/crops/new_rep.png", nx, BODY_T + h(36), w=h(470))
-cap = rect(s, nx, py + ph + h(14), h(470), h(104), fill=GREY, line=BORDER, radius=0.06)
-shape_text(cap, [[_r("What the audience sees", pt(12), NAVY, True)],
-                 [_r("Three tables of 17 rows, each graded by hand and averaged by hand, "
-                     "become one table of seven dimensions with the overall grade "
-                     "calculated by MahaPAR.", pt(11), DIM)]],
-           anchor=MSO_ANCHOR.TOP, line_spacing=1.35, space_after=pt(4),
-           m_left=h(16), m_right=h(14), m_top=h(12))
-footer(s, 3, "the only option where the audience can actually read the change")
+# ══════════════════════════════════ 3 · one stage per slide, whole snapshot
+# Same construction three times, once per stage, each showing the complete
+# before and after snapshot rather than a crop of it.
+STAGES = [
+    ("Self-appraisal", "old_self", "new_self",
+     "Current · Form 1, Section 2", "Form A · Part 2",
+     "The officer wrote free prose under open headings and repeated details the "
+     "department already holds. Form A asks for targets against achievement, one "
+     "significant contribution, and systemic factors — in set fields, with the "
+     "officer's own details pre-filled."),
+    ("Reporting officer", "old_rep", "new_rep",
+     "Current · Form 1, Section 3 · 17 rated items", "Form A · Part 3.1 · 7 dimensions",
+     "Three tables of 17 rows, each graded by hand and averaged by hand, become one "
+     "table of seven dimensions with written descriptors, and MahaPAR calculates the "
+     "weighted overall grade."),
+    ("Reviewing officer", "old_rev", "new_rev",
+     "Current · Form 1, Section 4B", "Form A · Part 4",
+     "The reviewing officer re-graded every dimension a second time. In Form A they "
+     "record agreement or disagreement with the reporting officer's overall grade and "
+     "their own overall grade, with reasons required only where they differ."),
+]
+for i, (stage, o, n, olab, nlab, cap_txt) in enumerate(STAGES):
+    s = slide("Option 3 · One stage per slide · " + stage,
+              "Whole snapshot, before and after")
+    CAPH = h(104)
+    IMG_T = BODY_T + h(36)
+    IMG_H = BODY_B - CAPH - h(14) - IMG_T
+    LW, AW = h(400), h(44)
+    RW = CW - LW - AW
+    label(s, PAD, BODY_T, LW, olab, RED, REDLT)
+    pic(s, f"{SCR}/crops/{o}.png", PAD, IMG_T, w=LW, hh=IMG_H)
+    arrow(s, PAD + LW, IMG_T, AW, IMG_H)
+    nx = PAD + LW + AW
+    label(s, nx, BODY_T, RW, nlab, GREEN, GREENLT)
+    pic(s, f"{SCR}/crops/{n}.png", nx, IMG_T, w=RW, hh=IMG_H)
+    cap = rect(s, PAD, BODY_B - CAPH, CW, CAPH, fill=GREY, line=BORDER, radius=0.04)
+    shape_text(cap, [[_r("What the audience sees", pt(12), NAVY, True)],
+                     [_r(cap_txt, pt(11), DIM)]],
+               anchor=MSO_ANCHOR.TOP, line_spacing=1.35, space_after=pt(4),
+               m_left=h(16), m_right=h(16), m_top=h(12))
+    footer(s, 3, "the only option where the audience can actually read the change · "
+                 + stage + " (" + str(i + 1) + " of 3)")
 
 # ══════════════════════════════════ 4 · page with callout zooms
 s = slide("Option 4 · Full page with callout zooms", "Context plus detail")
