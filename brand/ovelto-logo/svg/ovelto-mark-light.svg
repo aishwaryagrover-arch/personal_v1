@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="512" height="512" role="img" aria-label="Ovelto Labs">
+  <defs>
+    <clipPath id="m-ct"><circle cx="60" cy="30" r="13"/></clipPath>
+    <clipPath id="m-cb"><circle cx="60" cy="90" r="13"/></clipPath>
+    <mask id="m-ma" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200">
+      <rect x="-40" y="-40" width="200" height="200" fill="#fff"/>
+      <circle cx="76" cy="60" r="34" fill="none" stroke="#000" stroke-width="14" clip-path="url(#m-ct)"/>
+    </mask>
+    <mask id="m-mb" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200">
+      <rect x="-40" y="-40" width="200" height="200" fill="#fff"/>
+      <circle cx="44" cy="60" r="34" fill="none" stroke="#000" stroke-width="14" clip-path="url(#m-cb)"/>
+    </mask>
+  </defs>
+  <g transform="translate(0 0) scale(1)">
+    <g transform="rotate(-20 60 60)">
+      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#6EE7B7"/>
+      <circle cx="44" cy="60" r="34" fill="none" stroke="#1A2B6D" stroke-width="8" mask="url(#m-ma)"/>
+      <circle cx="76" cy="60" r="34" fill="none" stroke="#0E9F6E" stroke-width="8" mask="url(#m-mb)"/>
+    </g>
+  </g>
+</svg>
