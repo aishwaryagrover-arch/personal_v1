@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Agent Nodes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#111114}a:hover{color:#444}
+</style>
+</helmet>
+<div style="width: 880px; height: 560px; box-sizing: border-box; padding: 16px; background: #E9E6DF; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; font-family: 'Inter Tight', sans-serif; color: #111114">
+  <div style="background: #F6F4EF; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 20px">
+    <svg width="96" height="96" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="38" fill="none" stroke="#111114" stroke-width="6"></circle>
+      <circle cx="60" cy="22" r="11" fill="{{accent}}" stroke="#F6F4EF" stroke-width="5"></circle>
+      <circle cx="92.9" cy="79" r="11" fill="#111114" stroke="#F6F4EF" stroke-width="5"></circle>
+      <circle cx="27.1" cy="79" r="11" fill="#111114" stroke="#F6F4EF" stroke-width="5"></circle>
+    </svg>
+    <div style="display: flex; align-items: baseline; gap: 14px; font-size: 44px; letter-spacing: 0.08em; line-height: 1">
+      <span style="font-weight: 700">OVELTO</span>
+      <span style="font-weight: 400; color: #6B6862">LABS</span>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-rows: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px">
+    <div style="background: #111114; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px">
+      <svg width="76" height="76" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="38" fill="none" stroke="#F6F4EF" stroke-width="6"></circle>
+        <circle cx="60" cy="22" r="11" fill="{{accent}}" stroke="#111114" stroke-width="5"></circle>
+        <circle cx="92.9" cy="79" r="11" fill="#F6F4EF" stroke="#111114" stroke-width="5"></circle>
+        <circle cx="27.1" cy="79" r="11" fill="#F6F4EF" stroke="#111114" stroke-width="5"></circle>
+      </svg>
+      <div style="display: flex; align-items: baseline; gap: 10px; font-size: 26px; letter-spacing: 0.08em; line-height: 1; color: #F6F4EF">
+        <span style="font-weight: 700">OVELTO</span>
+        <span style="font-weight: 400; color: #A5A29B">LABS</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px">
+      <div style="background: #F6F4EF; border-radius: 16px; display: flex; align-items: center; justify-content: center">
+        <svg width="96" height="96" viewBox="0 0 120 120" role="img" aria-label="Ovelto Labs app icon">
+          <rect width="120" height="120" rx="28" fill="#111114"></rect>
+          <g transform="translate(60 60) scale(0.74) translate(-60 -60)">
+            <circle cx="60" cy="60" r="38" fill="none" stroke="#F6F4EF" stroke-width="7"></circle>
+            <circle cx="60" cy="22" r="12" fill="{{accent}}" stroke="#111114" stroke-width="6"></circle>
+            <circle cx="92.9" cy="79" r="12" fill="#F6F4EF" stroke="#111114" stroke-width="6"></circle>
+            <circle cx="27.1" cy="79" r="12" fill="#F6F4EF" stroke="#111114" stroke-width="6"></circle>
+          </g>
+        </svg>
+      </div>
+      <div style="background: #F6F4EF; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 16px">
+        <svg width="32" height="32" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="38" fill="none" stroke="#111114" stroke-width="10"></circle><circle cx="60" cy="22" r="15" fill="{{accent}}"></circle><circle cx="92.9" cy="79" r="15" fill="#111114"></circle><circle cx="27.1" cy="79" r="15" fill="#111114"></circle></svg>
+        <svg width="20" height="20" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="38" fill="none" stroke="#111114" stroke-width="12"></circle><circle cx="60" cy="22" r="17" fill="{{accent}}"></circle><circle cx="92.9" cy="79" r="17" fill="#111114"></circle><circle cx="27.1" cy="79" r="17" fill="#111114"></circle></svg>
+        <svg width="16" height="16" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="38" fill="none" stroke="#111114" stroke-width="14"></circle><circle cx="60" cy="22" r="18" fill="{{accent}}"></circle><circle cx="92.9" cy="79" r="18" fill="#111114"></circle><circle cx="27.1" cy="79" r="18" fill="#111114"></circle></svg>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF5B2E","options":["#FF5B2E","#C6F432","#2F5BFF","#111114"]},"$preview":{"width":880,"height":560}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF5B2E' };
+  }
+}
+</script>
+</body>
+</html>

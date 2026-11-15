@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ovelto.labs — Website skeleton</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=Inter:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:inherit}a:hover{opacity:.85}
+.ov-spin{animation:ovSpin 2.4s linear infinite;transform-box:view-box;transform-origin:60px 60px}
+@keyframes ovSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.ov-spin{animation:none}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: {{c.base}}; color: {{c.text}}; font-family: 'Inter', sans-serif">
+
+  <!-- Palette switcher (review tool, not part of the site) -->
+  <div style="background: #FFFFFF; color: #1B2540; border-bottom: 1px solid #D5DBE7; padding: 12px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif">
+    <span style="font-size: 14px; font-weight: 600; margin-right: 6px">Palette:</span>
+    <sc-for list="{{options}}" as="o" hint-placeholder-count="5">
+      <button type="button" onClick="{{o.pick}}" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 2px solid {{o.border}}; background: {{o.bg}}; color: #1B2540; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer">
+        <span style="width: 14px; height: 14px; border-radius: 50%; background: {{o.base}}"></span>
+        <span style="width: 14px; height: 14px; border-radius: 50%; background: {{o.ringB}}; margin-left: -12px; box-shadow: 0 0 0 2px #FFFFFF"></span>
+        {{o.name}}
+      </button>
+    </sc-for>
+  </div>
+
+  <!-- Nav -->
+  <header style="max-width: 1200px; margin: 0 auto; padding: 22px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+    <a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+      <dc-import name="Mark" uid="sNav" size="38" tilt="-20" col-a="{{c.ringA}}" col-b="{{c.ringB}}" lens="{{c.lens}}" hint-size="38px,38px"></dc-import>
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600; color: {{c.text}}">ovelto</span><span style="font-weight: 400; color: {{c.ringB}}">.labs</span></span>
+    </a>
+    <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 22px; font-size: 15px; color: {{c.muted}}">
+      <a href="#services" style="text-decoration: none">Services</a>
+      <a href="#work" style="text-decoration: none">Work</a>
+      <a href="#process" style="text-decoration: none">Process</a>
+      <a href="#about" style="text-decoration: none">About</a>
+      <a href="#contact" style="text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 10px; background: {{c.accent}}; color: {{c.onAccent}}; font-weight: 500">Start a project</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="top" style="max-width: 1200px; margin: 0 auto; padding: 56px 24px 88px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px">
+    <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: {{c.ringB}}">AI-enabled digital studio</div>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(40px, 6vw, 72px); line-height: 1.02; letter-spacing: -0.035em">Where design meets <span style="color: {{c.ringB}}">AI-native</span> engineering.</h1>
+      <p style="margin: 0; font-size: 19px; line-height: 1.6; color: {{c.muted}}; max-width: 560px">We design and build websites and apps, vibe-code prototypes, craft front-end UI, and set up the AI workflows, agents and tools behind them.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a href="#contact" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 12px; background: {{c.accent}}; color: {{c.onAccent}}; font-weight: 500; text-decoration: none">Start a project</a>
+        <a href="#work" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 12px; border: 1.5px solid {{c.line}}; color: {{c.text}}; font-weight: 500; text-decoration: none">See our work</a>
+      </div>
+    </div>
+    <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 22px">
+      <dc-import name="Mark" uid="sHero" size="300" tilt="-20" col-a="{{c.ringA}}" col-b="{{c.ringB}}" lens="{{c.lens}}" hint-size="300px,300px"></dc-import>
+      <!-- Thinking loader in context -->
+      <div style="display: flex; align-items: center; gap: 10px; padding: 10px 18px 10px 12px; border-radius: 999px; background: {{c.surface}}; border: 1px solid {{c.line}}">
+        <svg width="22" height="22" viewBox="0 0 120 120" aria-hidden="true" style="overflow: visible">
+          <defs>
+            <clipPath id="sl-ct"><circle cx="60" cy="30" r="13"></circle></clipPath>
+            <clipPath id="sl-cb"><circle cx="60" cy="90" r="13"></circle></clipPath>
+            <mask id="sl-ma" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200"><rect x="-40" y="-40" width="200" height="200" fill="#ffffff"></rect><circle cx="76" cy="60" r="34" fill="none" stroke="#000000" stroke-width="22" clip-path="url(#sl-ct)"></circle></mask>
+            <mask id="sl-mb" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200"><rect x="-40" y="-40" width="200" height="200" fill="#ffffff"></rect><circle cx="44" cy="60" r="34" fill="none" stroke="#000000" stroke-width="22" clip-path="url(#sl-cb)"></circle></mask>
+          </defs>
+          <g class="ov-spin">
+            <g transform="rotate(-20 60 60)">
+              <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="{{c.lens}}"></path>
+              <circle cx="44" cy="60" r="34" fill="none" stroke="{{c.ringA}}" stroke-width="12" mask="url(#sl-ma)"></circle>
+              <circle cx="76" cy="60" r="34" fill="none" stroke="{{c.ringB}}" stroke-width="12" mask="url(#sl-mb)"></circle>
+            </g>
+          </g>
+        </svg>
+        <span style="font-size: 15px; color: {{c.text}}">Ovelto agent is thinking…</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" style="background: {{c.surface}}; padding: 88px 24px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+      <div style="display: flex; flex-direction: column; gap: 12px; max-width: 640px">
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: {{c.ringB}}">What we do</div>
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(30px, 4vw, 44px); letter-spacing: -0.03em; line-height: 1.1">Four services, one team.</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+        <sc-for list="{{services}}" as="s" hint-placeholder-count="4">
+          <div style="background: {{c.base}}; border: 1px solid {{c.line}}; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: {{c.chip}}; display: flex; align-items: center; justify-content: center; color: {{c.ringB}}">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{s.icon}}"></path></svg>
+            </div>
+            <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: -0.02em">{{s.title}}</h3>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: {{c.muted}}">{{s.body}}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process (light section, to see the palette on a light ground) -->
+  <section id="process" style="background: {{c.light}}; color: {{c.ink}}; padding: 88px 24px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(30px, 4vw, 44px); letter-spacing: -0.03em; line-height: 1.1">How we work</h2>
+        <div style="display: flex; align-items: center; gap: 10px">
+          <dc-import name="Mark" uid="sLight" size="44" tilt="-20" col-a="{{c.inkA}}" col-b="{{c.inkB}}" lens="{{c.lensLight}}" hint-size="44px,44px"></dc-import>
+          <span style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: {{c.inkB}}">.labs</span></span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px">
+        <sc-for list="{{steps}}" as="st" hint-placeholder-count="4">
+          <div style="background: #FFFFFF; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 10px; box-shadow: inset 0 0 0 1px {{c.lightLine}}">
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: {{c.inkB}}">{{st.n}}</div>
+            <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px">{{st.title}}</h3>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: {{c.inkMuted}}">{{st.body}}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work (placeholders) -->
+  <section id="work" style="padding: 88px 24px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
+      <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(30px, 4vw, 44px); letter-spacing: -0.03em">Selected work</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px">
+        <sc-for list="{{work}}" as="w" hint-placeholder-count="3">
+          <a href="#work" style="text-decoration: none; display: flex; flex-direction: column; gap: 14px">
+            <div style="aspect-ratio: 4 / 3; border-radius: 16px; background: {{c.surface}}; border: 1px solid {{c.line}}; display: flex; align-items: center; justify-content: center; color: {{c.muted}}; font-size: 14px">[Project image]</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: {{c.text}}">{{w.title}}</div>
+            <div style="font-size: 14px; color: {{c.muted}}">{{w.meta}}</div>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section id="contact" style="padding: 0 24px 88px">
+    <div style="max-width: 1200px; margin: 0 auto; border-radius: 24px; background: {{c.surface}}; border: 1px solid {{c.line}}; padding: 48px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px">
+      <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0; flex: 1 1 380px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.03em">Have something to build?</h2>
+        <p style="margin: 0; font-size: 17px; color: {{c.muted}}">Tell us about it. We reply within [X] working days.</p>
+      </div>
+      <a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 12px; background: {{c.accent}}; color: {{c.onAccent}}; font-weight: 500; text-decoration: none">Start a project</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid {{c.line}}; padding: 28px 24px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; font-size: 14px; color: {{c.muted}}">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <dc-import name="Mark" uid="sFoot" size="26" tilt="-20" w-a="10" w-b="10" gap="4" col-a="{{c.ringA}}" col-b="{{c.ringB}}" lens="{{c.lens}}" hint-size="26px,26px"></dc-import>
+        <span>© ovelto.labs</span>
+      </div>
+      <span>[email address] · [city]</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { pick: 4 }; // opens on the chosen palette: Deep Teal + Pistachio
+  }
+  renderVals() {
+    // Each palette: base = main dark background, surface = raised panels, ringA/ringB/lens = logo on dark,
+    // accent = buttons, light/ink = light section, inkA/inkB = logo + highlights on the light section.
+    const P = [
+      { name: 'Current · Navy + Emerald',
+        base: '#0B1640', surface: '#111F52', chip: '#1A2B6D', line: '#26346E', text: '#F3F6FA', muted: '#A9B4D6',
+        ringA: '#9DB0F5', ringB: '#34D399', lens: '#6EE7B7', accent: '#34D399', onAccent: '#0B1640',
+        light: '#F3F6FA', ink: '#0B1640', inkMuted: '#4A5677', inkA: '#1A2B6D', inkB: '#0E8A60', lightLine: '#DCE2EE', lensLight: '#6EE7B7' },
+      { name: 'Deep Teal + Lime',
+        base: '#08303A', surface: '#0C3B47', chip: '#124B59', line: '#1D5664', text: '#F2F7F6', muted: '#A3C4C8',
+        ringA: '#8FD3E0', ringB: '#A3E635', lens: '#D9F99D', accent: '#A3E635', onAccent: '#08303A',
+        light: '#F3F7F2', ink: '#08303A', inkMuted: '#45636A', inkA: '#0F4C5C', inkB: '#4D7C0F', lightLine: '#DCE7E2', lensLight: '#BEF264' },
+      { name: 'Deep Teal + Spring Green',
+        base: '#08303A', surface: '#0C3B47', chip: '#124B59', line: '#1D5664', text: '#F2F7F6', muted: '#A3C4C8',
+        ringA: '#8FD3E0', ringB: '#4ADE80', lens: '#BBF7D0', accent: '#4ADE80', onAccent: '#08303A',
+        light: '#F2F7F4', ink: '#08303A', inkMuted: '#45636A', inkA: '#0F4C5C', inkB: '#15803D', lightLine: '#DCE7E2', lensLight: '#86EFAC' },
+      { name: 'Deep Teal + Chartreuse',
+        base: '#08303A', surface: '#0C3B47', chip: '#124B59', line: '#1D5664', text: '#F2F7F6', muted: '#A3C4C8',
+        ringA: '#8FD3E0', ringB: '#D4F04A', lens: '#F2FBC4', accent: '#D4F04A', onAccent: '#08303A',
+        light: '#F6F8EE', ink: '#08303A', inkMuted: '#45636A', inkA: '#0F4C5C', inkB: '#5F7A0B', lightLine: '#E2E8D6', lensLight: '#E4F57A' },
+      { name: 'Deep Teal + Pistachio',
+        base: '#08303A', surface: '#0C3B47', chip: '#124B59', line: '#1D5664', text: '#F2F7F6', muted: '#A3C4C8',
+        ringA: '#8FD3E0', ringB: '#B5E3A1', lens: '#E3F5D8', accent: '#B5E3A1', onAccent: '#08303A',
+        light: '#F3F7F1', ink: '#08303A', inkMuted: '#45636A', inkA: '#0F4C5C', inkB: '#3F7A2A', lightLine: '#DCE7DA', lensLight: '#B5E3A1' }
+    ];
+    const pick = this.state.pick;
+    const c = P[pick];
+    return {
+      c,
+      options: P.map((p, i) => ({
+        name: p.name, base: p.base, ringB: p.ringB,
+        bg: i === pick ? '#EEF3F6' : '#FFFFFF',
+        border: i === pick ? '#1B2540' : '#D5DBE7',
+        pick: () => this.setState({ pick: i })
+      })),
+      // Simple stroke icons (24x24) for the four services
+      services: [
+        { title: 'Website & app design', body: 'Brand-led sites and product interfaces, from first wireframe to polished screens.', icon: 'M3 5h18v12H3z M3 9h18 M8 21h8 M12 17v4' },
+        { title: 'Vibe-coded prototypes', body: 'Working prototypes built fast with AI coding tools, so you can test ideas with real users.', icon: 'M13 2 4 14h7l-1 8 9-12h-7z' },
+        { title: 'Front-end UI', body: 'Clean, accessible front-end code and design systems your team can keep building on.', icon: 'M8 7l-5 5 5 5 M16 7l5 5-5 5 M14 4l-4 16' },
+        { title: 'AI workflows & agents', body: 'Agents, automations and internal tools that take repetitive work off your plate.', icon: 'M6 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0 M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0 M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0 M9 6h6 M18 9v6' }
+      ],
+      steps: [
+        { n: '01', title: 'Discover', body: 'We map your goals, users and the work that could be automated.' },
+        { n: '02', title: 'Design', body: 'Flows, screens and a visual system, tested early.' },
+        { n: '03', title: 'Build', body: 'Prototype fast, then harden into production code.' },
+        { n: '04', title: 'Automate', body: 'Wire in agents and AI workflows, then hand over cleanly.' }
+      ],
+      work: [
+        { title: '[Case study title]', meta: '[Client] · [Sector]' },
+        { title: '[Case study title]', meta: '[Client] · [Sector]' },
+        { title: '[Case study title]', meta: '[Client] · [Sector]' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

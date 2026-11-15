@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto mark</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="display: block; width: {{size}}px; height: {{size}}px">
+
+  <!-- Method "mask": a real see-through gap is cut into the UNDER ring only, right where the other ring crosses.
+       Nothing is painted in a background colour, so it works on any background and never touches the lens. -->
+  <sc-if value="{{isMask}}" hint-placeholder-val="{{ true }}">
+    <svg width="{{size}}" height="{{size}}" viewBox="0 0 120 120" aria-hidden="true" style="display: block; overflow: visible">
+      <defs>
+        <clipPath id="{{ids.ct}}"><circle cx="{{ix}}" cy="{{ty}}" r="{{cr}}"></circle></clipPath>
+        <clipPath id="{{ids.cb}}"><circle cx="{{ix}}" cy="{{by}}" r="{{cr}}"></circle></clipPath>
+        <mask id="{{ids.ma}}" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200">
+          <rect x="-40" y="-40" width="200" height="200" fill="#ffffff"></rect>
+          <circle cx="{{xB}}" cy="60" r="{{rB}}" fill="none" stroke="#000000" stroke-width="{{cutA}}" clip-path="{{refs.ct}}"></circle>
+        </mask>
+        <mask id="{{ids.mb}}" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200">
+          <rect x="-40" y="-40" width="200" height="200" fill="#ffffff"></rect>
+          <circle cx="{{xA}}" cy="60" r="{{rA}}" fill="none" stroke="#000000" stroke-width="{{cutB}}" clip-path="{{refs.cb}}"></circle>
+        </mask>
+      </defs>
+      <g transform="{{rot}}">
+        <path d="{{lensD}}" fill="{{lens}}"></path>
+        <circle cx="{{xA}}" cy="60" r="{{rA}}" fill="none" stroke="{{colA}}" stroke-width="{{wA}}" mask="{{refs.ma}}" stroke-dasharray="{{dashA}}" stroke-dashoffset="{{offA}}" stroke-linecap="{{capA}}"></circle>
+        <circle cx="{{xB}}" cy="60" r="{{rB}}" fill="none" stroke="{{colB}}" stroke-width="{{wB}}" mask="{{refs.mb}}" stroke-dasharray="{{dashB}}" stroke-dashoffset="{{offB}}" stroke-linecap="{{capB}}"></circle>
+      </g>
+    </svg>
+  </sc-if>
+
+  <!-- Method "clip": no gap at all. Ring B is simply redrawn on top inside a small window at the top crossing,
+       so B sits over A at the top and A sits over B at the bottom. Reads best when the rings are different colours. -->
+  <sc-if value="{{isClip}}" hint-placeholder-val="{{ false }}">
+    <svg width="{{size}}" height="{{size}}" viewBox="0 0 120 120" aria-hidden="true" style="display: block; overflow: visible">
+      <defs>
+        <clipPath id="{{ids.ct}}"><circle cx="{{ix}}" cy="{{ty}}" r="{{cr}}"></circle></clipPath>
+      </defs>
+      <g transform="{{rot}}">
+        <path d="{{lensD}}" fill="{{lens}}"></path>
+        <circle cx="{{xB}}" cy="60" r="{{rB}}" fill="none" stroke="{{colB}}" stroke-width="{{wB}}"></circle>
+        <circle cx="{{xA}}" cy="60" r="{{rA}}" fill="none" stroke="{{colA}}" stroke-width="{{wA}}"></circle>
+        <circle cx="{{xB}}" cy="60" r="{{rB}}" fill="none" stroke="{{colB}}" stroke-width="{{wB}}" clip-path="{{refs.ct}}"></circle>
+      </g>
+    </svg>
+  </sc-if>
+
+  <!-- Method "shadow": like "clip", plus a soft shadow cast by the top ring at each crossing to suggest depth. -->
+  <sc-if value="{{isShadow}}" hint-placeholder-val="{{ false }}">
+    <svg width="{{size}}" height="{{size}}" viewBox="0 0 120 120" aria-hidden="true" style="display: block; overflow: visible">
+      <defs>
+        <clipPath id="{{ids.ct}}"><circle cx="{{ix}}" cy="{{ty}}" r="{{cr}}"></circle></clipPath>
+        <clipPath id="{{ids.cb}}"><circle cx="{{ix}}" cy="{{by}}" r="{{cr}}"></circle></clipPath>
+        <filter id="{{ids.sh}}" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="0.6" stdDeviation="1.4" flood-color="#0B1640" flood-opacity="0.45"></feDropShadow>
+        </filter>
+      </defs>
+      <g transform="{{rot}}">
+        <path d="{{lensD}}" fill="{{lens}}"></path>
+        <circle cx="{{xB}}" cy="60" r="{{rB}}" fill="none" stroke="{{colB}}" stroke-width="{{wB}}"></circle>
+        <circle cx="{{xA}}" cy="60" r="{{rA}}" fill="none" stroke="{{colA}}" stroke-width="{{wA}}"></circle>
+        <g clip-path="{{refs.cb}}"><circle cx="{{xA}}" cy="60" r="{{rA}}" fill="none" stroke="{{colA}}" stroke-width="{{wA}}" filter="{{refs.sh}}"></circle></g>
+        <g clip-path="{{refs.ct}}"><circle cx="{{xB}}" cy="60" r="{{rB}}" fill="none" stroke="{{colB}}" stroke-width="{{wB}}" filter="{{refs.sh}}"></circle></g>
+      </g>
+    </svg>
+  </sc-if>
+
+  <!-- Method "halo": the ORIGINAL approach, kept only for before/after comparison.
+       A thick background-coloured stroke is painted under the top arc; it also paints over the lens. -->
+  <sc-if value="{{isHalo}}" hint-placeholder-val="{{ false }}">
+    <svg width="{{size}}" height="{{size}}" viewBox="0 0 120 120" aria-hidden="true" style="display: block; overflow: visible">
+      <g transform="{{rot}}">
+        <path d="{{lensD}}" fill="{{lens}}"></path>
+        <circle cx="{{xA}}" cy="60" r="{{rA}}" fill="none" stroke="{{colA}}" stroke-width="{{wA}}"></circle>
+        <circle cx="{{xB}}" cy="60" r="{{rB}}" fill="none" stroke="{{colB}}" stroke-width="{{wB}}"></circle>
+        <path d="{{arcD}}" fill="none" stroke="{{bg}}" stroke-width="{{haloW}}"></path>
+        <path d="{{arcD}}" fill="none" stroke="{{colA}}" stroke-width="{{wA}}"></path>
+      </g>
+    </svg>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"method":{"editor":"enum","options":["mask","clip","shadow","halo"],"default":"mask"},"size":{"editor":"int","default":240,"min":16,"max":800},"tilt":{"editor":"range","default":0,"min":-90,"max":90,"step":1,"unit":"°"},"colA":{"editor":"color","default":"#1A2B6D"},"colB":{"editor":"color","default":"#0E9F6E"},"lens":{"editor":"color","default":"#6EE7B7"},"$preview":{"width":240,"height":240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    // Props arrive as strings from <dc-import>; coerce to numbers with fallbacks.
+    const n = (v, d) => { const x = Number(v); return Number.isFinite(x) ? x : d; };
+    const r2 = (v) => Math.round(v * 100) / 100;
+
+    const size = n(p.size, 240);
+    const rA = n(p.rA, 34), rB = n(p.rB, 34);   // ring radii (A = design ring, B = AI ring)
+    const d = n(p.d, 32);                        // distance between ring centres
+    const tilt = n(p.tilt, 0);                   // whole-mark rotation in degrees
+    const wA = n(p.wA, 8), wB = n(p.wB, 8);      // stroke weights
+    const gap = n(p.gap, 3);                     // see-through gap each side of the top ring (mask method)
+    const uid = p.uid || 'mk';
+    const method = p.method || 'mask';
+
+    // Centre the pair's bounding box in the 120x120 viewBox.
+    const xA = 60 - (d + rB - rA) / 2;
+    const xB = xA + d;
+
+    // Circle-circle intersection: a = distance from A's centre to the chord; h = half the chord.
+    const a = (d * d + rA * rA - rB * rB) / (2 * d);
+    const h = Math.sqrt(Math.max(0, rA * rA - a * a));
+    const ix = xA + a, ty = 60 - h, by = 60 + h;
+
+    // Lens = A's arc inside B (right of chord) + B's arc inside A (left of chord).
+    const lensD = `M${r2(ix)} ${r2(ty)} A${rA} ${rA} 0 ${a < 0 ? 1 : 0} 1 ${r2(ix)} ${r2(by)} A${rB} ${rB} 0 ${(d - a) < 0 ? 1 : 0} 1 ${r2(ix)} ${r2(ty)} Z`;
+
+    // Small window around each crossing where the over/under is decided.
+    const cr = r2(Math.min(13, h * 0.65));
+
+    // Old halo arc: a short piece of ring A around the bottom crossing.
+    const th = Math.atan2(by - 60, ix - xA), s = 0.3;
+    const arcD = `M${r2(xA + rA * Math.cos(th - s))} ${r2(60 + rA * Math.sin(th - s))} A${rA} ${rA} 0 0 1 ${r2(xA + rA * Math.cos(th + s))} ${r2(60 + rA * Math.sin(th + s))}`;
+
+    const ids = { ct: `${uid}-ct`, cb: `${uid}-cb`, ma: `${uid}-ma`, mb: `${uid}-mb`, sh: `${uid}-sh` };
+    const refs = { ct: `url(#${ids.ct})`, cb: `url(#${ids.cb})`, ma: `url(#${ids.ma})`, mb: `url(#${ids.mb})`, sh: `url(#${ids.sh})` };
+
+    return {
+      size, rA, rB, wA, wB, xA: r2(xA), xB: r2(xB), ix: r2(ix), ty: r2(ty), by: r2(by), cr,
+      cutA: wB + gap * 2, cutB: wA + gap * 2, haloW: wA + 6,
+      lensD, arcD, ids, refs,
+      rot: `rotate(${tilt} 60 60)`,
+      // Optional ring styling (mask method): open gaps or dotted rings via dash patterns.
+      // Defaults keep every existing board unchanged (solid ring, butt caps).
+      dashA: p.dashA || 'none', dashB: p.dashB || 'none',
+      offA: n(p.offA, 0), offB: n(p.offB, 0),
+      capA: p.capA || 'butt', capB: p.capB || 'butt',
+      colA: p.colA || '#1A2B6D', colB: p.colB || '#0E9F6E', lens: p.lens || '#6EE7B7', bg: p.bg || '#F3F6FA',
+      isMask: method === 'mask', isClip: method === 'clip', isShadow: method === 'shadow', isHalo: method === 'halo'
+    };
+  }
+}
+</script>
+</body>
+</html>

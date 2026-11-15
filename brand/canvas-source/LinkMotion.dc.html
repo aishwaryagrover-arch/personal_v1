@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Interlocked animations</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1A2B6D}a:hover{color:#0B1640}
+
+/* All story animations share one 5s loop so their parts stay in sync. */
+.ov-anim{animation-duration:5s;animation-iteration-count:infinite;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+/* Scale a shape around its own centre. */
+.ov-tb{transform-box:fill-box;transform-origin:center}
+/* Rotate/scale around the whole mark's centre (60,60). */
+.ov-vb{transform-box:view-box;transform-origin:60px 60px}
+
+/* Shared pieces */
+@keyframes kFade{0%{opacity:0}12%,88%{opacity:1}100%{opacity:0}}
+@keyframes kWord{0%,58%{transform:translateY(10px);opacity:0}72%,88%{transform:translateY(0);opacity:1}100%{transform:translateY(0);opacity:0}}
+.k-word{animation-name:kWord}
+.k-fade{animation-name:kFade}
+
+/* 1. Link-up: rings slide together, the weave "clicks" shut, the mark nudges, the overlap fills. */
+.k1-a{animation-name:k1A}
+.k1-b{animation-name:k1B}
+.k1-arc{animation-name:k1Arc}
+.k1-click{animation-name:k1Click}
+.k1-lens{animation-name:k1Lens}
+@keyframes k1A{0%{transform:translateX(-34px);opacity:0}12%{opacity:1}40%,88%{transform:translateX(0);opacity:1}100%{transform:translateX(0);opacity:0}}
+@keyframes k1B{0%{transform:translateX(34px);opacity:0}12%{opacity:1}40%,88%{transform:translateX(0);opacity:1}100%{transform:translateX(0);opacity:0}}
+@keyframes k1Arc{0%,40%{opacity:0}41%,88%{opacity:1}100%{opacity:0}}
+@keyframes k1Click{0%,40%{transform:scale(1)}45%{transform:scale(1.06)}52%,100%{transform:scale(1)}}
+@keyframes k1Lens{0%,44%{transform:scale(0);opacity:0}56%{transform:scale(1.15);opacity:1}64%,88%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+
+/* 2. Flip-through: the AI ring spins edge-on through the design ring like a coin, then links. */
+.k2-flip{animation-name:k2Flip}
+.k2-arc{animation-name:k2Arc}
+.k2-lens{animation-name:k2Lens}
+@keyframes k2Flip{0%{transform:scaleX(0.04);opacity:0}8%{opacity:1}25%{transform:scaleX(-0.7)}45%,88%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+@keyframes k2Arc{0%,45%{opacity:0}47%,88%{opacity:1}100%{opacity:0}}
+@keyframes k2Lens{0%,47%{transform:scale(0);opacity:0}58%{transform:scale(1.15);opacity:1}66%,88%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+
+/* 3. Draw & weave: rings are traced in opposite directions, then the over-stitch is drawn last. */
+.k3-a{animation-name:k3A}
+.k3-b{animation-name:k3B}
+.k3-stitch{animation-name:k3Stitch}
+.k3-halo{animation-name:k3Halo}
+.k3-lens{animation-name:k3Lens}
+@keyframes k3A{0%{stroke-dashoffset:214;opacity:1}35%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes k3B{0%,12%{stroke-dashoffset:-214;opacity:1}47%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes k3Stitch{0%,50%{stroke-dashoffset:22;opacity:1}58%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes k3Halo{0%,50%{opacity:0}52%,88%{opacity:1}100%{opacity:0}}
+@keyframes k3Lens{0%,58%{transform:scale(0);opacity:0}68%{transform:scale(1.15);opacity:1}74%,88%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+
+/* 4. Breathing idle: the finished logo stays put while the overlap "thinks" and a ripple goes out. */
+.k4-breathe{animation:k4Breathe 3.2s ease-in-out infinite}
+.k4-ripple{animation:k4Ripple 3.2s ease-out infinite}
+@keyframes k4Breathe{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(0.8);opacity:0.6}}
+@keyframes k4Ripple{0%{transform:scale(0.7);opacity:0.55}70%,100%{transform:scale(1.18);opacity:0}}
+
+/* 5. Orbit-link: the AI ring circles the design ring, then hooks through it. */
+.k5-orbit{animation-name:k5Orbit;transform-box:view-box;transform-origin:44px 60px}
+.k5-arc{animation-name:k5Arc}
+.k5-lens{animation-name:k5Lens}
+@keyframes k5Orbit{0%{transform:rotate(-320deg);opacity:0}10%{opacity:1}50%,88%{transform:rotate(0deg);opacity:1}100%{transform:rotate(0deg);opacity:0}}
+@keyframes k5Arc{0%,50%{opacity:0}52%,88%{opacity:1}100%{opacity:0}}
+@keyframes k5Lens{0%,52%{transform:scale(0);opacity:0}62%{transform:scale(1.15);opacity:1}70%,88%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+
+/* 6. Hover swap (for the site's nav logo): on hover the linked pair turns half a turn and the overlap deepens. */
+.k6-mark{transition:transform .9s cubic-bezier(.22,1,.36,1)}
+.k6-lens{transition:fill .6s ease}
+.k6-tile:hover .k6-mark{transform:rotate(180deg)}
+.k6-tile:hover .k6-lens{fill:#0E9F6E}
+
+/* People who switch motion off see the finished logo. */
+@media (prefers-reduced-motion: reduce){.ov-anim,.k4-breathe,.k4-ripple{animation:none !important}.k6-mark,.k6-lens{transition:none}}
+</style>
+</helmet>
+<div style="width: 1840px; height: 1060px; box-sizing: border-box; padding: 24px; background: #EDF0F4; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 16px; font-family: 'Sora', sans-serif">
+
+  <!-- 1. Link-up (light) -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px">
+    <svg width="220" height="220" viewBox="0 0 120 120" aria-hidden="true" style="overflow: visible">
+      <g class="ov-anim ov-vb k1-click">
+        <path class="ov-anim ov-tb k1-lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#6EE7B7"></path>
+        <circle class="ov-anim k1-a" cx="44" cy="60" r="34" fill="none" stroke="#1A2B6D" stroke-width="8"></circle>
+        <circle class="ov-anim k1-b" cx="76" cy="60" r="34" fill="none" stroke="#0E9F6E" stroke-width="8"></circle>
+        <path class="ov-anim k1-arc" d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#F3F6FA" stroke-width="14"></path>
+        <path class="ov-anim k1-arc" d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#1A2B6D" stroke-width="8"></path>
+      </g>
+    </svg>
+    <div class="ov-anim k-word" style="display: flex; align-items: baseline; gap: 8px; font-size: 32px; letter-spacing: -0.03em; line-height: 1">
+      <span style="font-weight: 600; color: #0B1640">Ovelto</span>
+      <span style="font-weight: 300; color: #56628A">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">1 · Link-up “click”</div>
+  </div>
+
+  <!-- 2. Flip-through (deep navy ground) -->
+  <div style="background: #0B1640; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px">
+    <svg width="220" height="220" viewBox="0 0 120 120" aria-hidden="true" style="overflow: visible">
+      <path class="ov-anim ov-tb k2-lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#6EE7B7"></path>
+      <circle class="ov-anim k-fade" cx="44" cy="60" r="34" fill="none" stroke="#9DB0F5" stroke-width="8"></circle>
+      <circle class="ov-anim ov-tb k2-flip" cx="76" cy="60" r="34" fill="none" stroke="#34D399" stroke-width="8"></circle>
+      <path class="ov-anim k2-arc" d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#0B1640" stroke-width="14"></path>
+      <path class="ov-anim k2-arc" d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#9DB0F5" stroke-width="8"></path>
+    </svg>
+    <div style="display: flex; align-items: baseline; gap: 8px; font-size: 32px; letter-spacing: -0.03em; line-height: 1">
+      <span style="font-weight: 600; color: #F3F6FA">Ovelto</span>
+      <span style="font-weight: 300; color: #A3AED0">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #DDE3F5">2 · Flip-through</div>
+  </div>
+
+  <!-- 3. Draw & weave (light) -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px">
+    <svg width="220" height="220" viewBox="0 0 120 120" aria-hidden="true">
+      <path class="ov-anim ov-tb k3-lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#7CE0C3"></path>
+      <circle class="ov-anim k3-a" cx="44" cy="60" r="34" fill="none" stroke="#142457" stroke-width="8" stroke-dasharray="214" transform="rotate(-90 44 60)"></circle>
+      <circle class="ov-anim k3-b" cx="76" cy="60" r="34" fill="none" stroke="#00A383" stroke-width="8" stroke-dasharray="214" transform="rotate(90 76 60)"></circle>
+      <path class="ov-anim k3-halo" d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#F3F6FA" stroke-width="14"></path>
+      <path class="ov-anim k3-stitch" d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#142457" stroke-width="8" stroke-dasharray="22"></path>
+    </svg>
+    <div class="ov-anim k-word" style="display: flex; align-items: baseline; gap: 8px; font-size: 32px; letter-spacing: -0.03em; line-height: 1">
+      <span style="font-weight: 600; color: #0A1433">Ovelto</span>
+      <span style="font-weight: 300; color: #536087">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">3 · Draw &amp; weave</div>
+  </div>
+
+  <!-- 4. Breathing idle (light) — good for a hero, or as an "AI is thinking" loader -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px">
+    <svg width="220" height="220" viewBox="0 0 120 120" aria-hidden="true" style="overflow: visible">
+      <circle class="ov-tb k4-ripple" cx="60" cy="60" r="56" fill="none" stroke="#6EE7B7" stroke-width="2"></circle>
+      <path class="ov-tb k4-breathe" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#6EE7B7"></path>
+      <circle cx="44" cy="60" r="34" fill="none" stroke="#1D3FBB" stroke-width="8"></circle>
+      <circle cx="76" cy="60" r="34" fill="none" stroke="#0F8F86" stroke-width="8"></circle>
+      <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#F3F6FA" stroke-width="14"></path>
+      <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#1D3FBB" stroke-width="8"></path>
+    </svg>
+    <div style="display: flex; align-items: baseline; gap: 8px; font-size: 32px; letter-spacing: -0.03em; line-height: 1">
+      <span style="font-weight: 600; color: #0E1F5C">Ovelto</span>
+      <span style="font-weight: 300; color: #53619A">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">4 · Breathing idle / AI loader</div>
+  </div>
+
+  <!-- 5. Orbit-link (deep navy ground) -->
+  <div style="background: #0A1433; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px">
+    <svg width="220" height="220" viewBox="0 0 120 120" aria-hidden="true" style="overflow: visible">
+      <path class="ov-anim ov-tb k5-lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#7CE0C3"></path>
+      <circle class="ov-anim k-fade" cx="44" cy="60" r="34" fill="none" stroke="#94A7E8" stroke-width="8"></circle>
+      <circle class="ov-anim k5-orbit" cx="76" cy="60" r="34" fill="none" stroke="#2FD3AE" stroke-width="8"></circle>
+      <path class="ov-anim k5-arc" d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#0A1433" stroke-width="14"></path>
+      <path class="ov-anim k5-arc" d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#94A7E8" stroke-width="8"></path>
+    </svg>
+    <div class="ov-anim k-word" style="display: flex; align-items: baseline; gap: 8px; font-size: 32px; letter-spacing: -0.03em; line-height: 1">
+      <span style="font-weight: 600; color: #F2F5F8">Ovelto</span>
+      <span style="font-weight: 300; color: #9FAACB">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #DDE3F5">5 · Orbit-link</div>
+  </div>
+
+  <!-- 6. Hover swap (light) — hover the tile in Play / full-screen view -->
+  <div class="k6-tile" style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px">
+    <svg width="220" height="220" viewBox="0 0 120 120" aria-hidden="true">
+      <g class="ov-vb k6-mark">
+        <path class="k6-lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#6EE7B7"></path>
+        <circle cx="44" cy="60" r="34" fill="none" stroke="#1A2B6D" stroke-width="8"></circle>
+        <circle cx="76" cy="60" r="34" fill="none" stroke="#0E9F6E" stroke-width="8"></circle>
+        <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#F3F6FA" stroke-width="14"></path>
+        <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#1A2B6D" stroke-width="8"></path>
+      </g>
+    </svg>
+    <div style="display: flex; align-items: baseline; gap: 8px; font-size: 32px; letter-spacing: -0.03em; line-height: 1">
+      <span style="font-weight: 600; color: #0B1640">Ovelto</span>
+      <span style="font-weight: 300; color: #56628A">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">6 · Hover swap (nav logo) — hover me</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":1060}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

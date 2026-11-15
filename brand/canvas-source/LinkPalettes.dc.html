@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Interlocked palettes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1A2B6D}a:hover{color:#0B1640}
+</style>
+</helmet>
+<div style="width: 1840px; height: 1060px; box-sizing: border-box; padding: 24px; background: #EDF0F4; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 16px; font-family: 'Sora', sans-serif">
+  <sc-for list="{{palettes}}" as="p" hint-placeholder-count="8">
+    <div style="display: flex; flex-direction: column; gap: 10px; min-height: 0">
+      <!-- Light ground lockup -->
+      <div style="flex: 1 1 0; min-height: 0; border-radius: 16px; background: {{p.bg}}; display: flex; align-items: center; justify-content: center; gap: 14px">
+        <svg width="96" height="96" viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="{{p.lens}}"></path>
+          <circle cx="44" cy="60" r="34" fill="none" stroke="{{p.ringA}}" stroke-width="8"></circle>
+          <circle cx="76" cy="60" r="34" fill="none" stroke="{{p.ringB}}" stroke-width="8"></circle>
+          <!-- blue ring passes back over green at the lower crossing: halo then stroke -->
+          <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="{{p.bg}}" stroke-width="14"></path>
+          <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="{{p.ringA}}" stroke-width="8"></path>
+        </svg>
+        <div style="display: flex; align-items: baseline; gap: 7px; font-size: 30px; letter-spacing: -0.03em; line-height: 1">
+          <span style="font-weight: 600; color: {{p.ink}}">Ovelto</span>
+          <span style="font-weight: 300; color: {{p.muted}}">Labs</span>
+        </div>
+      </div>
+      <!-- Deep-blue ground lockup (no black) -->
+      <div style="height: 130px; border-radius: 16px; background: {{p.dark}}; display: flex; align-items: center; justify-content: center; gap: 12px">
+        <svg width="64" height="64" viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="{{p.lens}}"></path>
+          <circle cx="44" cy="60" r="34" fill="none" stroke="{{p.darkA}}" stroke-width="8"></circle>
+          <circle cx="76" cy="60" r="34" fill="none" stroke="{{p.darkB}}" stroke-width="8"></circle>
+          <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="{{p.dark}}" stroke-width="14"></path>
+          <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="{{p.darkA}}" stroke-width="8"></path>
+        </svg>
+        <div style="display: flex; align-items: baseline; gap: 6px; font-size: 22px; letter-spacing: -0.03em; line-height: 1">
+          <span style="font-weight: 600; color: {{p.bg}}">Ovelto</span>
+          <span style="font-weight: 300; color: {{p.darkMuted}}">Labs</span>
+        </div>
+      </div>
+      <div style="font-size: 15px; font-weight: 600; color: #1B2540">{{p.name}}</div>
+      <div style="display: flex; gap: 6px">
+        <sc-for list="{{p.swatches}}" as="s" hint-placeholder-count="4">
+          <div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+            <div style="height: 34px; border-radius: 8px; background: {{s.hex}}; box-shadow: inset 0 0 0 1px rgba(27,37,64,0.12)"></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #3F4966">{{s.hex}}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":1060}}'>
+class Component extends DCLogic {
+  renderVals() {
+    // Blue (design ring) + green (AI ring) pairs, leaning into darker blues.
+    // "dark" grounds are deep navies/teals, never black. darkA/darkB are lighter ring tints for those grounds.
+    const palettes = [
+      { name: 'Navy + Emerald', ringA: '#1A2B6D', ringB: '#0E9F6E', lens: '#6EE7B7', dark: '#0B1640', bg: '#F3F6FA', ink: '#0B1640', muted: '#56628A', darkA: '#9DB0F5', darkB: '#34D399', darkMuted: '#A3AED0' },
+      { name: 'Midnight + Jade', ringA: '#142457', ringB: '#00A383', lens: '#7CE0C3', dark: '#0A1433', bg: '#F2F5F8', ink: '#0A1433', muted: '#536087', darkA: '#94A7E8', darkB: '#2FD3AE', darkMuted: '#9FAACB' },
+      { name: 'Royal + Teal', ringA: '#1D3FBB', ringB: '#0F8F86', lens: '#8BE3D9', dark: '#0E1F5C', bg: '#F3F6FC', ink: '#0E1F5C', muted: '#53619A', darkA: '#A5B8FF', darkB: '#4FD6CB', darkMuted: '#A8B3DA' },
+      { name: 'Prussian + Spring', ringA: '#133B5C', ringB: '#1FAA59', lens: '#B4F0A8', dark: '#0C2638', bg: '#F2F6F7', ink: '#0C2638', muted: '#526C7D', darkA: '#9CC3E3', darkB: '#5ED98F', darkMuted: '#9EB5C4' },
+      { name: 'Indigo + Seafoam', ringA: '#2E2A8A', ringB: '#2BB39A', lens: '#A7EBDD', dark: '#1A1752', bg: '#F5F5FB', ink: '#1A1752', muted: '#5D5A91', darkA: '#B3B0F5', darkB: '#5FD8C1', darkMuted: '#ADABD4' },
+      { name: 'Deep Ocean (one blue) + Mint', ringA: '#12306B', ringB: '#12306B', lens: '#34D399', dark: '#0A1C40', bg: '#F3F6FA', ink: '#0A1C40', muted: '#55648A', darkA: '#A7BBEE', darkB: '#A7BBEE', darkMuted: '#A2AECB' },
+      { name: 'Sapphire + Lime', ringA: '#1739A6', ringB: '#3E9E38', lens: '#D4F57A', dark: '#0D1F5E', bg: '#F4F6FB', ink: '#0D1F5E', muted: '#55619A', darkA: '#A0B4FF', darkB: '#8AD97F', darkMuted: '#A7B1DB' },
+      { name: 'Steel Blue + Forest', ringA: '#234E70', ringB: '#2F7D5B', lens: '#9ED9B8', dark: '#13293D', bg: '#F3F6F7', ink: '#13293D', muted: '#56697A', darkA: '#A9C8E2', darkB: '#7BCFA4', darkMuted: '#A3B4C2' }
+    ];
+    return {
+      palettes: palettes.map((p) => ({
+        ...p,
+        // Show each distinct colour once.
+        swatches: [...new Set([p.ringA, p.ringB, p.lens, p.dark])].map((hex) => ({ hex }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

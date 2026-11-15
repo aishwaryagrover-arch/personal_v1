@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Final logo in six palettes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1E4D3A}a:hover{color:#10291F}
+
+/* Same combined intro as the FINAL intro board: draw → snap → swing → ".labs" types on (7s loop). */
+.iv{animation-duration:7s;animation-iteration-count:infinite;animation-fill-mode:both;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+.vb{transform-box:view-box;transform-origin:60px 60px}
+.tb{transform-box:fill-box;transform-origin:center}
+.i-a{animation-name:iA}.i-b{animation-name:iB}.i-cut{animation-name:iCut}.i-lens{animation-name:iLens}
+.i-swing{animation-name:iSwing}.i-word{animation-name:iWord}.i-row{animation-name:iRow;animation-timing-function:linear}
+@keyframes iA{0%{stroke-dashoffset:214px}24%,100%{stroke-dashoffset:0px}}
+@keyframes iB{0%,8%{stroke-dashoffset:-214px}32%,100%{stroke-dashoffset:0px}}
+@keyframes iCut{0%,36%{stroke-width:0px}41%{stroke-width:19px}46%,100%{stroke-width:14px}}
+@keyframes iLens{0%,38%{transform:scale(0);opacity:0}47%{transform:scale(1.15);opacity:1}53%,100%{transform:scale(1);opacity:1}}
+@keyframes iSwing{0%,52%{transform:rotate(20deg)}62%{transform:rotate(-7deg)}68%,100%{transform:rotate(0deg)}}
+@keyframes iWord{0%{transform:translateY(10px);opacity:0}14%,100%{transform:translateY(0);opacity:1}}
+@keyframes iRow{0%,94%{opacity:1}100%{opacity:0}}
+.i-ch{display:inline-block;overflow:hidden;vertical-align:bottom;animation-timing-function:steps(1,end)}
+.i-c1{animation-name:iC1}.i-c2{animation-name:iC2}.i-c3{animation-name:iC3}.i-c4{animation-name:iC4}.i-c5{animation-name:iC5}
+@keyframes iC1{0%,70%{max-width:0}71%,100%{max-width:1em}}
+@keyframes iC2{0%,72%{max-width:0}73%,100%{max-width:1em}}
+@keyframes iC3{0%,74%{max-width:0}75%,100%{max-width:1em}}
+@keyframes iC4{0%,76%{max-width:0}77%,100%{max-width:1em}}
+@keyframes iC5{0%,78%{max-width:0}79%,100%{max-width:1em}}
+.i-cur{animation-name:iCur;animation-timing-function:steps(1,end)}
+@keyframes iCur{0%,68%{opacity:0}69%,100%{opacity:1}}
+.i-blink{animation:iBlink .9s steps(1,end) infinite}
+@keyframes iBlink{0%{opacity:1}50%{opacity:0}}
+
+/* Thinking loader */
+.f5-spin{animation:f5Spin 2.4s linear infinite}
+@keyframes f5Spin{to{transform:rotate(360deg)}}
+
+@media (prefers-reduced-motion: reduce){.iv,.i-blink,.f5-spin{animation:none !important}.i-ch{max-width:none}}
+</style>
+</helmet>
+<div style="width: 1840px; height: 1220px; box-sizing: border-box; padding: 24px; background: #EDF0F4; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 16px; font-family: 'Space Grotesk', sans-serif">
+  <sc-for list="{{palettes}}" as="p" hint-placeholder-count="6">
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; min-height: 0">
+
+      <!-- Animated site intro on the palette's dark ground -->
+      <div style="height: 230px; border-radius: 12px; background: {{p.dark}}; display: flex; align-items: center; justify-content: center">
+        <div class="iv i-row" style="width: 330px; display: flex; align-items: center; gap: 14px">
+          <svg width="76" height="76" viewBox="0 0 120 120" aria-hidden="true" style="overflow: visible; flex: none">
+            <defs>
+              <clipPath id="{{p.id}}-ct"><circle cx="60" cy="30" r="13"></circle></clipPath>
+              <clipPath id="{{p.id}}-cb"><circle cx="60" cy="90" r="13"></circle></clipPath>
+              <mask id="{{p.id}}-ma" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200"><rect x="-40" y="-40" width="200" height="200" fill="#ffffff"></rect><circle class="iv i-cut" cx="76" cy="60" r="34" fill="none" stroke="#000000" stroke-width="14" clip-path="url(#{{p.id}}-ct)"></circle></mask>
+              <mask id="{{p.id}}-mb" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200"><rect x="-40" y="-40" width="200" height="200" fill="#ffffff"></rect><circle class="iv i-cut" cx="44" cy="60" r="34" fill="none" stroke="#000000" stroke-width="14" clip-path="url(#{{p.id}}-cb)"></circle></mask>
+            </defs>
+            <g class="iv vb i-swing">
+              <g transform="rotate(-20 60 60)">
+                <path class="iv tb i-lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="{{p.lens}}"></path>
+                <circle class="iv i-a" cx="44" cy="60" r="34" fill="none" stroke="{{p.da}}" stroke-width="8" stroke-dasharray="214" mask="url(#{{p.id}}-ma)"></circle>
+                <circle class="iv i-b" cx="76" cy="60" r="34" fill="none" stroke="{{p.db}}" stroke-width="8" stroke-dasharray="214" mask="url(#{{p.id}}-mb)"></circle>
+              </g>
+            </g>
+          </svg>
+          <div style="display: flex; align-items: center; font-size: 46px; letter-spacing: -0.035em; line-height: 1; white-space: nowrap">
+            <span class="iv i-word" style="font-weight: 600; color: {{p.light}}">ovelto</span><span style="font-weight: 400; color: {{p.labsDark}}"><span class="iv i-ch i-c1">.</span><span class="iv i-ch i-c2">l</span><span class="iv i-ch i-c3">a</span><span class="iv i-ch i-c4">b</span><span class="iv i-ch i-c5">s</span></span><span class="iv i-cur" style="display: inline-block; margin-left: 3px"><span class="i-blink" style="display: block; width: 3px; height: 36px; background: {{p.labsDark}}"></span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Static lockup on the light ground + app icon -->
+      <div style="height: 140px; border-radius: 12px; background: {{p.light}}; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; box-sizing: border-box; gap: 12px">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <dc-import name="Mark" uid="{{p.id}}L" size="58" tilt="-20" col-a="{{p.a}}" col-b="{{p.b}}" lens="{{p.lens}}" hint-size="58px,58px"></dc-import>
+          <div style="display: flex; align-items: baseline; font-size: 34px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600; color: {{p.ink}}">ovelto</span><span style="font-weight: 400; color: {{p.labsLight}}">.labs</span></div>
+        </div>
+        <div style="width: 84px; height: 84px; border-radius: 20px; background: {{p.dark}}; display: flex; align-items: center; justify-content: center; flex: none">
+          <dc-import name="Mark" uid="{{p.id}}I" size="66" tilt="-20" w-a="9" w-b="9" col-a="{{p.da}}" col-b="{{p.db}}" lens="{{p.lens}}" hint-size="66px,66px"></dc-import>
+        </div>
+      </div>
+
+      <!-- Thinking loader chip -->
+      <div style="display: flex; align-items: center; gap: 10px; align-self: flex-start; background: {{p.light}}; border-radius: 999px; padding: 8px 16px 8px 10px">
+        <svg width="22" height="22" viewBox="0 0 120 120" aria-hidden="true" style="overflow: visible; flex: none">
+          <defs>
+            <clipPath id="{{p.id}}-lct"><circle cx="60" cy="30" r="13"></circle></clipPath>
+            <clipPath id="{{p.id}}-lcb"><circle cx="60" cy="90" r="13"></circle></clipPath>
+            <mask id="{{p.id}}-lma" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200"><rect x="-40" y="-40" width="200" height="200" fill="#ffffff"></rect><circle cx="76" cy="60" r="34" fill="none" stroke="#000000" stroke-width="22" clip-path="url(#{{p.id}}-lct)"></circle></mask>
+            <mask id="{{p.id}}-lmb" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200"><rect x="-40" y="-40" width="200" height="200" fill="#ffffff"></rect><circle cx="44" cy="60" r="34" fill="none" stroke="#000000" stroke-width="22" clip-path="url(#{{p.id}}-lcb)"></circle></mask>
+          </defs>
+          <g class="vb f5-spin">
+            <g transform="rotate(-20 60 60)">
+              <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="{{p.lens}}"></path>
+              <circle cx="44" cy="60" r="34" fill="none" stroke="{{p.a}}" stroke-width="12" mask="url(#{{p.id}}-lma)"></circle>
+              <circle cx="76" cy="60" r="34" fill="none" stroke="{{p.b}}" stroke-width="12" mask="url(#{{p.id}}-lmb)"></circle>
+            </g>
+          </g>
+        </svg>
+        <span style="font-size: 15px; color: {{p.ink}}">thinking…</span>
+      </div>
+
+      <!-- Name + swatches -->
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto">
+        <div style="font-size: 17px; font-weight: 600; color: #1B2540">{{p.name}}</div>
+        <div style="display: flex; gap: 6px">
+          <sc-for list="{{p.swatches}}" as="s" hint-placeholder-count="5">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+              <div style="width: 40px; height: 26px; border-radius: 6px; background: {{s.hex}}; box-shadow: inset 0 0 0 1px rgba(16,41,31,0.14)"></div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #3F4966">{{s.hex}}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":1220}}'>
+class Component extends DCLogic {
+  renderVals() {
+    // a/b = design ring / AI ring on light grounds; da/db = the same rings on the dark ground.
+    // labsLight/labsDark = ".labs" colour on light/dark. No black: darkest tones are deep greens/navies.
+    const palettes = [
+      { id: 'fp1', name: 'Forest + Lime',
+        a: '#1E4D3A', b: '#4C9A2A', lens: '#D4F57A', dark: '#10291F', light: '#F4F7EE', ink: '#10291F',
+        da: '#A9D9BF', db: '#B5E853', labsLight: '#3F8A22', labsDark: '#C6F25E' },
+      { id: 'fp2', name: 'Pine + Mint',
+        a: '#1B4332', b: '#40916C', lens: '#B7E4C7', dark: '#0E2A1F', light: '#F3F7F4', ink: '#0E2A1F',
+        da: '#95D5B2', db: '#74C69D', labsLight: '#2D7A56', labsDark: '#95D5B2' },
+      { id: 'fp3', name: 'Deep Teal + Lime',
+        a: '#0F4C5C', b: '#1E9A5E', lens: '#C8F25C', dark: '#08303A', light: '#F2F7F6', ink: '#08303A',
+        da: '#8FD3E0', db: '#5EE0A0', labsLight: '#1A8A54', labsDark: '#C8F25C' },
+      { id: 'fp4', name: 'Midnight + Lime',
+        a: '#142457', b: '#4D7C0F', lens: '#D9F99D', dark: '#0A1433', light: '#F5F7FA', ink: '#0A1433',
+        da: '#94A7E8', db: '#A3E635', labsLight: '#4D7C0F', labsDark: '#A3E635' },
+      { id: 'fp5', name: 'Evergreen on Lime (bold)',
+        a: '#12301F', b: '#2F7D4A', lens: '#FFFFFF', dark: '#12301F', light: '#E3F59B', ink: '#12301F',
+        da: '#E3F59B', db: '#7FD98F', labsLight: '#2A6E40', labsDark: '#E3F59B' },
+      { id: 'fp6', name: 'Navy + Emerald (current)',
+        a: '#1A2B6D', b: '#0E9F6E', lens: '#6EE7B7', dark: '#0B1640', light: '#F3F6FA', ink: '#0B1640',
+        da: '#9DB0F5', db: '#34D399', labsLight: '#0E9F6E', labsDark: '#34D399' }
+    ];
+    return {
+      palettes: palettes.map((p) => ({
+        ...p,
+        swatches: [...new Set([p.a, p.b, p.lens, p.dark, p.light])].map((hex) => ({ hex }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

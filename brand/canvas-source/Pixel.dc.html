@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Pixel to Curve</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#111114}a:hover{color:#444}
+</style>
+</helmet>
+<div style="width: 880px; height: 560px; box-sizing: border-box; padding: 16px; background: #E9E6DF; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; font-family: 'Manrope', sans-serif; color: #111114">
+  <div style="background: #F6F4EF; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 18px">
+    <svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true">
+      <path fill-rule="evenodd" fill="#111114" d="M60 20 A40 40 0 0 1 60 100 L40 100 L40 90 L30 90 L30 80 L20 80 L20 40 L30 40 L30 30 L40 30 L40 20 Z M60 44 A16 16 0 1 0 60 76 A16 16 0 1 0 60 44 Z"></path>
+      <rect x="22" y="12" width="10" height="10" fill="{{accent}}"></rect>
+    </svg>
+    <div style="display: flex; align-items: baseline; gap: 10px; line-height: 1">
+      <span style="font-weight: 800; font-size: 58px; letter-spacing: -0.04em">ovelto</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 26px; color: #6B6862">/labs</span>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-rows: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px">
+    <div style="background: #111114; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
+      <svg width="80" height="80" viewBox="0 0 120 120" aria-hidden="true">
+        <path fill-rule="evenodd" fill="#F6F4EF" d="M60 20 A40 40 0 0 1 60 100 L40 100 L40 90 L30 90 L30 80 L20 80 L20 40 L30 40 L30 30 L40 30 L40 20 Z M60 44 A16 16 0 1 0 60 76 A16 16 0 1 0 60 44 Z"></path>
+        <rect x="22" y="12" width="10" height="10" fill="{{accent}}"></rect>
+      </svg>
+      <div style="display: flex; align-items: baseline; gap: 8px; line-height: 1; color: #F6F4EF">
+        <span style="font-weight: 800; font-size: 32px; letter-spacing: -0.04em">ovelto</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 15px; color: #A5A29B">/labs</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px">
+      <div style="background: #F6F4EF; border-radius: 16px; display: flex; align-items: center; justify-content: center">
+        <svg width="96" height="96" viewBox="0 0 120 120" role="img" aria-label="Ovelto Labs app icon">
+          <rect width="120" height="120" rx="28" fill="#111114"></rect>
+          <g transform="translate(60 60) scale(0.72) translate(-60 -56)">
+            <path fill-rule="evenodd" fill="#F6F4EF" d="M60 20 A40 40 0 0 1 60 100 L40 100 L40 90 L30 90 L30 80 L20 80 L20 40 L30 40 L30 30 L40 30 L40 20 Z M60 44 A16 16 0 1 0 60 76 A16 16 0 1 0 60 44 Z"></path>
+            <rect x="22" y="12" width="10" height="10" fill="{{accent}}"></rect>
+          </g>
+        </svg>
+      </div>
+      <div style="background: #F6F4EF; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 16px">
+        <svg width="32" height="32" viewBox="0 0 120 120" aria-hidden="true"><path fill-rule="evenodd" fill="#111114" d="M60 20 A40 40 0 0 1 60 100 L40 100 L40 90 L30 90 L30 80 L20 80 L20 40 L30 40 L30 30 L40 30 L40 20 Z M60 44 A16 16 0 1 0 60 76 A16 16 0 1 0 60 44 Z"></path><rect x="20" y="10" width="12" height="12" fill="{{accent}}"></rect></svg>
+        <svg width="20" height="20" viewBox="0 0 120 120" aria-hidden="true"><path fill-rule="evenodd" fill="#111114" d="M60 20 A40 40 0 0 1 60 100 L40 100 L40 90 L30 90 L30 80 L20 80 L20 40 L30 40 L30 30 L40 30 L40 20 Z M60 46 A14 14 0 1 0 60 74 A14 14 0 1 0 60 46 Z"></path><rect x="18" y="8" width="14" height="14" fill="{{accent}}"></rect></svg>
+        <svg width="16" height="16" viewBox="0 0 120 120" aria-hidden="true"><path fill-rule="evenodd" fill="#111114" d="M60 20 A40 40 0 0 1 60 100 L40 100 L40 90 L30 90 L30 80 L20 80 L20 40 L30 40 L30 30 L40 30 L40 20 Z M60 47 A13 13 0 1 0 60 73 A13 13 0 1 0 60 47 Z"></path><rect x="16" y="6" width="16" height="16" fill="{{accent}}"></rect></svg>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF5B2E","options":["#FF5B2E","#C6F432","#2F5BFF","#111114"]},"$preview":{"width":880,"height":560}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF5B2E' };
+  }
+}
+</script>
+</body>
+</html>

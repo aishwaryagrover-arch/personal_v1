@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Open Loop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#111114}a:hover{color:#444}
+</style>
+</helmet>
+<div style="width: 880px; height: 560px; box-sizing: border-box; padding: 16px; background: #E9E6DF; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; font-family: 'Space Grotesk', sans-serif; color: #111114">
+  <div style="background: #F6F4EF; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 18px">
+    <svg width="92" height="92" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#111114" stroke-width="14" stroke-linecap="round" stroke-dasharray="211 40.3" transform="rotate(-15 60 60)"></circle>
+      <circle cx="88.8" cy="32.2" r="9" fill="{{accent}}"></circle>
+    </svg>
+    <div style="display: flex; align-items: baseline; gap: 12px; font-size: 60px; letter-spacing: -0.035em; line-height: 1">
+      <span style="font-weight: 600">ovelto</span>
+      <span style="font-weight: 400; color: #6B6862">labs</span>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-rows: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px">
+    <div style="background: #111114; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
+      <svg width="76" height="76" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="40" fill="none" stroke="#F6F4EF" stroke-width="14" stroke-linecap="round" stroke-dasharray="211 40.3" transform="rotate(-15 60 60)"></circle>
+        <circle cx="88.8" cy="32.2" r="9" fill="{{accent}}"></circle>
+      </svg>
+      <div style="display: flex; align-items: baseline; gap: 8px; font-size: 34px; letter-spacing: -0.035em; line-height: 1; color: #F6F4EF">
+        <span style="font-weight: 600">ovelto</span>
+        <span style="font-weight: 400; color: #A5A29B">labs</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px">
+      <div style="background: #F6F4EF; border-radius: 16px; display: flex; align-items: center; justify-content: center">
+        <svg width="96" height="96" viewBox="0 0 120 120" role="img" aria-label="Ovelto Labs app icon">
+          <rect width="120" height="120" rx="28" fill="#111114"></rect>
+          <circle cx="60" cy="60" r="32" fill="none" stroke="#F6F4EF" stroke-width="12" stroke-linecap="round" stroke-dasharray="168.6 32.5" transform="rotate(-15 60 60)"></circle>
+          <circle cx="83" cy="37.8" r="7.5" fill="{{accent}}"></circle>
+        </svg>
+      </div>
+      <div style="background: #F6F4EF; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 16px">
+        <svg width="32" height="32" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="40" fill="none" stroke="#111114" stroke-width="16" stroke-linecap="round" stroke-dasharray="211 40.3" transform="rotate(-15 60 60)"></circle><circle cx="88.8" cy="32.2" r="11" fill="{{accent}}"></circle></svg>
+        <svg width="20" height="20" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="40" fill="none" stroke="#111114" stroke-width="18" stroke-linecap="round" stroke-dasharray="211 40.3" transform="rotate(-15 60 60)"></circle><circle cx="88.8" cy="32.2" r="12" fill="{{accent}}"></circle></svg>
+        <svg width="16" height="16" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="40" fill="none" stroke="#111114" stroke-width="20" stroke-linecap="round" stroke-dasharray="211 40.3" transform="rotate(-15 60 60)"></circle><circle cx="88.8" cy="32.2" r="13" fill="{{accent}}"></circle></svg>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF5B2E","options":["#FF5B2E","#C6F432","#2F5BFF","#111114"]},"$preview":{"width":880,"height":560}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF5B2E' };
+  }
+}
+</script>
+</body>
+</html>

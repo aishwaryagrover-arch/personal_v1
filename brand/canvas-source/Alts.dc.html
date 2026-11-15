@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — No-tilt alternatives</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1A2B6D}a:hover{color:#0B1640}
+</style>
+</helmet>
+<div style="width: 1840px; height: 1100px; box-sizing: border-box; padding: 24px; background: #EDF0F4; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 16px; font-family: 'Space Grotesk', sans-serif; color: #0B1640">
+
+  <!-- 1. Baseline: equal rings, level -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="al1" size="220" hint-size="220px,220px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="al1s" size="46" hint-size="46px,46px"></dc-import>
+      <div style="display: flex; align-items: baseline; font-size: 30px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: #0E9F6E">.labs</span></div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">1 · Level, equal (fallback)</div>
+  </div>
+
+  <!-- 2. Big + small, level -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="al2" size="220" r-a="36" r-b="22" d="38" hint-size="220px,220px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="al2s" size="46" r-a="36" r-b="22" d="38" hint-size="46px,46px"></dc-import>
+      <div style="display: flex; align-items: baseline; font-size: 30px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: #0E9F6E">.labs</span></div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">2 · Big design ring + small AI ring</div>
+  </div>
+
+  <!-- 3. Planet + moon: a small ring sitting deep inside the big ring's edge -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="al3" size="220" r-a="38" r-b="20" d="24" hint-size="220px,220px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="al3s" size="46" r-a="38" r-b="20" d="24" hint-size="46px,46px"></dc-import>
+      <div style="display: flex; align-items: baseline; font-size: 30px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: #0E9F6E">.labs</span></div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">3 · Planet + moon</div>
+  </div>
+
+  <!-- 4. Heavy design ring + light AI ring, level -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="al4" size="220" w-a="11" w-b="5" hint-size="220px,220px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="al4s" size="46" w-a="11" w-b="5" hint-size="46px,46px"></dc-import>
+      <div style="display: flex; align-items: baseline; font-size: 30px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: #0E9F6E">.labs</span></div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">4 · Heavy + light rings</div>
+  </div>
+
+  <!-- 5. Lens-forward: deeper overlap and thinner rings, so the mint "leaf" becomes the hero (Olympic rings have no fill) -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="al5" size="220" d="24" w-a="5" w-b="5" gap="2" hint-size="220px,220px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="al5s" size="46" d="24" w-a="6" w-b="6" gap="3" hint-size="46px,46px"></dc-import>
+      <div style="display: flex; align-items: baseline; font-size: 30px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: #0E9F6E">.labs</span></div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">5 · Overlap as the hero</div>
+  </div>
+
+  <!-- 6. Open rings: each ring has an opening on its outer side, like two hands linking -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="al6" size="220" dash-a="173.63 40" off-a="86.81" cap-a="round" dash-b="173.63 40" off-b="-20" cap-b="round" hint-size="220px,220px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="al6s" size="46" dash-a="173.63 40" off-a="86.81" cap-a="round" dash-b="173.63 40" off-b="-20" cap-b="round" hint-size="46px,46px"></dc-import>
+      <div style="display: flex; align-items: baseline; font-size: 30px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: #0E9F6E">.labs</span></div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">6 · Open rings (linking hands)</div>
+  </div>
+
+  <!-- 7. Dotted AI ring: solid craft ring + a ring of data points -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="al7" size="220" dash-b="0.01 10.68" cap-b="round" hint-size="220px,220px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="al7s" size="46" w-b="10" dash-b="0.01 14.24" cap-b="round" hint-size="46px,46px"></dc-import>
+      <div style="display: flex; align-items: baseline; font-size: 30px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: #0E9F6E">.labs</span></div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">7 · Solid ring + dotted “data” ring</div>
+  </div>
+
+  <!-- 8. Vertical link: rings stacked top-to-bottom like a chain link (Olympic rings run sideways) -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="al8" size="220" tilt="90" hint-size="220px,220px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="al8s" size="46" tilt="90" hint-size="46px,46px"></dc-import>
+      <div style="display: flex; align-items: baseline; font-size: 30px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: #0E9F6E">.labs</span></div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">8 · Vertical link</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

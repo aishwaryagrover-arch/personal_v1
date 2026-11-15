@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Fixing the weave</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1A2B6D}a:hover{color:#0B1640}
+</style>
+</helmet>
+<div style="width: 1840px; height: 980px; box-sizing: border-box; padding: 24px; background: #EDF0F4; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 16px; font-family: 'Sora', sans-serif">
+
+  <!-- Light row -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+    <dc-import name="Mark" uid="il1" method="halo" size="240" bg="#F3F6FA" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="font-size: 15px; font-weight: 600; color: #8A3B2E">Before · painted white halo</div>
+  </div>
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+    <dc-import name="Mark" uid="il2" method="mask" size="240" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">Fix 1 · True see-through gap</div>
+  </div>
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+    <dc-import name="Mark" uid="il3" method="clip" size="240" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">Fix 2 · Colour-over, no gap</div>
+  </div>
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+    <dc-import name="Mark" uid="il4" method="shadow" size="240" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">Fix 3 · Soft shadow depth</div>
+  </div>
+
+  <!-- Deep navy row: proves each method on a dark ground -->
+  <div style="background: #0B1640; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+    <dc-import name="Mark" uid="il5" method="halo" size="240" bg="#0B1640" col-a="#9DB0F5" col-b="#34D399" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="font-size: 15px; font-weight: 600; color: #FFB4A3">Before · halo must match the background</div>
+  </div>
+  <div style="background: #0B1640; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+    <dc-import name="Mark" uid="il6" method="mask" size="240" col-a="#9DB0F5" col-b="#34D399" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="font-size: 15px; font-weight: 600; color: #DDE3F5">Fix 1 · same file works on any ground</div>
+  </div>
+  <div style="background: #0B1640; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+    <dc-import name="Mark" uid="il7" method="clip" size="240" col-a="#9DB0F5" col-b="#34D399" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="font-size: 15px; font-weight: 600; color: #DDE3F5">Fix 2 · Colour-over, no gap</div>
+  </div>
+  <div style="background: #0B1640; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+    <dc-import name="Mark" uid="il8" method="shadow" size="240" col-a="#9DB0F5" col-b="#34D399" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="font-size: 15px; font-weight: 600; color: #DDE3F5">Fix 3 · Soft shadow depth</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":980}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

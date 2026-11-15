@@ -1,0 +1,255 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Explore.dc.html": {
+      "h": 900,
+      "title": "B3 \u00b7 Mark explorations",
+      "w": 1840,
+      "x": 0,
+      "y": 2720
+    },
+    "Final.dc.html": {
+      "h": 1120,
+      "title": "Earlier final \u00b7 Navy + Emerald (superseded)",
+      "w": 1840,
+      "x": 0,
+      "y": 11380
+    },
+    "FinalMotion.dc.html": {
+      "h": 1060,
+      "title": "Animation explorations",
+      "w": 1840,
+      "x": 0,
+      "y": 12620
+    },
+    "Site.dc.html": {
+      "h": 3200,
+      "title": "Website skeleton \u00b7 palette switcher",
+      "w": 1440,
+      "x": 3840,
+      "y": 12620,
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "FinalPalettes.dc.html": {
+      "h": 1220,
+      "title": "Palette explorations",
+      "w": 1840,
+      "x": 1920,
+      "y": 13750
+    },
+    "Intro.dc.html": {
+      "h": 1010,
+      "title": "Chosen site intro + thinking loader (navy preview)",
+      "w": 1840,
+      "x": 1920,
+      "y": 12620
+    },
+    "Alts.dc.html": {
+      "h": 1100,
+      "title": "R5 \u00b7 No-tilt alternatives",
+      "w": 1840,
+      "x": 0,
+      "y": 14280
+    },
+    "Fonts.dc.html": {
+      "h": 1180,
+      "title": "B9 \u00b7 Wordmark fonts",
+      "w": 1840,
+      "x": 0,
+      "y": 9600
+    },
+    "Interlock.dc.html": {
+      "h": 980,
+      "title": "B7 \u00b7 Fixing the weave",
+      "w": 1840,
+      "x": 0,
+      "y": 7740
+    },
+    "LinkMotion.dc.html": {
+      "h": 1060,
+      "title": "B6 \u00b7 Interlocked \u2014 animations",
+      "w": 1840,
+      "x": 0,
+      "y": 6080
+    },
+    "LinkPalettes.dc.html": {
+      "h": 1060,
+      "title": "B5 \u00b7 Interlocked \u2014 blue/green palettes",
+      "w": 1840,
+      "x": 0,
+      "y": 4900
+    },
+    "Main.dc.html": {
+      "h": 560,
+      "title": "A \u00b7 Open Loop",
+      "w": 880,
+      "x": 0,
+      "y": 0
+    },
+    "Mark.dc.html": {
+      "h": 240,
+      "title": "Mark component (reused)",
+      "w": 240,
+      "x": 1920,
+      "y": 7740
+    },
+    "Motion.dc.html": {
+      "h": 560,
+      "title": "B4 \u00b7 Logo animations",
+      "w": 1840,
+      "x": 0,
+      "y": 3740
+    },
+    "Nodes.dc.html": {
+      "h": 560,
+      "title": "C \u00b7 Agent Nodes",
+      "w": 880,
+      "x": 0,
+      "y": 680
+    },
+    "Overlap.dc.html": {
+      "h": 560,
+      "title": "B \u00b7 Overlap",
+      "w": 880,
+      "x": 960,
+      "y": 0
+    },
+    "Palettes.dc.html": {
+      "h": 760,
+      "title": "B2 \u00b7 Colour palettes",
+      "w": 1840,
+      "x": 0,
+      "y": 1840
+    },
+    "Pixel.dc.html": {
+      "h": 560,
+      "title": "D \u00b7 Pixel to Curve",
+      "w": 880,
+      "x": 960,
+      "y": 680
+    },
+    "Tilt.dc.html": {
+      "h": 640,
+      "title": "B8 \u00b7 Tilt & size options",
+      "w": 1840,
+      "x": 0,
+      "y": 8840
+    },
+    "FinalOptions.dc.html": {
+      "h": 1300,
+      "title": "\u2605 FINAL OPTIONS \u00b7 Pistachio (1) + Spring Green (2)",
+      "w": 1840,
+      "x": 0,
+      "y": 15800
+    },
+    "Blues.dc.html": {
+      "h": 1080,
+      "title": "Brighter blue for the design ring (both final options)",
+      "w": 1840,
+      "x": 1920,
+      "y": 15800
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-15T12:00:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "noteOrder": [
+    "head",
+    "round2",
+    "round3",
+    "round4",
+    "final",
+    "round5",
+    "finalOptions"
+  ],
+  "notes": {
+    "final": {
+      "kind": "title1",
+      "maxW": 1840,
+      "text": "Earlier final \u2014 Navy + Emerald (superseded)",
+      "w": 240,
+      "x": 0,
+      "y": 11080
+    },
+    "head": {
+      "kind": "title1",
+      "maxW": 1840,
+      "text": "Ovelto Labs \u2014 four logo directions",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "round2": {
+      "kind": "title1",
+      "maxW": 1840,
+      "text": "Round 2 \u2014 Overlap: palettes, explorations, motion",
+      "w": 240,
+      "x": 0,
+      "y": 1540
+    },
+    "round3": {
+      "kind": "title1",
+      "maxW": 1840,
+      "text": "Round 3 \u2014 Interlocked rings: deeper blues, more motion",
+      "w": 240,
+      "x": 0,
+      "y": 4600
+    },
+    "round5": {
+      "kind": "title1",
+      "maxW": 1840,
+      "text": "Round 5 \u2014 Avoiding the Olympic look (no tilt)",
+      "w": 240,
+      "x": 0,
+      "y": 13980
+    },
+    "round4": {
+      "kind": "title1",
+      "maxW": 1840,
+      "text": "Round 4 \u2014 Clean weave, tilt options, wordmark fonts",
+      "w": 240,
+      "x": 0,
+      "y": 7440
+    },
+    "finalOptions": {
+      "kind": "title1",
+      "maxW": 1840,
+      "text": "\u2605 Final options \u2014 ovelto.labs",
+      "w": 240,
+      "x": 0,
+      "y": 15500
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Overlap.dc.html",
+    "Nodes.dc.html",
+    "Pixel.dc.html",
+    "Palettes.dc.html",
+    "Explore.dc.html",
+    "Motion.dc.html",
+    "LinkPalettes.dc.html",
+    "LinkMotion.dc.html",
+    "Interlock.dc.html",
+    "Tilt.dc.html",
+    "Fonts.dc.html",
+    "Mark.dc.html",
+    "Final.dc.html",
+    "FinalMotion.dc.html",
+    "Alts.dc.html",
+    "Intro.dc.html",
+    "FinalPalettes.dc.html",
+    "Site.dc.html",
+    "FinalOptions.dc.html",
+    "Blues.dc.html"
+  ],
+  "pages": [],
+  "title": "Ovelto Labs Logo"
+}

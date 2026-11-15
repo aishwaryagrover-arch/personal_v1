@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Overlap mark explorations</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2B4EFF}a:hover{color:#0F2350}
+</style>
+</helmet>
+<div style="width: 1840px; height: 900px; box-sizing: border-box; padding: 24px; background: #EEF1F4; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 16px; font-family: 'Sora', sans-serif; color: #0F2350">
+
+  <!-- 1. Two-tone: design ring blue, AI ring green, overlap a blended teal -->
+  <div style="background: #F4F8F7; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true">
+      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#22B8C4"></path>
+      <circle cx="44" cy="60" r="34" fill="none" stroke="#2F6BFF" stroke-width="8"></circle>
+      <circle cx="76" cy="60" r="34" fill="none" stroke="#13A874" stroke-width="8"></circle>
+    </svg>
+    <div style="font-size: 15px; font-weight: 600">1 · Two-tone rings</div>
+  </div>
+
+  <!-- 2. Solid discs: two filled circles, overlap as the deepest colour -->
+  <div style="background: #F4F8F7; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="44" cy="60" r="36" fill="#6E95FF"></circle>
+      <circle cx="76" cy="60" r="36" fill="#5EDDAA"></circle>
+      <!-- lens for r=36, centres 32 apart: half-chord = sqrt(36^2 - 16^2) = 32.25 -->
+      <path d="M60 27.75 A36 36 0 0 1 60 92.25 A36 36 0 0 1 60 27.75 Z" fill="#1F7F9E"></path>
+    </svg>
+    <div style="font-size: 15px; font-weight: 600">2 · Solid discs</div>
+  </div>
+
+  <!-- 3. Outline ring (craft) meets solid disc (tech); the overlap is cut out -->
+  <div style="background: #F4F8F7; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="76" cy="60" r="34" fill="#13A874"></circle>
+      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#F4F8F7"></path>
+      <circle cx="44" cy="60" r="34" fill="none" stroke="#2F6BFF" stroke-width="8"></circle>
+    </svg>
+    <div style="font-size: 15px; font-weight: 600">3 · Ring meets disc</div>
+  </div>
+
+  <!-- 4. Intersection points become nodes; the lens gets an "eye" -->
+  <div style="background: #F4F8F7; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true">
+      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#34D399"></path>
+      <circle cx="44" cy="60" r="34" fill="none" stroke="#2F6BFF" stroke-width="6"></circle>
+      <circle cx="76" cy="60" r="34" fill="none" stroke="#2F6BFF" stroke-width="6"></circle>
+      <circle cx="60" cy="30" r="7" fill="#0F2350" stroke="#F4F8F7" stroke-width="3"></circle>
+      <circle cx="60" cy="90" r="7" fill="#0F2350" stroke="#F4F8F7" stroke-width="3"></circle>
+      <circle cx="60" cy="60" r="6" fill="#F4F8F7"></circle>
+    </svg>
+    <div style="font-size: 15px; font-weight: 600">4 · Nodes + insight eye</div>
+  </div>
+
+  <!-- 5. Unequal circles: a big design ring with a smaller AI ring docking in -->
+  <div style="background: #F4F8F7; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true">
+      <!-- big r=40 at (50,60), small r=22 at (88,60): intersections at (83.68, 60±21.58) -->
+      <path d="M83.68 38.42 A40 40 0 0 1 83.68 81.58 A22 22 0 0 1 83.68 38.42 Z" fill="#34D399"></path>
+      <circle cx="50" cy="60" r="40" fill="none" stroke="#2F6BFF" stroke-width="8"></circle>
+      <circle cx="88" cy="60" r="22" fill="none" stroke="#13A874" stroke-width="8"></circle>
+    </svg>
+    <div style="font-size: 15px; font-weight: 600">5 · Big + small (docking)</div>
+  </div>
+
+  <!-- 6. Gradient rings: blue flows into green; lens carries the reverse gradient -->
+  <div style="background: #F4F8F7; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true">
+      <defs>
+        <linearGradient id="ovGradRing6" x1="6" y1="0" x2="114" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#2F6BFF"></stop>
+          <stop offset="1" stop-color="#13A874"></stop>
+        </linearGradient>
+        <linearGradient id="ovGradLens6" x1="0" y1="30" x2="0" y2="90" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#5EDDAA"></stop>
+          <stop offset="1" stop-color="#6E95FF"></stop>
+        </linearGradient>
+      </defs>
+      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="url(#ovGradLens6)"></path>
+      <circle cx="44" cy="60" r="34" fill="none" stroke="url(#ovGradRing6)" stroke-width="8"></circle>
+      <circle cx="76" cy="60" r="34" fill="none" stroke="url(#ovGradRing6)" stroke-width="8"></circle>
+    </svg>
+    <div style="font-size: 15px; font-weight: 600">6 · Gradient flow</div>
+  </div>
+
+  <!-- 7. Interlocked: green over blue at the top crossing, blue over green at the bottom -->
+  <div style="background: #F4F8F7; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true">
+      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#34D399"></path>
+      <circle cx="44" cy="60" r="34" fill="none" stroke="#2F6BFF" stroke-width="8"></circle>
+      <circle cx="76" cy="60" r="34" fill="none" stroke="#13A874" stroke-width="8"></circle>
+      <!-- redraw a short arc of the blue ring on top at the lower crossing, with a gap halo -->
+      <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#F4F8F7" stroke-width="14"></path>
+      <path d="M70.05 81.85 A34 34 0 0 1 52.8 92.84" fill="none" stroke="#2F6BFF" stroke-width="8"></path>
+    </svg>
+    <div style="font-size: 15px; font-weight: 600">7 · Interlocked links</div>
+  </div>
+
+  <!-- 8. The mark becomes the "O" of the wordmark -->
+  <div style="background: #F4F8F7; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px">
+    <div style="display: flex; align-items: center; gap: 2px; line-height: 1">
+      <svg width="66" height="66" viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#34D399"></path>
+        <circle cx="44" cy="60" r="34" fill="none" stroke="#2F6BFF" stroke-width="11"></circle>
+        <circle cx="76" cy="60" r="34" fill="none" stroke="#2F6BFF" stroke-width="11"></circle>
+      </svg>
+      <span style="font-size: 50px; font-weight: 600; letter-spacing: -0.03em">velto</span>
+      <span style="font-size: 50px; font-weight: 300; letter-spacing: -0.03em; color: #55658A; margin-left: 10px">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600">8 · Mark as the “O”</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

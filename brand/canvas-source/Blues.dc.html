@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ovelto.labs — Brighter blue for the design ring</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#08303A}a:hover{color:#0F4C5C}
+</style>
+</helmet>
+<div style="width: 1840px; height: 1080px; box-sizing: border-box; padding: 24px; background: #EDF0F4; display: flex; flex-direction: column; gap: 28px; font-family: 'Space Grotesk', sans-serif; color: #08303A">
+  <sc-for list="{{rows}}" as="r" hint-placeholder-count="2">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <span style="display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 999px; background: #08303A; color: #F2F7F6; font-size: 13px; font-weight: 600; letter-spacing: 0.04em">{{r.badge}}</span>
+        <span style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em">{{r.name}}</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px">
+        <sc-for list="{{r.blues}}" as="b" hint-placeholder-count="6">
+          <div style="background: #FFFFFF; border-radius: 16px; padding: 10px; display: flex; flex-direction: column; gap: 8px; box-shadow: inset 0 0 0 {{b.ringW}}px {{b.ringC}}">
+            <!-- On deep teal -->
+            <div style="height: 240px; border-radius: 10px; background: #08303A; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
+              <dc-import name="Mark" uid="{{b.uidD}}" size="116" tilt="-20" col-a="{{b.dark}}" col-b="{{r.db}}" lens="{{r.lensDark}}" hint-size="116px,116px"></dc-import>
+              <div style="display: flex; align-items: baseline; font-size: 32px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600; color: #F2F7F6">ovelto</span><span style="font-weight: 400; color: {{r.db}}">.labs</span></div>
+            </div>
+            <!-- On light -->
+            <div style="height: 110px; border-radius: 10px; background: {{r.light}}; display: flex; align-items: center; justify-content: center; gap: 8px">
+              <dc-import name="Mark" uid="{{b.uidL}}" size="58" tilt="-20" col-a="{{b.lightC}}" col-b="{{r.b}}" lens="{{r.lensLight}}" hint-size="58px,58px"></dc-import>
+              <div style="display: flex; align-items: baseline; font-size: 26px; letter-spacing: -0.035em; line-height: 1"><span style="font-weight: 600">ovelto</span><span style="font-weight: 400; color: {{r.b}}">.labs</span></div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 2px 4px 4px">
+              <span style="font-size: 15px; font-weight: 600">{{b.name}}</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #45636A">dark {{b.dark}} · light {{b.lightC}}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    // Candidate colours for the first (design) ring. "dark" = used on the deep teal ground,
+    // "light" = deeper partner used on light grounds so it stays readable.
+    const blues = [
+      { id: 'cur', name: 'Current · Light Teal', dark: '#8FD3E0', lightC: '#0F4C5C' },
+      { id: 'sky', name: 'Sky', dark: '#7DD3FC', lightC: '#0369A1' },
+      { id: 'azu', name: 'Azure', dark: '#38BDF8', lightC: '#0284C7' },
+      { id: 'cer', name: 'Cerulean', dark: '#22C3E6', lightC: '#0E7490' },
+      { id: 'cor', name: 'Cornflower', dark: '#6EA8FF', lightC: '#2563EB' },
+      { id: 'ele', name: 'Electric Blue', dark: '#4D8DFF', lightC: '#1D4ED8' }
+    ];
+    const rows = [
+      { id: 'p', badge: 'FINAL OPTION 1', name: 'Deep Teal + Pistachio',
+        light: '#F3F7F1', b: '#3F7A2A', lensLight: '#B5E3A1', db: '#B5E3A1', lensDark: '#E3F5D8' },
+      { id: 's', badge: 'FINAL OPTION 2', name: 'Deep Teal + Spring Green',
+        light: '#F2F7F4', b: '#15803D', lensLight: '#86EFAC', db: '#4ADE80', lensDark: '#BBF7D0' }
+    ];
+    return {
+      rows: rows.map((r) => ({
+        ...r,
+        blues: blues.map((b) => ({
+          ...b,
+          uidD: `bl-${r.id}-${b.id}-d`,
+          uidL: `bl-${r.id}-${b.id}-l`,
+          // Outline the current colour so it is easy to compare against
+          ringW: b.id === 'cur' ? 2 : 1,
+          ringC: b.id === 'cur' ? '#08303A' : '#D5DBE7'
+        }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

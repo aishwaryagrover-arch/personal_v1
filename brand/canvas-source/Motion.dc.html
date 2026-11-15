@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Logo animations</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2B4EFF}a:hover{color:#0F2350}
+
+/* Shared timing: every piece runs on the same 5s loop so the parts stay in sync. */
+.ov-anim{animation-duration:5s;animation-iteration-count:infinite;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+/* Scale/translate SVG shapes around their own centre. */
+.ov-tb{transform-box:fill-box;transform-origin:center}
+
+/* 1. Converge: rings slide in from the sides, the overlap pops, then the name rises. */
+.ov-l{animation-name:ovL}
+.ov-r{animation-name:ovR}
+.ov-lens{animation-name:ovLens}
+.ov-word{animation-name:ovWord}
+@keyframes ovL{0%{transform:translateX(-36px);opacity:0}15%{opacity:1}40%{transform:translateX(0);opacity:1}88%{transform:translateX(0);opacity:1}100%{transform:translateX(0);opacity:0}}
+@keyframes ovR{0%{transform:translateX(36px);opacity:0}15%{opacity:1}40%{transform:translateX(0);opacity:1}88%{transform:translateX(0);opacity:1}100%{transform:translateX(0);opacity:0}}
+@keyframes ovLens{0%,40%{transform:scale(0);opacity:0}52%{transform:scale(1.18);opacity:1}62%,88%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+@keyframes ovWord{0%,55%{transform:translateY(10px);opacity:0}70%,88%{transform:translateY(0);opacity:1}100%{transform:translateY(0);opacity:0}}
+
+/* 2. Draw-on: each ring is traced like a pen stroke, one after the other, then the overlap fills. */
+.ov-draw-a{animation-name:ovDrawA}
+.ov-draw-b{animation-name:ovDrawB}
+.ov-lens2{animation-name:ovLens2}
+@keyframes ovDrawA{0%{stroke-dashoffset:214;opacity:1}35%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes ovDrawB{0%,12%{stroke-dashoffset:214;opacity:1}47%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes ovLens2{0%,47%{transform:scale(0);opacity:0}58%{transform:scale(1.18);opacity:1}66%,88%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+
+/* 3. Orbit: the AI ring swings around the design ring and locks into place. */
+.ov-orbit{animation-name:ovOrbit;transform-box:view-box;transform-origin:44px 60px}
+.ov-fade{animation-name:ovFade}
+.ov-lens3{animation-name:ovLens3}
+@keyframes ovOrbit{0%{transform:rotate(-320deg);opacity:0}10%{opacity:1}50%,88%{transform:rotate(0deg);opacity:1}100%{transform:rotate(0deg);opacity:0}}
+@keyframes ovFade{0%{opacity:0}12%,88%{opacity:1}100%{opacity:0}}
+@keyframes ovLens3{0%,50%{transform:scale(0);opacity:0}60%{transform:scale(1.18);opacity:1}68%,88%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+
+/* Respect people who turn motion off: show the finished logo instead. */
+@media (prefers-reduced-motion: reduce){.ov-anim{animation:none !important}}
+</style>
+</helmet>
+<div style="width: 1840px; height: 560px; box-sizing: border-box; padding: 24px; background: #EEF1F4; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; font-family: 'Sora', sans-serif">
+
+  <!-- 1. Converge — Cobalt + Mint -->
+  <div style="background: #F3F6FF; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true" style="overflow: visible">
+      <path class="ov-anim ov-tb ov-lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#34D399"></path>
+      <circle class="ov-anim ov-l" cx="44" cy="60" r="34" fill="none" stroke="#2B4EFF" stroke-width="8"></circle>
+      <circle class="ov-anim ov-r" cx="76" cy="60" r="34" fill="none" stroke="#2B4EFF" stroke-width="8"></circle>
+    </svg>
+    <div class="ov-anim ov-word" style="display: flex; align-items: baseline; gap: 8px; font-size: 34px; letter-spacing: -0.03em; line-height: 1">
+      <span style="font-weight: 600; color: #0E1A4F">Ovelto</span>
+      <span style="font-weight: 300; color: #56628F">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">1 · Converge</div>
+  </div>
+
+  <!-- 2. Draw-on — Forest + Lime -->
+  <div style="background: #F2F5EC; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true">
+      <path class="ov-anim ov-tb ov-lens2" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#C8F25C"></path>
+      <circle class="ov-anim ov-draw-a" cx="44" cy="60" r="34" fill="none" stroke="#1E5B47" stroke-width="8" stroke-dasharray="214" transform="rotate(-90 44 60)"></circle>
+      <circle class="ov-anim ov-draw-b" cx="76" cy="60" r="34" fill="none" stroke="#1E5B47" stroke-width="8" stroke-dasharray="214" transform="rotate(90 76 60)"></circle>
+    </svg>
+    <div class="ov-anim ov-word" style="display: flex; align-items: baseline; gap: 8px; font-size: 34px; letter-spacing: -0.03em; line-height: 1">
+      <span style="font-weight: 600; color: #12382C">Ovelto</span>
+      <span style="font-weight: 300; color: #547266">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">2 · Draw-on</div>
+  </div>
+
+  <!-- 3. Orbit — Blue meets Green (two-tone) -->
+  <div style="background: #F4F8F7; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <svg width="200" height="200" viewBox="0 0 120 120" aria-hidden="true" style="overflow: visible">
+      <path class="ov-anim ov-tb ov-lens3" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#22B8C4"></path>
+      <circle class="ov-anim ov-fade" cx="44" cy="60" r="34" fill="none" stroke="#2F6BFF" stroke-width="8"></circle>
+      <circle class="ov-anim ov-orbit" cx="76" cy="60" r="34" fill="none" stroke="#13A874" stroke-width="8"></circle>
+    </svg>
+    <div class="ov-anim ov-word" style="display: flex; align-items: baseline; gap: 8px; font-size: 34px; letter-spacing: -0.03em; line-height: 1">
+      <span style="font-weight: 600; color: #0F2350">Ovelto</span>
+      <span style="font-weight: 300; color: #55658A">Labs</span>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">3 · Orbit + lock</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":560}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

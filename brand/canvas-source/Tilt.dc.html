@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ovelto Labs — Tilt and size options</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1A2B6D}a:hover{color:#0B1640}
+</style>
+</helmet>
+<div style="width: 1840px; height: 640px; box-sizing: border-box; padding: 24px; background: #EDF0F4; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; font-family: 'Sora', sans-serif; color: #0B1640">
+
+  <!-- a. Equal rings, whole mark tilted -20° -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="t1" method="mask" size="240" tilt="-20" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="t1s" method="mask" size="48" tilt="-20" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="48px,48px"></dc-import>
+      <div style="display: flex; align-items: baseline; gap: 6px; font-size: 28px; letter-spacing: -0.03em; line-height: 1">
+        <span style="font-weight: 600">Ovelto</span><span style="font-weight: 300; color: #56628A">Labs</span>
+      </div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">a · Tilted 20°</div>
+  </div>
+
+  <!-- b. Big design ring + small AI ring, level -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="t2" method="mask" size="240" r-a="36" r-b="22" d="38" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="t2s" method="mask" size="48" r-a="36" r-b="22" d="38" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="48px,48px"></dc-import>
+      <div style="display: flex; align-items: baseline; gap: 6px; font-size: 28px; letter-spacing: -0.03em; line-height: 1">
+        <span style="font-weight: 600">Ovelto</span><span style="font-weight: 300; color: #56628A">Labs</span>
+      </div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">b · Big + small</div>
+  </div>
+
+  <!-- c. Big + small, small ring docking up-right at 35° -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="t3" method="mask" size="240" r-a="36" r-b="22" d="38" tilt="-35" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="t3s" method="mask" size="48" r-a="36" r-b="22" d="38" tilt="-35" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="48px,48px"></dc-import>
+      <div style="display: flex; align-items: baseline; gap: 6px; font-size: 28px; letter-spacing: -0.03em; line-height: 1">
+        <span style="font-weight: 600">Ovelto</span><span style="font-weight: 300; color: #56628A">Labs</span>
+      </div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">c · Big + small, tilted 35°</div>
+  </div>
+
+  <!-- d. Heavy design ring + light AI ring, tilted -20° -->
+  <div style="background: #F3F6FA; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px">
+    <dc-import name="Mark" uid="t4" method="mask" size="240" tilt="-20" w-a="11" w-b="5" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="240px,240px"></dc-import>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <dc-import name="Mark" uid="t4s" method="mask" size="48" tilt="-20" w-a="11" w-b="5" col-a="#1A2B6D" col-b="#0E9F6E" lens="#6EE7B7" hint-size="48px,48px"></dc-import>
+      <div style="display: flex; align-items: baseline; gap: 6px; font-size: 28px; letter-spacing: -0.03em; line-height: 1">
+        <span style="font-weight: 600">Ovelto</span><span style="font-weight: 300; color: #56628A">Labs</span>
+      </div>
+    </div>
+    <div style="font-size: 15px; font-weight: 600; color: #1B2540">d · Heavy + light, tilted 20°</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":640}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
