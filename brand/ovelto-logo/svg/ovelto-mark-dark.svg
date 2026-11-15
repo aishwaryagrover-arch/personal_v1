@@ -14,9 +14,9 @@
   </defs>
   <g transform="translate(0 0) scale(1)">
     <g transform="rotate(-20 60 60)">
-      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#6EE7B7"/>
-      <circle cx="44" cy="60" r="34" fill="none" stroke="#9DB0F5" stroke-width="8" mask="url(#m-ma)"/>
-      <circle cx="76" cy="60" r="34" fill="none" stroke="#34D399" stroke-width="8" mask="url(#m-mb)"/>
+      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#E3F5D8"/>
+      <circle cx="44" cy="60" r="34" fill="none" stroke="#8FD3E0" stroke-width="8" mask="url(#m-ma)"/>
+      <circle cx="76" cy="60" r="34" fill="none" stroke="#B5E3A1" stroke-width="8" mask="url(#m-mb)"/>
     </g>
   </g>
 </svg>

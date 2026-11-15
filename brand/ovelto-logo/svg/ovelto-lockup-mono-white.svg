@@ -14,7 +14,7 @@
   </defs>
   <g transform="translate(8 8) scale(1.1)">
     <g transform="rotate(-20 60 60)">
-      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#3B4A80"/>
+      <path d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#2A5A63"/>
       <circle cx="44" cy="60" r="34" fill="none" stroke="#FFFFFF" stroke-width="8" mask="url(#m-ma)"/>
       <circle cx="76" cy="60" r="34" fill="none" stroke="#FFFFFF" stroke-width="8" mask="url(#m-mb)"/>
     </g>

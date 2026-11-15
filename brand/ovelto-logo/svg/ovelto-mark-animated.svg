@@ -28,9 +28,9 @@
   </defs>
   <g class="a vb swing">
     <g transform="rotate(-20 60 60)">
-      <path class="a tb lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#6EE7B7"/>
-      <circle class="a ra" cx="44" cy="60" r="34" fill="none" stroke="#1A2B6D" stroke-width="8" stroke-dasharray="214" mask="url(#ma)"/>
-      <circle class="a rb" cx="76" cy="60" r="34" fill="none" stroke="#0E9F6E" stroke-width="8" stroke-dasharray="214" mask="url(#mb)"/>
+      <path class="a tb lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#B5E3A1"/>
+      <circle class="a ra" cx="44" cy="60" r="34" fill="none" stroke="#0F4C5C" stroke-width="8" stroke-dasharray="214" mask="url(#ma)"/>
+      <circle class="a rb" cx="76" cy="60" r="34" fill="none" stroke="#3F7A2A" stroke-width="8" stroke-dasharray="214" mask="url(#mb)"/>
     </g>
   </g>
 </svg>

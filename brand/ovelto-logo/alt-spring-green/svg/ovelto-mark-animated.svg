@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="512" height="512" role="img" aria-label="Ovelto Labs">
+  <style>
+    /* Plays once on load (forwards). Change "1" to "infinite" to loop. */
+    .a{animation:3.6s cubic-bezier(.22,1,.36,1) 1 both}
+    .vb{transform-box:view-box;transform-origin:60px 60px}
+    .tb{transform-box:fill-box;transform-origin:center}
+    .ra{animation-name:ra} .rb{animation-name:rb} .cut{animation-name:cut}
+    .lens{animation-name:lens} .swing{animation-name:swing}
+    @keyframes ra{0%{stroke-dashoffset:214px}40%,100%{stroke-dashoffset:0px}}
+    @keyframes rb{0%,12%{stroke-dashoffset:-214px}52%,100%{stroke-dashoffset:0px}}
+    @keyframes cut{0%,56%{stroke-width:0px}64%{stroke-width:19px}72%,100%{stroke-width:14px}}
+    @keyframes lens{0%,58%{transform:scale(0);opacity:0}72%{transform:scale(1.15);opacity:1}82%,100%{transform:scale(1);opacity:1}}
+    @keyframes swing{0%,66%{transform:rotate(20deg)}80%{transform:rotate(-7deg)}92%,100%{transform:rotate(0deg)}}
+    @media (prefers-reduced-motion: reduce){.a{animation:none}}
+  </style>
+  <defs>
+    <clipPath id="ct"><circle cx="60" cy="30" r="13"/></clipPath>
+    <clipPath id="cb"><circle cx="60" cy="90" r="13"/></clipPath>
+    <mask id="ma" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200">
+      <rect x="-40" y="-40" width="200" height="200" fill="#fff"/>
+      <circle class="a cut" cx="76" cy="60" r="34" fill="none" stroke="#000" stroke-width="14" clip-path="url(#ct)"/>
+    </mask>
+    <mask id="mb" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200">
+      <rect x="-40" y="-40" width="200" height="200" fill="#fff"/>
+      <circle class="a cut" cx="44" cy="60" r="34" fill="none" stroke="#000" stroke-width="14" clip-path="url(#cb)"/>
+    </mask>
+  </defs>
+  <g class="a vb swing">
+    <g transform="rotate(-20 60 60)">
+      <path class="a tb lens" d="M60 30 A34 34 0 0 1 60 90 A34 34 0 0 1 60 30 Z" fill="#86EFAC"/>
+      <circle class="a ra" cx="44" cy="60" r="34" fill="none" stroke="#0F4C5C" stroke-width="8" stroke-dasharray="214" mask="url(#ma)"/>
+      <circle class="a rb" cx="76" cy="60" r="34" fill="none" stroke="#15803D" stroke-width="8" stroke-dasharray="214" mask="url(#mb)"/>
+    </g>
+  </g>
+</svg>
