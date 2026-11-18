@@ -156,16 +156,17 @@ rep('        <div class="btnrow" style="margin-top:-4px;margin-bottom:18px">'
     '<button class="btn grey" onclick="selfStep(2)">Back</button>'
     '<button class="btn" onclick="selfStep(4)">Continue to review and sign</button></div>',
     f'''        <div class="card">
-          <div class="part">Part 2.6 · optional · confidential <span class="ftag add">Newly added / changed</span></div>
+          <div class="part">Part 2.7 · optional · confidential <span class="ftag add">Newly added / changed</span></div>
           {ADD}feedback on your reporting officer across five areas, with an optional note. No part of it is graded.</div>
-          <div class="q">Is there any feedback for your reporting officer that would help you in your work next year?</div>
-          <div class="hint">Rate each area from 1 to 5, where <b>1 is needs attention</b> and <b>5 is consistently strong</b>. Choose <b>N/A</b> where you have no basis to judge. These areas are about your reporting officer only.</div>
+          <div class="q">Feedback for your reporting officer</div>
+          <div class="hint" style="margin-bottom:8px">Is there any feedback for your reporting officer that would help you in your work next year?</div>
+          <div class="hint">Rate each area from 1 to 5, where <b>1 is needs attention</b> and <b>5 is consistently strong</b>. Mark <b>N/A</b> where you have no basis to judge.</div>
           <table id="upTable"></table>
           <div class="q" style="margin-top:16px">Anything you would like to add?</div>
-          <div class="hint">Optional. Keep it about your reporting officer and about the work. Maximum 50 words.</div>
+          <div class="hint">Keep it about your reporting officer and about the work. Maximum 50 words.</div>
           <textarea id="t26" oninput="wc('t26','c26',50)" placeholder="Optional. Maximum 50 words." style="min-height:90px"></textarea>
           <div class="counter" id="c26"></div>
-          <div class="note info">&#8505;&#65039; <b>How this is handled:</b> the feedback given to a reporting officer by everyone who reports to them is <b>pooled and shared together, anonymously</b>. Your name is not attached and your response is never shown on its own. It is not graded, is not seen by your reviewing officer, and forms no part of your APAR record.</div>
+          <div class="note info">&#8505;&#65039; Responses to a reporting officer are <b>pooled across everyone who reports to them and shared anonymously</b>. They are not graded, are not seen by the reviewing officer, and form no part of the APAR record.</div>
           {DISC}what safeguards, beyond pooling and anonymity, will ensure that sharing feedback carries no consequence for the official &mdash; and at what point the pooled feedback should reach the reporting officer. One option is to release it only after that officer has submitted every assessment for the cycle.</div>
         </div>
 
@@ -173,7 +174,7 @@ rep('        <div class="btnrow" style="margin-top:-4px;margin-bottom:18px">'
 
 rep('<tr onclick="selfStep(3)" style="cursor:pointer"><td>2.5 Training needed</td><td><span class="tag grey">Optional</span></td></tr>',
     '<tr onclick="selfStep(3)" style="cursor:pointer"><td>2.5 Training needed</td><td><span class="tag grey">Optional</span></td></tr>\n'
-    '            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.6 Feedback for your reporting officer</td><td><span class="tag grey" id="chk26">Optional</span></td></tr>')
+    '            <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.7 Feedback for your reporting officer</td><td><span class="tag grey" id="chk26">Optional</span></td></tr>')
 
 rep('<tr onclick="selfStep(2)" style="cursor:pointer"><td>Part 1.1–1.2 · reporting chain and NRC</td><td><span class="tag ok">Complete</span></td></tr>',
     '<tr onclick="selfStep(2)" style="cursor:pointer"><td>Part 1.1–1.2 · PAR workflow and NRC</td><td><span class="tag ok">Submitted for validation</span></td></tr>')
