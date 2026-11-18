@@ -157,7 +157,7 @@ rep('        <div class="btnrow" style="margin-top:-4px;margin-bottom:18px">'
     '<button class="btn" onclick="selfStep(4)">Continue to review and sign</button></div>',
     f'''        <div class="card">
           <div class="part">Part 2.7 · optional · confidential <span class="ftag add">Newly added / changed</span></div>
-          {ADD}feedback on your reporting officer across five areas, with an optional note. No part of it is graded.</div>
+          {ADD}feedback on your reporting officer across five areas, with an optional note. No part of it is graded. <b>Work in progress:</b> this question is not final &mdash; the areas, the rating scale and the wording are to be revised based on the state study and insights from other states.</div>
           <div class="q">Feedback for your reporting officer</div>
           <div class="hint" style="margin-bottom:8px">Is there any feedback for your reporting officer that would help you in your work next year?</div>
           <div class="hint">Rate each area from 1 to 5, where <b>1 is needs attention</b> and <b>5 is consistently strong</b>. Mark <b>N/A</b> where you have no basis to judge.</div>
@@ -476,10 +476,7 @@ rep(DISC + 'what safeguards, beyond pooling and anonymity, will ensure that shar
          'feedback carries no consequence for the official &mdash; and at what point the '
          'pooled feedback should reach the reporting officer. One option is to release it '
          'only after that officer has submitted every assessment for the cycle.</div>',
-    '<div class="note warn"><b>Work in progress.</b> This question is not final. '
-    'The areas, the rating scale and the wording are to be revised based on the state '
-    'study and insights from other states.</div>\n'
-    '          ' + DISC + 'what safeguards, beyond pooling and anonymity, will ensure that '
+    DISC + 'what safeguards, beyond pooling and anonymity, will ensure that '
     'sharing feedback carries no consequence for the official &mdash; and at what point the '
     'pooled feedback should reach the reporting officer.</div>')
 
