@@ -101,6 +101,12 @@ input:disabled,textarea:disabled{background:#F6F7FA;color:#64748B}
 .note.disc{background:#F5F3FF;color:#5B21B6;border-left:4px solid #8B5CF6}
 .ftag.add{background:#D1FAE5;color:#065F46}
 .ftag.disc{background:#EDE9FE;color:#5B21B6}
+.upm{display:inline-block;min-width:30px;text-align:center;padding:5px 8px;margin-right:5px;
+     border:1px solid var(--border);border-radius:6px;font-size:12.5px;cursor:pointer;
+     background:#fff;color:var(--muted);user-select:none}
+.upm:hover{border-color:var(--navy);color:var(--navy)}
+.upm.on{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:700}
+.upm.na{min-width:40px;font-size:11.5px}
 
 table{width:100%;border-collapse:collapse;font-size:12.5px}
 th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--border);background:#FAFBFD}
@@ -629,10 +635,13 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
         <div class="card">
           <div class="part">Part 2.6 · optional · confidential <span class="ftag add">Newly added / changed</span></div>
-          <div class="note add">&#10133; <b>Newly added / changed:</b> a single open field for feedback to your reporting officer. No part of it is graded.</div>
-          <div class="q">Is there any feedback you would like to share with your reporting officer?</div>
-          <div class="hint">Write about the work and the conditions around it &mdash; the direction, guidance, support, workload or ways of working that would help you deliver better next year. Please keep it respectful and about the work rather than about the person.</div>
-          <textarea id="t26" oninput="wc('t26','c26',100)" placeholder="Optional. Between 50 and 100 words." style="min-height:110px"></textarea>
+          <div class="note add">&#10133; <b>Newly added / changed:</b> feedback on your reporting officer across five areas, with an optional note. No part of it is graded.</div>
+          <div class="q">Is there any feedback for your reporting officer that would help you in your work next year?</div>
+          <div class="hint">Rate each area from 1 to 5, where <b>1 is needs attention</b> and <b>5 is consistently strong</b>. Choose <b>N/A</b> where you have no basis to judge. These areas are about your reporting officer only.</div>
+          <table id="upTable"></table>
+          <div class="q" style="margin-top:16px">Anything you would like to add?</div>
+          <div class="hint">Optional. Keep it about your reporting officer and about the work. Maximum 50 words.</div>
+          <textarea id="t26" oninput="wc('t26','c26',50)" placeholder="Optional. Maximum 50 words." style="min-height:90px"></textarea>
           <div class="counter" id="c26"></div>
           <div class="note info">&#8505;&#65039; <b>How this is handled:</b> the feedback given to a reporting officer by everyone who reports to them is <b>pooled and shared together, anonymously</b>. Your name is not attached and your response is never shown on its own. It is not graded, is not seen by your reviewing officer, and forms no part of your APAR record.</div>
           <div class="note disc">&#128310; <b>Needs discussion:</b> what safeguards, beyond pooling and anonymity, will ensure that sharing feedback carries no consequence for the official &mdash; and at what point the pooled feedback should reach the reporting officer. One option is to release it only after that officer has submitted every assessment for the cycle.</div>
@@ -1252,6 +1261,31 @@ function toggleCard(bodyId,caretId){
   const on=document.getElementById(bodyId).classList.toggle('on');
   document.getElementById(caretId).innerHTML = on ? '&#9662;' : '&#9656;';
 }
+var UPTHEMES = [
+  "Respectful and fair behaviour with juniors",
+  "Quality of support and guidance on the work",
+  "Clarity of communication and instructions",
+  "Mentorship and building your capability",
+  "Timely decisions when the work needs one"
+];
+var upMarks = {};
+function renderUp(){
+  var t = document.getElementById('upTable');
+  if (!t) return;
+  var h = '<tr><th style="width:52%">Area</th><th>Your rating</th></tr>';
+  UPTHEMES.forEach(function(name, i){
+    var cells = '';
+    for (var n = 1; n <= 5; n++){
+      cells += '<span class="upm' + (upMarks[i] === n ? ' on' : '') +
+               '" onclick="setUp(' + i + ',' + n + ')">' + n + '</span>';
+    }
+    cells += '<span class="upm na' + (upMarks[i] === 0 ? ' on' : '') +
+             '" onclick="setUp(' + i + ',0)">N/A</span>';
+    h += '<tr><td>' + name + '</td><td>' + cells + '</td></tr>';
+  });
+  t.innerHTML = h;
+}
+function setUp(i, n){ upMarks[i] = n; renderUp(); }
 function addTenure(id){
   var t=document.getElementById(id), r=t.rows[1].cloneNode(true);
   r.querySelectorAll('input').forEach(function(i){i.value='';});
@@ -1632,7 +1666,7 @@ function signReviewing(){
 
 /* ---------------- init ---------------- */
 document.getElementById('mBody').addEventListener('input',wcMemo);
-buildScales();renderChips();renderRoChips();renderMemos();renderCycle();renderLog();fillModules();setTech(0);renderLnd();
+buildScales();renderChips();renderRoChips();renderMemos();renderCycle();renderLog();fillModules();setTech(0);renderLnd();renderUp();
 wc('t22','c22',100);wc('t23','c23',50);wc('t33','c33',100);wc('t34','c34',50);wc('t52','c52',30);wc('tRep','cRep',200);wc('tReq','cReq',100);wc('rvWhy','rvWhyC',50);
 wcMemo();calc();
 </script>

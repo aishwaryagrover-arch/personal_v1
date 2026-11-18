@@ -31,12 +31,21 @@ def rep(old, new, count=1):
 
 
 # ══════════════════════════════════════════════ 0 · flag styles
+rep("buildScales();renderChips();renderRoChips();renderMemos();renderCycle();renderLog();fillModules();setTech(0);renderLnd();",
+    "buildScales();renderChips();renderRoChips();renderMemos();renderCycle();renderLog();fillModules();setTech(0);renderLnd();renderUp();")
+
 rep(".note b{font-weight:700}",
     """.note b{font-weight:700}
 .note.add{background:#ECFDF5;color:#065F46;border-left:4px solid #10B981}
 .note.disc{background:#F5F3FF;color:#5B21B6;border-left:4px solid #8B5CF6}
 .ftag.add{background:#D1FAE5;color:#065F46}
-.ftag.disc{background:#EDE9FE;color:#5B21B6}""")
+.ftag.disc{background:#EDE9FE;color:#5B21B6}
+.upm{display:inline-block;min-width:30px;text-align:center;padding:5px 8px;margin-right:5px;
+     border:1px solid var(--border);border-radius:6px;font-size:12.5px;cursor:pointer;
+     background:#fff;color:var(--muted);user-select:none}
+.upm:hover{border-color:var(--navy);color:var(--navy)}
+.upm.on{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:700}
+.upm.na{min-width:40px;font-size:11.5px}""")
 
 ADD = '<div class="note add">&#10133; <b>Newly added / changed:</b> '
 DISC = '<div class="note disc">&#128310; <b>Needs discussion:</b> '
@@ -148,10 +157,13 @@ rep('        <div class="btnrow" style="margin-top:-4px;margin-bottom:18px">'
     '<button class="btn" onclick="selfStep(4)">Continue to review and sign</button></div>',
     f'''        <div class="card">
           <div class="part">Part 2.6 · optional · confidential <span class="ftag add">Newly added / changed</span></div>
-          {ADD}a single open field for feedback to your reporting officer. No part of it is graded.</div>
-          <div class="q">Is there any feedback you would like to share with your reporting officer?</div>
-          <div class="hint">Write about the work and the conditions around it &mdash; the direction, guidance, support, workload or ways of working that would help you deliver better next year. Please keep it respectful and about the work rather than about the person.</div>
-          <textarea id="t26" oninput="wc('t26','c26',100)" placeholder="Optional. Between 50 and 100 words." style="min-height:110px"></textarea>
+          {ADD}feedback on your reporting officer across five areas, with an optional note. No part of it is graded.</div>
+          <div class="q">Is there any feedback for your reporting officer that would help you in your work next year?</div>
+          <div class="hint">Rate each area from 1 to 5, where <b>1 is needs attention</b> and <b>5 is consistently strong</b>. Choose <b>N/A</b> where you have no basis to judge. These areas are about your reporting officer only.</div>
+          <table id="upTable"></table>
+          <div class="q" style="margin-top:16px">Anything you would like to add?</div>
+          <div class="hint">Optional. Keep it about your reporting officer and about the work. Maximum 50 words.</div>
+          <textarea id="t26" oninput="wc('t26','c26',50)" placeholder="Optional. Maximum 50 words." style="min-height:90px"></textarea>
           <div class="counter" id="c26"></div>
           <div class="note info">&#8505;&#65039; <b>How this is handled:</b> the feedback given to a reporting officer by everyone who reports to them is <b>pooled and shared together, anonymously</b>. Your name is not attached and your response is never shown on its own. It is not graded, is not seen by your reviewing officer, and forms no part of your APAR record.</div>
           {DISC}what safeguards, beyond pooling and anonymity, will ensure that sharing feedback carries no consequence for the official &mdash; and at what point the pooled feedback should reach the reporting officer. One option is to release it only after that officer has submitted every assessment for the cycle.</div>
@@ -401,7 +413,32 @@ rep('<div class="note info" style="margin-top:14px">ℹ️ A reply left unrecord
 
 # ══════════════════════════════════════════════ 16 · JS helpers
 rep("function toggleMemoCard(",
-    """function addTenure(id){
+    """var UPTHEMES = [
+  "Respectful and fair behaviour with juniors",
+  "Quality of support and guidance on the work",
+  "Clarity of communication and instructions",
+  "Mentorship and building your capability",
+  "Timely decisions when the work needs one"
+];
+var upMarks = {};
+function renderUp(){
+  var t = document.getElementById('upTable');
+  if (!t) return;
+  var h = '<tr><th style="width:52%">Area</th><th>Your rating</th></tr>';
+  UPTHEMES.forEach(function(name, i){
+    var cells = '';
+    for (var n = 1; n <= 5; n++){
+      cells += '<span class="upm' + (upMarks[i] === n ? ' on' : '') +
+               '" onclick="setUp(' + i + ',' + n + ')">' + n + '</span>';
+    }
+    cells += '<span class="upm na' + (upMarks[i] === 0 ? ' on' : '') +
+             '" onclick="setUp(' + i + ',0)">N/A</span>';
+    h += '<tr><td>' + name + '</td><td>' + cells + '</td></tr>';
+  });
+  t.innerHTML = h;
+}
+function setUp(i, n){ upMarks[i] = n; renderUp(); }
+function addTenure(id){
   var t=document.getElementById(id), r=t.rows[1].cloneNode(true);
   r.querySelectorAll('input').forEach(function(i){i.value='';});
   t.appendChild(r);
