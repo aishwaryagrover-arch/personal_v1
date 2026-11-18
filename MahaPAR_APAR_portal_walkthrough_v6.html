@@ -59,7 +59,8 @@ main{padding:22px 24px 70px;max-width:1420px;margin:0 auto}
 .g-2-1{grid-template-columns:minmax(0,2fr) minmax(300px,1fr)}
 .g-1-2{grid-template-columns:minmax(260px,1fr) minmax(0,2.4fr)}
 .g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media(max-width:1080px){.g-2-1,.g-1-2,.g-3{grid-template-columns:1fr}}
+.g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:1080px){.g-2-1,.g-1-2,.g-3,.g-4{grid-template-columns:1fr}}
 
 .card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:18px}
 .card h2{font-size:15px;color:var(--navy);margin-bottom:3px}
@@ -239,29 +240,6 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
 <div class="cycle" id="cycleStrip"></div>
 
-<div class="card" id="changeLog" style="border-left:4px solid #10B981">
-  <h2 style="cursor:pointer" onclick="toggleCard('changeBody','changeCaret')">What changed in this version <span class="ftag add">v6</span> <span id="changeCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9662;</span></h2>
-  <div class="sub">Changes made after ACS (GAD) feedback. Each one is also marked on the screen it affects. Items marked <span class="ftag disc">Needs discussion</span> are open.</div>
-  <div class="hidebox on" id="changeBody">
-  <table>
-    <tr><th style="width:34%">Change</th><th>Where it shows</th><th style="width:22%">Status</th></tr>
-    <tr><td><b>Self-authority mapping</b><br><span style="color:var(--muted)">Officials map their own reporting and reviewing authority; the custodian validates</span></td>
-        <td>My APAR &middot; step 2 &nbsp;|&nbsp; Custodian &middot; authority mapping, pendency and stage-by-stage</td>
-        <td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-    <tr><td><b>Memos framed around growth</b><br><span style="color:var(--muted)">Supporting wording changed; the memo record itself is unchanged</span></td>
-        <td>All four windows</td><td><span class="ftag add">Added</span></td></tr>
-    <tr><td><b>Part 2.6 &middot; feedback for your reporting officer</b><br><span style="color:var(--muted)">One open field; all responses pooled and shared anonymously</span></td>
-        <td>My APAR &middot; step 3, after 2.5</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-    <tr><td><b>Departmental enquiry record</b><br><span style="color:var(--muted)">Read-only, from the DE portal</span></td>
-        <td>Reporting officer &middot; before Part 3.4 integrity</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-    <tr><td><b>NRC rule broadened</b><br><span style="color:var(--muted)">Tenure of 3 months or less, <i>or</i> no reporting and no reviewing authority in position</span></td>
-        <td>My APAR &middot; step 2 &nbsp;|&nbsp; Custodian &middot; authority mapping and NRC queue</td><td><span class="ftag add">Added</span></td></tr>
-    <tr><td><b>Departmental KRAs shown while grading</b><br><span style="color:var(--muted)">Anchors delivery and quality of work to the KRAs the post carries</span></td>
-        <td>Reporting officer &middot; Part 3.1 &nbsp;|&nbsp; My APAR &middot; Part 2.1</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-  </table>
-  </div>
-</div>
-
 <main>
 
 <!-- ======================= CUSTODIAN ======================= -->
@@ -269,7 +247,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
   <div class="ph"><h1>Custodian window</h1>
   <p>As custodian you are responsible for four things in this cycle: validating the reporting chain each official maps for themselves and issuing No Report Certificates; keeping track of what is pending and sending reminders; seeing that memos are being issued during the year; and running the cycle itself. You do not see or change any grade.</p></div>
 
-  <div class="grid g-3" style="margin-bottom:18px">
+  <div class="grid g-4" style="margin-bottom:18px">
     <div class="ctile amber" onclick="custStep(1)" style="cursor:pointer"><span>Officials in this cycle</span><b>1,284</b><i>4 not yet mapped &rsaquo;</i></div>
     <div class="ctile blue" onclick="custStep(2)" style="cursor:pointer"><span>APARs completed so far</span><b>612</b><i>of 1,284 &rsaquo;</i></div>
     <div class="ctile pink" onclick="custStep(2)" style="cursor:pointer"><span>APARs past their deadline at some stage</span><b>47</b><i>See what is pending, and with whom &rsaquo;</i></div>
@@ -307,10 +285,10 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <!-- 1 · authority mapping, with the NRC queue inside it -->
       <div class="wiz on" id="cust1">
         <div class="card">
-          <h2>Validate authority mapping <span class="ftag add">Changed</span></h2>
+          <h2>Validate authority mapping <span class="ftag add">Newly added / changed</span></h2>
           <div class="sub">Officials now map their own reporting and reviewing authority. You check what they recorded and either validate it or issue a correction. MahaPAR works out the duration and decides whether an APAR workflow is created or an NRC is auto-generated.</div>
-          <div class="note add">&#10133; <b>Added in this version:</b> the mapping is submitted by the official; the custodian validates or corrects it, and pendency on unsubmitted mappings is tracked like any other stage.</div>
-          <div class="note disc">&#128310; <b>Needs discussion:</b> what happens where the custodian&rsquo;s record differs from what the official mapped, and whether a correction needs the official&rsquo;s acknowledgement.</div>
+          <div class="note add">&#10133; <b>Newly added / changed:</b> the mapping is submitted by the official; the custodian validates or corrects it, and pendency on unsubmitted mappings is tracked like any other stage. <b>This process is yet to be finalised.</b></div>
+
           <table style="font-size:12px">
             <tr><th>Official</th><th>Mapped by the official<br>(reporting / reviewing)</th><th>From<br>To</th><th>Duration</th><th>Status</th><th>MahaPAR action</th></tr>
             <tr><td style="min-width:120px"><b>Shri A. B. Sawant</b><br><span style="color:var(--muted)">Section Officer</span></td>
@@ -339,9 +317,9 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="note info">ℹ️ Officials map their own authorities and can see the validated record in their own window. A correction you issue replaces what they submitted and notifies them.</div>
           <div class="note info">ℹ️ <b>Future direction:</b> once e-office orders are fully digitised, the mapping will be pre-filled from eHRMS, and both the official and the custodian will confirm it rather than enter it.</div>
           <div class="rule"></div>
-          <h3>NRC auto-generated by the MahaPAR system <span class="ftag add">Changed</span></h3>
+          <h3>NRC auto-generated by the MahaPAR system <span class="ftag add">Newly added / changed</span></h3>
           <div class="sub">Auto-generated where the mapped tenure is 3 months or less, <b>or</b> where neither a reporting nor a reviewing authority was in position for the period. Each certificate records which of the two reasons applies. Your validation issues it.</div>
-          <div class="note add">&#10133; <b>Added in this version:</b> the second ground &mdash; no reporting and no reviewing authority in position &mdash; and the reason is now stated on each certificate.</div>
+          <div class="note add">&#10133; <b>Newly added / changed:</b> the second ground &mdash; no reporting and no reviewing authority in position &mdash; and the reason is now stated on each certificate.</div>
           <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Awaiting your validation</span></div>
             <div class="meta">Under Shri R. S. Gokhale · 20/01/2026 – 31/03/2026 · 2 months 10 days</div>
             <div class="meta"><b>Reason:</b> tenure under the reporting authority was 3 months or less.</div>
@@ -370,7 +348,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           </div>
           <table>
             <tr><th>Official</th><th>Post</th><th>Waiting at</th><th>Waiting with</th><th>Overdue by</th><th></th></tr>
-            <tr><td><b>Smt. P. R. Shelke</b></td><td>Senior Clerk</td><td>PAR workflow mapping <span class="ftag add">Added</span></td><td>The official</td><td><span class="tag red">17 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. P. R. Shelke to submit her PAR workflow.')">Remind</button></td></tr>
+            <tr><td><b>Smt. P. R. Shelke</b></td><td>Senior Clerk</td><td>PAR workflow mapping <span class="ftag add">Newly added / changed</span></td><td>The official</td><td><span class="tag red">17 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. P. R. Shelke to submit her PAR workflow.')">Remind</button></td></tr>
             <tr><td><b>Smt. J. K. More</b></td><td>Asst Section Officer</td><td>Reporting</td><td>Shri R. S. Gokhale</td><td><span class="tag red">61 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri R. S. Gokhale.')">Remind</button></td></tr>
             <tr><td><b>Shri N. P. Bhosale</b></td><td>Section Officer</td><td>Self-appraisal</td><td>The official</td><td><span class="tag red">48 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri N. P. Bhosale.')">Remind</button></td></tr>
             <tr><td><b>Shri T. V. Kulkarni</b></td><td>Section Officer</td><td>Reporting</td><td>Shri C. D. Joshi</td><td><span class="tag warn">22 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri C. D. Joshi.')">Remind</button></td></tr>
@@ -385,7 +363,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="sub">You do not fill this in. MahaPAR works it out from the dates on which each stage was signed.</div>
           <table>
             <tr><th>Stage</th><th>Completed</th><th>On time</th><th>Late</th><th>Still pending</th></tr>
-            <tr><td>PAR workflow mapping by the official <span class="ftag add">Added</span></td><td>1,042</td><td>967</td><td>75</td><td><b>242</b></td></tr>
+            <tr><td>PAR workflow mapping by the official <span class="ftag add">Newly added / changed</span></td><td>1,042</td><td>967</td><td>75</td><td><b>242</b></td></tr>
             <tr><td>Self-appraisal</td><td>1,197</td><td>1,109</td><td>88</td><td>87</td></tr>
             <tr><td>Reporting</td><td>653</td><td>612</td><td>41</td><td>544</td></tr>
             <tr><td>Reviewing</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
@@ -424,14 +402,14 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <tr><td><b>Smt. J. K. More</b></td><td>Shri E. F. Rane</td><td>02 Feb 2026</td><td>16 Feb 2026</td><td><span class="tag warn">12 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. J. K. More to record a reply in eHRMS.')">Remind</button></td></tr>
           </table>
           <div class="note info" style="margin-top:14px">ℹ️ A reply left unrecorded can count against the official when the APAR is graded. Reminding them keeps that fair.</div>
-          <div class="note add">&#10133; <b>Added in this version:</b> the last column is now read as a supervision gap rather than a clean record. The memo record and its use at grading are unchanged.</div>
+          <div class="note add">&#10133; <b>Newly added / changed:</b> the last column is now read as a supervision gap rather than a clean record. The memo record and its use at grading are unchanged.</div>
         </div>
 
         <div class="card">
           <h2>Memos issued, by reporting officer</h2>
           <div class="sub">Counts only, for GAD's review. There is no action for the custodian here. A high figure in the last column is a supervision gap, not a clean record: it means a low grade later would arrive without warning.</div>
           <table>
-            <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials who received no memo <span class="ftag add">Reframed</span></th></tr>
+            <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials who received no memo <span class="ftag add">Newly added / changed</span></th></tr>
             <tr><td>Shri C. D. Joshi</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
             <tr><td>Shri R. S. Gokhale</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
             <tr><td>Shri E. F. Rane</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
@@ -496,9 +474,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <!-- step 2 -->
       <div class="wiz" id="self2">
         <div class="card">
-          <div class="part">Part 1.1 · create your PAR workflow <span class="ftag add">Added</span></div>
-          <div class="note add">&#10133; <b>Added in this version:</b> you now record your own reporting and reviewing authority for the year. It goes to the custodian, who validates it or issues a correction.</div>
-          <div class="note disc">&#128310; <b>Needs discussion:</b> whether an official&rsquo;s own mapping is acceptable where it differs from posting orders, and the minimum overlap to apply (90 days is assumed here).</div>
+          <div class="part">Part 1.1 · create your PAR workflow <span class="ftag add">Newly added / changed</span></div>
+          <div class="note add">&#10133; <b>Newly added / changed:</b> you now record your own reporting and reviewing authority for the year. It goes to the custodian, who validates it or issues a correction. <b>This process is yet to be finalised.</b></div>
           <div class="sub">Assessment year 2025&ndash;26 · 01 Apr 2025 to 31 Mar 2026 · 365 days · Shri A. B. Sawant, Section Officer</div>
 
           <div class="q" style="margin-top:14px">1 · Who was your reporting authority?</div>
@@ -651,14 +628,14 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         </div>
 
         <div class="card">
-          <div class="part">Part 2.6 · optional · confidential <span class="ftag add">Added</span></div>
-          <div class="note add">&#10133; <b>Added in this version:</b> a single open field for feedback to your reporting officer. No part of it is graded.</div>
+          <div class="part">Part 2.6 · optional · confidential <span class="ftag add">Newly added / changed</span></div>
+          <div class="note add">&#10133; <b>Newly added / changed:</b> a single open field for feedback to your reporting officer. No part of it is graded.</div>
           <div class="q">Is there any feedback you would like to share with your reporting officer?</div>
           <div class="hint">Write about the work and the conditions around it &mdash; the direction, guidance, support, workload or ways of working that would help you deliver better next year. Please keep it respectful and about the work rather than about the person.</div>
           <textarea id="t26" oninput="wc('t26','c26',100)" placeholder="Optional. Between 50 and 100 words." style="min-height:110px"></textarea>
           <div class="counter" id="c26"></div>
           <div class="note info">&#8505;&#65039; <b>How this is handled:</b> the feedback given to a reporting officer by everyone who reports to them is <b>pooled and shared together, anonymously</b>. Your name is not attached and your response is never shown on its own. It is not graded, is not seen by your reviewing officer, and forms no part of your APAR record.</div>
-          <div class="note disc">&#128310; <b>Needs discussion:</b> when the pooled feedback is released, and the minimum number of responses before it is shared at all &mdash; the two things that make &ldquo;no implications&rdquo; real.</div>
+          <div class="note disc">&#128310; <b>Needs discussion:</b> what safeguards, beyond pooling and anonymity, will ensure that sharing feedback carries no consequence for the official &mdash; and at what point the pooled feedback should reach the reporting officer. One option is to release it only after that officer has submitted every assessment for the cycle.</div>
         </div>
 
         <div class="btnrow" style="margin-top:-4px;margin-bottom:18px"><button class="btn grey" onclick="selfStep(2)">Back</button><button class="btn" onclick="selfStep(4)">Continue to review and sign</button></div>
@@ -723,7 +700,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="card">
           <h2>Memos received this year</h2>
           <div class="sub">Memos issued in eHRMS by your reporting officer during the year. Each one records where your work needed to improve and what was expected, so that nothing in the assessment comes as a surprise.</div>
-          <div class="note add">&#10133; <b>Added in this version:</b> the same record, framed as development rather than as a disciplinary note.</div>
+          <div class="note add">&#10133; <b>Newly added / changed:</b> the same record, framed as development rather than as a disciplinary note.</div>
           <div id="selfMemos"></div>
           <div class="note info" style="margin-top:4px">&#8505;&#65039; Replies are recorded in eHRMS against the memo itself, not in this form.</div>
           <div class="btnrow"><button class="btn ghost sm" onclick="toast('Opens the memo in eHRMS, where the reply is recorded against it.')">Record a response in eHRMS</button></div>
@@ -803,7 +780,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <div class="card">
         <h2 style="cursor:pointer" onclick="toggleMemoCard()">Memo record for <span id="memoWho">Shri A. B. Sawant</span> for this assessment year <span id="memoCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9656;</span></h2>
         <div class="sub">Memos you issued to this official during 2025–26, shown here automatically.</div>
-        <div class="note add">&#10133; <b>Added in this version:</b> framed as a development record. A memo notes where work needed to improve and what support was offered &mdash; it is not a penalty, and an official who received it during the year is not taken by surprise by the assessment.</div>
+        <div class="note add">&#10133; <b>Newly added / changed:</b> framed as a development record. A memo notes where work needed to improve and what support was offered &mdash; it is not a penalty, and an official who received it during the year is not taken by surprise by the assessment.</div>
         <div class="hidebox" id="memoCardBody">
         <div id="repMemos"></div>
         <div class="btnrow"><button class="btn amber" onclick="show('memoComposer',1)">Issue a memo</button></div>
@@ -840,7 +817,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="hint">The figures shown under a heading are there to help you judge it. They do not add to or subtract from the score by themselves.</div>
         <div class="note info">&#8505;&#65039; Please see <b>Annexure 3</b> for additional explanation on how each dimension can be graded for different kinds of posts, so that an official is assessed on these dimensions based on what their own work involves. For example, the &lsquo;Collaboration and communication&rsquo; dimension may require different behaviours or skills for a post mainly dealing with file-processing as opposed to a public-facing one.
           <div class="btnrow" style="margin-top:8px"><button class="btn ghost sm" onclick="openAnx()">Open Annexure 3</button></div></div>
-        <div class="part" style="cursor:pointer;margin-top:14px" onclick="toggleCard('kraBody','kraCaret')">Departmental KRAs for this post <span class="ftag add">Added</span> <span id="kraCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9662;</span></div>
+        <div class="part" style="cursor:pointer;margin-top:14px" onclick="toggleCard('kraBody','kraCaret')">Departmental KRAs for this post <span class="ftag add">Newly added / changed</span> <span id="kraCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9662;</span></div>
         <div class="hidebox on" id="kraBody">
           <div class="hint">The KRAs the post carries, with what the official recorded against each in Part 2.1. Use them to anchor <b>dimension 1, delivery of planned work</b> and <b>dimension 2, quality of work</b>, so that delivery is judged against what this post is actually responsible for.</div>
           <table>
@@ -849,7 +826,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <tr><td>Statutory compliance &middot; RTI</td><td>Clear 100% of RTI applications within statutory time</td><td>214 of 218 cleared within 30 days</td></tr>
             <tr><td>Returns and reporting</td><td>File all quarterly returns by the due date</td><td>3 of 4 on time; Q1 filed 23 days late</td></tr>
           </table>
-          <div class="note add">&#10133; <b>Added in this version:</b> departmental KRAs are shown here so that delivery and quality of work are read against the post&rsquo;s own responsibilities rather than in the abstract.</div>
+          <div class="note add">&#10133; <b>Newly added / changed:</b> departmental KRAs are shown here so that delivery and quality of work are read against the post&rsquo;s own responsibilities rather than in the abstract.</div>
           <div class="note info">&#8505;&#65039; <b>Future direction:</b> KRAs are typed into Part 2.1 today. They will be pre-filled from the department&rsquo;s KRA set once role mapping is complete.</div>
         </div>
 
@@ -911,7 +888,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="note info">&#8505;&#65039; <b>Future direction:</b> the grade above is not the final score. MahaPAR generates <b>Part 6</b> once every stage up to the reviewing officer&rsquo;s is complete; no officer enters it. Part 6 carries timeliness marks, worth <b>5% of the final score</b>, that is <b>&minus;0.5 to +0.5</b> on the 10-point scale. Timeliness is counted for every role an official holds in the cycle: their own self-appraisal, their assessments as a reporting officer, and their reviews as a reviewing officer. Each is counted as submitted on time, or late or not done, and the marks go to that official&rsquo;s own score.</div>
 
         <div class="rule"></div>
-        <div class="part">Departmental enquiry record <span class="ftag add">Added</span></div>
+        <div class="part">Departmental enquiry record <span class="ftag add">Newly added / changed</span></div>
         <div class="hint">Read-only, from the departmental enquiry portal. Shown for your reference while recording integrity below.</div>
         <table>
           <tr><th style="width:30%">Field</th><th>Value</th></tr>
@@ -922,7 +899,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <tr><td>Current stage</td><td>Enquiry officer appointed; statement of defence received</td></tr>
           <tr><td>Last updated</td><td>22 Feb 2026</td></tr>
         </table>
-        <div class="note add">&#10133; <b>Added in this version:</b> the reporting officer can now see whether a departmental enquiry is open against the official, and what it concerns.</div>
+        <div class="note add">&#10133; <b>Newly added / changed:</b> the reporting officer can now see whether a departmental enquiry is open against the official, and what it concerns.</div>
         <div class="note warn">&#9888;&#65039; <b>An enquiry that has not concluded is not a finding.</b> A pending enquiry is not by itself a ground for an adverse grade or for recording integrity as doubtful.</div>
         <div class="note disc">&#128310; <b>Needs discussion:</b> which particulars of a departmental enquiry a reporting officer should see here &mdash; the fields above are a first proposal.</div>
         <div class="note info">&#8505;&#65039; <b>Future direction:</b> filled automatically once the departmental enquiry portal is linked to MahaPAR. Until then the custodian records the status.</div>

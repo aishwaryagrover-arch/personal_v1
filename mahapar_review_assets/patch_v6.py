@@ -38,35 +38,17 @@ rep(".note b{font-weight:700}",
 .ftag.add{background:#D1FAE5;color:#065F46}
 .ftag.disc{background:#EDE9FE;color:#5B21B6}""")
 
-ADD = '<div class="note add">&#10133; <b>Added in this version:</b> '
+ADD = '<div class="note add">&#10133; <b>Newly added / changed:</b> '
 DISC = '<div class="note disc">&#128310; <b>Needs discussion:</b> '
 
-# ══════════════════════════════════════════════ 1 · change log at the top
-rep('<div class="cycle" id="cycleStrip"></div>',
-    '<div class="cycle" id="cycleStrip"></div>\n'
-    """
-<div class="card" id="changeLog" style="border-left:4px solid #10B981">
-  <h2 style="cursor:pointer" onclick="toggleCard('changeBody','changeCaret')">What changed in this version <span class="ftag add">v6</span> <span id="changeCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9662;</span></h2>
-  <div class="sub">Changes made after ACS (GAD) feedback. Each one is also marked on the screen it affects. Items marked <span class="ftag disc">Needs discussion</span> are open.</div>
-  <div class="hidebox on" id="changeBody">
-  <table>
-    <tr><th style="width:34%">Change</th><th>Where it shows</th><th style="width:22%">Status</th></tr>
-    <tr><td><b>Self-authority mapping</b><br><span style="color:var(--muted)">Officials map their own reporting and reviewing authority; the custodian validates</span></td>
-        <td>My APAR &middot; step 2 &nbsp;|&nbsp; Custodian &middot; authority mapping, pendency and stage-by-stage</td>
-        <td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-    <tr><td><b>Memos framed around growth</b><br><span style="color:var(--muted)">Supporting wording changed; the memo record itself is unchanged</span></td>
-        <td>All four windows</td><td><span class="ftag add">Added</span></td></tr>
-    <tr><td><b>Part 2.6 &middot; feedback for your reporting officer</b><br><span style="color:var(--muted)">One open field; all responses pooled and shared anonymously</span></td>
-        <td>My APAR &middot; step 3, after 2.5</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-    <tr><td><b>Departmental enquiry record</b><br><span style="color:var(--muted)">Read-only, from the DE portal</span></td>
-        <td>Reporting officer &middot; before Part 3.4 integrity</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-    <tr><td><b>NRC rule broadened</b><br><span style="color:var(--muted)">Tenure of 3 months or less, <i>or</i> no reporting and no reviewing authority in position</span></td>
-        <td>My APAR &middot; step 2 &nbsp;|&nbsp; Custodian &middot; authority mapping and NRC queue</td><td><span class="ftag add">Added</span></td></tr>
-    <tr><td><b>Departmental KRAs shown while grading</b><br><span style="color:var(--muted)">Anchors delivery and quality of work to the KRAs the post carries</span></td>
-        <td>Reporting officer &middot; Part 3.1 &nbsp;|&nbsp; My APAR &middot; Part 2.1</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-  </table>
-  </div>
-</div>""")
+# ══════════════════════════════════════════════ 1 · four stat tiles on one row
+rep(".g-3{grid-template-columns:repeat(3,minmax(0,1fr))}",
+    ".g-3{grid-template-columns:repeat(3,minmax(0,1fr))}\n"
+    ".g-4{grid-template-columns:repeat(4,minmax(0,1fr))}")
+rep('@media(max-width:1080px){.g-2-1,.g-1-2,.g-3{grid-template-columns:1fr}}',
+    '@media(max-width:1080px){.g-2-1,.g-1-2,.g-3,.g-4{grid-template-columns:1fr}}')
+rep('<div class="grid g-3" style="margin-bottom:18px">',
+    '<div class="grid g-4" style="margin-bottom:18px">')
 
 # ══════════════════════════════════════════════ 2 · self pane intro + step list
 rep("Four sections. Part 1 is already filled in and your reporting chain is mapped by the custodian. "
@@ -94,9 +76,8 @@ OFFICERS = ('<option>Select officer</option>'
             '<option>Smt. S. V. Deshmukh — Joint Secretary</option>'
             '<option>No authority was in position for this period</option>')
 
-NEW_STEP2 = f'''          <div class="part">Part 1.1 · create your PAR workflow <span class="ftag add">Added</span></div>
-          {ADD}you now record your own reporting and reviewing authority for the year. It goes to the custodian, who validates it or issues a correction.</div>
-          {DISC}whether an official&rsquo;s own mapping is acceptable where it differs from posting orders, and the minimum overlap to apply (90 days is assumed here).</div>
+NEW_STEP2 = f'''          <div class="part">Part 1.1 · create your PAR workflow <span class="ftag add">Newly added / changed</span></div>
+          {ADD}you now record your own reporting and reviewing authority for the year. It goes to the custodian, who validates it or issues a correction. <b>This process is yet to be finalised.</b></div>
           <div class="sub">Assessment year 2025&ndash;26 · 01 Apr 2025 to 31 Mar 2026 · 365 days · Shri A. B. Sawant, Section Officer</div>
 
           <div class="q" style="margin-top:14px">1 · Who was your reporting authority?</div>
@@ -166,14 +147,14 @@ rep('        <div class="btnrow" style="margin-top:-4px;margin-bottom:18px">'
     '<button class="btn grey" onclick="selfStep(2)">Back</button>'
     '<button class="btn" onclick="selfStep(4)">Continue to review and sign</button></div>',
     f'''        <div class="card">
-          <div class="part">Part 2.6 · optional · confidential <span class="ftag add">Added</span></div>
+          <div class="part">Part 2.6 · optional · confidential <span class="ftag add">Newly added / changed</span></div>
           {ADD}a single open field for feedback to your reporting officer. No part of it is graded.</div>
           <div class="q">Is there any feedback you would like to share with your reporting officer?</div>
           <div class="hint">Write about the work and the conditions around it &mdash; the direction, guidance, support, workload or ways of working that would help you deliver better next year. Please keep it respectful and about the work rather than about the person.</div>
           <textarea id="t26" oninput="wc('t26','c26',100)" placeholder="Optional. Between 50 and 100 words." style="min-height:110px"></textarea>
           <div class="counter" id="c26"></div>
           <div class="note info">&#8505;&#65039; <b>How this is handled:</b> the feedback given to a reporting officer by everyone who reports to them is <b>pooled and shared together, anonymously</b>. Your name is not attached and your response is never shown on its own. It is not graded, is not seen by your reviewing officer, and forms no part of your APAR record.</div>
-          {DISC}when the pooled feedback is released, and the minimum number of responses before it is shared at all &mdash; the two things that make &ldquo;no implications&rdquo; real.</div>
+          {DISC}what safeguards, beyond pooling and anonymity, will ensure that sharing feedback carries no consequence for the official &mdash; and at what point the pooled feedback should reach the reporting officer. One option is to release it only after that officer has submitted every assessment for the cycle.</div>
         </div>
 
         <div class="btnrow" style="margin-top:-4px;margin-bottom:18px"><button class="btn grey" onclick="selfStep(2)">Back</button><button class="btn" onclick="selfStep(4)">Continue to review and sign</button></div>''')
@@ -251,7 +232,7 @@ rep("This official has no memo record, so a below-benchmark grade would carry no
 
 # ══════════════════════════════════════════════ 8 · Part 3.1 · departmental KRAs for reference
 rep('<div class="part" style="cursor:pointer;margin-top:14px" onclick="toggleCard(\'sysBody\',\'sysCaret\')">System data for your reference',
-    f'''<div class="part" style="cursor:pointer;margin-top:14px" onclick="toggleCard('kraBody','kraCaret')">Departmental KRAs for this post <span class="ftag add">Added</span> <span id="kraCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9662;</span></div>
+    f'''<div class="part" style="cursor:pointer;margin-top:14px" onclick="toggleCard('kraBody','kraCaret')">Departmental KRAs for this post <span class="ftag add">Newly added / changed</span> <span id="kraCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9662;</span></div>
         <div class="hidebox on" id="kraBody">
           <div class="hint">The KRAs the post carries, with what the official recorded against each in Part 2.1. Use them to anchor <b>dimension 1, delivery of planned work</b> and <b>dimension 2, quality of work</b>, so that delivery is judged against what this post is actually responsible for.</div>
           <table>
@@ -270,7 +251,7 @@ rep('<div class="part" style="cursor:pointer;margin-top:14px" onclick="toggleCar
 rep('''        <div class="rule"></div>
         <div class="part">Part 3.4 · integrity</div>''',
     f'''        <div class="rule"></div>
-        <div class="part">Departmental enquiry record <span class="ftag add">Added</span></div>
+        <div class="part">Departmental enquiry record <span class="ftag add">Newly added / changed</span></div>
         <div class="hint">Read-only, from the departmental enquiry portal. Shown for your reference while recording integrity below.</div>
         <table>
           <tr><th style="width:30%">Field</th><th>Value</th></tr>
@@ -325,10 +306,10 @@ rep('<p>As custodian you are responsible for four things in this cycle: recordin
 # ══════════════════════════════════════════════ 12 · custodian · mapping becomes validation
 rep('<h2>Authority mapping</h2>\n'
     '          <div class="sub">Map every official to a reporting and reviewing officer, with the period each served under them. MahaPAR works out the duration and decides whether an APAR workflow is created or an NRC is auto-generated.</div>',
-    '<h2>Validate authority mapping <span class="ftag add">Changed</span></h2>\n'
+    '<h2>Validate authority mapping <span class="ftag add">Newly added / changed</span></h2>\n'
     '          <div class="sub">Officials now map their own reporting and reviewing authority. You check what they recorded and either validate it or issue a correction. MahaPAR works out the duration and decides whether an APAR workflow is created or an NRC is auto-generated.</div>\n'
-    f'          {ADD}the mapping is submitted by the official; the custodian validates or corrects it, and pendency on unsubmitted mappings is tracked like any other stage.</div>\n'
-    f'          {DISC}what happens where the custodian&rsquo;s record differs from what the official mapped, and whether a correction needs the official&rsquo;s acknowledgement.</div>')
+    f'          {ADD}the mapping is submitted by the official; the custodian validates or corrects it, and pendency on unsubmitted mappings is tracked like any other stage. <b>This process is yet to be finalised.</b></div>\n'
+    '')
 
 rep('<tr><th>Official</th><th>Reporting officer<br>Reviewing officer</th><th>From<br>To</th><th>Duration</th><th>MahaPAR action</th></tr>',
     '<tr><th>Official</th><th>Mapped by the official<br>(reporting / reviewing)</th><th>From<br>To</th><th>Duration</th><th>Status</th><th>MahaPAR action</th></tr>')
@@ -369,7 +350,7 @@ rep('<h3>NRC auto-generated by the MahaPAR system</h3>\n'
     '          <div class="sub">Auto-generated where the mapped period is under 3 months. Your validation issues the certificate.</div>\n'
     '          <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Awaiting your validation</span></div>\n'
     '            <div class="meta">Under Shri R. S. Gokhale · 20/01/2026 – 31/03/2026 · 2 months 10 days</div>',
-    '<h3>NRC auto-generated by the MahaPAR system <span class="ftag add">Changed</span></h3>\n'
+    '<h3>NRC auto-generated by the MahaPAR system <span class="ftag add">Newly added / changed</span></h3>\n'
     '          <div class="sub">Auto-generated where the mapped tenure is 3 months or less, <b>or</b> where neither a reporting nor a reviewing authority was in position for the period. Each certificate records which of the two reasons applies. Your validation issues it.</div>\n'
     f'          {ADD}the second ground &mdash; no reporting and no reviewing authority in position &mdash; and the reason is now stated on each certificate.</div>\n'
     '          <div class="memo"><div class="top"><b>Smt. J. K. More</b><span class="tag warn">Awaiting your validation</span></div>\n'
@@ -388,12 +369,12 @@ rep('<div class="memo answered"><div class="top"><b>Change requests from officia
 # ══════════════════════════════════════════════ 14 · custodian · pendency and stage-by-stage
 rep('<tr><th>Official</th><th>Post</th><th>Waiting at</th><th>Waiting with</th><th>Overdue by</th><th></th></tr>',
     '<tr><th>Official</th><th>Post</th><th>Waiting at</th><th>Waiting with</th><th>Overdue by</th><th></th></tr>\n'
-    '            <tr><td><b>Smt. P. R. Shelke</b></td><td>Senior Clerk</td><td>PAR workflow mapping <span class="ftag add">Added</span></td><td>The official</td><td><span class="tag red">17 days</span></td><td><button class="btn sm ghost" onclick="toast(\'Reminder sent to Smt. P. R. Shelke to submit her PAR workflow.\')">Remind</button></td></tr>')
+    '            <tr><td><b>Smt. P. R. Shelke</b></td><td>Senior Clerk</td><td>PAR workflow mapping <span class="ftag add">Newly added / changed</span></td><td>The official</td><td><span class="tag red">17 days</span></td><td><button class="btn sm ghost" onclick="toast(\'Reminder sent to Smt. P. R. Shelke to submit her PAR workflow.\')">Remind</button></td></tr>')
 
 rep('<tr><th>Stage</th><th>Completed</th><th>On time</th><th>Late</th><th>Still pending</th></tr>\n'
     '            <tr><td>Self-appraisal</td>',
     '<tr><th>Stage</th><th>Completed</th><th>On time</th><th>Late</th><th>Still pending</th></tr>\n'
-    '            <tr><td>PAR workflow mapping by the official <span class="ftag add">Added</span></td><td>1,042</td><td>967</td><td>75</td><td><b>242</b></td></tr>\n'
+    '            <tr><td>PAR workflow mapping by the official <span class="ftag add">Newly added / changed</span></td><td>1,042</td><td>967</td><td>75</td><td><b>242</b></td></tr>\n'
     '            <tr><td>Self-appraisal</td>')
 
 # ══════════════════════════════════════════════ 15 · custodian · memo tracking reframed
@@ -409,7 +390,7 @@ rep('<h2>Memos issued, by reporting officer</h2>',
     '<h2>Memos issued, by reporting officer</h2>')
 
 rep('<tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials with zero memos</th></tr>',
-    '<tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials who received no memo <span class="ftag add">Reframed</span></th></tr>')
+    '<tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials who received no memo <span class="ftag add">Newly added / changed</span></th></tr>')
 
 rep('<div class="sub">Counts only, for GAD&rsquo;s review. There is no action for the custodian here.</div>'.replace("&rsquo;", "'"),
     '<div class="sub">Counts only, for GAD\'s review. There is no action for the custodian here. A high figure in the last column is a supervision gap, not a clean record: it means a low grade later would arrive without warning.</div>')
