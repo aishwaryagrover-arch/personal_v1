@@ -459,5 +459,30 @@ rep('seeing that memos are being issued during the year;',
     'seeing that memos are being issued during the year;')
 
 
+# ══════════════════════════════════════════════ 18 · banners and provenance
+rep('<span><b>DRAFT FOR DISCUSSION</b> · IDinsight with GAD · October 2026 · demo data · all names and figures are illustrative</span>',
+    '<span><b>DRAFT FOR DISCUSSION WITH GAD</b> · Template created by IDinsight · '
+    'November 2026 · demo data · all names and figures are illustrative</span>')
+
+rep('<footer>MahaPAR · draft user windows for discussion with GAD · IDinsight, October 2026 · demo data, no real official records</footer>',
+    '<footer><b>Template created by IDinsight</b> · MahaPAR draft user windows for '
+    'discussion with GAD · November 2026 · demo data, no real official records<br>'
+    '<span style="opacity:.8">Prepared by IDinsight for the General Administration '
+    'Department, Government of Maharashtra. Not for circulation or reuse without '
+    'permission.</span></footer>')
+
+# the feedback item is not settled: say so on the question itself
+rep(DISC + 'what safeguards, beyond pooling and anonymity, will ensure that sharing '
+         'feedback carries no consequence for the official &mdash; and at what point the '
+         'pooled feedback should reach the reporting officer. One option is to release it '
+         'only after that officer has submitted every assessment for the cycle.</div>',
+    '<div class="note warn"><b>Work in progress.</b> This question is not final. '
+    'The areas, the rating scale and the wording are to be revised based on the state '
+    'study and insights from other states.</div>\n'
+    '          ' + DISC + 'what safeguards, beyond pooling and anonymity, will ensure that '
+    'sharing feedback carries no consequence for the official &mdash; and at what point the '
+    'pooled feedback should reach the reporting officer.</div>')
+
+
 open(DST, "w", encoding="utf-8").write(s)
 print("wrote", DST, "·", n, "edits ·", round(os.path.getsize(DST) / 1024), "KB")
