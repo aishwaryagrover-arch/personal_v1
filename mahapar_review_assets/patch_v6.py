@@ -35,7 +35,7 @@ rep("buildScales();renderChips();renderRoChips();renderMemos();renderCycle();ren
     "buildScales();renderChips();renderRoChips();renderMemos();renderCycle();renderLog();fillModules();setTech(0);renderLnd();renderUp();")
 
 rep('<span class="formflag">Based on <b>Form A</b> · Group A and B officials · draft v4</span>',
-    '<span class="formflag">Based on <b>Form A</b> (Group A and B officials) &mdash; latest draft</span>')
+    '<span class="formflag">Based on <b>Form A</b> (Group A and B officials) &ndash; latest draft</span>')
 
 rep(".note b{font-weight:700}",
     """.note b{font-weight:700}
