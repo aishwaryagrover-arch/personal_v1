@@ -54,9 +54,9 @@ rep('<div class="cycle" id="cycleStrip"></div>',
     <tr><td><b>Self-authority mapping</b><br><span style="color:var(--muted)">Officials map their own reporting and reviewing authority; the custodian validates</span></td>
         <td>My APAR &middot; step 2 &nbsp;|&nbsp; Custodian &middot; authority mapping, pendency and stage-by-stage</td>
         <td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-    <tr><td><b>Memo reframed as feedback for growth</b><br><span style="color:var(--muted)">Wording changed everywhere; the record itself is unchanged</span></td>
+    <tr><td><b>Memos framed around growth</b><br><span style="color:var(--muted)">Supporting wording changed; the memo record itself is unchanged</span></td>
         <td>All four windows</td><td><span class="ftag add">Added</span></td></tr>
-    <tr><td><b>Part 2.6 &middot; feedback for your reporting officer</b><br><span style="color:var(--muted)">One open field, pooled and shared anonymously</span></td>
+    <tr><td><b>Part 2.6 &middot; feedback for your reporting officer</b><br><span style="color:var(--muted)">One open field; all responses pooled and shared anonymously</span></td>
         <td>My APAR &middot; step 3, after 2.5</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
     <tr><td><b>Departmental enquiry record</b><br><span style="color:var(--muted)">Read-only, from the DE portal</span></td>
         <td>Reporting officer &middot; before Part 3.4 integrity</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
@@ -79,7 +79,7 @@ rep('<li onclick="selfStep(2)"><span class="n">2</span><div>Your reporting chain
 
 rep('<li onclick="selfStep(7)"><span class="n">&#9679;</span><div>Memos received<small>2 &middot; 1 awaiting your reply</small></div></li>'
     .replace("&middot;", "·"),
-    '<li onclick="selfStep(7)"><span class="n">&#9679;</span><div>Feedback for growth<small>2 memos · 1 awaiting your reply</small></div></li>')
+    '<li onclick="selfStep(7)"><span class="n">&#9679;</span><div>Memos received<small>2 · 1 awaiting your reply</small></div></li>')
 
 # ══════════════════════════════════════════════ 3 · step 2 → create your PAR workflow
 OLD_STEP2_START = '          <div class="part">Part 1.1 · your reporting chain</div>\n'
@@ -168,7 +168,7 @@ rep('        <div class="btnrow" style="margin-top:-4px;margin-bottom:18px">'
     f'''        <div class="card">
           <div class="part">Part 2.6 · optional · confidential <span class="ftag add">Added</span></div>
           {ADD}a single open field for feedback to your reporting officer. No part of it is graded.</div>
-          <div class="q">Is there anything that would help you do your work better next year?</div>
+          <div class="q">Is there any feedback you would like to share with your reporting officer?</div>
           <div class="hint">Write about the work and the conditions around it &mdash; the direction, guidance, support, workload or ways of working that would help you deliver better next year. Please keep it respectful and about the work rather than about the person.</div>
           <textarea id="t26" oninput="wc('t26','c26',100)" placeholder="Optional. Between 50 and 100 words." style="min-height:110px"></textarea>
           <div class="counter" id="c26"></div>
@@ -186,30 +186,30 @@ rep('<tr onclick="selfStep(2)" style="cursor:pointer"><td>Part 1.1–1.2 · repo
     '<tr onclick="selfStep(2)" style="cursor:pointer"><td>Part 1.1–1.2 · PAR workflow and NRC</td><td><span class="tag ok">Submitted for validation</span></td></tr>')
 
 rep('<tr><td>Memos issued to you this year</td><td><span class="tag warn" id="chkMemo">2 · 1 unanswered</span></td></tr>',
-    '<tr><td>Feedback for growth issued to you this year</td><td><span class="tag warn" id="chkMemo">2 memos · 1 unanswered</span></td></tr>')
+    '<tr><td>Memos issued to you this year</td><td><span class="tag warn" id="chkMemo">2 · 1 unanswered</span></td></tr>')
 
 # ══════════════════════════════════════════════ 6 · memo → feedback for growth (official's window)
 rep('<h2>Memos received this year</h2>\n'
     '          <div class="sub">Issued in eHRMS by your reporting officer during the assessment period. '
     'These are visible on the grading screen.</div>',
-    '<h2>Feedback for growth received this year <span class="ftag add">Reframed</span></h2>\n'
+    '<h2>Memos received this year</h2>\n'
     f'          <div class="sub">Memos issued in eHRMS by your reporting officer during the year. '
     'Each one records where your work needed to improve and what was expected, so that nothing in the '
     'assessment comes as a surprise.</div>\n'
     f'          {ADD}the same record, framed as development rather than as a disciplinary note.</div>')
 
 rep('<tr><td>Memos issued to you during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>',
-    '<tr><td>Feedback for growth issued to you during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>')
+    '<tr><td>Memos issued to you during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>')
 
 rep('<div class="note info">ℹ️ The memos issued to you and your replies are attached to your representation automatically.</div>',
-    '<div class="note info">ℹ️ The feedback for growth issued to you and your replies are attached to your representation automatically.</div>')
+    '<div class="note info">ℹ️ The memos issued to you and your replies are attached to your representation automatically.</div>')
 
 rep('<div class="note info" style="margin-top:12px">ℹ️ If a memo was issued to you during the year, answer it in the memo itself rather than here. Your reply is already on record and is shown to the reporting officer.</div>',
-    '<div class="note info" style="margin-top:12px">ℹ️ If feedback for growth was issued to you during the year, answer it against that record rather than here. Your reply is already on file and is shown to the reporting officer.</div>')
+    '<div class="note info" style="margin-top:12px">ℹ️ If a memo was issued to you during the year, answer it against the memo itself rather than here. Your reply is already on record and is shown to the reporting officer.</div>')
 
 # ══════════════════════════════════════════════ 7 · reporting officer · memo card and composer
 rep('<h2 style="cursor:pointer" onclick="toggleMemoCard()">Memo record for <span id="memoWho">Shri A. B. Sawant</span> for this assessment year',
-    '<h2 style="cursor:pointer" onclick="toggleMemoCard()">Feedback for growth · <span id="memoWho">Shri A. B. Sawant</span> · this assessment year')
+    '<h2 style="cursor:pointer" onclick="toggleMemoCard()">Memo record for <span id="memoWho">Shri A. B. Sawant</span> for this assessment year')
 
 rep('<div class="sub">Issued by you to this official during 2025–26. Shown here automatically.</div>',
     '<div class="sub">Memos you issued to this official during 2025–26, shown here automatically.</div>\n'
@@ -218,12 +218,12 @@ rep('<div class="sub">Issued by you to this official during 2025–26. Shown her
     'surprise by the assessment.</div>')
 
 rep('<div class="btnrow"><button class="btn amber" onclick="show(\'memoComposer\',1)">Issue a memo</button></div>',
-    '<div class="btnrow"><button class="btn amber" onclick="show(\'memoComposer\',1)">Record feedback for growth</button></div>')
+    '<div class="btnrow"><button class="btn amber" onclick="show(\'memoComposer\',1)">Issue a memo</button></div>')
 
 rep('<div class="part">eHRMS · issue a memo</div>\n'
     '          <div class="hint">Memos are raised in eHRMS, where your reporting chain is maintained, and can be issued any day of the year. MahaPAR reads them at grading.</div>',
-    '<div class="part">eHRMS · record feedback for growth</div>\n'
-    '          <div class="hint">Raised in eHRMS, where your reporting chain is maintained, and can be recorded any day of the year. MahaPAR reads them at grading.</div>')
+    '<div class="part">eHRMS · issue a memo</div>\n'
+    '          <div class="hint">Memos are raised in eHRMS, where your reporting chain is maintained, and can be issued any day of the year. MahaPAR reads them at grading.</div>')
 
 rep('<label class="f"><span>Concern relates to</span>', '<label class="f"><span>Area for development</span>')
 
@@ -238,16 +238,16 @@ rep('<span>Notify the official that their response, or failure to respond, may b
     '<span>Notify the official that this feedback is on record, that they may respond to it, and that both the feedback and their response are available at the time of assessment.</span>')
 
 rep('<div class="btnrow"><button class="btn" onclick="sendMemo()">Sign and send memo</button>',
-    '<div class="btnrow"><button class="btn" onclick="sendMemo()">Sign and send</button>')
+    '<div class="btnrow"><button class="btn" onclick="sendMemo()">Sign and send memo</button>')
 
 rep('<div class="note info" style="margin-top:12px">ℹ️ Memos are issued in eHRMS, not here. One issued today is dated today and attaches to the <b>current</b> cycle, not to the year being assessed — so a concern should be recorded when it arises.</div>',
-    '<div class="note info" style="margin-top:12px">ℹ️ Feedback for growth is recorded in eHRMS, not here. One recorded today is dated today and attaches to the <b>current</b> cycle, not to the year being assessed — so it should be recorded when it arises, while there is still time to act on it.</div>')
+    '<div class="note info" style="margin-top:12px">ℹ️ Memos are issued in eHRMS, not here. One issued today is dated today and attaches to the <b>current</b> cycle, not to the year being assessed — so a memo should be issued when the concern arises, while there is still time to act on it.</div>')
 
 # pending-with-me table header
 rep('<th>Self-appraisal</th><th>Memos issued this year</th>',
-    '<th>Self-appraisal</th><th>Feedback for growth issued</th>')
+    '<th>Self-appraisal</th><th>Memos issued this year</th>')
 rep("This official has no memo record, so a below-benchmark grade would carry no documentation.",
-    "This official has no feedback on record, so a below-benchmark grade would carry no documentation.")
+    "This official has no memo record, so a below-benchmark grade would carry no documentation.")
 
 # ══════════════════════════════════════════════ 8 · Part 3.1 · departmental KRAs for reference
 rep('<div class="part" style="cursor:pointer;margin-top:14px" onclick="toggleCard(\'sysBody\',\'sysCaret\')">System data for your reference',
@@ -293,20 +293,20 @@ rep('''        <div class="rule"></div>
 rep('<div class="part">Part 3.6 · memos or notices</div>\n'
     '          <div class="note danger">⚠️ <b>This overall grade is below the benchmark of 6.</b> You may attach memos or notices issued during the year as proof that the official was advised and given opportunities to improve.</div>\n'
     '          <div class="checks"><label><input type="checkbox" id="attachMemo" checked onchange="renderAttach()"><span>Attach the memo record for this year as evidence</span></label></div>',
-    '<div class="part">Part 3.6 · feedback for growth issued during the year</div>\n'
-    '          <div class="note danger">⚠️ <b>This overall grade is below the benchmark of 6.</b> Attach the feedback for growth issued during the year to show that the official was told where improvement was needed and was given the opportunity to act on it.</div>\n'
-    '          <div class="checks"><label><input type="checkbox" id="attachMemo" checked onchange="renderAttach()"><span>Attach this year&rsquo;s feedback record as evidence</span></label></div>')
+    '<div class="part">Part 3.6 · memos issued during the year</div>\n'
+    '          <div class="note danger">⚠️ <b>This overall grade is below the benchmark of 6.</b> Attach the memos issued during the year to show that the official was told where improvement was needed and was given the opportunity to act on it.</div>\n'
+    '          <div class="checks"><label><input type="checkbox" id="attachMemo" checked onchange="renderAttach()"><span>Attach this year&rsquo;s memo record as evidence</span></label></div>')
 
 rep('<button class="btn ghost sm" onclick="insertMemoRef()">Cite the memo record</button>',
-    '<button class="btn ghost sm" onclick="insertMemoRef()">Cite the feedback record</button>')
+    '<button class="btn ghost sm" onclick="insertMemoRef()">Cite the memo record</button>')
 
 rep('<li style="margin-bottom:6px">Grade several dimensions <b>4 or 5</b> — the overall grade falls below 6 and the memo evidence panel opens, pre-filled from this year\'s memo record.</li>\n'
     '          <li>Press <b>Cite the memo record</b> to pull the memo dates and response status into 3.5.</li>',
-    '<li style="margin-bottom:6px">Grade several dimensions <b>4 or 5</b> — the overall grade falls below 6 and the evidence panel opens, pre-filled from this year\'s feedback record.</li>\n'
-    '          <li>Press <b>Cite the feedback record</b> to pull the dates and response status into 3.5.</li>')
+    '<li style="margin-bottom:6px">Grade several dimensions <b>4 or 5</b> — the overall grade falls below 6 and the evidence panel opens, pre-filled from this year\'s memo record.</li>\n'
+    '          <li>Press <b>Cite the memo record</b> to pull the memo dates and response status into 3.5.</li>')
 
 rep("the year's memo record all sit on one screen with the grades. Extreme grades and a below-benchmark overall grade open the justification the form requires; the memo record is what makes a low grade defensible.",
-    "the year's feedback record all sit on one screen with the grades. Extreme grades and a below-benchmark overall grade open the justification the form requires; the feedback record is what makes a low grade defensible.")
+    "the year's memo record all sit on one screen with the grades. Extreme grades and a below-benchmark overall grade open the justification the form requires; the memo record is what makes a low grade defensible.")
 
 # ══════════════════════════════════════════════ 11 · custodian · tiles and step list
 rep('<div class="ctile pink" onclick="custStep(2)" style="cursor:pointer"><span>APARs past their deadline at some stage</span><b>47</b><i>See what is pending, and with whom &rsaquo;</i></div>',
@@ -317,7 +317,7 @@ rep('<li class="on" onclick="custStep(1)"><span class="n">1</span><div>Authority
     '<li class="on" onclick="custStep(1)"><span class="n">1</span><div>Validate authority mapping<small>Check what officials mapped · validate NRCs</small></div></li>')
 
 rep('<li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Unanswered memos · remind</small></div></li>',
-    '<li onclick="custStep(4)"><span class="n">4</span><div>Feedback for growth<small>Unanswered feedback · remind</small></div></li>')
+    '<li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Unanswered memos · remind</small></div></li>')
 
 rep('<p>As custodian you are responsible for four things in this cycle: recording who reports on whom and issuing No Report Certificates;',
     '<p>As custodian you are responsible for four things in this cycle: validating the reporting chain each official maps for themselves and issuing No Report Certificates;')
@@ -399,24 +399,24 @@ rep('<tr><th>Stage</th><th>Completed</th><th>On time</th><th>Late</th><th>Still 
 # ══════════════════════════════════════════════ 15 · custodian · memo tracking reframed
 rep('<h2>Memos awaiting a reply from the official</h2>\n'
     '          <div class="sub">A memo was issued during the year and the official has not replied by the due date. You can remind them.</div>',
-    '<h2>Feedback for growth awaiting a reply from the official <span class="ftag add">Reframed</span></h2>\n'
-    '          <div class="sub">Feedback was recorded during the year and the official has not replied by the due date. You can remind them.</div>')
+    '<h2>Memos awaiting a reply from the official</h2>\n'
+    '          <div class="sub">A memo was issued during the year and the official has not replied by the due date. You can remind them.</div>')
 
 rep('<tr><th>Official</th><th>Memo issued by</th><th>Issued on</th><th>Reply was due</th><th>Overdue by</th><th></th></tr>',
-    '<tr><th>Official</th><th>Recorded by</th><th>Recorded on</th><th>Reply was due</th><th>Overdue by</th><th></th></tr>')
+    '<tr><th>Official</th><th>Memo issued by</th><th>Issued on</th><th>Reply was due</th><th>Overdue by</th><th></th></tr>')
 
 rep('<h2>Memos issued, by reporting officer</h2>',
-    '<h2>Feedback for growth recorded, by reporting officer</h2>')
+    '<h2>Memos issued, by reporting officer</h2>')
 
 rep('<tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials with zero memos</th></tr>',
-    '<tr><th>Reporting officer</th><th>Subordinates</th><th>Feedback recorded this year</th><th>Awaiting a reply</th><th>Officials who received none <span class="ftag add">Reframed</span></th></tr>')
+    '<tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials who received no memo <span class="ftag add">Reframed</span></th></tr>')
 
 rep('<div class="sub">Counts only, for GAD&rsquo;s review. There is no action for the custodian here.</div>'.replace("&rsquo;", "'"),
     '<div class="sub">Counts only, for GAD\'s review. There is no action for the custodian here. A high figure in the last column is a supervision gap, not a clean record: it means a low grade later would arrive without warning.</div>')
 
 rep('<div class="note info" style="margin-top:14px">ℹ️ A reply left unrecorded can count against the official when the APAR is graded. Reminding them keeps that fair.</div>',
     '<div class="note info" style="margin-top:14px">ℹ️ A reply left unrecorded can count against the official when the APAR is graded. Reminding them keeps that fair.</div>\n'
-    f'          {ADD}wording across this window now frames memos as feedback for growth. The record and its use at grading are unchanged.</div>')
+    f'          {ADD}the last column is now read as a supervision gap rather than a clean record. The memo record and its use at grading are unchanged.</div>')
 
 # ══════════════════════════════════════════════ 16 · JS helpers
 rep("function toggleMemoCard(",
@@ -434,10 +434,10 @@ function toggleMemoCard(""")
 # ══════════════════════════════════════════════ 17 · 2.6 is not shown to the reporting officer
 rep('<div class="note info">&#8505;&#65039; You respond to the training request in <b>Part 3.8</b> below.</div>',
     '<div class="note info">&#8505;&#65039; You respond to the training request in <b>Part 3.8</b> below.</div>\n'
-    '        <div class="note info">&#8505;&#65039; <b>Part 2.6 is deliberately not shown here.</b> Feedback officials give their reporting officer is pooled across everyone who reports to them and shared anonymously, separately from any APAR.</div>')
+    '        <div class="note info">&#8505;&#65039; <b>Part 2.6 is deliberately not shown here.</b> Feedback an official shares with their reporting officer is pooled across everyone who reports to them and shared anonymously, separately from any APAR.</div>')
 
 rep('seeing that memos are being issued during the year;',
-    'seeing that feedback for growth is being recorded during the year;')
+    'seeing that memos are being issued during the year;')
 
 
 open(DST, "w", encoding="utf-8").write(s)

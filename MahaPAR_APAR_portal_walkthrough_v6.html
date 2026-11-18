@@ -248,9 +248,9 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
     <tr><td><b>Self-authority mapping</b><br><span style="color:var(--muted)">Officials map their own reporting and reviewing authority; the custodian validates</span></td>
         <td>My APAR &middot; step 2 &nbsp;|&nbsp; Custodian &middot; authority mapping, pendency and stage-by-stage</td>
         <td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
-    <tr><td><b>Memo reframed as feedback for growth</b><br><span style="color:var(--muted)">Wording changed everywhere; the record itself is unchanged</span></td>
+    <tr><td><b>Memos framed around growth</b><br><span style="color:var(--muted)">Supporting wording changed; the memo record itself is unchanged</span></td>
         <td>All four windows</td><td><span class="ftag add">Added</span></td></tr>
-    <tr><td><b>Part 2.6 &middot; feedback for your reporting officer</b><br><span style="color:var(--muted)">One open field, pooled and shared anonymously</span></td>
+    <tr><td><b>Part 2.6 &middot; feedback for your reporting officer</b><br><span style="color:var(--muted)">One open field; all responses pooled and shared anonymously</span></td>
         <td>My APAR &middot; step 3, after 2.5</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
     <tr><td><b>Departmental enquiry record</b><br><span style="color:var(--muted)">Read-only, from the DE portal</span></td>
         <td>Reporting officer &middot; before Part 3.4 integrity</td><td><span class="ftag add">Added</span> <span class="ftag disc">Needs discussion</span></td></tr>
@@ -267,7 +267,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <!-- ======================= CUSTODIAN ======================= -->
 <section class="pane" id="pane-custodian">
   <div class="ph"><h1>Custodian window</h1>
-  <p>As custodian you are responsible for four things in this cycle: validating the reporting chain each official maps for themselves and issuing No Report Certificates; keeping track of what is pending and sending reminders; seeing that feedback for growth is being recorded during the year; and running the cycle itself. You do not see or change any grade.</p></div>
+  <p>As custodian you are responsible for four things in this cycle: validating the reporting chain each official maps for themselves and issuing No Report Certificates; keeping track of what is pending and sending reminders; seeing that memos are being issued during the year; and running the cycle itself. You do not see or change any grade.</p></div>
 
   <div class="grid g-3" style="margin-bottom:18px">
     <div class="ctile amber" onclick="custStep(1)" style="cursor:pointer"><span>Officials in this cycle</span><b>1,284</b><i>4 not yet mapped &rsaquo;</i></div>
@@ -284,7 +284,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <li class="on" onclick="custStep(1)"><span class="n">1</span><div>Validate authority mapping<small>Check what officials mapped · validate NRCs</small></div></li>
           <li onclick="custStep(2)"><span class="n">2</span><div>Track what is pending across the APAR cycle<small>Stage by stage · with whom · remind</small></div></li>
           <li onclick="custStep(3)"><span class="n">3</span><div>Facilitate the APAR cycle<small>Send reminders · disclose · export</small></div></li>
-          <li onclick="custStep(4)"><span class="n">4</span><div>Feedback for growth<small>Unanswered feedback · remind</small></div></li>
+          <li onclick="custStep(4)"><span class="n">4</span><div>Memo tracking<small>Unanswered memos · remind</small></div></li>
         </ul>
       </div>
       <div class="card">
@@ -413,25 +413,25 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <!-- 4 · memo tracking -->
       <div class="wiz" id="cust4">
         <div class="card">
-          <h2>Feedback for growth awaiting a reply from the official <span class="ftag add">Reframed</span></h2>
-          <div class="sub">Feedback was recorded during the year and the official has not replied by the due date. You can remind them.</div>
+          <h2>Memos awaiting a reply from the official</h2>
+          <div class="sub">A memo was issued during the year and the official has not replied by the due date. You can remind them.</div>
           <div class="btnrow" style="margin-bottom:14px">
             <button class="btn amber" onclick="toast('Reminder sent to both officials, asking them to record a reply in eHRMS.')">Remind both officials</button>
           </div>
           <table>
-            <tr><th>Official</th><th>Recorded by</th><th>Recorded on</th><th>Reply was due</th><th>Overdue by</th><th></th></tr>
+            <tr><th>Official</th><th>Memo issued by</th><th>Issued on</th><th>Reply was due</th><th>Overdue by</th><th></th></tr>
             <tr><td><b>Shri A. B. Sawant</b></td><td>Shri C. D. Joshi</td><td>18 Aug 2025</td><td>30 Sep 2025</td><td><span class="tag red">41 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Shri A. B. Sawant to record a reply in eHRMS.')">Remind</button></td></tr>
             <tr><td><b>Smt. J. K. More</b></td><td>Shri E. F. Rane</td><td>02 Feb 2026</td><td>16 Feb 2026</td><td><span class="tag warn">12 days</span></td><td><button class="btn sm ghost" onclick="toast('Reminder sent to Smt. J. K. More to record a reply in eHRMS.')">Remind</button></td></tr>
           </table>
           <div class="note info" style="margin-top:14px">ℹ️ A reply left unrecorded can count against the official when the APAR is graded. Reminding them keeps that fair.</div>
-          <div class="note add">&#10133; <b>Added in this version:</b> wording across this window now frames memos as feedback for growth. The record and its use at grading are unchanged.</div>
+          <div class="note add">&#10133; <b>Added in this version:</b> the last column is now read as a supervision gap rather than a clean record. The memo record and its use at grading are unchanged.</div>
         </div>
 
         <div class="card">
-          <h2>Feedback for growth recorded, by reporting officer</h2>
+          <h2>Memos issued, by reporting officer</h2>
           <div class="sub">Counts only, for GAD's review. There is no action for the custodian here. A high figure in the last column is a supervision gap, not a clean record: it means a low grade later would arrive without warning.</div>
           <table>
-            <tr><th>Reporting officer</th><th>Subordinates</th><th>Feedback recorded this year</th><th>Awaiting a reply</th><th>Officials who received none <span class="ftag add">Reframed</span></th></tr>
+            <tr><th>Reporting officer</th><th>Subordinates</th><th>Memos issued this year</th><th>Awaiting a reply</th><th>Officials who received no memo <span class="ftag add">Reframed</span></th></tr>
             <tr><td>Shri C. D. Joshi</td><td>24</td><td>6</td><td>2</td><td>20</td></tr>
             <tr><td>Shri R. S. Gokhale</td><td>18</td><td>0</td><td>0</td><td><b style="color:var(--red)">18</b></td></tr>
             <tr><td>Shri E. F. Rane</td><td>9</td><td>3</td><td>1</td><td>7</td></tr>
@@ -466,7 +466,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <ul class="steplist" id="yearSteps">
           <li onclick="selfStep(8)"><span class="n">&#9679;</span><div>My KPIs<small id="kpiCountSm">Opens for technical cadres</small></div></li>
           <li onclick="selfStep(6)"><span class="n">&#9679;</span><div>My work log<small id="logCount">7 entries this year</small></div></li>
-          <li onclick="selfStep(7)"><span class="n">&#9679;</span><div>Feedback for growth<small>2 memos · 1 awaiting your reply</small></div></li>
+          <li onclick="selfStep(7)"><span class="n">&#9679;</span><div>Memos received<small>2 · 1 awaiting your reply</small></div></li>
         </ul>
       </div>
     </div>
@@ -617,7 +617,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="hint">For example technical constraints, budget or fund-release constraints, delays in approvals or sanctions, staffing shortages, or dependence on another office, agency or contractor.</div>
           <textarea id="t23" oninput="wc('t23','c23',50)" placeholder="Optional — leave blank if none"></textarea>
           <div class="counter" id="c23"></div>
-          <div class="note info" style="margin-top:12px">ℹ️ If feedback for growth was issued to you during the year, answer it against that record rather than here. Your reply is already on file and is shown to the reporting officer.</div>
+          <div class="note info" style="margin-top:12px">ℹ️ If a memo was issued to you during the year, answer it against the memo itself rather than here. Your reply is already on record and is shown to the reporting officer.</div>
         </div>
 
         <div class="card">
@@ -653,7 +653,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="card">
           <div class="part">Part 2.6 · optional · confidential <span class="ftag add">Added</span></div>
           <div class="note add">&#10133; <b>Added in this version:</b> a single open field for feedback to your reporting officer. No part of it is graded.</div>
-          <div class="q">Is there anything that would help you do your work better next year?</div>
+          <div class="q">Is there any feedback you would like to share with your reporting officer?</div>
           <div class="hint">Write about the work and the conditions around it &mdash; the direction, guidance, support, workload or ways of working that would help you deliver better next year. Please keep it respectful and about the work rather than about the person.</div>
           <textarea id="t26" oninput="wc('t26','c26',100)" placeholder="Optional. Between 50 and 100 words." style="min-height:110px"></textarea>
           <div class="counter" id="c26"></div>
@@ -679,7 +679,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.5 Training needed</td><td><span class="tag grey">Optional</span></td></tr>
             <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.6 Feedback for your reporting officer</td><td><span class="tag grey" id="chk26">Optional</span></td></tr>
             <tr onclick="selfStep(3)" style="cursor:pointer"><td>2.0 Technical module</td><td><span class="tag ok" id="chkTech">No</span></td></tr>
-            <tr><td>Feedback for growth issued to you this year</td><td><span class="tag warn" id="chkMemo">2 memos · 1 unanswered</span></td></tr>
+            <tr><td>Memos issued to you this year</td><td><span class="tag warn" id="chkMemo">2 · 1 unanswered</span></td></tr>
           </table>
           <div class="note warn" style="margin-top:14px">⚠️ One memo issued to you on 18 Aug 2025 has no response on record. You may still record a late response; it will be shown as late.</div>
           <div class="note info">ℹ️ Signing locks Part 2 and sends the APAR to Shri C. D. Joshi, Deputy Secretary. Paper forms are not accepted.</div>
@@ -721,7 +721,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
       <!-- year-round · memos -->
       <div class="wiz" id="self7">
         <div class="card">
-          <h2>Feedback for growth received this year <span class="ftag add">Reframed</span></h2>
+          <h2>Memos received this year</h2>
           <div class="sub">Memos issued in eHRMS by your reporting officer during the year. Each one records where your work needed to improve and what was expected, so that nothing in the assessment comes as a surprise.</div>
           <div class="note add">&#10133; <b>Added in this version:</b> the same record, framed as development rather than as a disciplinary note.</div>
           <div id="selfMemos"></div>
@@ -741,7 +741,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <tr><td>Timeliness marks (5%)</td><td><b style="color:var(--red)">−0.2</b> · 2 of your own stages auto-forwarded</td></tr>
             <tr><td><b>Final score</b></td><td><b id="dFinal">—</b> out of 10</td></tr>
             <tr><td>Integrity</td><td>Beyond doubt</td></tr>
-            <tr><td>Feedback for growth issued to you during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>
+            <tr><td>Memos issued to you during the year</td><td><span id="dMemo">2 · 1 unanswered</span></td></tr>
           </table>
           <div class="ro" style="margin-top:14px"><b>Overall assessment recorded by the reporting officer</b><span id="d33">—</span></div>
         </div>
@@ -750,7 +750,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
           <div class="hint">One representation, within 15 days of disclosure.</div>
           <textarea id="tRep" oninput="wc('tRep','cRep',200)" placeholder="State what you are representing against and why. Maximum 200 words."></textarea>
           <div class="counter" id="cRep"></div>
-          <div class="note info">ℹ️ The feedback for growth issued to you and your replies are attached to your representation automatically.</div>
+          <div class="note info">ℹ️ The memos issued to you and your replies are attached to your representation automatically.</div>
           <div class="btnrow"><button class="btn amber" onclick="toast('Representation submitted.')">Submit representation</button><button class="btn grey" onclick="toast('APAR accepted and closed.')">Accept and close</button></div>
         </div>
       </div>
@@ -762,14 +762,14 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 <!-- ======================= REPORTING ======================= -->
 <section class="pane" id="pane-reporting">
   <div class="ph"><h1>Reporting officer · Form A, Part 3</h1>
-  <p>The self-appraisal, the system data and the year's feedback record all sit on one screen with the grades. Extreme grades and a below-benchmark overall grade open the justification the form requires; the feedback record is what makes a low grade defensible.</p></div>
+  <p>The self-appraisal, the system data and the year's memo record all sit on one screen with the grades. Extreme grades and a below-benchmark overall grade open the justification the form requires; the memo record is what makes a low grade defensible.</p></div>
 
   <div class="card">
     <h2>Pending with me</h2>
     <table>
-      <tr><th>Official</th><th>Form</th><th>Self-appraisal</th><th>Feedback for growth issued</th><th>Deadline</th><th></th></tr>
+      <tr><th>Official</th><th>Form</th><th>Self-appraisal</th><th>Memos issued this year</th><th>Deadline</th><th></th></tr>
       <tr><td><b>Shri A. B. Sawant</b> · Section Officer</td><td>A</td><td><span class="tag ok">Submitted 28 Apr</span></td><td><span class="tag warn">2 · 1 unanswered</span></td><td>31 May 2026</td><td><button class="btn sm" onclick="scrollTo(0,520)">Open</button></td></tr>
-      <tr><td><b>Smt. J. K. More</b> · Asst Section Officer</td><td>A</td><td><span class="tag red">Deadline passed</span></td><td><span class="tag grey">None</span></td><td><span style="color:var(--red)">Overdue 4 days</span></td><td><button class="btn sm ghost" onclick="toast('Demo shows one APAR in full. This official has no feedback on record, so a below-benchmark grade would carry no documentation.')">Open</button></td></tr>
+      <tr><td><b>Smt. J. K. More</b> · Asst Section Officer</td><td>A</td><td><span class="tag red">Deadline passed</span></td><td><span class="tag grey">None</span></td><td><span style="color:var(--red)">Overdue 4 days</span></td><td><button class="btn sm ghost" onclick="toast('Demo shows one APAR in full. This official has no memo record, so a below-benchmark grade would carry no documentation.')">Open</button></td></tr>
       <tr><td><b>Shri L. M. Pawar</b> · Senior Clerk</td><td>B</td><td><span class="tag ok">Submitted 22 Apr</span></td><td><span class="tag warn">1 · answered</span></td><td>31 May 2026</td><td><button class="btn sm ghost" onclick="toast('Form B has five items in two halves of 50%, plus a fitness judgment.')">Open</button></td></tr>
     </table>
   </div>
@@ -796,20 +796,20 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="ro" style="margin-top:14px"><b>2.5 Additional training requested</b>Project management · Budget management · IT and digital tools</div>
         <div class="ro"><b>2.0 Technical module</b><span id="wrote26">Not applicable. The official is not in a technical cadre, so no module grades are included.</span></div>
         <div class="note info">&#8505;&#65039; You respond to the training request in <b>Part 3.8</b> below.</div>
-        <div class="note info">&#8505;&#65039; <b>Part 2.6 is deliberately not shown here.</b> Feedback officials give their reporting officer is pooled across everyone who reports to them and shared anonymously, separately from any APAR.</div>
+        <div class="note info">&#8505;&#65039; <b>Part 2.6 is deliberately not shown here.</b> Feedback an official shares with their reporting officer is pooled across everyone who reports to them and shared anonymously, separately from any APAR.</div>
         </div>
       </div>
 
       <div class="card">
-        <h2 style="cursor:pointer" onclick="toggleMemoCard()">Feedback for growth · <span id="memoWho">Shri A. B. Sawant</span> · this assessment year <span id="memoCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9656;</span></h2>
+        <h2 style="cursor:pointer" onclick="toggleMemoCard()">Memo record for <span id="memoWho">Shri A. B. Sawant</span> for this assessment year <span id="memoCaret" style="float:right;font-size:22px;line-height:1;color:var(--navy)">&#9656;</span></h2>
         <div class="sub">Memos you issued to this official during 2025–26, shown here automatically.</div>
         <div class="note add">&#10133; <b>Added in this version:</b> framed as a development record. A memo notes where work needed to improve and what support was offered &mdash; it is not a penalty, and an official who received it during the year is not taken by surprise by the assessment.</div>
         <div class="hidebox" id="memoCardBody">
         <div id="repMemos"></div>
-        <div class="btnrow"><button class="btn amber" onclick="show('memoComposer',1)">Record feedback for growth</button></div>
+        <div class="btnrow"><button class="btn amber" onclick="show('memoComposer',1)">Issue a memo</button></div>
         <div class="hidebox" id="memoComposer" style="margin-top:12px;border-top:1px solid var(--border);padding-top:14px">
-          <div class="part">eHRMS · record feedback for growth</div>
-          <div class="hint">Raised in eHRMS, where your reporting chain is maintained, and can be recorded any day of the year. MahaPAR reads them at grading.</div>
+          <div class="part">eHRMS · issue a memo</div>
+          <div class="hint">Memos are raised in eHRMS, where your reporting chain is maintained, and can be issued any day of the year. MahaPAR reads them at grading.</div>
           <div class="two">
             <label class="f"><span>To (your subordinate)</span>
               <select id="mTo"><option>Shri A. B. Sawant — Section Officer</option><option>Smt. J. K. More — Asst Section Officer</option><option>Shri L. M. Pawar — Senior Clerk</option></select></label>
@@ -827,10 +827,10 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
             <div class="counter" id="mCount">0 / 150 words</div></label>
           <label class="f"><span>Response due by</span><input type="date" id="mDue" value="2025-09-30"></label>
           <div class="checks"><label><input type="checkbox" id="mNotify" checked><span>Notify the official that this feedback is on record, that they may respond to it, and that both the feedback and their response are available at the time of assessment.</span></label></div>
-          <div class="btnrow"><button class="btn" onclick="sendMemo()">Sign and send</button><button class="btn grey" onclick="show('memoComposer',0)">Cancel</button></div>
+          <div class="btnrow"><button class="btn" onclick="sendMemo()">Sign and send memo</button><button class="btn grey" onclick="show('memoComposer',0)">Cancel</button></div>
         </div>
 
-        <div class="note info" style="margin-top:12px">ℹ️ Feedback for growth is recorded in eHRMS, not here. One recorded today is dated today and attaches to the <b>current</b> cycle, not to the year being assessed — so it should be recorded when it arises, while there is still time to act on it.</div>
+        <div class="note info" style="margin-top:12px">ℹ️ Memos are issued in eHRMS, not here. One issued today is dated today and attaches to the <b>current</b> cycle, not to the year being assessed — so a memo should be issued when the concern arises, while there is still time to act on it.</div>
       </div>
       </div>
 
@@ -902,9 +902,9 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
 
         <div class="hidebox" id="lowBox">
           <div class="rule"></div>
-          <div class="part">Part 3.6 · feedback for growth issued during the year</div>
-          <div class="note danger">⚠️ <b>This overall grade is below the benchmark of 6.</b> Attach the feedback for growth issued during the year to show that the official was told where improvement was needed and was given the opportunity to act on it.</div>
-          <div class="checks"><label><input type="checkbox" id="attachMemo" checked onchange="renderAttach()"><span>Attach this year&rsquo;s feedback record as evidence</span></label></div>
+          <div class="part">Part 3.6 · memos issued during the year</div>
+          <div class="note danger">⚠️ <b>This overall grade is below the benchmark of 6.</b> Attach the memos issued during the year to show that the official was told where improvement was needed and was given the opportunity to act on it.</div>
+          <div class="checks"><label><input type="checkbox" id="attachMemo" checked onchange="renderAttach()"><span>Attach this year&rsquo;s memo record as evidence</span></label></div>
           <div id="attachList"></div>
         </div>
 
@@ -965,7 +965,7 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="hint">Cover: main strengths · one area to develop · any significant failure · attitude towards persons with disabilities, women and weaker sections · the specific accomplishment or failure behind any grade of 1–2 or 9–10.</div>
         <textarea id="t33" oninput="wc('t33','c33',100)" style="min-height:130px"></textarea>
         <div class="counter" id="c33"></div>
-        <div class="btnrow" style="margin-top:4px"><button class="btn ghost sm" onclick="insertMemoRef()">Cite the feedback record</button></div>
+        <div class="btnrow" style="margin-top:4px"><button class="btn ghost sm" onclick="insertMemoRef()">Cite the memo record</button></div>
 
         <div class="rule"></div>
         <div class="part">Part 3.7</div>
@@ -999,8 +999,8 @@ footer{background:var(--navy3);color:#8FA8C8;font-size:11.5px;padding:16px 24px}
         <div class="sub">The behaviour the feedback asks for.</div>
         <ol style="font-size:12.5px;margin-left:16px;color:#374151">
           <li style="margin-bottom:6px">Grade dimension 1 as <b>9</b> — the justification requirement opens.</li>
-          <li style="margin-bottom:6px">Grade several dimensions <b>4 or 5</b> — the overall grade falls below 6 and the evidence panel opens, pre-filled from this year's feedback record.</li>
-          <li>Press <b>Cite the feedback record</b> to pull the dates and response status into 3.5.</li>
+          <li style="margin-bottom:6px">Grade several dimensions <b>4 or 5</b> — the overall grade falls below 6 and the evidence panel opens, pre-filled from this year's memo record.</li>
+          <li>Press <b>Cite the memo record</b> to pull the memo dates and response status into 3.5.</li>
         </ol>
       </div>
     </div>
