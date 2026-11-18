@@ -17,9 +17,12 @@ OUT = "/home/user/personal_v1/MahaPAR_additional_recommendations.docx"
 NAVY = RGBColor(0x1C, 0x3C, 0x6E)
 HDR_FILL = "DCE6F1"
 
-# (#, Section, Recommendation, Precedent)
+# Grouped to match the note's own sub-sections. A tuple of one string is a
+# group heading row; a four-tuple is (#, Section, Recommendation, Precedent).
 ROWS = [
-    ("41", "1.1",
+    ("2.1  Overall structure and process (both forms)",),
+
+    ("41", "Part 1.1",
      "Map authorities in two stages. In the short term the officer records their own "
      "reporting and reviewing authority with the tenure of each, and the custodian "
      "validates it or issues a correction. In the longer term the mapping is "
@@ -27,13 +30,29 @@ ROWS = [
      "MahaPAR, leaving the custodian only to validate. Process to be confirmed.",
      "No state precedent"),
 
-    ("42", "2.2",
+    ("42", "Process",
+     "Allow the reporting officer to issue memos to an officer at any point during the "
+     "year, recording where performance fell short and what improvement is expected. "
+     "The officer may respond to each memo, and both the memo and the response are "
+     "available to the reporting officer at the time of assessment, to substantiate a "
+     "grade where needed.",
+     "Odisha (adverse remarks must be substantiated)"),
+
+    ("43", "Process",
+     "Add monitoring layers above the custodian: the cadre monitoring authority and the "
+     "sub-department monitoring authority follow up pendency with custodians and with "
+     "each other, and GAD leadership follows up with both.",
+     "Gujarat (defaulters flagged to the cadre authority)"),
+
+    ("2.2  Form A (Group A and B)",),
+
+    ("44", "2.2",
      "Give officers a work log, open through the year, from which entries can be drawn "
      "into the significant contribution reported in 2.2, so that noteworthy work is "
      "recorded when it happens rather than recalled at the end of the year.",
      "No state precedent"),
 
-    ("43", "2.7",
+    ("45", "2.7",
      "Add one optional open field (50 to 100 words) in which the officer may share "
      "feedback with their reporting officer, anchored to the work and the conditions "
      "that would support it. Responses are pooled across everyone reporting to that "
@@ -42,21 +61,21 @@ ROWS = [
      "at which the pooled feedback is shared to be confirmed.",
      "No state precedent"),
 
-    ("44", "3.1",
+    ("46", "3.1",
      "Provide an annexure describing what each dimension looks like in different kinds "
      "of post, so that an officer is assessed on what their own work involves. "
      "Illustrative draft, to be finalised with inputs from the Karmayogi Competency "
      "Model and CEGIS.",
      "Not applicable"),
 
-    ("45", "3.1",
+    ("47", "3.1",
      "Show the reporting officer the departmental KRAs attached to the post, with the "
      "targets and achievement recorded in 2.1, to anchor the grading of delivery and "
      "quality of work. Dependent on departments completing the KRA-defining exercise; "
      "integration with MahaPAR to be confirmed.",
      "No state precedent"),
 
-    ("46", "Part 3",
+    ("48", "Part 3",
      "Show the reporting officer the departmental enquiry record for the officer, drawn "
      "from the departmental enquiry portal: status, what the enquiry is about, case "
      "reference, date initiated, current stage and last update. Shown for reference "
@@ -64,19 +83,12 @@ ROWS = [
      "is not by itself a ground for an adverse grade. Particulars to be confirmed.",
      "No state precedent"),
 
-    ("47", "Process",
-     "Allow the reporting officer to issue memos to an officer at any point during the "
-     "year, recording where performance fell short and what improvement is expected. "
-     "The officer may respond to each memo, and both the memo and the response are "
-     "available to the reporting officer at the time of assessment, to substantiate a "
-     "grade where needed.",
-     "Odisha (adverse remarks must be substantiated)"),
+    ("2.3  Form B (Group C)",),
 
-    ("48", "Process",
-     "Add monitoring layers above the custodian: the cadre monitoring authority and the "
-     "sub-department monitoring authority follow up pendency with custodians and with "
-     "each other, and GAD leadership follows up with both.",
-     "Gujarat (defaulters flagged to the cadre authority)"),
+    ("49", "Parts 1 to 3",
+     "Apply the authority mapping, memos, the feedback field and the departmental "
+     "enquiry record to Form B on the same terms as Form A.",
+     "As for Form A"),
 ]
 
 doc = Document()
@@ -156,9 +168,15 @@ for c, (label, w) in enumerate(zip(["#", "Section", "Recommendation", "Precedent
     put(hdr[c], label, bold=True, width=w)
     shade(hdr[c], HDR_FILL)
 
-for num, section, rec, prec in ROWS:
+for row in ROWS:
     cells = tbl.add_row().cells
-    for c, val in enumerate((num, section, rec, prec)):
+    if len(row) == 1:                      # group heading, merged across the table
+        merged = cells[0].merge(cells[-1])
+        put(merged, row[0], bold=True)
+        merged.paragraphs[0].runs[0].font.color.rgb = NAVY
+        shade(merged, "EEF3FA")
+        continue
+    for c, val in enumerate(row):
         put(cells[c], val, width=WIDTHS[c])
 
 fixed_layout(tbl, WIDTHS)
