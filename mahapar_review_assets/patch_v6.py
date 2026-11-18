@@ -34,6 +34,9 @@ def rep(old, new, count=1):
 rep("buildScales();renderChips();renderRoChips();renderMemos();renderCycle();renderLog();fillModules();setTech(0);renderLnd();",
     "buildScales();renderChips();renderRoChips();renderMemos();renderCycle();renderLog();fillModules();setTech(0);renderLnd();renderUp();")
 
+rep('<span class="formflag">Based on <b>Form A</b> · Group A and B officials · draft v4</span>',
+    '<span class="formflag">Based on <b>Form A</b> · Group A and B officials · draft v6</span>')
+
 rep(".note b{font-weight:700}",
     """.note b{font-weight:700}
 .note.add{background:#ECFDF5;color:#065F46;border-left:4px solid #10B981}
