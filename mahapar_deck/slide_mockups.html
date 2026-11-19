@@ -4,11 +4,11 @@
 <title>APAR deck · slide mockups</title>
 <style>
 :root{
-  --navy:#1B3A6B; --navy2:#11274A; --gold:#F0A500; --ink:#1F2937; --mut:#5A6575;
-  --formbg:#EEF4FD; --formln:#C9DCF5;
-  --procbg:#FFF8E8; --procln:#F2DFAE; --proclb:#B5730B;
-  --digbg:#EDF6F0;  --digln:#C9E5D5;  --diglb:#1E7F52;
-  --rmlb:#7A7A7A;  --rmbg:#ECECEC;
+  --navy:#1B3A6B; --navy2:#11274A; --gold:#F0A500; --ink:#263241; --mut:#5A6575;
+  --formbg:#EEF4FD; --formln:#C4D8F3;
+  --procbg:#FFF8E8; --procln:#F0DBA4; --proclb:#B5730B;
+  --digbg:#EDF6F0;  --digln:#C2E2D1;  --diglb:#1E7F52;
+  --rmlb:#767676;  --rmbg:#ECECEC;
   --smlb:#B35309;  --smbg:#FBE3CE;
   --adlb:#19A05B;  --adbg:#E7F4EC;
 }
@@ -19,144 +19,139 @@ body{margin:0;background:#EEF1F6;font:14px/1.5 Arial,Helvetica,sans-serif;color:
 .lead{background:#fff;border:1px solid #DCE3EC;border-radius:10px;padding:16px 20px;margin-bottom:22px}
 .lead h1{margin:0 0 6px;font-size:19px;color:var(--navy)}
 .lead p{margin:0;font-size:13px;color:var(--mut)}
-.cap{font-size:12.5px;color:var(--mut);margin:22px 0 7px;font-weight:bold;letter-spacing:.3px}
+.cap{font-size:12.5px;color:var(--mut);margin:24px 0 7px;font-weight:bold;letter-spacing:.3px}
 .cap span{font-weight:normal}
 
-/* ---------- the slide canvas: 960 x 540, the deck's own proportions ---------- */
+/* ───────── slide canvas: 960 x 540, the deck's own proportions ───────── */
 .slide{width:960px;height:540px;background:#fff;position:relative;overflow:hidden;
        box-shadow:0 2px 14px rgba(20,35,60,.13);border-radius:3px}
-.slide .goldbar{position:absolute;top:0;left:0;right:0;height:6px;background:var(--gold)}
-.slide h2{position:absolute;left:38px;right:150px;top:26px;margin:0;font-size:23px;color:var(--navy);
-          font-weight:bold;letter-spacing:-.2px}
-.slide .sub{position:absolute;left:38px;top:56px;font-size:12.5px;color:var(--mut);font-style:italic}
-.slide .rule{position:absolute;left:38px;right:38px;top:76px;height:2px;background:var(--gold)}
-.slide .wm{position:absolute;right:34px;top:20px;font-size:12.5px;color:var(--navy);font-weight:600}
-.slide .pg{position:absolute;right:30px;bottom:12px;font-size:10px;color:#9AA4B2}
-.slide.sub-on h2{top:20px} .slide.sub-on .rule{top:78px}
+.goldbar{position:absolute;top:0;left:0;right:0;height:6px;background:var(--gold)}
+.slide h2{position:absolute;left:38px;right:150px;top:24px;margin:0;font-size:25px;color:var(--navy);
+          font-weight:bold;letter-spacing:-.3px;line-height:1.15}
+.slide .sub{position:absolute;left:38px;top:58px;font-size:14px;color:var(--mut);font-style:italic}
+.slide .rule{position:absolute;left:38px;right:38px;top:80px;height:2.5px;background:var(--gold)}
+.slide .wm{position:absolute;right:34px;top:20px;font-size:13px;color:var(--navy);font-weight:bold}
+.slide .pg{position:absolute;right:30px;bottom:12px;font-size:11px;color:#9AA4B2}
 
-/* ---------- slide 1 · limitations ---------- */
-.band{position:absolute;left:38px;right:38px;top:88px;background:#DCE8F8;border-left:4px solid var(--navy);
-      padding:8px 12px;font-size:11.5px;font-weight:bold;color:var(--navy2);line-height:1.4}
-.cols{position:absolute;left:38px;right:38px;top:116px;bottom:26px;display:grid;
-      grid-template-columns:repeat(3,1fr);gap:13px}
-.col{border-radius:4px;padding:9px 11px 7px;display:flex;flex-direction:column}
+/* ───────── band under the rule ───────── */
+.band{position:absolute;left:38px;right:38px;top:92px;background:#DCE8F8;border-left:5px solid var(--navy);
+      padding:9px 14px;font-size:13px;font-weight:bold;color:var(--navy2);line-height:1.35}
+.dotp{width:10px;height:10px;border-radius:50%;background:var(--navy);display:inline-block}
+.dotn{width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--navy);display:inline-block}
+
+/* ───────── three columns ───────── */
+.cols{position:absolute;left:38px;right:38px;top:128px;bottom:24px;display:grid;
+      grid-template-columns:repeat(3,1fr);gap:14px}
+.col{border-radius:5px;padding:11px 13px 9px;display:flex;flex-direction:column}
 .col.f{background:var(--formbg);border:1px solid var(--formln)}
 .col.p{background:var(--procbg);border:1px solid var(--procln)}
 .col.d{background:var(--digbg);border:1px solid var(--digln)}
-.col h3{margin:0 0 2px;font-size:13px;color:var(--navy)}
-.col h3 em{font-style:normal;color:#8EA3C0;margin-right:5px}
-.col .hr{height:1px;background:rgba(27,58,107,.18);margin:0 0 6px}
+.col h3{margin:0 0 3px;font-size:16px;color:var(--navy);display:flex;align-items:center;gap:8px}
+.col h3 em{font-style:normal;color:#9BAFCB;font-size:15px}
+.col.p h3{color:var(--proclb)} .col.d h3{color:var(--diglb)}
+.col .hr{height:1px;background:rgba(27,58,107,.2);margin:0 0 8px}
 .col ul{margin:0;padding:0;list-style:none;flex:1}
-.col li{position:relative;padding-left:10px;margin-bottom:5.5px;font-size:8.9px;line-height:1.3;color:#36414F}
-.col li:before{content:"";position:absolute;left:0;top:4px;width:5px;height:5px;border-radius:50%}
+.col li{position:relative;padding-left:12px;margin-bottom:6px;font-size:10.6px;line-height:1.27;color:#3A4654}
+.col li:before{content:"";position:absolute;left:0;top:5px;width:6px;height:6px;border-radius:50%}
 .col.f li:before{background:var(--navy)} .col.p li:before{background:var(--proclb)}
 .col.d li:before{background:var(--diglb)}
-.col li b{display:block;font-size:9.6px;color:var(--navy2);margin-bottom:.5px}
+.col li b{display:block;font-size:11.4px;color:var(--navy2);margin-bottom:1.5px;line-height:1.22}
 .col.p li b{color:var(--proclb)} .col.d li b{color:var(--diglb)}
-.col li.new b:after{content:"NEW";font-size:7px;letter-spacing:.4px;background:var(--gold);color:#fff;
-      border-radius:2px;padding:1px 3px;margin-left:5px;vertical-align:1px}
-.col .sowhat{font-size:9.4px;font-style:italic;color:#56627450;color:#5A6674;
-      border-top:1px dashed rgba(27,58,107,.25);padding-top:5px;margin-top:2px;font-size:8.8px}
+.col li.new b:after{content:"NEW";font-size:8.5px;letter-spacing:.5px;background:var(--gold);color:#fff;
+      border-radius:3px;padding:1.5px 4px;margin-left:6px;vertical-align:1.5px}
+.sowhat{font-size:11px;font-style:italic;color:#4C586A;border-top:1px dashed rgba(27,58,107,.3);
+        padding-top:6px;margin-top:3px;line-height:1.28}
 
-/* ---------- slide 2 · recommendations by bucket ---------- */
-.rcol h3{display:flex;align-items:center;justify-content:space-between}
-.pillcount{font-size:9px;font-weight:bold;background:var(--navy);color:#fff;border-radius:9px;padding:2px 7px}
-.col.p .pillcount{background:var(--proclb)} .col.d .pillcount{background:var(--diglb)}
-.rlist{margin:0;padding:0;list-style:none;flex:1}
-.rlist li{font-size:8.9px;line-height:1.28;color:#36414F;margin-bottom:4.5px;padding-bottom:4.5px;
-          border-bottom:1px solid rgba(27,58,107,.09);display:flex;gap:6px;align-items:flex-start}
-.rlist li:last-child{border-bottom:0}
-.rlist .t{flex:1}
-.rlist li b{display:inline;font-size:inherit;margin:0;color:var(--navy2)}
-.col.p .rlist li b{color:var(--proclb)} .col.d .rlist li b{color:var(--diglb)}
-.chip{font-size:7.6px;line-height:1.25;border-radius:8px;padding:2px 6px;white-space:nowrap;
-      display:inline-block;font-weight:bold;letter-spacing:.1px}
-.chip.p{background:var(--navy);color:#fff}
-.chip.n{background:#fff;color:var(--navy);border:1px solid var(--navy)}
-.chip.w{white-space:normal;max-width:84px;text-align:center}
+/* ───────── overview slide ───────── */
+.bignum{font-size:40px;font-weight:bold;line-height:1;color:var(--navy);margin:2px 0 0}
+.col.p .bignum{color:var(--proclb)} .col.d .bignum{color:var(--diglb)}
+.numlbl{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+.ocol h3{font-size:18px;display:block;margin-bottom:0}
+.ohead{font-size:12px;line-height:1.32;color:#3A4654;margin:0 0 9px}
+.ocol ul li{font-size:11.5px;margin-bottom:7px}
+.ocol ul li b{display:inline;font-size:11.5px;margin:0}
+.prec{margin-top:auto;border-top:1px dashed rgba(27,58,107,.3);padding-top:9px;font-size:11.5px;
+      color:#3A4654;display:flex;align-items:center;gap:7px}
+.prec b{color:var(--navy)}
 
-/* ---------- slides 3-5 · stage recommendations ---------- */
-.stats{position:absolute;left:38px;right:38px;top:92px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.stat{background:#F6F8FB;border:1px solid #DFE6EF;border-top:3px solid var(--navy);border-radius:3px;
-      padding:7px 11px}
-.stat b{display:block;font-size:19px;color:var(--navy);line-height:1.15}
-.stat span{font-size:8.4px;letter-spacing:.5px;color:var(--mut);text-transform:uppercase}
-.legend{position:absolute;right:38px;top:150px;font-size:8.6px;color:var(--mut);display:flex;gap:11px;
-        align-items:center}
-.legend i{font-style:normal;display:inline-flex;align-items:center;gap:4px}
-.dotp{width:8px;height:8px;border-radius:50%;background:var(--navy);display:inline-block}
-.dotn{width:8px;height:8px;border-radius:50%;background:#fff;border:1.4px solid var(--navy);display:inline-block}
-.bands{position:absolute;left:38px;right:38px;top:168px;bottom:30px;display:flex;flex-direction:column;gap:9px}
-.bnd{display:flex;gap:0;border-radius:3px;overflow:hidden}
-.bnd .lab{width:92px;flex:none;display:flex;align-items:center;justify-content:center;text-align:center;
-          color:#fff;font-size:10.5px;font-weight:bold;line-height:1.2;padding:6px}
-.bnd .body{flex:1;padding:7px 11px}
+/* ───────── stage slides ───────── */
+.stats{position:absolute;left:38px;right:38px;top:96px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:#F4F7FB;border:1px solid #D8E2EE;border-top:4px solid var(--navy);border-radius:4px;
+      padding:7px 13px}
+.stat b{display:block;font-size:22px;color:var(--navy);line-height:1.15}
+.stat span{font-size:10.5px;letter-spacing:.5px;color:var(--mut);text-transform:uppercase}
+.slegend{position:absolute;right:38px;top:158px;font-size:11px;color:#44536B;display:flex;gap:14px;
+         align-items:center}
+.slegend i{font-style:normal;display:inline-flex;align-items:center;gap:5px}
+.bands{position:absolute;left:38px;right:38px;top:174px;bottom:18px;display:flex;flex-direction:column;gap:8px}
+.bnd{display:flex;border-radius:4px;overflow:hidden;flex:none}
+
+.bnd .lab{width:108px;flex:none;display:flex;align-items:center;justify-content:center;text-align:center;
+          color:#fff;font-size:13px;font-weight:bold;line-height:1.2;padding:8px}
+.bnd .body{flex:1;padding:7px 13px}
 .bnd.rm .lab{background:var(--rmlb)} .bnd.rm .body{background:var(--rmbg)}
 .bnd.sm .lab{background:var(--smlb)} .bnd.sm .body{background:var(--smbg)}
 .bnd.ad .lab{background:var(--adlb)} .bnd.ad .body{background:var(--adbg)}
-.row{display:flex;align-items:flex-start;gap:9px;font-size:10px;line-height:1.33;color:#2A3441;
-     padding:3.5px 0;border-bottom:1px solid rgba(0,0,0,.07)}
+.row{display:flex;align-items:center;gap:12px;font-size:12px;line-height:1.32;color:#2A3441;
+     padding:2.5px 0;border-bottom:1px solid rgba(0,0,0,.08)}
 .row:last-child{border-bottom:0}
 .row .t{flex:1}
 .row .t b{color:var(--navy2)}
-.row .ch{flex:none;width:126px;text-align:right}
-.note{position:absolute;left:38px;right:38px;bottom:8px;font-size:8.6px;color:var(--mut);font-style:italic}
+.row .ch{flex:none;width:152px;text-align:right}
+.chip{font-size:10px;line-height:1.25;border-radius:10px;padding:3px 9px;display:inline-block;
+      font-weight:bold;letter-spacing:.1px}
+.chip.p{background:var(--navy);color:#fff}
+.chip.n{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
 </style></head><body>
 <div class="wrap">
 
 <div class="lead">
   <h1>APAR deck · design mockups</h1>
-  <p>Three designs at the deck's own 960 × 540 proportions, to be rebuilt in Google Slides.
-  Colours, the gold rule, the IDinsight mark and the Removed / Simplified / Added bands follow the
-  existing deck, so these drop in without changing its look.</p>
+  <p>Five slides at the deck's own 960 × 540 proportions, in its colours and furniture. Type is set for a
+  projector: body text is 12.5px here, about 9.5pt on the slide, and nothing sits below 10px.</p>
 </div>
 
-<!-- ═══════════════════════════ 1 · LIMITATIONS ═══════════════════════════ -->
-<div class="cap">SLIDE 2 · REVISED <span>— two overlaps merged, six bullets added (marked NEW), one consequence line per column</span></div>
+<!-- ═════════════════════ 1 · LIMITATIONS ═════════════════════ -->
+<div class="cap">SLIDE 2 · REVISED <span>— two overlaps merged, five bullets added (marked NEW), one consequence line per column</span></div>
 <div class="slide">
-  <div class="goldbar"></div>
-  <div class="wm">IDinsight</div>
+  <div class="goldbar"></div><div class="wm">IDinsight</div>
   <h2>Where the current APAR loses time and value</h2>
   <div class="rule"></div>
-  <div class="band">Limitations run across three areas &mdash; the form, the process rules and the digital system. The recommendations address all three together.</div>
+  <div class="band">Limitations run across the form, the process rules and the digital system &mdash; the recommendations address all three.</div>
 
   <div class="cols">
     <div class="col f">
-      <h3><em>01</em>Form design</h3><div class="hr"></div>
+      <h3><em>01</em> Form design</h3><div class="hr"></div>
       <ul>
-        <li><b>Six separate cadre-wise forms</b>10–12 pages each across six variants, with large sections of overlapping content and no common core.</li>
-        <li><b>Long and repetitive</b>Officer details, posting, leave and training history are re-entered every year although the state already holds them.</li>
-        <li><b>Overlapping grading dimensions</b>17–25 similar attributes are rated separately, adding effort without adding information.</li>
-        <li class="new"><b>No descriptors, benchmark or evidence standard</b>Dimensions are named but never defined, nothing states what grade is adequate, and no documentation is required for an adverse grade.</li>
-        <li><b>High qualitative narrative burden</b>Several open-ended questions ask officers to describe work, difficulties, training needs and overall assessment.</li>
+        <li><b>Six separate cadre-wise forms</b>10&ndash;12 pages each, with overlapping content and no common core.</li>
+        <li><b>Long and repetitive</b>Details the state already holds are re-entered, alongside several open-ended narratives.</li>
+        <li><b>Overlapping grading dimensions</b>17&ndash;25 similar attributes rated separately, adding effort but not information.</li>
+        <li class="new"><b>No descriptors, benchmark or evidence standard</b>Dimensions are never defined, no grade is set as adequate, and adverse grades need no proof.</li>
         <li class="new"><b>Fields that do not inform performance</b>State of health, assets and liabilities, property return dates.</li>
       </ul>
-      <div class="sowhat">The form takes long to complete and the grades do not discriminate.</div>
+      <div class="sowhat">The form takes long to complete, and the grades do not discriminate.</div>
     </div>
 
     <div class="col p">
-      <h3><em>02</em>Process</h3><div class="hr"></div>
+      <h3><em>02</em> Process</h3><div class="hr"></div>
       <ul>
-        <li class="new"><b>Reporting chain established late and informally</b>Who reported on whom is reconstructed at appraisal time; disputes surface at the end of the cycle.</li>
-        <li><b>Duplicated assessment across stages</b>Reviewing authorities re-grade dimensions and give detailed inputs even where they agree.</li>
-        <li class="new"><b>An extra approval layer for Group A</b>The Collector / Divisional Commissioner stage adds time without adding assessment.</li>
-        <li class="new"><b>No consequence for delay, no fallback for a missing stage</b>A missed deadline carries nothing, and a vacant reporting post stalls the APAR indefinitely.</li>
-        <li class="new"><b>Concerns surface only at year-end</b>Nothing is on record during the year, so an adverse grade is hard to sustain and easy to contest.</li>
+        <li class="new"><b>Reporting chain established late and informally</b>Reconstructed at appraisal time, so disputes surface at the end of the cycle.</li>
+        <li><b>Duplicated assessment across stages</b>Reviewing authorities re-grade dimensions, and Group A carries an extra Collector stage.</li>
+        <li class="new"><b>No consequence for delay, no fallback for a missing stage</b>A missed deadline carries nothing; a vacant reporting post stalls the APAR.</li>
+        <li class="new"><b>Concerns surface only at year-end</b>Nothing is on record during the year, so an adverse grade is hard to sustain.</li>
         <li><b>Monitoring roles not clearly defined</b>Custodian, CMA, SDMA and state responsibilities are not consistently set out in the GR.</li>
       </ul>
       <div class="sowhat">Nobody is accountable for moving the APAR, and nobody can see where it is.</div>
     </div>
 
     <div class="col d">
-      <h3><em>03</em>Digital interface</h3><div class="hr"></div>
+      <h3><em>03</em> Digital interface</h3><div class="hr"></div>
       <ul>
-        <li class="new"><b>Onboarding friction</b>Dependency on NIC email IDs slows getting officials onto the portal.</li>
-        <li><b>Limited pre-fill from other state systems</b>Officer details, posting, leave and completed iGOT training are entered manually every cycle.</li>
-        <li class="new"><b>No system of record for the reporting chain</b>eHRMS carries no complete organogram, so authority mapping cannot be auto-populated.</li>
-        <li><b>Manual computation where systems can help</b>Overall grade, timeliness indicators and workflow status are computed or tracked manually.</li>
-        <li><b>Workflow automation not fully utilised</b>Reminders, escalation, auto-forwarding, disclosure and representation need manual intervention.</li>
-        <li><b>No role-specific monitoring dashboards</b>Custodians and monitoring authorities lack views of pending, completed and overdue APARs by stage.</li>
-        <li class="new"><b>No cycle-level management information</b>Grade distribution, timeliness patterns and cadre-wise comparison cannot be produced.</li>
+        <li><b>Limited pre-fill, and onboarding friction</b>Details, leave and training are keyed in every cycle; NIC email IDs slow onboarding.</li>
+        <li class="new"><b>No system of record for the reporting chain</b>eHRMS carries no complete organogram, so mapping cannot be auto-populated.</li>
+        <li><b>Manual computation where systems can help</b>Overall grade, timeliness and workflow status are worked out by hand.</li>
+        <li><b>Workflow automation not fully utilised</b>Reminders, escalation, auto-forwarding, disclosure and representation need manual action.</li>
+        <li class="new"><b>No dashboards and no cycle-level MIS</b>Monitoring layers cannot see pendency; grade and timeliness patterns cannot be produced.</li>
       </ul>
       <div class="sowhat">Every rule the process relies on has to be enforced by a person.</div>
     </div>
@@ -164,68 +159,61 @@ body{margin:0;background:#EEF1F6;font:14px/1.5 Arial,Helvetica,sans-serif;color:
   <div class="pg">2</div>
 </div>
 
-<!-- ═══════════════════════════ 2 · RECOMMENDATIONS BY BUCKET ═══════════════════════════ -->
-<div class="cap">SLIDE 5 · REPLACEMENT <span>— the account of recommendations, in the same three columns and colours as the limitations slide</span></div>
-<div class="slide sub-on">
-  <div class="goldbar"></div>
-  <div class="wm">IDinsight</div>
-  <h2>Twenty-one recommendations, across the same three areas</h2>
-  <div class="sub">Each one answers a limitation on the previous slide · chips show where a state precedent exists</div>
+<!-- ═════════════════════ 2 · OVERVIEW ═════════════════════ -->
+<div class="cap">SLIDE 5 · REPLACEMENT <span>— coverage and counts, not content. Precedent is a ratio per area; the per-line tags live on the detail slides.</span></div>
+<div class="slide">
+  <div class="goldbar"></div><div class="wm">IDinsight</div>
+  <h2>Every area of limitation has a matching set of recommendations</h2>
   <div class="rule"></div>
-  <div class="band" style="display:flex;justify-content:space-between;align-items:center">
-    <span style="flex:1">Fifteen have a precedent in AIS guidance or another state; six are new design choices for Maharashtra.</span>
-    <span style="flex:none;font-weight:normal;font-size:9px;color:#44536B;white-space:nowrap;margin-left:14px">
-      <span class="dotp"></span> state precedent &nbsp;&nbsp; <span class="dotn"></span> new for Maharashtra</span>
-  </div>
+  <div class="band">Twenty-one recommendations. <span style="font-weight:normal">Fifteen follow a precedent in AIS guidance or another state; six are new for Maharashtra.</span></div>
 
   <div class="cols">
-    <div class="col f rcol">
-      <h3>Redesigning forms <span class="pillcount">6</span></h3><div class="hr"></div>
-      <ul class="rlist">
-        <li><span class="t">One <b>Form A</b> (Group A and B) and one <b>Form B</b> (Group C) replace six proformas, with a technical cadre module</span><span class="chip p w">Odisha · Nagaland</span></li>
-        <li><span class="t">17–25 rated items &rarr; <b>7 dimensions</b> at 40/30/30, with role-wise descriptors in Annexure 3</span><span class="chip p w">Odisha · Rajasthan · Gujarat</span></li>
-        <li><span class="t">A <b>benchmark of 6</b>; extreme and below-benchmark grades must be justified</span><span class="chip p w">Nagaland · Gujarat</span></li>
-        <li><span class="t">Non-performance fields removed: <b>health, assets, property returns</b></span><span class="chip p w">Odisha · Nagaland · Manipur</span></li>
-        <li><span class="t">Free-text questions cut from <b>12 to 4</b> across all stages, with set word limits</span><span class="chip p w">AIS · Goa · Gujarat</span></li>
-        <li><span class="t">Instructions and examples moved to an <b>annexure</b> so the form holds its page limit</span><span class="chip n w">IDinsight</span></li>
+    <div class="col f ocol">
+      <h3>Redesigning forms</h3>
+      <div class="bignum">6</div><div class="numlbl">recommendations</div>
+      <p class="ohead">Six proformas become one short Form A and one Form B, with a module for technical cadres.</p>
+      <ul>
+        <li>17&ndash;25 rated items &rarr; <b>7 dimensions</b> with role-wise descriptors</li>
+        <li>A <b>benchmark of 6</b>, with extreme grades justified</li>
+        <li>Free-text questions cut from <b>12 to 4</b></li>
+        <li>Fields that do not inform performance removed</li>
       </ul>
+      <div class="prec"><span class="dotp"></span><span><b>5 of 6</b> follow a state precedent</span></div>
     </div>
 
-    <div class="col p rcol">
-      <h3>Streamlining processes <span class="pillcount">8</span></h3><div class="hr"></div>
-      <ul class="rlist">
-        <li><span class="t">Officers <b>map their own</b> reporting and reviewing authority; the custodian validates</span><span class="chip n w">GAD feedback</span></li>
-        <li><span class="t"><b>NRC auto-generated</b> where tenure is 3 months or less, or no authority was in position</span><span class="chip p w">Odisha</span></li>
-        <li><span class="t">Reviewing officer addresses the <b>overall grade only</b></span><span class="chip p w">AIS · Goa · Gujarat · Nagaland</span></li>
-        <li><span class="t"><b>Accepting authority</b> acts only where a stage is missing</span><span class="chip p w">Gujarat · Odisha</span></li>
-        <li><span class="t"><b>Auto-forward</b> a stage when its deadline passes, and record the delay</span><span class="chip p w">AIS · Gujarat · Odisha</span></li>
-        <li><span class="t"><b>Memos</b> issued through the year, with the officer's response on record</span><span class="chip p w">Odisha</span></li>
-        <li><span class="t"><b>Fixed closure date</b>; online filing only, signed with DSC or eSign</span><span class="chip p w">AIS · Odisha · Nagaland</span></li>
-        <li><span class="t">Monitoring layers defined: <b>custodian, CMA, SDMA, GAD</b></span><span class="chip p w">Gujarat</span></li>
+    <div class="col p ocol">
+      <h3>Streamlining processes</h3>
+      <div class="bignum">8</div><div class="numlbl">recommendations</div>
+      <p class="ohead">Each stage gets an owner, a deadline and a fallback, so the cycle moves without being chased.</p>
+      <ul>
+        <li>Officers <b>map their own authorities</b>; custodian validates</li>
+        <li><b>Auto-forward</b> a missed stage, and record the delay</li>
+        <li>Reviewing officer addresses the <b>overall grade only</b></li>
+        <li><b>Memos</b> through the year; monitoring layers defined</li>
       </ul>
+      <div class="prec"><span class="dotp"></span><span><b>7 of 8</b> follow a state precedent</span></div>
     </div>
 
-    <div class="col d rcol">
-      <h3>Strengthening digital systems <span class="pillcount">7</span></h3><div class="hr"></div>
-      <ul class="rlist">
-        <li><span class="t"><b>Pre-fill</b> identity, MahaID, leave and completed training from Sevaarth, eHRMS and iGOT</span><span class="chip p w">Gujarat · Odisha</span></li>
-        <li><span class="t">MahaPAR <b>calculates</b> the weighted overall grade</span><span class="chip p w">Goa · Nagaland</span></li>
-        <li><span class="t"><b>Timeliness marks</b>, 5% of the score, computed from the dates each stage was signed</span><span class="chip p w">Gujarat</span></li>
-        <li><span class="t">Real-time <b>pendency dashboards</b> for every monitoring layer</span><span class="chip p w">Odisha</span></li>
-        <li><span class="t">Authority mapping <b>auto-populated from the eHRMS organogram</b> in the longer term</span><span class="chip n w">IDinsight</span></li>
-        <li><span class="t"><b>Disclosure</b> and a 15-day representation window handled in MahaPAR</span><span class="chip p w">AIS</span></li>
-        <li><span class="t"><b>Single login</b> without the NIC email barrier</span><span class="chip n w">GAD feedback</span></li>
+    <div class="col d ocol">
+      <h3>Integrating data systems</h3>
+      <div class="bignum">7</div><div class="numlbl">recommendations</div>
+      <p class="ohead">MahaPAR draws on records the state already holds, and does the work the form now asks people to do.</p>
+      <ul>
+        <li><b>Pre-fill</b> from Sevaarth, eHRMS and iGOT</li>
+        <li>MahaPAR <b>calculates</b> the overall grade and timeliness</li>
+        <li><b>Pendency dashboards</b> for every monitoring layer</li>
+        <li><b>Disclosure and representation</b> handled in the portal</li>
       </ul>
+      <div class="prec"><span class="dotp"></span><span><b>3 of 7</b> follow a state precedent</span></div>
     </div>
   </div>
   <div class="pg">5</div>
 </div>
 
-<!-- ═══════════════════════════ 3 · SELF-APPRAISAL ═══════════════════════════ -->
-<div class="cap">SLIDE 6 · REDESIGNED <span>— precedent moves from a column to a chip on each line, so it can differ line by line</span></div>
-<div class="slide sub-on">
-  <div class="goldbar"></div>
-  <div class="wm">IDinsight</div>
+<!-- ═════════════════════ 3 · SELF-APPRAISAL ═════════════════════ -->
+<div class="cap">SLIDE 6 <span>— precedent moves from a table column to a tag on each line, so it can differ line by line within one band</span></div>
+<div class="slide">
+  <div class="goldbar"></div><div class="wm">IDinsight</div>
   <h2>Self-appraisal shifts to a shorter, data-linked reflection</h2>
   <div class="sub">Current proforma 1, Section 2 &nbsp;&rarr;&nbsp; Form A, Part 2</div>
   <div class="rule"></div>
@@ -233,131 +221,103 @@ body{margin:0;background:#EEF1F6;font:14px/1.5 Arial,Helvetica,sans-serif;color:
   <div class="stats">
     <div class="stat"><b>7 &rarr; 6</b><span>Questions / fields</span></div>
     <div class="stat"><b>5 &rarr; 1</b><span>Free-text fields</span></div>
-    <div class="stat"><b>45–60 &rarr; 20–30 min</b><span>Completion time (estimated)</span></div>
+    <div class="stat"><b>45&ndash;60 &rarr; 20&ndash;30 min</b><span>Completion time (estimated)</span></div>
   </div>
-  <div class="legend"><i><span class="dotp"></span> state precedent</i><i><span class="dotn"></span> new for Maharashtra</i></div>
+  <div class="slegend"><i><span class="dotp"></span> state precedent</i><i><span class="dotn"></span> new for Maharashtra</i></div>
 
-  <div class="bands" style="top:176px">
-    <div class="bnd rm">
-      <div class="lab">Removed</div>
-      <div class="body">
-        <div class="row"><span class="t"><b>Property and assets declaration</b>, and the question on preparing annual work plans for subordinates</span><span class="ch"><span class="chip p">Odisha · Nagaland · Manipur</span></span></div>
-        <div class="row"><span class="t">For Group C, separate fields on <b>duties of the post and allocated tasks</b></span><span class="ch"><span class="chip n">IDinsight</span></span></div>
-        <div class="row"><span class="t">Separate <b>near-term and long-term training-needs</b> fields</span><span class="ch"><span class="chip n">IDinsight</span></span></div>
-      </div>
-    </div>
+  <div class="bands">
+    <div class="bnd rm"><div class="lab">Removed</div><div class="body">
+      <div class="row"><span class="t"><b>Property and assets declaration</b>, and preparing annual work plans for subordinates</span><span class="ch"><span class="chip p">Odisha · Nagaland · Manipur</span></span></div>
+      <div class="row"><span class="t">For Group C, separate fields on <b>duties of the post and allocated tasks</b></span><span class="ch"><span class="chip n">IDinsight</span></span></div>
+      <div class="row"><span class="t">Separate <b>near-term and long-term training-needs</b> fields</span><span class="ch"><span class="chip n">IDinsight</span></span></div>
+    </div></div>
 
-    <div class="bnd sm">
-      <div class="lab">Simplified /<br>improved</div>
-      <div class="body">
-        <div class="row"><span class="t">Detailed work-plan table &rarr; <b>key activities, targets and achievements</b>, only where targets were actually set</span><span class="ch"><span class="chip p">Rajasthan · Nagaland</span></span></div>
-        <div class="row"><span class="t">4–5 noteworthy works &rarr; <b>1–2 significant contributions</b>, with word limits and entries pulled from the work log</span><span class="ch"><span class="chip p">AIS · Goa · Gujarat</span></span></div>
-        <div class="row"><span class="t">"Difficulties in achieving targets" &rarr; an <b>optional question on systemic constraints</b></span><span class="ch"><span class="chip p">AIS · Goa · Gujarat</span></span></div>
-        <div class="row"><span class="t">Open-ended training needs &rarr; <b>structured categories</b> for training nominations</span><span class="ch"><span class="chip p">Gujarat</span></span></div>
-        <div class="row"><span class="t">Group C self-appraisal &rarr; <b>optional, lighter reflection</b> on noteworthy work</span><span class="ch"><span class="chip p">Odisha</span></span></div>
-      </div>
-    </div>
+    <div class="bnd sm"><div class="lab">Simplified /<br>improved</div><div class="body">
+      <div class="row"><span class="t">Work-plan table &rarr; <b>key activities, targets and achievements</b>, only where targets were set</span><span class="ch"><span class="chip p">Rajasthan · Nagaland</span></span></div>
+      <div class="row"><span class="t">4&ndash;5 noteworthy works &rarr; <b>1&ndash;2 significant contributions</b>, with word limits</span><span class="ch"><span class="chip p">AIS · Goa · Gujarat</span></span></div>
+      <div class="row"><span class="t">"Difficulties in achieving targets" &rarr; <b>optional question on systemic constraints</b></span><span class="ch"><span class="chip p">AIS · Goa · Gujarat</span></span></div>
+      <div class="row"><span class="t">Open-ended training needs &rarr; <b>structured categories</b> for nominations</span><span class="ch"><span class="chip p">Gujarat</span></span></div>
+      <div class="row"><span class="t">Group C self-appraisal &rarr; <b>optional, lighter reflection</b> on noteworthy work</span><span class="ch"><span class="chip p">Odisha</span></span></div>
+    </div></div>
 
-    <div class="bnd ad">
-      <div class="lab">Added /<br>integrated</div>
-      <div class="body">
-        <div class="row"><span class="t"><b>Identity, MahaID and leave</b> pre-filled from Sevaarth and eHRMS; <b>trainings</b> pre-filled from iGOT</span><span class="ch"><span class="chip p">Gujarat · Odisha</span></span></div>
-        <div class="row"><span class="t">Officer <b>maps their own reporting and reviewing authority</b>; custodian validates</span><span class="ch"><span class="chip n">GAD feedback</span></span></div>
-        <div class="row"><span class="t"><b>Memos and work log</b> open year-round, visible as attachments to the APAR</span><span class="ch"><span class="chip n">GAD feedback</span></span></div>
-      </div>
-    </div>
+    <div class="bnd ad"><div class="lab">Added /<br>integrated</div><div class="body">
+      <div class="row"><span class="t"><b>Identity, MahaID, leave and trainings</b> pre-filled from Sevaarth, eHRMS and iGOT</span><span class="ch"><span class="chip p">Gujarat · Odisha</span></span></div>
+      <div class="row"><span class="t">Officer <b>maps their own reporting and reviewing authority</b>; custodian validates</span><span class="ch"><span class="chip n">GAD feedback</span></span></div>
+      <div class="row"><span class="t"><b>Memos and work log</b> open year-round, attached to the APAR</span><span class="ch"><span class="chip n">GAD feedback</span></span></div>
+    </div></div>
   </div>
   <div class="pg">6</div>
 </div>
 
-<!-- ═══════════════════════════ 4 · REPORTING OFFICER ═══════════════════════════ -->
-<div class="cap">SLIDE 7 · REDESIGNED</div>
-<div class="slide sub-on">
-  <div class="goldbar"></div>
-  <div class="wm">IDinsight</div>
+<!-- ═════════════════════ 4 · REPORTING OFFICER ═════════════════════ -->
+<div class="cap">SLIDE 7 <span>— same construction, so the three stage slides read as a set</span></div>
+<div class="slide">
+  <div class="goldbar"></div><div class="wm">IDinsight</div>
   <h2>Reporting officers assess through a shorter, evidence-linked form</h2>
   <div class="sub">Current proforma 1, Section 3 &nbsp;&rarr;&nbsp; Form A, Part 3</div>
   <div class="rule"></div>
 
   <div class="stats">
-    <div class="stat"><b>17–25 &rarr; 7</b><span>Dimensions graded</span></div>
+    <div class="stat"><b>17&ndash;25 &rarr; 7</b><span>Dimensions graded</span></div>
     <div class="stat"><b>6 &rarr; 2</b><span>Free-text questions</span></div>
-    <div class="stat"><b>30–45 &rarr; 15–20 min</b><span>Completion time (estimated)</span></div>
+    <div class="stat"><b>30&ndash;45 &rarr; 15&ndash;20 min</b><span>Completion time (estimated)</span></div>
   </div>
-  <div class="legend"><i><span class="dotp"></span> state precedent</i><i><span class="dotn"></span> new for Maharashtra</i></div>
+  <div class="slegend"><i><span class="dotp"></span> state precedent</i><i><span class="dotn"></span> new for Maharashtra</i></div>
 
-  <div class="bands" style="top:176px">
-    <div class="bnd rm">
-      <div class="lab">Removed</div>
-      <div class="body">
-        <div class="row"><span class="t">Separate <b>fitness-for-promotion</b> question and technical accuracy check</span><span class="ch"><span class="chip n">IDinsight</span></span></div>
-        <div class="row"><span class="t"><b>State of health</b> and the manually entered overall grade</span><span class="ch"><span class="chip p">AIS · Goa · Gujarat · Rajasthan</span></span></div>
-      </div>
-    </div>
+  <div class="bands">
+    <div class="bnd rm"><div class="lab">Removed</div><div class="body">
+      <div class="row"><span class="t">Separate <b>fitness-for-promotion</b> question and technical accuracy check</span><span class="ch"><span class="chip n">IDinsight</span></span></div>
+      <div class="row"><span class="t"><b>State of health</b>, domain recommendations, and the manually entered overall grade</span><span class="ch"><span class="chip p">AIS · Goa · Gujarat · Rajasthan</span></span></div>
+    </div></div>
 
-    <div class="bnd sm">
-      <div class="lab">Simplified /<br>improved</div>
-      <div class="body">
-        <div class="row"><span class="t">Rated dimensions cut from <b>17–25 to 7</b>, with role-specific descriptors in Annexure 3</span><span class="ch"><span class="chip p">Odisha · Rajasthan · Gujarat</span></span></div>
-        <div class="row"><span class="t">Grades of <b>1–2 or 9–10 must be justified</b> by a specific accomplishment or failure</span><span class="ch"><span class="chip p">Nagaland · Gujarat</span></span></div>
-        <div class="row"><span class="t"><b>Memos issued during the year</b> attach to the APAR as justification for a below-benchmark grade</span><span class="ch"><span class="chip p">Odisha</span></span></div>
-        <div class="row"><span class="t"><b>Overall assessment</b> structured with prompts: strengths, area to develop, significant failure, attitude to weaker sections</span><span class="ch"><span class="chip p">AIS</span></span></div>
-        <div class="row"><span class="t">Agreement with the self-appraisal is asked <b>after</b> the officer's own grading, to reduce anchoring</span><span class="ch"><span class="chip n">IDinsight</span></span></div>
-      </div>
-    </div>
+    <div class="bnd sm"><div class="lab">Simplified /<br>improved</div><div class="body">
+      <div class="row"><span class="t">Rated dimensions cut from <b>17&ndash;25 to 7</b>, with role-specific descriptors in Annexure 3</span><span class="ch"><span class="chip p">Odisha · Rajasthan · Gujarat</span></span></div>
+      <div class="row"><span class="t">Grades of <b>1&ndash;2 or 9&ndash;10</b> must be justified by a specific accomplishment or failure</span><span class="ch"><span class="chip p">Nagaland · Gujarat</span></span></div>
+      <div class="row"><span class="t"><b>Memos issued during the year</b> attach as justification for a below-benchmark grade</span><span class="ch"><span class="chip p">Odisha</span></span></div>
+      <div class="row"><span class="t"><b>Overall assessment</b> structured with prompts: strengths, area to develop, significant failure</span><span class="ch"><span class="chip p">AIS</span></span></div>
+      <div class="row"><span class="t">Agreement with the self-appraisal asked <b>after</b> the officer's own grading, to reduce anchoring</span><span class="ch"><span class="chip n">IDinsight</span></span></div>
+    </div></div>
 
-    <div class="bnd ad">
-      <div class="lab">Added /<br>integrated</div>
-      <div class="body">
-        <div class="row"><span class="t"><b>Training nominations</b> — validate the officer's request and add up to three of your own, each typed</span><span class="ch"><span class="chip n">GAD feedback</span></span></div>
-        <div class="row"><span class="t"><b>System data for reference</b> — iGOT hours, eOffice use and attendance, mapped to the dimensions they inform</span><span class="ch"><span class="chip p">Odisha</span></span></div>
-        <div class="row"><span class="t"><b>Departmental KRAs</b> for the post shown alongside the targets recorded in 2.1</span><span class="ch"><span class="chip n">GAD feedback</span></span></div>
-      </div>
-    </div>
+    <div class="bnd ad"><div class="lab">Added /<br>integrated</div><div class="body">
+      <div class="row"><span class="t"><b>Training nominations</b> &mdash; validate the officer's request and add up to three, each typed</span><span class="ch"><span class="chip n">GAD feedback</span></span></div>
+      <div class="row"><span class="t"><b>System data for reference</b> &mdash; iGOT hours, eOffice use and attendance, mapped to dimensions</span><span class="ch"><span class="chip p">Odisha</span></span></div>
+      <div class="row"><span class="t"><b>Departmental KRAs</b> for the post, shown with the targets recorded in Part 2</span><span class="ch"><span class="chip n">GAD feedback</span></span></div>
+    </div></div>
   </div>
   <div class="pg">7</div>
 </div>
 
-<!-- ═══════════════════════════ 5 · REVIEWING OFFICER ═══════════════════════════ -->
-<div class="cap">SLIDE 8 · REDESIGNED <span>— a short slide; the bands stay the same height so the three stage slides read as a set</span></div>
-<div class="slide sub-on">
-  <div class="goldbar"></div>
-  <div class="wm">IDinsight</div>
+<!-- ═════════════════════ 5 · REVIEWING OFFICER ═════════════════════ -->
+<div class="cap">SLIDE 8</div>
+<div class="slide">
+  <div class="goldbar"></div><div class="wm">IDinsight</div>
   <h2>Reviewing officers move to exception-based oversight</h2>
   <div class="sub">Current proforma 1, Section 4B &nbsp;&rarr;&nbsp; Form A, Part 4</div>
   <div class="rule"></div>
 
   <div class="stats">
-    <div class="stat"><b>6 &rarr; 1–2</b><span>Questions / fields</span></div>
+    <div class="stat"><b>6 &rarr; 1&ndash;2</b><span>Questions / fields</span></div>
     <div class="stat"><b>17 &rarr; 0</b><span>Dimensions re-graded</span></div>
-    <div class="stat"><b>15–20 &rarr; 5 min</b><span>Completion time (estimated)</span></div>
+    <div class="stat"><b>15&ndash;20 &rarr; 5 min</b><span>Completion time (estimated)</span></div>
   </div>
-  <div class="legend"><i><span class="dotp"></span> state precedent</i><i><span class="dotn"></span> new for Maharashtra</i></div>
+  <div class="slegend"><i><span class="dotp"></span> state precedent</i><i><span class="dotn"></span> new for Maharashtra</i></div>
 
-  <div class="bands" style="top:176px">
-    <div class="bnd rm">
-      <div class="lab">Removed</div>
-      <div class="body">
-        <div class="row"><span class="t">No <b>re-grading of individual dimensions</b>, and no repeat of fields already assessed by the reporting officer</span><span class="ch"><span class="chip p">AIS · Goa · Gujarat · Nagaland</span></span></div>
-        <div class="row"><span class="t">The <b>Collector / Divisional Commissioner stage</b> for Group A officers <i>(subject to GAD confirmation)</i></span><span class="ch"><span class="chip n">IDinsight</span></span></div>
-      </div>
-    </div>
+  <div class="bands">
+    <div class="bnd rm"><div class="lab">Removed</div><div class="body">
+      <div class="row"><span class="t">No <b>re-grading of individual dimensions</b>, and no repeat of fields the reporting officer has assessed</span><span class="ch"><span class="chip p">AIS · Goa · Gujarat · Nagaland</span></span></div>
+      <div class="row"><span class="t">The reviewing officer's <b>separate narrative assessment</b></span><span class="ch"><span class="chip p">Goa · Gujarat</span></span></div>
+      <div class="row"><span class="t">The <b>Collector / Divisional Commissioner stage</b> for Group A <i>(subject to GAD confirmation)</i></span><span class="ch"><span class="chip n">IDinsight</span></span></div>
+    </div></div>
 
-    <div class="bnd sm">
-      <div class="lab">Simplified /<br>improved</div>
-      <div class="body">
-        <div class="row"><span class="t">The reviewing officer is asked only to <b>agree or disagree with the overall grade</b>. Agreeing takes one click and a signature.</span><span class="ch"><span class="chip p">AIS · Goa · Gujarat · Nagaland</span></span></div>
-        <div class="row"><span class="t">On disagreement, they give <b>one alternate overall grade</b> (1–10) with a 30-word reason — dimension grades are never revised</span><span class="ch"><span class="chip p">AIS · Nagaland</span></span></div>
-      </div>
-    </div>
+    <div class="bnd sm"><div class="lab">Simplified /<br>improved</div><div class="body">
+      <div class="row"><span class="t">The reviewing officer only <b>agrees or disagrees with the overall grade</b> &mdash; agreeing is one click and a signature</span><span class="ch"><span class="chip p">AIS · Goa · Gujarat · Nagaland</span></span></div>
+      <div class="row"><span class="t">On disagreement, <b>one alternate overall grade</b> with a 30-word reason; dimension grades are never revised</span><span class="ch"><span class="chip p">AIS · Nagaland</span></span></div>
+    </div></div>
 
-    <div class="bnd ad">
-      <div class="lab">Added /<br>integrated</div>
-      <div class="body">
-        <div class="row"><span class="t"><b>Extreme grade justification</b> — a revised grade of 1–2 or 9–10 requires the specific accomplishment or failure behind it</span><span class="ch"><span class="chip p">Nagaland · Gujarat</span></span></div>
-        <div class="row"><span class="t"><b>Timeliness</b> at this stage counts towards the reviewing officer's own APAR score</span><span class="ch"><span class="chip p">Gujarat</span></span></div>
-      </div>
-    </div>
+    <div class="bnd ad"><div class="lab">Added /<br>integrated</div><div class="body">
+      <div class="row"><span class="t"><b>Extreme grade justification</b> &mdash; a revised grade of 1&ndash;2 or 9&ndash;10 needs the accomplishment or failure behind it</span><span class="ch"><span class="chip p">Nagaland · Gujarat</span></span></div>
+      <div class="row"><span class="t"><b>Timeliness at this stage</b> counts towards the reviewing officer's own APAR score</span><span class="ch"><span class="chip p">Gujarat</span></span></div>
+    </div></div>
   </div>
   <div class="pg">8</div>
 </div>
