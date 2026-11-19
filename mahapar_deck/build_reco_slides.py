@@ -423,5 +423,52 @@ stage_slide(
         ("Departmental enquiry record for the reporting officer, once the DE module is live",
          "Future direction", False)])])
 
+
+# ══════════════════════════════════════════════ 8 · how the recommendations were arrived at
+# Replaces the four-step process slide; step 3 (the MahaPAR portal review) is new.
+s = frame("How the recommendations were arrived at", 4)
+
+STEPS = [
+    ("Step 1", "State benchmarking study",
+     "APAR forms compared across AIS guidance and seven states on 35+ parameters: structure, "
+     "self-appraisal, reporting, reviewing, process and records.", False),
+    ("Step 2", "Maharashtra field inventory",
+     "Every field in all six current forms mapped: who fills it, the response type, the word "
+     "limit, and whether the data already sits in Sevaarth or eHRMS.", False),
+    ("Step 3", "MahaPAR portal review",
+     "The portal walked through end to end to find where the cycle stalls: what is keyed in by "
+     "hand, what MahaPAR could compute or move on its own, and which records in Sevaarth, eHRMS "
+     "and iGOT could be drawn in rather than re-entered.", True),
+    ("Step 4", "Precedent mapping",
+     "Each proposed change classified as having clear precedent, partial precedent, a new design "
+     "choice for Maharashtra, or a decision for GAD.", False),
+    ("Step 5", "Drafts and portal design",
+     "A recommendations note, Form A and Form B drafts, and the MahaPAR user windows \u2014 "
+     "refined with GAD feedback and partner inputs.", False),
+]
+
+BOXW, GAP = 155, 27
+BY, BH = 112, 212
+for i, (step, head, bodytxt, is_new) in enumerate(STEPS):
+    x = PAD + (BOXW + GAP) * i
+    bg = RGBColor(0xDC, 0xE8, 0xF8) if is_new else RGBColor(0xE9, 0xF1, 0xFC)
+    ln = NAVY if is_new else RGBColor(0xC4, 0xD8, 0xF3)
+    rect(s, x, BY, BOXW, BH, fill=bg, line=ln, line_w=1.75 if is_new else 1, radius=0.03)
+    text(s, x + 12, BY + 12, BOXW - 24, 14,
+         [[_r(step.upper(), pt(10.5), NAVY if is_new else RGBColor(0x6E, 0x84, 0xA6), True)]],
+         anchor=MSO_ANCHOR.TOP)
+    text(s, x + 12, BY + 30, BOXW - 24, 54, [[_r(head, pt(12.5), NAVY, True)]],
+         anchor=MSO_ANCHOR.TOP, line_spacing=1.12)
+    text(s, x + 12, BY + 88, BOXW - 24, BH - 100, [[_r(bodytxt, pt(9.5), BODY)]],
+         anchor=MSO_ANCHOR.TOP, line_spacing=1.22)
+    if i < len(STEPS) - 1:
+        text(s, x + BOXW, BY, GAP, BH, [[_r("\u2192", pt(16), NAVY, True)]],
+             align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+
+text(s, PAD, BY + BH + 14, CW, 20,
+     [[_r("Step 3 is new: the portal review is what separates the form recommendations from the "
+          "process and data-integration ones.", pt(10.5), MUT, ital=True)]], anchor=MSO_ANCHOR.TOP)
+
+
 prs.save(OUT)
 print("wrote", OUT, "·", len(prs.slides._sldIdLst), "slides")
