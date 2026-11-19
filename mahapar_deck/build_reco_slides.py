@@ -405,33 +405,79 @@ stage_slide(
          "Gujarat \u00b7 Odisha \u00b7 AIS", True)])])
 
 # ══════════════════════════════════════════════ 7 · process and system
-stage_slide(
-    "Process and system changes carry the rest of the gain",
-    "Thirteen process recommendations and six on data integration", 10,
-    [("13", "Process recommendations"), ("6", "Data-integration recommendations"),
-     ("14 of 19", "Follow a state precedent")],
-    [("Who does\nwhat", RMLB, RMBG, [
-        ("Officers map their own authorities; the custodian validates, and eHRMS pre-populates later",
-         "GAD feedback", False),
-        ("NRC auto-generated on two grounds, with the reason recorded", "Odisha", True),
-        ("Accepting authority acts only where a stage is missing; the Collector stage is removed",
-         "Gujarat \u00b7 Odisha", True)]),
-     ("Keeping the\ncycle moving", SMLB, SMBG, [
-        ("A fixed closure date, online filing only, signed with DSC or eSign",
-         "AIS \u00b7 Odisha \u00b7 Nagaland", True),
-        ("A stage auto-forwards 15 days past its deadline, and the delay is recorded",
-         "AIS \u00b7 Gujarat \u00b7 Odisha", True),
-        ("Timeliness marks worth 5% of the score, computed from the dates each stage was signed",
-         "Gujarat", True),
-        ("Memos through the year; monitoring layers above the custodian; disclosure and representation",
-         "Odisha \u00b7 Gujarat \u00b7 AIS", True)]),
-     ("What the\nsystem does", ADLB, ADBG, [
-        ("Pre-fill from Sevaarth and eHRMS; iGOT hours, eOffice use and attendance shown while grading",
-         "Gujarat \u00b7 Odisha", True),
-        ("Work log open year-round, feeding the self-appraisal; departmental KRAs shown to the grader",
-         "GAD feedback", False),
-        ("Departmental enquiry record for the reporting officer, once the DE module is live",
-         "Future direction", False)])])
+# ══════════════════════════════════════════════ 7 · process and system changes
+# Two buckets only. Every precedent below is quoted from the benchmarking note's
+# own Precedent column; where the note records none, the row says so.
+s = frame("Process and system changes carry the rest of the gain", 10,
+          "Ten changes to the rules, eight to what MahaPAR does")
+
+TILE2 = RGBColor(0xF4, 0xF7, 0xFB)
+for k, (big, small) in enumerate([("10", "Process changes"), ("8", "System changes"),
+                                  ("11 of 18", "Follow a state precedent")]):
+    tw2 = (CW - 24) / 3
+    x = PAD + (tw2 + 12) * k
+    rect(s, x, 96, tw2, 46, fill=TILE2, line=RGBColor(0xD8, 0xE2, 0xEE), radius=0.03)
+    rect(s, x, 96, tw2, 4, fill=NAVY)
+    text(s, x + 12, 103, tw2 - 24, 24, [[_r(big, pt(18), NAVY, True)]], anchor=MSO_ANCHOR.TOP)
+    text(s, x + 12, 126, tw2 - 24, 14, [[_r(small.upper(), pt(9.5), MUT, True)]], anchor=MSO_ANCHOR.TOP)
+
+PROCESS = [
+    ("Officers map their own reporting and reviewing authority; the custodian validates", None),
+    ("NRC generated where tenure is 3 months or less, or no authority was in position", "Odisha"),
+    ("Accepting authority acts only where the reporting or reviewing stage is missing",
+     "Gujarat \u00b7 Odisha"),
+    ("The Collector / Divisional Commissioner stage is removed for Group A officers", None),
+    ("A fixed closure date for the cycle; online filing only, signed with DSC or eSign",
+     "AIS \u00b7 Odisha \u00b7 Nagaland"),
+    ("A stage moves on when its deadline passes, and the delay is recorded against its holder",
+     "AIS \u00b7 Gujarat \u00b7 Odisha"),
+    ("Timeliness is worth 5% of the final score, for every role an official holds", "Gujarat"),
+    ("Memos issued during the year attach as evidence for a below-benchmark grade", "Odisha"),
+    ("Monitoring responsibilities set out for custodian, CMA, SDMA and GAD", None),
+    ("Completed APARs disclosed to the officer, with 15 days to represent", "AIS"),
+]
+SYSTEM = [
+    ("Single login, without the NIC email ID barrier", None),
+    ("Identity, leave and completed training pre-filled from Sevaarth, eHRMS and iGOT",
+     "Gujarat \u00b7 Odisha"),
+    ("MahaPAR calculates the weighted overall grade from the dimension grades", "Goa \u00b7 Nagaland"),
+    ("Timeliness computed from the dates each stage was signed, entered by no one", "Gujarat"),
+    ("Real-time pendency dashboards for custodian, CMA, SDMA and state administrator", None),
+    ("Automatic reminders, and escalation when a stage runs past its deadline", None),
+    ("iGOT hours, eOffice use and attendance shown to the reporting officer while grading", "Odisha"),
+    ("Work log, memos and departmental KRAs carried into the APAR from the portal", None),
+]
+
+CW2 = (CW - 22) / 2
+for k, (title, lb, bg, items) in enumerate([
+        ("Process changes \u2014 the rules of the cycle", SMLB, SMBG, PROCESS),
+        ("System changes \u2014 what MahaPAR does", ADLB, ADBG, SYSTEM)]):
+    x = PAD + (CW2 + 22) * k
+    rect(s, x, 152, CW2, 26, fill=lb, radius=0.03)
+    shape_text(rect(s, x, 152, CW2, 26, fill=lb, radius=0.03),
+               [[_r(title, pt(12), WHITE, True)]], anchor=MSO_ANCHOR.MIDDLE, m_left=12, m_right=8)
+    bh = 30 * len(items) + 8
+    rect(s, x, 178, CW2, bh, fill=bg)
+    ry = 182
+    for n, (body_txt, prec) in enumerate(items):
+        text(s, x + 12, ry, CW2 - 24 - 124, 28, [[_r(body_txt, pt(10.5), BODY2)]],
+             anchor=MSO_ANCHOR.MIDDLE, line_spacing=1.08)
+        label = prec if prec else "new for Maharashtra"
+        cwid = len(label) * 4.3 + 14
+        cx = x + CW2 - 12 - cwid
+        c = rect(s, cx, ry + 6, cwid, 15, fill=NAVY if prec else WHITE,
+                 line=None if prec else NAVY, line_w=1.25, radius=0.5)
+        shape_text(c, [[_r(label, pt(8.5), WHITE if prec else NAVY, True)]],
+                   align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, m_left=2, m_right=2)
+        ry += 30
+        if n < len(items) - 1:
+            rect(s, x + 12, ry - 2, CW2 - 24, 0.75, fill=RGBColor(0xFF, 0xFF, 0xFF))
+
+text(s, PAD, H - 34, CW, 26,
+     [[_r("Precedents are those recorded in the state benchmarking note. ", pt(9.5), BODY2, True),
+       _r("\u2018New for Maharashtra\u2019 means the note found no state precedent; the portal "
+          "capabilities drawn from the MahaPAR improvement plan are in that category.",
+          pt(9.5), MUT, ital=True)]], anchor=MSO_ANCHOR.TOP, line_spacing=1.2)
 
 
 # ══════════════════════════════════════════════ 8 · how the recommendations were arrived at
