@@ -171,58 +171,83 @@ for i, (bg, ln, head, num, accent, items, foot) in enumerate(LIMS):
     sowhat(s, x + 14, COLW - 28, foot)
 
 
-# ══════════════════════════════════════════════ 2 · overview
-s = frame("Every limitation has a matching set of recommendations", 5)
-band(s, "Forty-nine recommendations in all.",
-     "Thirty-seven follow a precedent in AIS guidance or another state; twelve are new for Maharashtra.")
+# ══════════════════════════════════════════════ 2 · recommendations + what they save
+s = frame("Forty-nine recommendations, and what they save", 5)
+band(s, "Thirty-seven follow a precedent in AIS guidance or another state.",
+     "The rest are design choices for Maharashtra.")
 
-# (bg, line, heading, accent, count, lead line, breakdown rows, precedent ratio)
-# A breakdown row is (label, count); the bar length is drawn in proportion.
-OVER = [
-    (FORMBG, FORMLN, "Redesigning forms", NAVY, 30,
-     "Six proformas become one short Form A and one Form B, with a module for technical cadres.",
-     [("Whole form", 2), ("Part 1 · details and chain", 2), ("Part 2 · self-appraisal", 7),
-      ("Part 3 · reporting officer", 9), ("Part 4 · reviewing officer", 1),
-      ("Form B · Group C", 9)],
-     "23 of 30"),
-    (PROCBG, PROCLN, "Streamlining processes", PROCLB, 13,
-     "Each stage gets an owner, a deadline and a fallback, so the cycle moves without being chased.",
-     [("Who reports on whom, and NRCs", 3), ("Deadlines, auto-forward, timeliness", 4),
-      ("Stages and fallbacks", 3), ("Memos, monitoring and disclosure", 3)],
-     "11 of 13"),
-    (DIGBG, DIGLN, "Integrating data systems", DIGLB, 6,
-     "MahaPAR draws on records the state already holds, and does the work the form now asks people to do.",
-     [("Pre-fill from Sevaarth and eHRMS", 1), ("System data shown while grading", 2),
-      ("Work log and departmental KRAs", 2), ("Authority mapping from eHRMS", 1)],
-     "3 of 6"),
-]
-for i, (bg, ln, head, accent, num, lead, rows, ratio) in enumerate(OVER):
-    x, _ = column(s, i, bg, ln, head)
-    text(s, x + 13, COLT + 40, COLW - 26, 46, [[_r(str(num), pt(40), accent, True)]],
+LX, LW = PAD, 300                      # left panel: the recommendations
+RX = PAD + LW + 20                     # right panel: what they add up to
+RW = PAD + CW - RX
+TOP, BOT = 134, H - 26
+
+LH = 262
+rect(s, LX, TOP, LW, LH, fill=RGBColor(0xF4, 0xF7, 0xFB), line=RGBColor(0xD8, 0xE2, 0xEE),
+     radius=0.03)
+text(s, LX + 16, TOP + 11, LW - 32, 20,
+     [[_r("WHAT CHANGES", pt(11.5), MUT, True)]], anchor=MSO_ANCHOR.TOP)
+
+BUCKETS = [("30", "Redesigning forms", "23 with a state precedent", NAVY),
+           ("13", "Streamlining processes", "11 with a state precedent", PROCLB),
+           ("6", "Integrating data systems", "3 with a state precedent", DIGLB)]
+by = TOP + 40
+for num, name, prec, accent in BUCKETS:
+    text(s, LX + 16, by, 54, 40, [[_r(num, pt(30), accent, True)]],
+         align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
+    text(s, LX + 80, by + 2, LW - 96, 18, [[_r(name, pt(13.5), accent, True)]],
          anchor=MSO_ANCHOR.TOP)
-    text(s, x + 13, COLT + 84, COLW - 26, 16,
-         [[_r("RECOMMENDATIONS", pt(11), MUT)]], anchor=MSO_ANCHOR.TOP)
-    text(s, x + 13, COLT + 104, COLW - 26, 56, [[_r(lead, pt(12), BODY)]],
-         anchor=MSO_ANCHOR.TOP, line_spacing=1.12)
+    text(s, LX + 80, by + 20, LW - 96, 16, [[_r(prec, pt(11), BODY)]], anchor=MSO_ANCHOR.TOP)
+    by += 56
 
-    # breakdown: label, a proportional bar, and the count
-    BARX = x + COLW - 26 - 62
-    BARMAX = 46
-    top = max(c for _, c in rows)
-    y = COLT + 156
-    for label, c in rows:
-        text(s, x + 13, y, COLW - 26 - 72, 15, [[_r(label, pt(10.5), BODY)]],
-             anchor=MSO_ANCHOR.MIDDLE)
-        rect(s, BARX, y + 4.5, BARMAX, 6, fill=RGBColor(0xFF, 0xFF, 0xFF))
-        rect(s, BARX, y + 4.5, max(3, BARMAX * c / top), 6, fill=accent)
-        text(s, BARX + BARMAX + 6, y, 16, 15, [[_r(str(c), pt(10.5), accent, True)]],
-             anchor=MSO_ANCHOR.MIDDLE)
-        y += 19
+rect(s, LX + 16, TOP + LH - 50, LW - 32, 1, fill=RGBColor(0xC8, 0xD3, 0xE3))
+text(s, LX + 16, TOP + LH - 42, LW - 32, 34,
+     [[_r("49 in all", pt(13.5), NAVY, True),
+       _r("  \u00b7  37 follow a precedent, 12 are new for Maharashtra", pt(11.5), BODY)]],
+     anchor=MSO_ANCHOR.TOP, line_spacing=1.15)
 
-    rect(s, x + 13, COLB - 34, COLW - 26, 1, fill=RGBColor(0xC8, 0xD3, 0xE3))
-    text(s, x + 13, COLB - 28, COLW - 26, 20,
-         [[_r("●  ", pt(9), accent, True), _r(ratio, pt(11.5), NAVY, True),
-           _r(" follow a state precedent", pt(11.5), BODY)]], anchor=MSO_ANCHOR.TOP)
+# ── right panel: the headline numbers, then stage by stage
+text(s, RX, TOP + 2, RW, 18, [[_r("WHAT THEY ADD UP TO", pt(11.5), MUT, True)]],
+     anchor=MSO_ANCHOR.TOP)
+HEAD = [("8\u201311 \u2192 2", "Total pages"), ("12 \u2192 4", "Free-text questions"),
+        ("17\u201325 \u2192 7", "Dimensions graded"), ("90\u2013125 \u2192 40\u201355", "Minutes \u00b7 all stages")]
+tw = (RW - 3 * 10) / 4
+for i, (big, small) in enumerate(HEAD):
+    x = RX + (tw + 10) * i
+    rect(s, x, TOP + 24, tw, 48, fill=RGBColor(0xF4, 0xF7, 0xFB), line=RGBColor(0xD8, 0xE2, 0xEE),
+         radius=0.04)
+    rect(s, x, TOP + 24, tw, 3.5, fill=NAVY)
+    text(s, x + 9, TOP + 31, tw - 18, 22, [[_r(big, pt(13), NAVY, True)]], anchor=MSO_ANCHOR.TOP)
+    text(s, x + 9, TOP + 53, tw - 18, 14, [[_r(small.upper(), pt(9.5), MUT)]], anchor=MSO_ANCHOR.TOP)
+
+COLS = [RW * 0.26, RW * 0.14, RW * 0.14, RW * 0.11, RW * 0.23, RW * 0.12]
+HDRS = ["APAR stage", "Questions", "Free-text", "Pages", "Completion time", "Saved"]
+TABY = TOP + 88
+rect(s, RX, TABY, RW, 24, fill=NAVY)
+cx = RX
+for k, h in enumerate(HDRS):
+    text(s, cx + 8, TABY, COLS[k] - 10, 24, [[_r(h, pt(10), WHITE, True)]], anchor=MSO_ANCHOR.MIDDLE)
+    cx += COLS[k]
+
+STAGES = [("Self-appraisal", "7 \u2192 6", "5 \u2192 1", "2 \u2192 \u00bd", "45\u201360 \u2192 20\u201330 min", "~52%"),
+          ("Reporting officer", "9 \u2192 5", "6 \u2192 2", "4 \u2192 1", "30\u201345 \u2192 15\u201320 min", "~53%"),
+          ("Reviewing officer", "6 \u2192 1", "2 \u2192 0", "2 \u2192 \u00bd", "15\u201320 \u2192 5 min", "~71%")]
+ry = TABY + 24
+for n, row in enumerate(STAGES):
+    rect(s, RX, ry, RW, 30, fill=RGBColor(0xFF, 0xFF, 0xFF) if n % 2 else RGBColor(0xF4, 0xF7, 0xFB))
+    rect(s, RX, ry + 30, RW, 0.75, fill=RGBColor(0xDD, 0xE4, 0xEE))
+    cx = RX
+    for k, v in enumerate(row):
+        col = NAVY if k == 0 else (RGBColor(0x16, 0x8A, 0x4F) if k == 5 else BODY2)
+        text(s, cx + 8, ry, COLS[k] - 10, 30, [[_r(v, pt(10.5), col, k in (0, 5))]],
+             anchor=MSO_ANCHOR.MIDDLE)
+        cx += COLS[k]
+    ry += 30
+
+text(s, RX, ry + 10, RW, 30,
+     [[_r("Form A covers Group A and Group B (gazetted); Form B covers Group B (non-gazetted) and "
+          "Group C. Completion times are modelled estimates, to be checked with a short round of "
+          "officer consultations.", pt(9.5), MUT, ital=True)]],
+     anchor=MSO_ANCHOR.TOP, line_spacing=1.2)
 
 
 # ══════════════════════════════════════════════ stage slides
