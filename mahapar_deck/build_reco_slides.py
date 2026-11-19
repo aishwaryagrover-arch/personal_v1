@@ -406,125 +406,112 @@ stage_slide(
 
 # ══════════════════════════════════════════════ 7 · process and system
 # ══════════════════════════════════════════════ 7 · process and system changes
-# Two buckets only. Every precedent below is quoted from the benchmarking note's
-# own Precedent column; where the note records none, the row says so.
-s = frame("Process and system changes carry the rest of the gain", 10,
-          "Ten changes to the rules, eight to what MahaPAR does")
+# Two horizontal bands, as on the stage slides. Every precedent is quoted from
+# the benchmarking note's own Precedent column; where it records none, the row
+# says so.
+s = frame("Process and system changes carry the rest of the gain", 10)
+band(s, "Ten changes to the rules of the cycle, eight to what MahaPAR does.",
+     "Eleven of the eighteen follow a precedent in AIS guidance or another state.")
 
-TILE2 = RGBColor(0xF4, 0xF7, 0xFB)
-for k, (big, small) in enumerate([("10", "Process changes"), ("8", "System changes"),
-                                  ("11 of 18", "Follow a state precedent")]):
-    tw2 = (CW - 24) / 3
-    x = PAD + (tw2 + 12) * k
-    rect(s, x, 96, tw2, 46, fill=TILE2, line=RGBColor(0xD8, 0xE2, 0xEE), radius=0.03)
-    rect(s, x, 96, tw2, 4, fill=NAVY)
-    text(s, x + 12, 103, tw2 - 24, 24, [[_r(big, pt(18), NAVY, True)]], anchor=MSO_ANCHOR.TOP)
-    text(s, x + 12, 126, tw2 - 24, 14, [[_r(small.upper(), pt(9.5), MUT, True)]], anchor=MSO_ANCHOR.TOP)
+text(s, PAD, 128, CW, 14,
+     [[_r("\u25CF", pt(10), NAVY, True), _r(" state precedent     ", pt(11), RGBColor(0x44, 0x53, 0x6B)),
+       _r("\u25CB", pt(10), NAVY, True), _r(" new for Maharashtra", pt(11), RGBColor(0x44, 0x53, 0x6B))]],
+     align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.TOP)
 
 PROCESS = [
     ("Officers map their own reporting and reviewing authority; the custodian validates", None),
-    ("NRC generated where tenure is 3 months or less, or no authority was in position", "Odisha"),
-    ("Accepting authority acts only where the reporting or reviewing stage is missing",
-     "Gujarat \u00b7 Odisha"),
+    ("A No Report Certificate is generated where tenure is 3 months or less, or no authority was in position", "Odisha"),
+    ("The accepting authority acts only where the reporting or reviewing stage is missing", "Gujarat \u00b7 Odisha"),
     ("The Collector / Divisional Commissioner stage is removed for Group A officers", None),
-    ("A fixed closure date for the cycle; online filing only, signed with DSC or eSign",
-     "AIS \u00b7 Odisha \u00b7 Nagaland"),
-    ("A stage moves on when its deadline passes, and the delay is recorded against its holder",
-     "AIS \u00b7 Gujarat \u00b7 Odisha"),
+    ("A fixed closure date for the cycle, and online filing only, signed with DSC or eSign", "AIS \u00b7 Odisha \u00b7 Nagaland"),
+    ("A stage moves on when its deadline passes, and the delay is recorded against its holder", "AIS \u00b7 Gujarat \u00b7 Odisha"),
     ("Timeliness is worth 5% of the final score, for every role an official holds", "Gujarat"),
     ("Memos issued during the year attach as evidence for a below-benchmark grade", "Odisha"),
-    ("Monitoring responsibilities set out for custodian, CMA, SDMA and GAD", None),
-    ("Completed APARs disclosed to the officer, with 15 days to represent", "AIS"),
+    ("Monitoring responsibilities set out for the custodian, CMA, SDMA and GAD", None),
+    ("Completed APARs are disclosed to the officer, who has 15 days to represent", "AIS"),
 ]
 SYSTEM = [
     ("Single login, without the NIC email ID barrier", None),
-    ("Identity, leave and completed training pre-filled from Sevaarth, eHRMS and iGOT",
-     "Gujarat \u00b7 Odisha"),
+    ("Identity, leave and completed training pre-filled from Sevaarth, eHRMS and iGOT", "Gujarat \u00b7 Odisha"),
     ("MahaPAR calculates the weighted overall grade from the dimension grades", "Goa \u00b7 Nagaland"),
-    ("Timeliness computed from the dates each stage was signed, entered by no one", "Gujarat"),
-    ("Real-time pendency dashboards for custodian, CMA, SDMA and state administrator", None),
+    ("Timeliness is computed from the dates each stage was signed, and entered by no one", "Gujarat"),
+    ("Real-time pendency dashboards for the custodian, CMA, SDMA and state administrator", None),
     ("Automatic reminders, and escalation when a stage runs past its deadline", None),
     ("iGOT hours, eOffice use and attendance shown to the reporting officer while grading", "Odisha"),
-    ("Work log, memos and departmental KRAs carried into the APAR from the portal", None),
+    ("The work log, memos and departmental KRAs are carried into the APAR from the portal", None),
 ]
 
-CW2 = (CW - 22) / 2
-for k, (title, lb, bg, items) in enumerate([
-        ("Process changes \u2014 the rules of the cycle", SMLB, SMBG, PROCESS),
-        ("System changes \u2014 what MahaPAR does", ADLB, ADBG, SYSTEM)]):
-    x = PAD + (CW2 + 22) * k
-    rect(s, x, 152, CW2, 26, fill=lb, radius=0.03)
-    shape_text(rect(s, x, 152, CW2, 26, fill=lb, radius=0.03),
-               [[_r(title, pt(12), WHITE, True)]], anchor=MSO_ANCHOR.MIDDLE, m_left=12, m_right=8)
-    bh = 30 * len(items) + 8
-    rect(s, x, 178, CW2, bh, fill=bg)
-    ry = 182
+LABW, CHIPW, RH = 112, 152, 18
+y = 148
+for title, lb, bg, items in [("Process\nchanges", SMLB, SMBG, PROCESS),
+                             ("System\nchanges", ADLB, ADBG, SYSTEM)]:
+    bh = RH * len(items) + 12
+    rect(s, PAD + LABW, y, CW - LABW, bh, fill=bg)
+    shape_text(rect(s, PAD, y, LABW, bh, fill=lb, radius=0.02),
+               [[_r(title, pt(13), WHITE, True)]],
+               align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, m_left=6, m_right=6)
+    ry = y + 6
     for n, (body_txt, prec) in enumerate(items):
-        text(s, x + 12, ry, CW2 - 24 - 124, 28, [[_r(body_txt, pt(10.5), BODY2)]],
-             anchor=MSO_ANCHOR.MIDDLE, line_spacing=1.08)
+        text(s, PAD + LABW + 12, ry, CW - LABW - 24 - CHIPW, RH,
+             [[_r(body_txt, pt(10.5), BODY2)]], anchor=MSO_ANCHOR.MIDDLE)
         label = prec if prec else "new for Maharashtra"
         cwid = len(label) * 4.3 + 14
-        cx = x + CW2 - 12 - cwid
-        c = rect(s, cx, ry + 6, cwid, 15, fill=NAVY if prec else WHITE,
+        cx = PAD + CW - 12 - cwid
+        c = rect(s, cx, ry + 2, cwid, 14, fill=NAVY if prec else WHITE,
                  line=None if prec else NAVY, line_w=1.25, radius=0.5)
         shape_text(c, [[_r(label, pt(8.5), WHITE if prec else NAVY, True)]],
                    align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, m_left=2, m_right=2)
-        ry += 30
+        ry += RH
         if n < len(items) - 1:
-            rect(s, x + 12, ry - 2, CW2 - 24, 0.75, fill=RGBColor(0xFF, 0xFF, 0xFF))
+            rect(s, PAD + LABW + 12, ry - 1, CW - LABW - 24, 0.6, fill=RGBColor(0xFF, 0xFF, 0xFF))
+    y += bh + 10
 
-text(s, PAD, H - 34, CW, 26,
-     [[_r("Precedents are those recorded in the state benchmarking note. ", pt(9.5), BODY2, True),
-       _r("\u2018New for Maharashtra\u2019 means the note found no state precedent; the portal "
-          "capabilities drawn from the MahaPAR improvement plan are in that category.",
-          pt(9.5), MUT, ital=True)]], anchor=MSO_ANCHOR.TOP, line_spacing=1.2)
+text(s, PAD, y + 4, CW, 24,
+     [[_r("Precedents are those recorded in the state benchmarking note; ", pt(9.5), BODY2, True),
+       _r("\u2018new for Maharashtra\u2019 means the note found no state precedent.",
+          pt(9.5), MUT, ital=True)]], anchor=MSO_ANCHOR.TOP)
 
 
-# ══════════════════════════════════════════════ 8 · how the recommendations were arrived at
-# Replaces the four-step process slide; step 3 (the MahaPAR portal review) is new.
-s = frame("How the recommendations were arrived at", 4)
+# ══════════════════════════════════════════════ 8 · the steps
+# Reordered on Rane ma'am's suggestion: field inventory first, benchmarking
+# second, and the MahaPAR portal study folded into the GAD consultations.
+s = frame("Process followed to arrive at simplification recommendations", 4)
 
 STEPS = [
-    ("Step 1", "State benchmarking study",
-     "APAR forms compared across AIS guidance and seven states on 35+ parameters: structure, "
-     "self-appraisal, reporting, reviewing, process and records.", False),
-    ("Step 2", "Maharashtra field inventory",
-     "Every field in all six current forms mapped: who fills it, the response type, the word "
-     "limit, and whether the data already sits in Sevaarth or eHRMS.", False),
-    ("Step 3", "MahaPAR portal review",
-     "The portal walked through end to end to find where the cycle stalls: what is keyed in by "
-     "hand, what MahaPAR could compute or move on its own, and which records in Sevaarth, eHRMS "
-     "and iGOT could be drawn in rather than re-entered.", True),
-    ("Step 4", "Precedent mapping",
-     "Each proposed change classified as having clear precedent, partial precedent, a new design "
-     "choice for Maharashtra, or a decision for GAD.", False),
-    ("Step 5", "Drafts and portal design",
-     "A recommendations note, Form A and Form B drafts, and the MahaPAR user windows \u2014 "
-     "refined with GAD feedback and partner inputs.", False),
+    ("Step 1", "Maharashtra field inventory",
+     "Every field in all six current forms mapped: who fills it, response type, word limit, "
+     "whether the data already exists in Sevaarth or eHRMS.", False),
+    ("Step 2", "State benchmarking to map precedent",
+     "APAR forms compared across AIS and 7 states on 35+ parameters, to find the precedent for "
+     "each change proposed for the Maharashtra form.", False),
+    ("Step 3", "Consultations with GAD, and a study of the MahaPAR portal",
+     "Several rounds of discussion with GAD, and a walk through the portal to see where online "
+     "filing is slow or still done by hand.", False),
+    ("Step 4", "Simplified Form A and B drafts",
+     "Drafts taken through iterative refinements with partner feedback and GAD approval.", False),
+    ("Step 5", "Finalise the form drafts",
+     "Stakeholder consultations across positions and departments, to hear other weaknesses in "
+     "APAR filing and to get feedback on the forms.", True),
 ]
 
 BOXW, GAP = 155, 27
-BY, BH = 112, 212
-for i, (step, head, bodytxt, is_new) in enumerate(STEPS):
+BY, BH = 112, 232
+for i, (step, head, bodytxt, is_now) in enumerate(STEPS):
     x = PAD + (BOXW + GAP) * i
-    bg = RGBColor(0xDC, 0xE8, 0xF8) if is_new else RGBColor(0xE9, 0xF1, 0xFC)
-    ln = NAVY if is_new else RGBColor(0xC4, 0xD8, 0xF3)
-    rect(s, x, BY, BOXW, BH, fill=bg, line=ln, line_w=1.75 if is_new else 1, radius=0.03)
-    text(s, x + 12, BY + 12, BOXW - 24, 14,
-         [[_r(step.upper(), pt(10.5), NAVY if is_new else RGBColor(0x6E, 0x84, 0xA6), True)]],
-         anchor=MSO_ANCHOR.TOP)
-    text(s, x + 12, BY + 30, BOXW - 24, 54, [[_r(head, pt(12.5), NAVY, True)]],
+    bg = RGBColor(0xDC, 0xE8, 0xF8) if is_now else RGBColor(0xE9, 0xF1, 0xFC)
+    ln = NAVY if is_now else RGBColor(0xC4, 0xD8, 0xF3)
+    rect(s, x, BY, BOXW, BH, fill=bg, line=ln, line_w=1.75 if is_now else 1, radius=0.03)
+    lab = step.upper() + ("  \u00b7  NOW" if is_now else "")
+    text(s, x + 12, BY + 12, BOXW - 24, 26,
+         [[_r(lab, pt(10), NAVY if is_now else RGBColor(0x6E, 0x84, 0xA6), True)]],
+         anchor=MSO_ANCHOR.TOP, line_spacing=1.1)
+    text(s, x + 12, BY + 38, BOXW - 24, 62, [[_r(head, pt(12.5), NAVY, True)]],
          anchor=MSO_ANCHOR.TOP, line_spacing=1.12)
-    text(s, x + 12, BY + 88, BOXW - 24, BH - 100, [[_r(bodytxt, pt(9.5), BODY)]],
+    text(s, x + 12, BY + 104, BOXW - 24, BH - 116, [[_r(bodytxt, pt(9.5), BODY)]],
          anchor=MSO_ANCHOR.TOP, line_spacing=1.22)
     if i < len(STEPS) - 1:
         text(s, x + BOXW, BY, GAP, BH, [[_r("\u2192", pt(16), NAVY, True)]],
              align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-
-text(s, PAD, BY + BH + 14, CW, 20,
-     [[_r("Step 3 is new: the portal review is what separates the form recommendations from the "
-          "process and data-integration ones.", pt(10.5), MUT, ital=True)]], anchor=MSO_ANCHOR.TOP)
-
 
 prs.save(OUT)
 print("wrote", OUT, "·", len(prs.slides._sldIdLst), "slides")
