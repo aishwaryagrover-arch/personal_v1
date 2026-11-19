@@ -103,31 +103,27 @@ def column(s, i, bg, ln, head, lead=None):
     return x, lb
 
 
-def bullets(s, x, y, w, items, accent, new_tag=True):
-    """Each item is (label, detail, is_new). Returns the y after the last one."""
-    for label, detail, is_new in items:
-        paras = []
-        head = [_r("●  ", pt(9), accent, True), _r(label, pt(11.4), accent, True)]
-        if is_new and new_tag:
-            head.append(_r("  NEW", pt(8.5), GOLD, True))
-        paras.append(head)
+def bullets(s, x, y, w, items, accent, pitch=74):
+    """Four bullets per column on a fixed pitch.
+
+    Estimating each bullet's height from its character count drifted and let the
+    last one collide with the footer, so every bullet now gets an equal slot and
+    the columns line up across the slide.
+    """
+    for label, detail in items:
+        paras = [[_r(label, pt(13.5), accent, True)]]
         if detail:
-            paras.append([_r(detail, pt(10.6), BODY)])
-        # Height has to account for BOTH the label and the detail wrapping;
-        # estimating from one of them is what made the bullets overlap.
-        lab_lines = max(1, math.ceil((len(label) + (6 if is_new else 0)) / 36))
-        det_lines = math.ceil(len(detail) / 46) if detail else 0
-        h = lab_lines * 14 + det_lines * 13
-        text(s, x, y, w, h + 8, paras, anchor=MSO_ANCHOR.TOP,
-             line_spacing=1.06, space_after=pt(1.5))
-        y += h + 6
+            paras.append([_r(detail, pt(11.5), BODY)])
+        text(s, x, y, w, pitch - 6, paras, anchor=MSO_ANCHOR.TOP,
+             line_spacing=1.08, space_after=pt(3))
+        y += pitch
     return y
 
 
 def sowhat(s, x, w, line):
-    rect(s, x, COLB - 36, w, 1, fill=RGBColor(0xC8, 0xD3, 0xE3))
-    text(s, x, COLB - 32, w, 30, [[_r(line, pt(11), RGBColor(0x4C, 0x58, 0x6A), ital=True)]],
-         anchor=MSO_ANCHOR.TOP, line_spacing=1.12)
+    rect(s, x, COLB - 40, w, 1, fill=RGBColor(0xC8, 0xD3, 0xE3))
+    text(s, x, COLB - 35, w, 32, [[_r(line, pt(11.5), RGBColor(0x4C, 0x58, 0x6A), ital=True)]],
+         anchor=MSO_ANCHOR.TOP, line_spacing=1.14)
 
 
 # ══════════════════════════════════════════════ 1 · limitations
@@ -137,33 +133,42 @@ band(s, "Limitations run across the form, the process rules and the digital syst
 
 LIMS = [
     (FORMBG, FORMLN, "Form design", "01", NAVY,
-     [("Six separate cadre-wise forms", "10–12 pages each, with overlapping content and no common core.", False),
-      ("Long and repetitive", "Details the state already holds are re-entered, alongside several open-ended narratives.", False),
-      ("Overlapping grading dimensions", "17–25 similar attributes rated separately, adding effort but not information.", False),
-      ("No descriptors, benchmark or evidence standard", "Dimensions are never defined, no grade is set as adequate, and adverse grades need no proof.", True),
-      ("Fields that do not inform performance", "State of health, assets and liabilities, property return dates.", True)],
+     [("Six separate cadre-wise forms",
+       "10\u201312 pages each, with overlapping content and no common core."),
+      ("Long and repetitive",
+       "Data the state already holds is re-entered, plus fields unrelated to performance."),
+      ("Overlapping grading dimensions",
+       "17\u201325 similar attributes rated separately, adding effort but not information."),
+      ("No descriptors, benchmark or evidence standard",
+       "Dimensions are undefined, no grade is set as adequate, adverse grades need no proof.")],
      "The form takes long to complete, and the grades do not discriminate."),
 
     (PROCBG, PROCLN, "Process", "02", PROCLB,
-     [("Reporting chain established late and informally", "Reconstructed at appraisal time, so disputes surface at the end of the cycle.", True),
-      ("Duplicated assessment across stages", "Reviewing authorities re-grade dimensions, and Group A carries an extra Collector stage.", False),
-      ("No consequence for delay, no fallback for a missing stage", "A missed deadline carries nothing; a vacant reporting post stalls the APAR.", True),
-      ("Concerns surface only at year-end", "Nothing is on record during the year, so an adverse grade is hard to sustain.", True),
-      ("Monitoring roles not clearly defined", "Custodian, CMA, SDMA and state responsibilities are not consistently set out in the GR.", False)],
+     [("The reporting chain is settled late",
+       "Reconstructed at appraisal time, so disputes surface at the end of the cycle."),
+      ("Assessment is duplicated across stages",
+       "Reviewing authorities re-grade dimensions, and Group A carries an extra Collector stage."),
+      ("No consequence for delay, no fallback for a gap",
+       "A missed deadline costs nothing; a vacant reporting post stalls the APAR."),
+      ("Concerns surface only at year-end",
+       "Nothing is on record during the year, and monitoring roles are undefined.")],
      "Nobody is accountable for moving the APAR, and nobody can see where it is."),
 
     (DIGBG, DIGLN, "Digital interface", "03", DIGLB,
-     [("Limited pre-fill, and onboarding friction", "Details, leave and training are keyed in every cycle; NIC email IDs slow onboarding.", False),
-      ("No system of record for the reporting chain", "eHRMS carries no complete organogram, so mapping cannot be auto-populated.", True),
-      ("Manual computation where systems can help", "Overall grade, timeliness and workflow status are worked out by hand.", False),
-      ("Workflow automation not fully utilised", "Reminders, escalation, auto-forwarding, disclosure and representation need manual action.", False),
-      ("No dashboards and no cycle-level MIS", "Monitoring layers cannot see pendency; grade and timeliness patterns cannot be produced.", True)],
+     [("Little is pre-filled, and onboarding is slow",
+       "Details, leave and training are keyed in every cycle; NIC email IDs hold up access."),
+      ("No system of record for the reporting chain",
+       "eHRMS carries no complete organogram, so mapping cannot be auto-populated."),
+      ("The system neither computes nor moves anything",
+       "Grades, timeliness, reminders, escalation and disclosure are all handled by hand."),
+      ("No dashboards and no cycle-level MIS",
+       "Monitoring layers cannot see pendency; no grade or timeliness patterns.")],
      "Every rule the process relies on has to be enforced by a person."),
 ]
 for i, (bg, ln, head, num, accent, items, foot) in enumerate(LIMS):
     x, _ = column(s, i, bg, ln, head, num)
-    bullets(s, x + 13, COLT + 42, COLW - 26, items, accent)
-    sowhat(s, x + 13, COLW - 26, foot)
+    bullets(s, x + 14, COLT + 46, COLW - 28, items, accent)
+    sowhat(s, x + 14, COLW - 28, foot)
 
 
 # ══════════════════════════════════════════════ 2 · overview
