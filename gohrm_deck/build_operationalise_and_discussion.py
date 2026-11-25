@@ -72,36 +72,37 @@ def frame(title, sub, page):
 
 # ══════════════════════════════════════════════ 1 · how this comes together
 s = frame("How this comes together",
-          "Three things that take the rubric from a document to something a reviewer can use",
+          "What makes the rubrics usable in practice",
           23)
 
 BLOCKS = [
     ("1", "Scoring sheet",
-     "An Excel sheet that does the arithmetic.",
-     ["The reviewer enters a score for each parameter, at each level.",
-      "The sheet applies the level weights and works out the overall score.",
-      "It also gives the low, medium or high rating.",
-      "The reviewer does no calculation at all."],
+     "An automated sheet that turns scores into a rating.",
+     ["The reviewer records a score against each parameter, at each level of the rubric.",
+      "Level weightages are applied in the background to produce a composite score.",
+      "The sheet returns the corresponding rating of low, medium or high.",
+      "No manual calculation is required at any point."],
      "Built", GREEN),
     ("2", "Reviewer guidance note",
-     "A short note on how to work through the rubric.",
-     ["Explains how to read each parameter and what the levels mean.",
-      "Flags the parameters you cannot score well without knowing the "
-      "department's work, such as contextual relevance.",
-      "Written so that two reviewers looking at the same output land in the "
-      "same place."],
+     "How to work through the rubric, and the judgement it calls for.",
+     ["Sets out how to navigate the rubric and how to read each level.",
+      "Draws out the nuances behind parameters that the rubric alone does not carry.",
+      "Identifies where contextual knowledge of the department\u2019s work is essential to "
+      "score well, such as contextual relevance.",
+      "Supports more informed and more consistent judgement across reviewers."],
      "Built", GREEN),
-    ("3", "AI assisted assessment",
-     "A tool to make reviewing at scale possible.",
-     ["Goal cascades and PRACs are usually made for a whole team or department "
-      "at once, so reviewing each one by hand is not realistic.",
-      "We are building a tool trained on the rubrics and the guidance note.",
-      "It asks the user for what it needs, such as the programme documents and "
-      "the context, and helps score the set."],
+    ("3", "AI enabled assessment",
+     "Support for assessment where outputs are produced at scale.",
+     ["Goal cascades and PRACs are typically developed team wide or department wide, which "
+      "makes reviewing each one manually impractical.",
+      "A quality assessment tool is being trained on the rubrics and the guidance note.",
+      "It draws on inputs from the reviewer, such as programme documents and subject matter "
+      "context.",
+      "Intended to widen adoption of the rubrics across use cases."],
      "Under development", GREYBAR),
 ]
 
-BY, BH = 100, 304
+BY, BH = 100, 330
 bw = (CW - 2 * 18) / 3
 for i, (num, head, lead, points, status, scol) in enumerate(BLOCKS):
     x = PAD + (bw + 18) * i
@@ -112,9 +113,9 @@ for i, (num, head, lead, points, status, scol) in enumerate(BLOCKS):
                align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, m_left=0, m_right=0)
     text(s, x + 42, BY + 13, bw - 54, 20, [[_r(head, pt(13.5), WHITE, True)]],
          anchor=MSO_ANCHOR.TOP)
-    text(s, x + 14, BY + 54, bw - 28, 32, [[_r(lead, pt(11.5), NAVY, True)]],
+    text(s, x + 14, BY + 54, bw - 28, 36, [[_r(lead, pt(11.5), NAVY, True)]],
          anchor=MSO_ANCHOR.TOP, line_spacing=1.14)
-    y = BY + 88
+    y = BY + 94
     for ptxt in points:
         lines = -(-len(ptxt) // 38)
         text(s, x + 14, y, bw - 28, lines * 14 + 8,
@@ -126,8 +127,9 @@ for i, (num, head, lead, points, status, scol) in enumerate(BLOCKS):
                align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, m_left=4, m_right=4)
 
 text(s, PAD, BY + BH + 12, CW, 20,
-     [[_r("The rubric says what good looks like. These three are what let people use it, "
-          "at the scale these outputs are built.", pt(11), MUT, ital=True)]],
+     [[_r("Together these take the rubric from a standard on paper to something that can be "
+          "applied consistently, and at the scale these outputs are produced.",
+          pt(11), MUT, ital=True)]],
      align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.TOP)
 
 
@@ -150,12 +152,16 @@ PROMPTS = [
     ("Who runs the review",
      "Who is best placed to do quality checks: the implementing team, a reviewer inside "
      "government, or an external evaluator? What does each one get right, and get wrong?"),
+    ("On the AI enabled tool",
+     "We are early in building this. What would make you trust a score it produces, and where "
+     "would you want a reviewer to stay in the loop? Are there documents or use cases you could "
+     "help us test it on?"),
     ("Building the assessment rubric",
      "Given how technical it is, are there resources or partner engagements we can draw on "
      "for a competency assessment rubric, or for validating the two we have?"),
 ]
 
-PY, PH, GAPX, GAPY = 96, 126, 20, 10
+PY, PH, GAPX, GAPY = 94, 98, 20, 10
 pw = (CW - GAPX) / 2
 for i, (head, body) in enumerate(PROMPTS):
     col, row = i % 2, i // 2
@@ -163,10 +169,10 @@ for i, (head, body) in enumerate(PROMPTS):
     y = PY + (PH + GAPY) * row
     rect(s, x, y, pw, PH, fill=GREY, line=GREYLN, radius=0.02)
     rect(s, x, y, 6, PH, fill=NAVY)
-    text(s, x + 20, y + 14, pw - 36, 20, [[_r(head, pt(12.5), NAVY, True)]],
+    text(s, x + 18, y + 11, pw - 34, 20, [[_r(head, pt(12), NAVY, True)]],
          anchor=MSO_ANCHOR.TOP)
-    text(s, x + 20, y + 40, pw - 36, PH - 52, [[_r(body, pt(11), INK)]],
-         anchor=MSO_ANCHOR.TOP, line_spacing=1.2)
+    text(s, x + 18, y + 34, pw - 34, PH - 44, [[_r(body, pt(10.5), INK)]],
+         anchor=MSO_ANCHOR.TOP, line_spacing=1.18)
 
 prs.save(OUT)
 print("wrote", OUT, "·", len(prs.slides._sldIdLst), "slides")
